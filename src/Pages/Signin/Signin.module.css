@@ -1,0 +1,36 @@
+.signContainer {
+  background: linear-gradient(#000a738c, #000a738c),
+    url("https://static.vecteezy.com/system/resources/previews/026/481/324/original/the-world-of-classic-muscle-cars-with-this-captivating-4k-wallpaper-free-photo.jpg");
+  background-size: cover;
+  backdrop-filter: blur(20);
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.formContainer {
+  background: #ffffff;
+  padding: 50px;
+  border-radius: 10px;
+  width: 510px;
+  height: 554px;
+  box-shadow: 0 0 2px rgb(66, 66, 66);
+}
+.label {
+  color: "#2E2C2C";
+  margin-bottom: 10px !important;
+  font-size: 16px !important;
+}
+.input {
+  height: 45px;
+}
+.rememberAndPass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}

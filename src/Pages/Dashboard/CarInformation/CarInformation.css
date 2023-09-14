@@ -1,0 +1,27 @@
+.car-card{
+    padding: 8px 0;
+    color:white;
+    text-align:center;
+    border-radius:15px;
+ 
+    padding-top:30px;
+    cursor:pointer;
+    transition: .5s;
+}
+
+.car-card.total{
+    background-color: #fb7c29;
+}
+
+.car-card.active{
+    background-color: #00a99a;
+}
+
+.car-card.reserved{
+    background-color: red;
+}
+
+.car-card:hover{
+    background-color: #fff;
+    color:#000
+}

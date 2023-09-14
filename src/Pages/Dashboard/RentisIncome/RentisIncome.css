@@ -1,0 +1,24 @@
+.renti-income-card{
+    padding: 8px 0;
+    
+    text-align:center;
+    border-radius:15px;
+    color:#000;
+    padding-top:30px;
+    cursor:pointer;
+    transition: .5s;
+}
+.renti-income-card:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+
+.renti-income-card.income{
+    background-color: #fff;
+    border:3px solid #00a991
+}
+
+.renti-income-card.paid{
+    background-color: #fff;
+    border:3px solid red
+}

@@ -1,0 +1,9 @@
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a {
+    background-color: #fb7c29;
+    color:white;
+  }
+  
+  /* .pagination-container .ant-pagination-item a:hover {
+    background-color: yourHoverBackgroundColor;
+    color: yourHoverTextColor;
+  } */
