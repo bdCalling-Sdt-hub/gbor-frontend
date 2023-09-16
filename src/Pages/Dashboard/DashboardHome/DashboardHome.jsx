@@ -11,22 +11,62 @@ import { AiOutlineDollarCircle } from "react-icons/ai";
 import InvoiceTable from "./InvoiceTable";
 import MostRentCarChart from "./MostRentCarChart";
 import DailyRentChart from "./dailyRentChart";
+import { Carousel } from 'antd';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y,Autoplay } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/pagination'
 
 function DashboardHome() {
+
+  const contentStyle = {
+    height: '400px',
+    width:"100%",
+    borderRadius:"15px"
+   
+};
+
   const onChange = (pageNumber) => {
     console.log("Page: ", pageNumber);
   };
 
   return (
     <div>
-    <Row style={{marginBottom:"30px"}}>
-       <Col xs={{span:24}} sm={{span:24}} md={{span:24}} lg={{span:24}}>
-        <div>
-            <img src="https://images.inc.com/uploaded_files/image/1920x1080/getty_951514270_400405.jpg" style={{height:"400px",width:"100%",borderRadius:"15px"}}/>
-        </div>
+    <Row style={{marginBottom:30}}>
+                <Col>
+                <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y,Autoplay]}
+                 autoplay={{
+                    delay: 1500,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  navigation={true}
+                
+                 style={contentStyle}
+     
+    >
+       
+          <SwiperSlide>
+            
+            <img style={contentStyle} src="https://cssslider.com/sliders/demo-17/data1/images/picjumbo.com_hnck0391.jpg"/>
           
-       </Col>
-    </Row>
+          </SwiperSlide>
+          <SwiperSlide>
+            
+          <img style={contentStyle} src="https://cyberplexafrica.com/wp-content/uploads/2017/02/slider-img1.jpg"/>
+          
+          </SwiperSlide>
+        
+      
+    
+     
+    </Swiper>
+                </Col>
+            </Row>
     <Row gutter={16} style={{marginBottom:"20px"}}>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:8}}>
          <div  className='income-card'>

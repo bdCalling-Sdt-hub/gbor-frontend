@@ -3,9 +3,7 @@ import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
 import { Divider } from "antd";
-import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { RxDashboard } from "react-icons/rx";
 import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 
 import { RiUserSearchLine } from "react-icons/ri";
@@ -13,16 +11,15 @@ import { RiUserSearchLine } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
+import { AiOutlineDollarCircle } from "react-icons/ai";
+import { BiMessageDots, BiTransfer } from "react-icons/bi";
+import { FaPeopleLine } from "react-icons/fa6";
+import { FiMonitor } from "react-icons/fi";
+import { PiImage } from "react-icons/pi";
 import { Link, Outlet } from "react-router-dom";
+import colors from "../../Constant/colors.jsx";
 import GBORLOGO from "../../Images/GBORLOGO.png";
 import Styles from "./Dashboard.module.css";
-import colors from "../../Constant/colors.jsx";
-import { FiMonitor } from "react-icons/fi";
-import { BiMessageDots } from "react-icons/bi";
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import { FaPeopleLine } from "react-icons/fa6";
-import { BiTransfer } from "react-icons/bi";
-import { PiImage } from "react-icons/pi";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
@@ -229,7 +226,12 @@ const Dashboard = () => {
         </div>
 
         <Menu
-          style={{ padding: collapsed ? "0px" : "20px", border: "none",backgroundColor:colors.primaryColor,color:"white" }}
+          style={{
+            padding: collapsed ? "0px" : "20px",
+            border: "none",
+            backgroundColor: colors.primaryColor,
+            color: "white",
+          }}
           mode="inline"
           defaultSelectedKeys={["1"]}
         >
@@ -241,12 +243,12 @@ const Dashboard = () => {
               {t("dashboard")}
             </Link>
           </Menu.Item>
-          <Divider  style={{backgroundColor:"white"}}/>
+          <Divider style={{ backgroundColor: "white" }} />
           <Menu.Item
             key="2"
             icon={<BiMessageDots style={{ fontSize: "14px" }} />}
           >
-            <Link to="/message" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/message" style={{ fontSize: "16px" }}>
               {t("Message")}
             </Link>
           </Menu.Item>
@@ -268,7 +270,6 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-
           <SubMenu
             style={{ fontSize: "16px" }}
             key="4"
@@ -288,16 +289,15 @@ const Dashboard = () => {
             key="5"
             icon={<BiTransfer style={{ fontSize: "14px" }} />}
           >
-            <Link to="/dashboard/" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/transaction" style={{ fontSize: "16px" }}>
               {t("transaction")}
             </Link>
           </Menu.Item>
 
-          <Menu.Item
-            key="9"
-            icon={<PiImage  style={{ fontSize: "14px" }} />}
-          >
-            <Link to="/setting" style={{ fontSize: "16px" }}>
+      
+
+          <Menu.Item key="9" icon={<PiImage style={{ fontSize: "14px" }} />}>
+            <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
               {t("banner")}
             </Link>
           </Menu.Item>
@@ -311,7 +311,7 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <Divider/>
+          <Divider />
 
           <SubMenu
             style={{ fontSize: "16px" }}
@@ -373,7 +373,7 @@ const Dashboard = () => {
             key="7"
             icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="/car-info" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/car-info" style={{ fontSize: "16px" }}>
               {t("carInfo")}
             </Link>
           </Menu.Item>
@@ -387,20 +387,18 @@ const Dashboard = () => {
             title={t("kyc.title")}
           >
             <Menu.Item key="41">
-              <Link to="/host-kyc">{t("kyc.subTitle1")}</Link>
+              <Link to="/dashboard/host-kyc">{t("kyc.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="42">
-              <Link to="/user-kyc">{t("kyc.subTitle2")}</Link>
+              <Link to="/dashboard/user-kyc">{t("kyc.subTitle2")}</Link>
             </Menu.Item>
             <Menu.Item key="43">
-              <Link to="/car-kyc">{t("kyc.subTitle3")}</Link>
+              <Link to="/dashboard/car-kyc">{t("kyc.subTitle3")}</Link>
             </Menu.Item>
             <Menu.Item key="44">
-              <Link to="/kyc-form">{t("kyc.subTitle4")}</Link>
+              <Link to="/dashboard/kyc-form">{t("kyc.subTitle4")}</Link>
             </Menu.Item>
           </SubMenu>
-
-         
         </Menu>
       </Sider>
       <Layout>
@@ -412,7 +410,7 @@ const Dashboard = () => {
             zIndex: 1,
             padding: 0,
             background: colorBgContainer,
-            borderBottom:`2px solid ${colors.primaryColor}`,
+            borderBottom: `2px solid ${colors.primaryColor}`,
             display: "flex",
             justifyContent: "space-between",
             paddingRight: "60px",
