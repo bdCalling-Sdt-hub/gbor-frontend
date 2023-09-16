@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
 :where(.css-dev-only-do-not-override-17a39f8).ant-dropdown
   .ant-dropdown-menu
   .ant-dropdown-menu-item {
@@ -11,7 +11,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Abril Fatface", cursive !important;
 }
 
 .ant-layout-sider-children .ant-menu-item-selected {
@@ -32,6 +32,9 @@
   border: 0;
 }
 
-
-
-
+:root {
+  --primary-color: #fb7c29;
+  --secondary-color: #ef4444;
+  --black-color: #252525;
+  --mute-color: #4b5563;
+}
