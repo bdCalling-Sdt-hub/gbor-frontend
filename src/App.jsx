@@ -36,33 +36,35 @@ function App() {
           <Routes>
             <Route
               exact
-              path="/"
+              path="/dashboard"
               element={
                 <PrivateRoute>
                   <Dashboard />
                 </PrivateRoute>
               }
             >
-              <Route path="/" element={<DashboardHome />} />
-              <Route path="/notification" element={<Notification />} />
-              <Route path="/earning/:income" element={<Earning />} />
-              <Route path="/host-info" element={<HostInfo />} />
-              <Route path="/host-request" element={<HostRequest />} />
-              <Route path="/kyc-form" element={<KycForm />} />
-              <Route path="/wallet" element={<Wallet />} />
+              <Route path="/dashboard" element={<DashboardHome />} />
 
-              <Route path="/user-info" element={<UserInfo />} />
-              <Route path="/rent-info" element={<RentInformation />} />
-              <Route path="/car-info" element={<CarInformation />} />
-              <Route path="/user-payment" element={<UserPayment />} />
-              <Route path="/renti-income" element={<RentisIncome />} />
-              <Route path="/host-payment" element={<HostPayment />} />
-              <Route path="/stripe-bills" element={<StripeBills />} />
-              <Route path="/host-kyc" element={<HostKyc />} />
-              <Route path="/user-kyc" element={<UserKyc />} />
-              <Route path="/car-kyc" element={<CarKyc />} />
-              <Route path="/setting" element={<Setting />}></Route>
-              <Route path="/setting/:dynamic" element={<SettingPage />} />
+
+              <Route path="/dashboard/notification" element={<Notification />} />
+              <Route path="/dashboard/earning/:income" element={<Earning />} />
+              <Route path="/dashboard/host-info" element={<HostInfo />} />
+              <Route path="/dashboard/host-request" element={<HostRequest />} />
+              <Route path="/dashboard/kyc-form" element={<KycForm />} />
+              <Route path="/dashboard/wallet" element={<Wallet />} />
+
+              <Route path="/dashboard/user-info" element={<UserInfo />} />
+              <Route path="/dashboard/rent-info" element={<RentInformation />} />
+              <Route path="/dashboard/car-info" element={<CarInformation />} />
+              <Route path="/dashboard/user-payment" element={<UserPayment />} />
+              <Route path="/dashboard/renti-income" element={<RentisIncome />} />
+              <Route path="/dashboard/host-payment" element={<HostPayment />} />
+              <Route path="/dashboard/stripe-bills" element={<StripeBills />} />
+              <Route path="/dashboard/host-kyc" element={<HostKyc />} />
+              <Route path="/dashboard/user-kyc" element={<UserKyc />} />
+              <Route path="/dashboard/car-kyc" element={<CarKyc />} />
+              <Route path="/dashboard/setting" element={<Setting />}></Route>
+              <Route path="/dashboard/setting/:dynamic" element={<SettingPage />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

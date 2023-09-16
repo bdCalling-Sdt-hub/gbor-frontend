@@ -237,7 +237,7 @@ const Dashboard = () => {
             key="1"
             icon={<FiMonitor style={{ fontSize: "14px" }} />}
           >
-            <Link to="/" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard" style={{ fontSize: "16px" }}>
               {t("dashboard")}
             </Link>
           </Menu.Item>
@@ -258,13 +258,13 @@ const Dashboard = () => {
             title={t("earning.title")}
           >
             <Menu.Item key="31">
-              <Link to="/earning/today-income">{t("earning.subTitle1")}</Link>
+              <Link to="/dashboard/earning/today-income">{t("earning.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="32">
-              <Link to="/earning/weekly-income">{t("earning.subTitle2")}</Link>
+              <Link to="/dashboard/earning/weekly-income">{t("earning.subTitle2")}</Link>
             </Menu.Item>
             <Menu.Item key="33">
-              <Link to="/earning/monthly-income">{t("earning.subTitle3")}</Link>
+              <Link to="/dashboard/earning/monthly-income">{t("earning.subTitle3")}</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -276,10 +276,10 @@ const Dashboard = () => {
             title={t("Creator Info")}
           >
             <Menu.Item key="39">
-              <Link to="/host-info">{t("hostInfo.subTitle1")}</Link>
+              <Link to="/dashboard/host-info">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="40">
-              <Link to="/host-request">{t("hostInfo.subTitle2")}</Link>
+              <Link to="/dashboard/host-request">{t("hostInfo.subTitle2")}</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -288,7 +288,7 @@ const Dashboard = () => {
             key="5"
             icon={<BiTransfer style={{ fontSize: "14px" }} />}
           >
-            <Link to="/" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/" style={{ fontSize: "16px" }}>
               {t("transaction")}
             </Link>
           </Menu.Item>
@@ -306,7 +306,7 @@ const Dashboard = () => {
             key="90"
             icon={<SettingOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="/setting" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/setting" style={{ fontSize: "16px" }}>
               {t("setting.title")}
             </Link>
           </Menu.Item>
@@ -320,19 +320,19 @@ const Dashboard = () => {
             title={t("payment.title")}
           >
             <Menu.Item key="34">
-              <Link to="/user-payment">{t("payment.subTitle1")}</Link>
+              <Link to="/dashboard/user-payment">{t("payment.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="35">
-              <Link to="/host-payment">{t("payment.subTitle2")}</Link>
+              <Link to="/dashboard/host-payment">{t("payment.subTitle2")}</Link>
             </Menu.Item>
             <Menu.Item key="36">
-              <Link to="/stripe-bills">{t("payment.subTitle3")}</Link>
+              <Link to="/dashboard/stripe-bills">{t("payment.subTitle3")}</Link>
             </Menu.Item>
             <Menu.Item key="37">
-              <Link to="/renti-income">{t("payment.subTitle4")}</Link>
+              <Link to="/dashboard/renti-income">{t("payment.subTitle4")}</Link>
             </Menu.Item>
             <Menu.Item key="38">
-              <Link to="/wallet">{t("payment.subTitle5")}</Link>
+              <Link to="/dashboard/wallet">{t("payment.subTitle5")}</Link>
             </Menu.Item>
           </SubMenu>
           <Divider />
@@ -344,10 +344,10 @@ const Dashboard = () => {
             title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
-              <Link to="/host-info">{t("hostInfo.subTitle1")}</Link>
+              <Link to="/dashboard/host-info">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="40">
-              <Link to="/host-request">{t("hostInfo.subTitle2")}</Link>
+              <Link to="/dashboard/host-request">{t("hostInfo.subTitle2")}</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -355,7 +355,7 @@ const Dashboard = () => {
             key="5"
             icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
           >
-            <Link to="/user-info" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/user-info" style={{ fontSize: "16px" }}>
               {t("userInfo")}
             </Link>
           </Menu.Item>
@@ -364,7 +364,7 @@ const Dashboard = () => {
             key="6"
             icon={<MdCarRental style={{ fontSize: "14px" }} />}
           >
-            <Link to="/rent-info" style={{ fontSize: "16px" }}>
+            <Link to="/dashboard/rent-info" style={{ fontSize: "16px" }}>
               {t("rentInfo")}
             </Link>
           </Menu.Item>
