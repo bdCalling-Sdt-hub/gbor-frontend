@@ -4,10 +4,6 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
 import Notification from "./Pages/Dashboard/Notification/Notification";
-import Email from "./Pages/Email/Email";
-import Otp from "./Pages/Otp/Otp";
-import Signin from "./Pages/Signin/Signin";
-import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 
 import NotFound from "./404";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
@@ -16,11 +12,15 @@ import CreatorInfo from "./Pages/Dashboard/CreatorInfo/CreatorInfo";
 import CreatorRequest from "./Pages/Dashboard/CreatorInfo/CreatorRequest";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
+import Email from "./Pages/Email/Email";
 import Home from "./Pages/Home/Home";
 import Contact from "./Pages/HowWork/Contact";
 import HowWork from "./Pages/HowWork/HowWork";
+import Otp from "./Pages/Otp/Otp";
 import OurCreators from "./Pages/OurCreators/OurCreators";
 import OurCreatorsDetails from "./Pages/OurCreatorsDetails/OurCreatorsDetails";
+import Signin from "./Pages/Signin/Signin";
+import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import WhoWe from "./Pages/WhoWe/WhoWe";
 
 function App() {

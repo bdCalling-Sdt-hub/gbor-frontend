@@ -1,31 +1,32 @@
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
 import React from "react";
+import { AiOutlineLeft } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import logo from "../../Images/Logo.png";
+import otp from "../../Images/otp.png";
 import style from "./Otp.module.css";
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const Otp = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
   return (
-    <div className={style.otpContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
-      <div className={style.formContainer}>
-        <Title
-          level={2}
-          style={{
-            color: "#fb7c29",
-            fontWeight: "normal",
-            marginBottom: "10px",
-            textShadow: "#bfbfbf 2px 2px 4px",
-          }}
+    <Row className="flex items-center justify-center px-16 h-screen">
+      <Col span={12} className="border-r">
+        <img width="100px" className="mx-auto mb-5" src={logo} alt="" />
+        <img className="mx-auto" src={otp} alt="" />
+      </Col>
+      <Col span={7} className="p-6">
+        <Link
+          className="login-form-forgot text-xl mb-2 flex items-center gap-1 font-bold"
+          style={{ color: "black" }}
+          to="/signin"
         >
+          <AiOutlineLeft style={{ fontSize: "16px" }} />
           Verify OTP
-        </Title>
+        </Link>
         <Paragraph style={{ marginBottom: "30px" }}>
           We'll send a verification code to your email. Check your inbox and
           enter the code here.
@@ -70,12 +71,12 @@ const Otp = () => {
                 marginTop: "130px",
               }}
             >
-              Continue
+              Verify
             </Button>
           </Form.Item>
         </Form>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

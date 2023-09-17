@@ -1,79 +1,69 @@
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
 import React from "react";
+import { AiOutlineLeft } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import logo from "../../Images/Logo.png";
-import style from "./Email.module.css";
+import email from "../../Images/email.png";
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const Email = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
   return (
-    <div className={style.emailContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
-      <div className={style.formContainer}>
-        <Title
-          level={2}
-          style={{
-            color: "#fb7c29",
-            fontWeight: "normal",
-            marginBottom: "10px",
-            textShadow: "#bfbfbf 2px 2px 4px",
-          }}
+    <Row className="flex items-center justify-center px-16 h-screen">
+      <Col span={12} className="border-r">
+        <img width="100px" className="mx-auto" src={logo} alt="" />
+        <img src={email} className="mx-auto" alt="" />
+      </Col>
+      <Col span={7} className="p-6">
+        <Link
+          className="login-form-forgot text-xl mb-2 flex items-center gap-1 font-bold"
+          style={{ color: "black" }}
+          to="/signin"
         >
-          Email Verification
-        </Title>
+          <AiOutlineLeft style={{ fontSize: "16px" }} />
+          Forgot password
+        </Link>
+
         <Paragraph style={{ marginBottom: "30px" }}>
           We'll send a verification code to your email. Check your inbox and
           enter the code here.
         </Paragraph>
 
-        <Form>
-          <div>
-            <label htmlFor="email" className={style.label}>
-              Email
-            </label>
-            <Form.Item
-              name="email"
-              id="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-            >
-              <Input
-                placeholder="Enter your email address"
-                className={style.input}
-              />
-            </Form.Item>
-          </div>
+        <Form name="normal_login" className="login-form" onFinish={onFinish}>
+          <Form.Item
+            name="email"
+            id="email"
+            label="Email"
+            labelCol={{ span: 24 }}
+            style={{ borderBottom: "1px solid black" }}
+            rules={[
+              {
+                required: true,
+                message: "Please input your email!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Enter your email address"
+              type="email"
+              bordered={false}
+            />
+          </Form.Item>
 
-          <Form.Item>
+          <Form.Item className="block text-center mt-10">
             <Button
-              type="primary"
               htmlType="submit"
-              className="login-form-button"
-              block
-              style={{
-                height: "45px",
-                fontWeight: "400px",
-                fontSize: "18px",
-                background: "#fb7c29",
-                alignSelf: "bottom",
-                marginTop: "130px",
-              }}
+              className="login-form-button bg-[#fb7c29] text-white w-28 h-10"
             >
-              Verify
+              Send OTP
             </Button>
           </Form.Item>
         </Form>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 
