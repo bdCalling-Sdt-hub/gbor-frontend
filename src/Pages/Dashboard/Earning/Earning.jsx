@@ -1,13 +1,10 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { LiaHandHoldingUsdSolid } from "react-icons/lia";
+import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import EarnHistoryTable from "./EarnHistoryTable";
-import style from "./Earning.module.css";
-import { AiOutlineDollarCircle } from "react-icons/ai";
 
 const Earning = () => (
   <div style={{ padding: "0px 50px" }}>
-    
     <Row
       gutter={{
         xs: 8,
@@ -18,30 +15,24 @@ const Earning = () => (
       style={{ marginTop: "20px" }}
     >
       <Col className="gutter-row" span={8}>
-        <div className={style.card}>
-          <div>
-            <AiOutlineDollarCircle  style={{ fontSize: "50px" }} />
-            <h2 className={style.cardTitle}>Daily Earning</h2>
-            <h2>$ 250.00</h2>
-          </div>
+        <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
+          <HiOutlineCurrencyDollar style={{ width: "28px", height: "28px" }} />
+          <h1 className="text-2xl">Today's income</h1>
+          <h3 className="text-2xl">$ 250.00</h3>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
-        <div className={style.card}>
-          <div>
-            <AiOutlineDollarCircle  style={{ fontSize: "50px" }} />
-            <h2 className={style.cardTitle}>Weakly Earning</h2>
-            <h2>$ 250.00</h2>
-          </div>
+        <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
+          <HiOutlineCurrencyDollar style={{ width: "28px", height: "28px" }} />
+          <h1 className="text-2xl">Weekly income</h1>
+          <h3 className="text-2xl">$ 250.00</h3>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
-        <div className={style.card}>
-          <div>
-            <AiOutlineDollarCircle  style={{ fontSize: "50px" }} />
-            <h2 className={style.cardTitle}>Monthly Earning</h2>
-            <h2>$ 250.00</h2>
-          </div>
+        <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
+          <HiOutlineCurrencyDollar style={{ width: "28px", height: "28px" }} />
+          <h1 className="text-2xl">Monthly income</h1>
+          <h3 className="text-2xl">$ 250.00</h3>
         </div>
       </Col>
     </Row>
