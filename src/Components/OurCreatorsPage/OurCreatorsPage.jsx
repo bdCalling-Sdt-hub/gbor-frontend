@@ -24,7 +24,7 @@ const OurCreatorsPage = () => {
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28">
       <div className="flex items-center w-3/4 mx-auto justify-between">
-        <div className="w-3/4">
+        <div className="w-full">
           <h1 className="text-5xl font-bold text-[#252525]">
             Ut enim ad minima veniam,
             <br /> quis nostrum exercitationem.

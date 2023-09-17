@@ -18,7 +18,7 @@ const CreatorCard = ({ data }) => {
         </p>
       </div>
       <button
-        className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md"
+        className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition"
         onClick={() => handleContentCreator(id)}
       >
         Give a Shot

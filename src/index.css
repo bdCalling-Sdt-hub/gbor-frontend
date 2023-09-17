@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: clash-display;
+  src: url("./Util/fonts/ClashDisplay-Regular.ttf");
+}
+
 body {
   /* width: 100%;
   background: url("./Images/Noise.png"), linear-gradient(#f17373, #f9b28e);
   overflow: auto;
   background-repeat: no-repeat;
   background-position: center; */
+  font-family: clash-display;
 }
 
 * {

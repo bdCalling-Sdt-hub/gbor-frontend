@@ -1,30 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Images/logo.png";
-import Button from "../../Util/Button/Button";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center w-full justify-between px-16 py-2 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f]">
-      <div>
+      <Link to="/">
         <img width="80%" src={logo} alt="logo" />
-      </div>
+      </Link>
+
       <div className="flex items-center gap-10">
         <ul className="flex gap-10 text-white">
-          <Link to="/our-creators" className="border-b-2 border-[#fb7c29]">
+          <Link active to="/our-creators" className="">
             Our Creators
           </Link>
-          <Link to="/who-we-are" className="border-b-2 border-[#ec5961]">
+          <Link to="/who-we-are" className="">
             Who are we
           </Link>
-          <Link to="/how-it-work" className="border-b-2 border-[#46413f]">
+          <Link to="/how-it-work" className="">
             How it works
           </Link>
-          <Link to="/contact" className="border-b-2 border-[#46413f]">
+          <Link to="/contact" className="">
             Contact
           </Link>
         </ul>
-        <Button>Become a Content Creator</Button>
+        <button
+          className="text-white bg-[#fb7c29] px-4 py-3 rounded-md hover:bg-[#ef4444] transition"
+          onClick={() => navigate("/become-content-creator")}
+        >
+          Become a Content Creator
+        </button>
       </div>
     </div>
   );

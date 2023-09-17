@@ -22,7 +22,7 @@ const Creators = () => {
 
   return (
     <div className="bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 text-center">
-      <h1 className=" w-3/4 mx-auto text-center text-5xl font-bold pb-4">
+      <h1 className="w-3/4 mx-auto text-center text-5xl font-bold pb-4">
         Our Creators
       </h1>
       <div className="w-3/4 mx-auto mt-10 text-center flex justify-center gap-2">
@@ -30,7 +30,7 @@ const Creators = () => {
           onClick={() => setTitle("all")}
           className={`${
             title === "all" ? "bg-[#fb7c29] text-white" : ""
-          } border py-3 px-5 rounded-md`}
+          } border md:py-3 px-2 md:px-5 rounded-md`}
         >
           All Creators
         </button>
@@ -38,7 +38,7 @@ const Creators = () => {
           onClick={() => setTitle("art")}
           className={`${
             title === "art" ? "bg-[#fb7c29] text-white" : ""
-          } border py-3 px-5 rounded-md`}
+          } border md:py-3 px-2 md:px-5 rounded-md`}
         >
           Arts and Culture
         </button>
@@ -46,7 +46,7 @@ const Creators = () => {
           onClick={() => setTitle("dance")}
           className={`${
             title === "dance" ? "bg-[#fb7c29] text-white" : ""
-          } border py-3 px-5 rounded-md`}
+          } border md:py-3 px-2 md:px-5 rounded-md`}
         >
           Dance
         </button>
@@ -54,7 +54,7 @@ const Creators = () => {
           onClick={() => setTitle("photography")}
           className={`${
             title === "photography" ? "bg-[#fb7c29] text-white" : ""
-          } border py-3 px-5 rounded-md`}
+          } border md:py-3 px-2 md:px-5 rounded-md`}
         >
           Photography
         </button>
@@ -62,18 +62,18 @@ const Creators = () => {
           onClick={() => setTitle("entrepreneur")}
           className={`${
             title === "entrepreneur" ? "bg-[#fb7c29] text-white" : ""
-          } border py-3 px-5 rounded-md`}
+          } border md:py-3 px-2 md:px-5 rounded-md`}
         >
           Entrepreneur
         </button>
       </div>
-      <div className="grid grid-cols-4  w-3/4 mx-auto gap-4 mt-10">
+      <div className="grid grid-cols md:grid-cols-4 w-full p-4 md:p-0 md:w-3/4 mx-auto gap-4 mt-10">
         {filteringData.slice(0, dataCount).map((creator) => (
           <CreatorCard key={creator.id} data={creator} />
         ))}
       </div>
       <button
-        className="bg-[#252525] text-white px-6 py-3 rounded-md mt-10"
+        className="bg-[#252525] text-white px-6 py-3 rounded-md mt-10 hover:bg-[#fb7c29] transition"
         onClick={() => setDataCount(dataCount + 4)}
       >
         Discover more creators

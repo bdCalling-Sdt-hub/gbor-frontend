@@ -4,12 +4,12 @@ import img2 from "../../../Images/intro2.png";
 
 const WhoWeAre = () => {
   return (
-    <div className="bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28  ">
+    <div className=" bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 ">
       <h1 className=" w-3/4 mx-auto text-center text-5xl font-bold pb-4">
         Who we are
       </h1>
-      <div className="flex items-center w-3/4 mx-auto mt-10 gap-20">
-        <div className="w-2/4">
+      <div className="flex flex-col md:flex-row items-center w-full p-4 md:p-0  md:w-3/4 mx-auto mt-10 gap-20">
+        <div className="w-full order-2 md:order-1">
           <h1 className="text-2xl  font-bold">
             Quis autem vel eum iure <br />
             reprehenderit qui in ea voluptate
@@ -49,9 +49,9 @@ const WhoWeAre = () => {
             reprehenderi.
           </p>
         </div>
-        <div className="w-2/4 space-y-12">
-          <img src={img1} alt="" />
-          <img src={img2} alt="" />
+        <div className="w-full space-y-12 order-1 md:order-2">
+          <img width="100%" src={img1} alt="" />
+          <img width="100%" src={img2} alt="" />
         </div>
       </div>
     </div>
