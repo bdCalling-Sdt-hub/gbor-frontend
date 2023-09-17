@@ -16,7 +16,6 @@ const SettingPage = () => {
   const style = {
     settingContainer: {
       background: "white",
-      padding: "30px",
       borderRadius: "10px",
     },
     btn: {
@@ -37,11 +36,11 @@ const SettingPage = () => {
   console.log(text);
   return (
     <>
-      <Link to="/setting" style={style.btn}>
+      <Link to="/dashboard/setting" style={style.btn}>
         <LiaAngleLeftSolid fontSize={20} />
         <span>{text}</span>
       </Link>
-      <div style={style.settingContainer}>
+      <div className="mt-4">
         {text === "personal information" && <PersonalInfo />}
         {text === "login activity" && <LoginActivity />}
         {text === "block list" && <BlockList />}

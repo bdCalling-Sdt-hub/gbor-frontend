@@ -66,12 +66,7 @@ const PersonalInfo = () => {
             <div>
               <Button
                 onClick={handleChange}
-                style={{
-                  background: "#000B92",
-                  color: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                }}
+                className="flex items-center bg-[#FB7C29] text-white"
               >
                 <LiaEditSolid fontSize={16} />
                 Edit

@@ -13,11 +13,6 @@ const Setting = () => {
   const [updatePassword, setUpdatePassword] = useState(false);
 
   const style = {
-    formContainer: {
-      background: "white",
-      padding: "30px",
-      borderRadius: "10px",
-    },
     btn: {
       display: "flex",
       alignItems: "center",
@@ -63,36 +58,16 @@ const Setting = () => {
     },
     {
       key: "4",
-      title: "Block List",
-      link: "block-list",
-    },
-    {
-      key: "5",
-      title: "Renti Percentage",
-      link: "renti-percentage",
-    },
-    {
-      key: "6",
-      title: "Host Payment Time",
-      link: "host-payment-time",
-    },
-    {
-      key: "7",
-      title: "Trash",
-      link: "trash",
-    },
-    {
-      key: "8",
       title: "Privacy Policy",
       link: "privacy-policy",
     },
     {
-      key: "9",
+      key: "5",
       title: "Terms and Condition",
       link: "terms-condition",
     },
     {
-      key: "10",
+      key: "6",
       title: "About Us",
       link: "about-us",
     },
@@ -138,7 +113,7 @@ const Setting = () => {
     } else if (value === "change-password") {
       setOpenChangePassModel(true);
     } else {
-      navigate(`/setting/${value}`);
+      navigate(`/dashboard/setting/${value}`);
     }
   };
 
@@ -156,9 +131,9 @@ const Setting = () => {
   };
 
   return (
-    <div style={{ padding: "0 60px" }}>
-      <h2 style={{ marginBottom: "20px", fontWeight: "normal" }}>Settings</h2>
-      <div style={style.formContainer}>
+    <div>
+      <h2 className="text-2xl">Settings</h2>
+      <div className="mt-4">
         {menuItems.map((item) => (
           <Button
             onClick={() => handleNavigate(item.link)}
@@ -176,6 +151,7 @@ const Setting = () => {
             onChange={(e) => handleNotification(e)}
             checkedChildren="ON"
             unCheckedChildren="OFF"
+            style={{ background: "#FB7C29" }}
             defaultChecked
           />
         </div>

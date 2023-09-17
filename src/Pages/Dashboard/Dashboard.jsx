@@ -1,12 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
+import { MenuOutlined, SettingOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
 import { Divider } from "antd";
-import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
-
-import { RiUserSearchLine } from "react-icons/ri";
 
 import React, { useEffect, useState } from "react";
 
@@ -131,7 +127,9 @@ const items = [...Array(5).keys()].map((item, index) => {
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.lang || "en"
+  );
 
   const {
     token: { colorBgContainer },
@@ -235,10 +233,7 @@ const Dashboard = () => {
           mode="inline"
           defaultSelectedKeys={["1"]}
         >
-          <Menu.Item
-            key="1"
-            icon={<FiMonitor style={{ fontSize: "14px" }} />}
-          >
+          <Menu.Item key="1" icon={<FiMonitor style={{ fontSize: "14px" }} />}>
             <Link to="/dashboard" style={{ fontSize: "16px" }}>
               {t("dashboard")}
             </Link>
@@ -260,13 +255,19 @@ const Dashboard = () => {
             title={t("earning.title")}
           >
             <Menu.Item key="31">
-              <Link to="/dashboard/earning/today-income">{t("earning.subTitle1")}</Link>
+              <Link to="/dashboard/earning/today-income">
+                {t("earning.subTitle1")}
+              </Link>
             </Menu.Item>
             <Menu.Item key="32">
-              <Link to="/dashboard/earning/weekly-income">{t("earning.subTitle2")}</Link>
+              <Link to="/dashboard/earning/weekly-income">
+                {t("earning.subTitle2")}
+              </Link>
             </Menu.Item>
             <Menu.Item key="33">
-              <Link to="/dashboard/earning/monthly-income">{t("earning.subTitle3")}</Link>
+              <Link to="/dashboard/earning/monthly-income">
+                {t("earning.subTitle3")}
+              </Link>
             </Menu.Item>
           </SubMenu>
 
@@ -280,25 +281,21 @@ const Dashboard = () => {
               <Link to="/dashboard/host-info">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="40">
-              <Link to="/dashboard/host-request">{t("hostInfo.subTitle2")}</Link>
+              <Link to="/dashboard/host-request">
+                {t("hostInfo.subTitle2")}
+              </Link>
             </Menu.Item>
           </SubMenu>
 
-
-          <Menu.Item
-            key="5"
-            icon={<BiTransfer style={{ fontSize: "14px" }} />}
-          >
+          <Menu.Item key="5" icon={<BiTransfer style={{ fontSize: "14px" }} />}>
             <Link to="/dashboard/transaction" style={{ fontSize: "16px" }}>
-              {t("transaction")}
+              {t("Transaction")}
             </Link>
           </Menu.Item>
 
-      
-
           <Menu.Item key="9" icon={<PiImage style={{ fontSize: "14px" }} />}>
             <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
-              {t("banner")}
+              {t("Banner")}
             </Link>
           </Menu.Item>
 
@@ -310,95 +307,6 @@ const Dashboard = () => {
               {t("setting.title")}
             </Link>
           </Menu.Item>
-
-          <Divider />
-
-          <SubMenu
-            style={{ fontSize: "16px" }}
-            key="3"
-            icon={<MdPayment style={{ fontSize: "14px" }} />}
-            title={t("payment.title")}
-          >
-            <Menu.Item key="34">
-              <Link to="/dashboard/user-payment">{t("payment.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="35">
-              <Link to="/dashboard/host-payment">{t("payment.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="36">
-              <Link to="/dashboard/stripe-bills">{t("payment.subTitle3")}</Link>
-            </Menu.Item>
-            <Menu.Item key="37">
-              <Link to="/dashboard/renti-income">{t("payment.subTitle4")}</Link>
-            </Menu.Item>
-            <Menu.Item key="38">
-              <Link to="/dashboard/wallet">{t("payment.subTitle5")}</Link>
-            </Menu.Item>
-          </SubMenu>
-          <Divider />
-
-          <SubMenu
-            style={{ fontSize: "16px" }}
-            key="4"
-            icon={<GoPeople style={{ fontSize: "14px" }} />}
-            title={t("hostInfo.title")}
-          >
-            <Menu.Item key="39">
-              <Link to="/dashboard/host-info">{t("hostInfo.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="40">
-              <Link to="/dashboard/host-request">{t("hostInfo.subTitle2")}</Link>
-            </Menu.Item>
-          </SubMenu>
-
-          <Menu.Item
-            key="5"
-            icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
-          >
-            <Link to="/dashboard/user-info" style={{ fontSize: "16px" }}>
-              {t("userInfo")}
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item
-            key="6"
-            icon={<MdCarRental style={{ fontSize: "14px" }} />}
-          >
-            <Link to="/dashboard/rent-info" style={{ fontSize: "16px" }}>
-              {t("rentInfo")}
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item
-            key="7"
-            icon={<CarOutlined style={{ fontSize: "14px" }} />}
-          >
-            <Link to="/dashboard/car-info" style={{ fontSize: "16px" }}>
-              {t("carInfo")}
-            </Link>
-          </Menu.Item>
-
-          <Divider />
-
-          <SubMenu
-            style={{ fontSize: "16px" }}
-            key="8"
-            icon={<RiUserSearchLine style={{ fontSize: "14px" }} />}
-            title={t("kyc.title")}
-          >
-            <Menu.Item key="41">
-              <Link to="/dashboard/host-kyc">{t("kyc.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="42">
-              <Link to="/dashboard/user-kyc">{t("kyc.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="43">
-              <Link to="/dashboard/car-kyc">{t("kyc.subTitle3")}</Link>
-            </Menu.Item>
-            <Menu.Item key="44">
-              <Link to="/dashboard/kyc-form">{t("kyc.subTitle4")}</Link>
-            </Menu.Item>
-          </SubMenu>
         </Menu>
       </Sider>
       <Layout>
