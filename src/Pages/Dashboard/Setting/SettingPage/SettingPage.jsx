@@ -2,14 +2,10 @@ import React from "react";
 import { LiaAngleLeftSolid } from "react-icons/lia";
 import { Link, useParams } from "react-router-dom";
 import About from "../../../../Components/Setting/About/About";
-import BlockList from "../../../../Components/Setting/BlockList/BlockList";
-import HostPaymentTime from "../../../../Components/Setting/HostPaymentTime/HostPaymentTime";
 import LoginActivity from "../../../../Components/Setting/LoginActivity/LoginActivity";
 import PersonalInfo from "../../../../Components/Setting/PersonalInfo/PersonalInfo";
 import PrivacyPolicy from "../../../../Components/Setting/PrivacyPolicy/PrivacyPolicy";
-import RentiPercentage from "../../../../Components/Setting/RentiPercentage/RentiPercentage";
 import TermsAndCondition from "../../../../Components/Setting/TermsAndCondition/TermsAndCondition";
-import Trash from "../../../../Components/Setting/Trash/Trash";
 
 const SettingPage = () => {
   const params = useParams();
@@ -43,10 +39,6 @@ const SettingPage = () => {
       <div className="mt-4">
         {text === "personal information" && <PersonalInfo />}
         {text === "login activity" && <LoginActivity />}
-        {text === "block list" && <BlockList />}
-        {text === "renti percentage" && <RentiPercentage />}
-        {text === "host payment time" && <HostPaymentTime />}
-        {text === "trash" && <Trash />}
         {text === "privacy policy" && <PrivacyPolicy />}
         {text === "terms condition" && <TermsAndCondition />}
         {text === "about us" && <About />}

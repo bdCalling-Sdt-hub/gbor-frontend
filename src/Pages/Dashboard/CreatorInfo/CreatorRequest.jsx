@@ -2,7 +2,7 @@ import { Button, Col, Input, Pagination, Row } from "antd";
 import React, { useState } from "react";
 import CreatorRequestCard from "../../../Components/Common/CreatorRequestCard/CreatorRequestCard";
 import colors from "../../../Constant/colors";
-const HostRequest = () => {
+const CreatorRequest = () => {
   const [hoveredCol, setHoveredCol] = useState(null);
   const style = {
     cardStyle: {
@@ -170,4 +170,4 @@ const HostRequest = () => {
   );
 };
 
-export default HostRequest;
+export default CreatorRequest;

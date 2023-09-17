@@ -3,8 +3,6 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
-import HostInfo from "./Pages/Dashboard/HostInfo/HostInfo";
-import HostRequest from "./Pages/Dashboard/HostInfo/HostRequest";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
@@ -14,6 +12,8 @@ import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import NotFound from "./404";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Banners from "./Pages/Dashboard/Banners/Banners";
+import CreatorInfo from "./Pages/Dashboard/CreatorInfo/CreatorInfo";
+import CreatorRequest from "./Pages/Dashboard/CreatorInfo/CreatorRequest";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import Home from "./Pages/Home/Home";
@@ -51,9 +51,12 @@ function App() {
                 element={<Notification />}
               />
               <Route path="/dashboard/earning/:income" element={<Earning />} />
-              <Route path="/dashboard/host-info" element={<HostInfo />} />
+              <Route path="/dashboard/creator-info" element={<CreatorInfo />} />
               <Route path="/dashboard/banner" element={<Banners />} />
-              <Route path="/dashboard/host-request" element={<HostRequest />} />
+              <Route
+                path="/dashboard/creator-request"
+                element={<CreatorRequest />}
+              />
 
               <Route path="/dashboard/setting" element={<Setting />}></Route>
               <Route

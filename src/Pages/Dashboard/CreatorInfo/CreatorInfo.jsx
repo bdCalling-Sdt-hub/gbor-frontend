@@ -1,9 +1,9 @@
 import { Button, Input } from "antd";
 import React from "react";
-import HostInfoTable from "./HostInfoTable";
 import colors from "../../../Constant/colors";
+import CreatorInfoTable from "./CreatorInfoTable";
 
-const HostInfo = () => (
+const CreatorInfo = () => (
   <div style={{ padding: "0px 60px" }}>
     <h2
       style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
@@ -11,7 +11,10 @@ const HostInfo = () => (
       Search Creator
     </h2>
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-      <Input style={{ height: "44px",borderColor:colors.primaryColor }} placeholder="search by Name/Id" />
+      <Input
+        style={{ height: "44px", borderColor: colors.primaryColor }}
+        placeholder="search by Name/Id"
+      />
       <Button
         style={{
           background: "#fb7c29",
@@ -34,8 +37,8 @@ const HostInfo = () => (
     >
       All Host List With Their Information
     </h2>
-    <HostInfoTable />
+    <CreatorInfoTable />
   </div>
 );
 
-export default HostInfo;
+export default CreatorInfo;

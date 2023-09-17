@@ -17,9 +17,9 @@
   "rentInfo": "Rent Information",
   "userInfo": "User Information",
   "hostInfo": {
-    "title": "Host Information",
-    "subTitle1": "All Host",
-    "subTitle2": "Host Request"
+    "title": "Creator Information",
+    "subTitle1": "Creator List",
+    "subTitle2": "Creator Request"
   },
   "payment": {
     "title": "Payments",

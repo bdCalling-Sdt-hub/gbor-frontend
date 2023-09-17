@@ -275,13 +275,15 @@ const Dashboard = () => {
             style={{ fontSize: "16px" }}
             key="4"
             icon={<FaPeopleLine style={{ fontSize: "14px" }} />}
-            title={t("Creator Info")}
+            title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
-              <Link to="/dashboard/host-info">{t("hostInfo.subTitle1")}</Link>
+              <Link to="/dashboard/creator-info">
+                {t("hostInfo.subTitle1")}
+              </Link>
             </Menu.Item>
             <Menu.Item key="40">
-              <Link to="/dashboard/host-request">
+              <Link to="/dashboard/creator-request">
                 {t("hostInfo.subTitle2")}
               </Link>
             </Menu.Item>

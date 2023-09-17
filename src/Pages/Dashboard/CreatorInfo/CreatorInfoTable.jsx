@@ -58,7 +58,7 @@ const data = [
   },
 ];
 
-const HostInfoTable = () => {
+const CreatorInfoTable = () => {
   const columns = [
     {
       title: "NAME",
@@ -158,4 +158,4 @@ const HostInfoTable = () => {
   );
 };
 
-export default HostInfoTable;
+export default CreatorInfoTable;
