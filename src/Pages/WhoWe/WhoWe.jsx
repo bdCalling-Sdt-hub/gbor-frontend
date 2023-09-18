@@ -9,14 +9,14 @@ const WhoWe = () => {
     <div>
       <Navbar />
       <div className=" bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 ">
-        <h1 className="text-center p-4 md:p-0 text-4xl font-bold text-[#252525] drop-shadow-xl">
+        <h1 className="text-center p-4 lg:p-0 text-4xl font-bold text-[#252525] drop-shadow-xl">
           Ut enim ad minima veniam,
           <br /> quis nostrum exercitationem.
         </h1>
-        <p className="w-full md:w-2/4 p-4 md:p-0 mx-auto mt-5 text-[#4B5563] text-center">
+        <p className="w-full lg:w-2/4 p-4 lg:p-0 mx-auto mt-5 text-[#4B5563] text-center">
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
         </p>
-        <div className="flex flex-col md:flex-row items-center w-full p-4 md:p-0  md:w-3/4 mx-auto mt-10 gap-20">
+        <div className="flex flex-col lg:flex-row items-center w-full p-4 lg:p-0  lg:w-3/4 mx-auto mt-10 gap-20">
           <div className="w-full order-2 md:order-1">
             <h1 className="text-2xl  font-bold drop-shadow-xl">
               Quis autem vel eum iure <br />

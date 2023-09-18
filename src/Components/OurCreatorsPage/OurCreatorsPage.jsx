@@ -23,7 +23,7 @@ const OurCreatorsPage = () => {
 
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28">
-      <div className="flex flex-col md:flex-row items-center w-full md:w-3/4 p-4 md:p-0 mx-auto justify-between">
+      <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 p-4 lg:p-0 mx-auto justify-between">
         <div className="w-full">
           <h1 className="text-5xl font-bold text-[#252525] drop-shadow-xl">
             Ut enim ad minima veniam,
@@ -34,7 +34,7 @@ const OurCreatorsPage = () => {
             cillum.
           </p>
         </div>
-        <div className="w-full md:w-2/4 mt-4 md:mt-0">
+        <div className="w-full lg:w-2/4 mt-4 lg:mt-0">
           <div className="border border-[#4B5563] flex items-center rounded-md ">
             <input
               type="text"
@@ -53,7 +53,7 @@ const OurCreatorsPage = () => {
         </div>
       </div>
 
-      <div className="w-3/4 mx-auto mt-28 mb-16 text-center flex flex-col md:flex-row justify-center gap-2">
+      <div className="w-3/4 mx-auto mt-28 mb-16 text-center flex flex-col lg:flex-row justify-center gap-2">
         <button
           onClick={() => setTitle("all")}
           className={`${
@@ -95,7 +95,7 @@ const OurCreatorsPage = () => {
           Entrepreneur
         </button>
       </div>
-      <div className="grid grid-cols md:grid-cols-4 w-full p-4 md:p-0  md:w-3/4 mx-auto gap-4 mt-10">
+      <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-4 w-full p-4 lg:p-0  lg:w-3/4 mx-auto gap-4 mt-10">
         {filteringData.slice(0, dataCount).map((creator) => (
           <CreatorCard key={creator.id} data={creator} />
         ))}

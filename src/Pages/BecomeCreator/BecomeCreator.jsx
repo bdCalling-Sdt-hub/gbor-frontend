@@ -9,19 +9,19 @@ const BecomeCreator = () => {
     <>
       <Navbar />
       <div className=" bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 ">
-        <div className="w-full md:w-3/4 mx-auto p-4 md:p-0">
+        <div className="w-full lg:w-3/4 mx-auto p-4 lg:p-0">
           <div>
-            <h1 className="text-center text-4xl font-bold text-[#252525] p-4 md:p-0">
+            <h1 className="text-center text-4xl font-bold text-[#252525] p-4 lg:p-0">
               Ut enim ad minima veniam,
               <br /> quis nostrum exercitationem.
             </h1>
-            <p className="w-full md:w-2/4 mx-auto mt-5 text-[#4B5563] text-center p-4 md:p-0">
+            <p className="w-full lg:w-2/4 mx-auto mt-5 text-[#4B5563] text-center p-4 lg:p-0">
               Duis aute irure dolor in reprehenderit in voluptate velit esse
               cillum.
             </p>
           </div>
-          <div className="grid grid-cols md:grid-cols-2 gap-6 mt-16">
-            <div className="order-2 md:order-1">
+          <div className="grid grid-cols lg:grid-cols-2 gap-6 mt-16">
+            <div className="order-2 lg:order-1">
               <form>
                 <div className="grid grid-cols-2 gap-2">
                   <input
@@ -124,7 +124,7 @@ const BecomeCreator = () => {
                 </Link>
               </p>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 lg:order-2">
               <img width="100%" src={img} alt="" />
             </div>
           </div>

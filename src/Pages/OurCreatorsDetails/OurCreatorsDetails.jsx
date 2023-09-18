@@ -21,12 +21,12 @@ const OurCreatorsDetails = () => {
     <div>
       <Navbar />
       <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-32">
-        <div className="flex items-center w-3/4 mx-auto justify-between">
-          <div className="w-3/4">
-            <img width="70%" src={img} alt="" />
+        <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 mx-auto justify-between">
+          <div className="w-full lg:w-3/4">
+            <img width="70%" className="mx-auto" src={img} alt="" />
           </div>
-          <div className="w-2/4">
-            <h1 className="text-2xl font-bold text-[#252525]">
+          <div className="w-full lg:w-2/4 p-4 lg:p-0">
+            <h1 className="text-2xl font-bold text-[#252525] md:mt-8">
               Ut enim ad minima veniam, quis nostrum exercitationem.
             </h1>
             <p className="mt-2 mb-8 text-[#4B5563]">
@@ -34,7 +34,7 @@ const OurCreatorsDetails = () => {
               cillum.
             </p>
 
-            <div className="p-4 border border-black rounded-md w-5/6">
+            <div className="p-4 border border-black rounded-md w-full lg:w-5/6">
               <p className="text-right text-[#4B5563] mb-2">
                 1Gbor = <span>{"500FR"}</span>{" "}
               </p>

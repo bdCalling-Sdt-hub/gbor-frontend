@@ -25,7 +25,7 @@ const Creators = () => {
       <h1 className="w-3/4 mx-auto text-center text-5xl font-bold pb-4">
         Our Creators
       </h1>
-      <div className="w-3/4 mx-auto mt-10 text-center flex flex-col md:flex-row justify-center gap-2">
+      <div className="w-3/4 mx-auto mt-10 text-center flex flex-col lg:flex-row justify-center gap-2">
         <button
           onClick={() => setTitle("all")}
           className={`${
@@ -54,7 +54,7 @@ const Creators = () => {
           onClick={() => setTitle("photography")}
           className={`${
             title === "photography" ? "bg-[#fb7c29] text-white" : ""
-          } border py-3 px-2 md:px-5 rounded-md`}
+          } border py-3 px-5 rounded-md`}
         >
           Photography
         </button>
@@ -67,7 +67,7 @@ const Creators = () => {
           Entrepreneur
         </button>
       </div>
-      <div className="grid grid-cols md:grid-cols-4 w-full p-4 md:p-0 md:w-3/4 mx-auto gap-4 mt-10">
+      <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-4 w-full p-4 lg:p-0 lg:w-3/4 mx-auto gap-4 mt-10">
         {filteringData.slice(0, dataCount).map((creator) => (
           <CreatorCard key={creator.id} data={creator} />
         ))}

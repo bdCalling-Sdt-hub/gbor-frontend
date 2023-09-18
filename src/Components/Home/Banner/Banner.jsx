@@ -21,10 +21,10 @@ const Banner = () => {
   };
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 text-center">
-      <div className="w-full p-4 md:p-0 md:w-3/4 mx-auto">
+      <div className="w-full p-4 lg:p-0 lg:w-3/4 mx-auto">
         <div>
           <div>
-            <h1 className="text-2xl md:text-6xl font-bold drop-shadow-md">
+            <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold drop-shadow-md">
               Support and guide your{" "}
               <span className="text-[#ef4444]">content </span>
               <br />

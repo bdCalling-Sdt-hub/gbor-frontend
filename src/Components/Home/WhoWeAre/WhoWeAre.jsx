@@ -9,7 +9,7 @@ const WhoWeAre = () => {
       <h1 className=" w-3/4 mx-auto text-center text-5xl font-bold pb-4">
         Who we are
       </h1>
-      <div className="flex flex-col md:flex-row items-center w-full p-4 md:p-0  md:w-3/4 mx-auto mt-10 gap-20">
+      <div className="flex flex-col lg:flex-row items-center w-full p-4 lg:p-0  lg:w-3/4 mx-auto mt-10 gap-20">
         <div className="w-full order-2 md:order-1">
           <h1 className="text-2xl  font-bold">
             Quis autem vel eum iure <br />
