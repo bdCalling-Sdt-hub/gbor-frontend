@@ -1,38 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Images/logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   return (
-    <div className="flex items-center w-full justify-between px-16 py-2 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f]">
-      <Link to="/">
-        <img width="80%" src={logo} alt="logo" />
-      </Link>
+    <nav className="md:flex items-center w-full justify-between md:px-16 py-2 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] sticky top-0 z-50">
+      <div className="flex items-center justify-between px-2">
+        <Link to="/">
+          <img className="w-20 md:w-24" src={logo} alt="logo" />
+        </Link>
+        <div
+          className="md:hidden cursor-pointer text-white active:duration-300"
+          onClick={() => setOpen(!open)}
+        >
+          {!open ? (
+            <HiOutlineMenuAlt1 style={{ fontSize: "35px" }} />
+          ) : (
+            <AiOutlineClose style={{ fontSize: "35px" }} />
+          )}
+        </div>
+      </div>
 
-      <div className="flex items-center gap-10">
-        <ul className="flex gap-10 text-white">
+      <ul
+        className={` space-y-5 md:space-y-0 md:flex gap-10 text-white items-center bg-[#fda16e] md:bg-transparent p-4 md:p-0 absolute md:static duration-500 h-screen md:h-auto ${
+          open ? "left-0 top-0" : "-left-96 top-0"
+        }`}
+      >
+        <li>
           <Link active to="/our-creators" className="">
             Our Creators
           </Link>
+        </li>
+        <li>
           <Link to="/who-we-are" className="">
             Who are we
           </Link>
+        </li>
+        <li>
           <Link to="/how-it-work" className="">
             How it works
           </Link>
+        </li>
+        <li>
           <Link to="/contact" className="">
             Contact
           </Link>
-        </ul>
-        <button
-          className="text-white bg-[#fb7c29] px-4 py-3 rounded-md hover:bg-[#ef4444] transition"
+        </li>
+        <li
+          className="text-white bg-[#fb7c29] px-4 py-3 rounded-md hover:bg-[#ef4444] transition img-shadow"
           onClick={() => navigate("/become-content-creator")}
         >
           Become a Content Creator
-        </button>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

@@ -6,6 +6,10 @@
   font-family: clash-display;
   src: url("./Util/fonts/ClashDisplay-Regular.ttf");
 }
+@font-face {
+  font-family: clash-display-bold;
+  src: url("./Util/fonts/ClashDisplay-Bold.ttf");
+}
 
 body {
   /* width: 100%;
@@ -14,11 +18,16 @@ body {
   background-repeat: no-repeat;
   background-position: center; */
   font-family: clash-display;
+  overflow-x: hidden;
 }
 
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+}
+h1 {
+  font-family: clash-display-bold;
 }
 
 .VIpgJd-ZVi9od-l4eHX-hSRGPd {

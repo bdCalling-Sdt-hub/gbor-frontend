@@ -8,17 +8,17 @@ const WhoWe = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28">
-        <h1 className="text-center text-4xl font-bold text-[#252525]">
+      <div className=" bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 ">
+        <h1 className="text-center p-4 md:p-0 text-4xl font-bold text-[#252525] drop-shadow-xl">
           Ut enim ad minima veniam,
           <br /> quis nostrum exercitationem.
         </h1>
-        <p className="w-2/4 mx-auto mt-5 text-[#4B5563] text-center">
+        <p className="w-full md:w-2/4 p-4 md:p-0 mx-auto mt-5 text-[#4B5563] text-center">
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
         </p>
-        <div className="flex items-center w-3/4 mx-auto mt-16 gap-20">
-          <div className="w-2/4">
-            <h1 className="text-2xl  font-bold">
+        <div className="flex flex-col md:flex-row items-center w-full p-4 md:p-0  md:w-3/4 mx-auto mt-10 gap-20">
+          <div className="w-full order-2 md:order-1">
+            <h1 className="text-2xl  font-bold drop-shadow-xl">
               Quis autem vel eum iure <br />
               reprehenderit qui in ea voluptate
             </h1>
@@ -57,9 +57,23 @@ const WhoWe = () => {
               reprehenderi.
             </p>
           </div>
-          <div className="w-2/4 space-y-12">
-            <img src={img1} alt="" />
-            <img src={img2} alt="" />
+          <div className="w-full space-y-12 order-1 md:order-2">
+            <div className="whoAreImg overflow-hidden rounded-2xl">
+              <img
+                width="100%"
+                className="transition duration-300 img-shadow"
+                src={img1}
+                alt=""
+              />
+            </div>
+            <div className="whoAreImg overflow-hidden rounded-2xl">
+              <img
+                width="100%"
+                className="transition duration-300 img-shadow"
+                src={img2}
+                alt=""
+              />
+            </div>
           </div>
         </div>
       </div>

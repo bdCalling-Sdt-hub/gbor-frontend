@@ -9,8 +9,15 @@ const CreatorCard = ({ data }) => {
     navigate(`/our-creators/${id}`);
   };
   return (
-    <div className="border p-2 rounded-md text-center">
-      <img width="100%" src={img} alt="" />
+    <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow">
+      <div className="overflow-hidden rounded-xl">
+        <img
+          width="100%"
+          className="transition duration-300"
+          src={img}
+          alt=""
+        />
+      </div>
       <div className="my-5">
         <h1 className="font-bold text-lg">{name}</h1>
         <p className="font-bold">

@@ -25,12 +25,12 @@ const Creators = () => {
       <h1 className="w-3/4 mx-auto text-center text-5xl font-bold pb-4">
         Our Creators
       </h1>
-      <div className="w-3/4 mx-auto mt-10 text-center flex justify-center gap-2">
+      <div className="w-3/4 mx-auto mt-10 text-center flex flex-col md:flex-row justify-center gap-2">
         <button
           onClick={() => setTitle("all")}
           className={`${
             title === "all" ? "bg-[#fb7c29] text-white" : ""
-          } border md:py-3 px-2 md:px-5 rounded-md`}
+          } border py-3 px-2 md:px-5 rounded-md`}
         >
           All Creators
         </button>
@@ -38,7 +38,7 @@ const Creators = () => {
           onClick={() => setTitle("art")}
           className={`${
             title === "art" ? "bg-[#fb7c29] text-white" : ""
-          } border md:py-3 px-2 md:px-5 rounded-md`}
+          } border py-3 px-2 md:px-5 rounded-md`}
         >
           Arts and Culture
         </button>
@@ -46,7 +46,7 @@ const Creators = () => {
           onClick={() => setTitle("dance")}
           className={`${
             title === "dance" ? "bg-[#fb7c29] text-white" : ""
-          } border md:py-3 px-2 md:px-5 rounded-md`}
+          } border py-3 px-2 md:px-5 rounded-md`}
         >
           Dance
         </button>
@@ -54,7 +54,7 @@ const Creators = () => {
           onClick={() => setTitle("photography")}
           className={`${
             title === "photography" ? "bg-[#fb7c29] text-white" : ""
-          } border md:py-3 px-2 md:px-5 rounded-md`}
+          } border py-3 px-2 md:px-5 rounded-md`}
         >
           Photography
         </button>
@@ -62,7 +62,7 @@ const Creators = () => {
           onClick={() => setTitle("entrepreneur")}
           className={`${
             title === "entrepreneur" ? "bg-[#fb7c29] text-white" : ""
-          } border md:py-3 px-2 md:px-5 rounded-md`}
+          } border py-3 px-2 md:px-5 rounded-md`}
         >
           Entrepreneur
         </button>

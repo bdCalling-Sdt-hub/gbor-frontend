@@ -1,6 +1,7 @@
 import React from "react";
 import img1 from "../../../Images/intro1.png";
 import img2 from "../../../Images/intro2.png";
+import "./whoWeAre.css";
 
 const WhoWeAre = () => {
   return (
@@ -50,8 +51,22 @@ const WhoWeAre = () => {
           </p>
         </div>
         <div className="w-full space-y-12 order-1 md:order-2">
-          <img width="100%" src={img1} alt="" />
-          <img width="100%" src={img2} alt="" />
+          <div className="whoAreImg overflow-hidden rounded-2xl">
+            <img
+              width="100%"
+              className="transition duration-300 img-shadow"
+              src={img1}
+              alt=""
+            />
+          </div>
+          <div className="whoAreImg overflow-hidden rounded-2xl img-shadow">
+            <img
+              width="100%"
+              className="transition duration-300 img-shadow"
+              src={img2}
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ const Banner = () => {
       <div className="w-full p-4 md:p-0 md:w-3/4 mx-auto">
         <div>
           <div>
-            <h1 className="text-2xl md:text-6xl font-bold">
+            <h1 className="text-2xl md:text-6xl font-bold drop-shadow-md">
               Support and guide your{" "}
               <span className="text-[#ef4444]">content </span>
               <br />
@@ -40,18 +40,17 @@ const Banner = () => {
               culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
-          <div className=" mt-10 w-full">
+          <div className=" mt-10 w-full overflow-hidden">
             <Swiper
               spaceBetween={30}
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               autoplay={{
-                delay: 5000,
+                delay: 3000,
                 disableOnInteraction: false,
               }}
               pagination={{
                 clickable: true,
               }}
-              navigation={true}
             >
               <SwiperSlide>
                 <img className="mx-auto" src={banner} alt="" />
