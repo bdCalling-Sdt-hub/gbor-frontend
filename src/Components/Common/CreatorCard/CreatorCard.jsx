@@ -1,6 +1,9 @@
 import React from "react";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { GrLinkedinOption } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import img from "../../../Images/creator.png";
+import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
   const { id, name, received } = data;
@@ -9,14 +12,30 @@ const CreatorCard = ({ data }) => {
     navigate(`/our-creators/${id}`);
   };
   return (
-    <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow">
-      <div className="overflow-hidden rounded-xl">
-        <img
-          width="100%"
-          className="transition duration-300"
-          src={img}
-          alt=""
-        />
+    <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow card-container">
+      <div className="overflow-hidden rounded-xl relative">
+        <div>
+          <img
+            width="100%"
+            className="transition duration-300"
+            src={img}
+            alt=""
+          />
+        </div>
+        <div className="flex gap-2 icons">
+          <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer">
+            <GrLinkedinOption fontSize={28} />
+          </div>
+          <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer">
+            <FaInstagram fontSize={28} />
+          </div>
+          <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer">
+            <FaTwitter fontSize={28} />
+          </div>
+          <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer">
+            <FaFacebookF fontSize={28} />
+          </div>
+        </div>
       </div>
       <div className="my-5">
         <h1 className="font-bold text-lg">{name}</h1>
