@@ -13,6 +13,7 @@ import Banners from "./Pages/Dashboard/Banners/Banners";
 import CreatorInfo from "./Pages/Dashboard/CreatorInfo/CreatorInfo";
 import CreatorRequest from "./Pages/Dashboard/CreatorInfo/CreatorRequest";
 import Message from "./Pages/Dashboard/Message/Message";
+import MessageCreatorPage from "./Pages/Dashboard/Message/MessageCreatorPage/MessageCreatorPage";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import Transaction from "./Pages/Dashboard/Transaction/Transaction";
@@ -71,6 +72,10 @@ function App() {
               <Route
                 path="/dashboard/setting/:dynamic"
                 element={<SettingPage />}
+              />
+              <Route
+                path="/dashboard/message/:dynamic"
+                element={<MessageCreatorPage />}
               />
             </Route>
 

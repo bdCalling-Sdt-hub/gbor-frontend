@@ -1,11 +1,12 @@
 import React from "react";
 import TransactionChart from "./TransactionChart";
+import TransactionTable from "./TransactionTable";
 
 const Transaction = () => {
   return (
     <div>
       <h2
-        style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
+        style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "bold" }}
       >
         Transaction Ratio
       </h2>
@@ -15,11 +16,12 @@ const Transaction = () => {
           fontSize: "25px",
           marginTop: "50px",
           marginBottom: "20px",
-          fontWeight: "normal",
+          fontWeight: "bold",
         }}
       >
-        All Host List With Their Information
+        Transaction History
       </h2>
+      <TransactionTable />
     </div>
   );
 };

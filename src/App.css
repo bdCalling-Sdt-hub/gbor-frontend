@@ -49,3 +49,7 @@
   --black-color: #252525;
   --mute-color: #4b5563;
 }
+
+.no-hover .ant-table-tbody tr:hover {
+  background-color: transparent !important; /* Add !important to override other styles */
+}
