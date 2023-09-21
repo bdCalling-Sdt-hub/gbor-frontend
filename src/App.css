@@ -50,6 +50,25 @@
   --mute-color: #4b5563;
 }
 
-.no-hover .ant-table-tbody tr:hover {
-  background-color: transparent !important; /* Add !important to override other styles */
+/**/
+.label {
+  position: relative;
+  margin-left: 20px;
+}
+.label::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 0;
+  width: 15px; /* Width of the custom checkbox */
+  height: 15px; /* Height of the custom checkbox */
+  border: 1px solid black; /* Border of the checkbox */
+  background-color: #fff;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input[type="checkbox"]:checked + label::before {
+  background-color: #fb7c29; /* Change background color when checked */
+  border-color: #fff; /* Change border color when checked */
 }

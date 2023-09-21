@@ -1,5 +1,6 @@
 import { Button, Input } from "antd";
 import React from "react";
+import { CiSearch } from "react-icons/ci";
 import colors from "../../../Constant/colors";
 import CreatorInfoTable from "./CreatorInfoTable";
 
@@ -12,8 +13,9 @@ const CreatorInfo = () => (
     </h2>
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <Input
+        prefix={<CiSearch style={{ fontSize: "18px" }} />}
         style={{ height: "44px", borderColor: colors.primaryColor }}
-        placeholder="search by Name/Id"
+        placeholder="Search by Name/Id"
       />
       <Button
         style={{

@@ -24,7 +24,11 @@ const MessageTable = () => {
     return {
       profile: <img width="45px" src={img} />,
       username: creator.name,
-      creatorId: creator.id,
+      creatorId: (
+        <p className="text-gray-400">
+          Creator ID: <span className="text-black">{creator.id}</span>
+        </p>
+      ),
       message: "button",
     };
   });
@@ -75,6 +79,7 @@ const MessageTable = () => {
   return (
     <div>
       <Table
+        showHeader={false}
         columns={columns}
         dataSource={data}
         loading={loading}

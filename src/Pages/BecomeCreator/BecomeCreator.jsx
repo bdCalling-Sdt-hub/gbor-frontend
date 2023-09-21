@@ -55,13 +55,7 @@ const BecomeCreator = () => {
                     id=""
                   />
                 </div>
-                <input
-                  type="text"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
-                  placeholder="Email"
-                  name=""
-                  id=""
-                />
+
                 <input
                   type="text"
                   className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
@@ -103,8 +97,11 @@ const BecomeCreator = () => {
                 </div>
 
                 <div className="mt-3 mb-8">
-                  <input type="checkbox" className="mr-2" name="" id="term" />
-                  <label htmlFor="term">
+                  <input type="checkbox" className="hidden" name="" id="term" />
+                  <label
+                    htmlFor="term"
+                    className="cursor-pointer label relative"
+                  >
                     I accept the{" "}
                     <Link className="text-[#ff7044]">terms and conditions</Link>
                   </label>

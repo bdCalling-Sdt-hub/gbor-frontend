@@ -42,18 +42,21 @@ const OurCreatorsDetails = () => {
                 <input
                   type="text"
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
-                  placeholder="Enter Gbor Amount"
+                  placeholder="Enter Shot Amount"
                   name=""
                   id=""
                 />
                 <input
                   type="text"
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
-                  placeholder="Enter Gbor Amount"
+                  placeholder="Name of Donor"
                   name=""
                   id=""
                 />
-                <textarea className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32" />
+                <textarea
+                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32"
+                  placeholder="Message"
+                />
                 <div className="flex justify-end items-center">
                   <label htmlFor="" className="mr-2 text-[#4B5563]">
                     Total Cost=

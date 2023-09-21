@@ -1,7 +1,9 @@
 import { Button, Col, Input, Pagination, Row } from "antd";
 import React, { useState } from "react";
+import { CiSearch } from "react-icons/ci";
 import CreatorRequestCard from "../../../Components/Common/CreatorRequestCard/CreatorRequestCard";
 import colors from "../../../Constant/colors";
+
 const CreatorRequest = () => {
   const [hoveredCol, setHoveredCol] = useState(null);
   const style = {
@@ -117,7 +119,8 @@ const CreatorRequest = () => {
       </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
-          placeholder="search by Name/Id"
+          prefix={<CiSearch style={{ fontSize: "18px" }} />}
+          placeholder="Search by Name/Id"
           style={{ height: "44px", border: `1px solid ${colors.primaryColor}` }}
         />
         <Button
