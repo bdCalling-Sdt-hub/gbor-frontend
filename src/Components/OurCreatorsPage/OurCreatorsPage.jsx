@@ -22,7 +22,7 @@ const OurCreatorsPage = () => {
   }
 
   return (
-    <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28">
+    <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28">
       <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 p-4 lg:p-0 mx-auto justify-between">
         <div className="w-full">
           <h1 className="text-5xl font-bold text-[#252525] drop-shadow-xl">

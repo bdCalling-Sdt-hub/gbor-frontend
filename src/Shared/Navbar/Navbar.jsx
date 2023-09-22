@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../Images/logo.png";
+import logo from "../../Images/GBÔR_4.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,11 +25,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="lg:flex items-center w-full justify-between lg:px-16 py-2 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] sticky top-0 z-50">
+    <nav className="lg:flex items-center w-full justify-between lg:px-16 py-1 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] sticky top-0 z-50">
       {contextHolder}
       <div className="flex items-center justify-between px-2">
         <Link to="/">
-          <img className="w-24 md:w-16" src={logo} alt="logo" />
+          <img className="w-16 md:w-20" src={logo} alt="logo" />
         </Link>
         <div
           className="lg:hidden cursor-pointer text-white active:duration-300"

@@ -30,7 +30,7 @@ import WhoWe from "./Pages/WhoWe/WhoWe";
 function App() {
   return (
     <>
-      <div className="maincontainer">
+      <div className="">
         <Router>
           <Routes>
             <Route exact path="/" element={<Home />} />

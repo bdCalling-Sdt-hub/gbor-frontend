@@ -8,7 +8,7 @@ const WhoWe = () => {
   return (
     <div>
       <Navbar />
-      <div className=" bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 ">
+      <div className=" bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28 ">
         <h1 className="text-center p-4 lg:p-0 text-4xl font-bold text-[#252525] drop-shadow-xl">
           Ut enim ad minima veniam,
           <br /> quis nostrum exercitationem.

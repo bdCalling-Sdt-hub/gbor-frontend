@@ -20,7 +20,7 @@ const OurCreatorsDetails = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-12 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-32">
+      <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-32">
         <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 mx-auto justify-between">
           <div className="w-full lg:w-3/4">
             <img width="70%" className="mx-auto" src={img} alt="" />

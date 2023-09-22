@@ -5,7 +5,7 @@ import "./whoWeAre.css";
 
 const WhoWeAre = () => {
   return (
-    <div className=" bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28 ">
+    <div className=" bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28 ">
       <h1 className=" w-3/4 mx-auto text-center text-5xl font-bold pb-4">
         Who we are
       </h1>

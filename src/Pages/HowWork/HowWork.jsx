@@ -8,7 +8,7 @@ const HowWork = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-10 bg-gradient-to-r from-[#f7bcbc] to-[#ff9e5f] pb-28">
+      <div className="pt-10 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28">
         <h1 className="p-4 lg:p-0 text-center text-4xl font-bold text-[#252525]">
           Ut enim ad minima veniam,
           <br /> quis nostrum exercitationem.
