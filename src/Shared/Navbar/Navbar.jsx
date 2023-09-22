@@ -71,7 +71,7 @@ const Navbar = () => {
 
         {location?.pathname === "/" && (
           <li>
-            <div className="border border-[#4B5563] flex items-center rounded-md ">
+            <div className="border border-[#6e7174] flex items-center rounded-md ">
               <input
                 type="text"
                 className="border-0 outline-none bg-transparent p-3 px-2 w-4/6"
