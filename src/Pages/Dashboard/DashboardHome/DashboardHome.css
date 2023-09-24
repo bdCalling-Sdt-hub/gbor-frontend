@@ -1,0 +1,32 @@
+.rent-status {
+  border: 3px solid #b0b3dd;
+  border-radius: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.rent-status:hover {
+  box-shadow: rgba(75, 28, 204, 0.1) 0px 10px 50px;
+}
+
+.single-status {
+  margin-left: 30px;
+  padding: 20px 0px;
+}
+
+@media only screen and (max-width: 1550px) {
+  .rent-status {
+    display: block;
+    text-align: center;
+    padding: 20px 0px;
+  }
+
+  .single-status {
+    margin-left: 0px;
+    padding: 20px 5px;
+  }
+}

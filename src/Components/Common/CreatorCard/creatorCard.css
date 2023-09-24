@@ -1,0 +1,10 @@
+.icons {
+  position: absolute;
+  left: 50%;
+  bottom: -50%;
+  transform: translate(-50%, -50%);
+  transition: 0.4s;
+}
+.card-container:hover .icons {
+  bottom: -2%;
+}

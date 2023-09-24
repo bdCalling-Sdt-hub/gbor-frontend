@@ -1,0 +1,38 @@
+{
+  "header": {
+    "title": "Dashboard"
+  },
+  "dashboard": "Dashboard",
+  "setting": {
+    "title": "Settings"
+  },
+  "kyc": {
+    "title": "KYC",
+    "subTitle1": "Host KYC",
+    "subTitle2": "User KYC",
+    "subTitle3": "Car KYC",
+    "subTitle4": "Form KYC"
+  },
+  "carInfo": "Car Information",
+  "rentInfo": "Rent Information",
+  "userInfo": "User Information",
+  "hostInfo": {
+    "title": "Creator Information",
+    "subTitle1": "Creator List",
+    "subTitle2": "Creator Request"
+  },
+  "payment": {
+    "title": "Payments",
+    "subTitle1": "User Payments",
+    "subTitle2": "Host Payments",
+    "subTitle3": "Strip Bills",
+    "subTitle4": "Renti's Income",
+    "subTitle5": "Wallet"
+  },
+  "earning": {
+    "title": "Earnings",
+    "subTitle1": "Daily",
+    "subTitle2": "Weekly",
+    "subTitle3": "Monthly"
+  }
+}

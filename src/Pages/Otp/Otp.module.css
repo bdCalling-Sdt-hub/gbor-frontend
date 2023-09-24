@@ -1,0 +1,29 @@
+.otpContainer {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.formContainer {
+  background: #ffffff;
+  padding: 50px;
+  border-radius: 10px;
+  width: 510px;
+  height: 554px;
+  box-shadow: 0 0 2px rgb(66, 66, 66);
+}
+.otpInput {
+  width: 50px;
+  height: 70px;
+}
+
+.rememberAndPass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}

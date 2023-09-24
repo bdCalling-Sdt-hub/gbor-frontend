@@ -1,0 +1,74 @@
+:where(.css-dev-only-do-not-override-17a39f8).ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item {
+  margin-bottom: 10px;
+  padding: 20px 10px;
+  line-height: 20px;
+}
+
+/* * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Abril Fatface", cursive !important;
+} */
+
+.ant-layout-sider-children .ant-menu-item-selected {
+  color: #fb7c29;
+  font-weight: bold;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td {
+  background: #fb7c29;
+  color: white;
+  border: 0;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination
+  .ant-pagination-item-active:hover {
+  border-color: #fb7c29;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination
+  .ant-pagination-item-active {
+  font-weight: 600;
+  background-color: #ffffff;
+  border-color: #fb7c29;
+  border-radius: 5px;
+}
+
+:root {
+  --primary-color: #fb7c29;
+  --secondary-color: #ef4444;
+  --black-color: #252525;
+  --mute-color: #4b5563;
+}
+
+/**/
+.label {
+  position: relative;
+  margin-left: 20px;
+}
+.label::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 0;
+  width: 15px; /* Width of the custom checkbox */
+  height: 15px; /* Height of the custom checkbox */
+  border: 1px solid black; /* Border of the checkbox */
+  background-color: #fff;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input[type="checkbox"]:checked + label::before {
+  background-color: #fb7c29; /* Change background color when checked */
+  border-color: #fff; /* Change border color when checked */
+}

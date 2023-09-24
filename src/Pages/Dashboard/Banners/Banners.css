@@ -1,0 +1,7 @@
+.gbor-carousel .slick-list{
+    border-radius: 15px !important;
+}
+
+.swiper-pagination-bullet-active{
+    background-color:#fb7c29 ;
+}

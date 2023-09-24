@@ -1,0 +1,21 @@
+.emailContainer {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.formContainer {
+  background: #ffffff;
+  padding: 50px;
+  border-radius: 10px;
+  width: 510px;
+  height: 554px;
+  box-shadow: 0 0 2px rgb(66, 66, 66);
+}
+.input {
+  height: 45px;
+}

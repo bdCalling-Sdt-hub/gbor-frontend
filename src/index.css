@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: clash-display;
+  src: url("./Util/fonts/ClashDisplay-Regular.ttf");
+}
+@font-face {
+  font-family: clash-display-bold;
+  src: url("./Util/fonts/ClashDisplay-Bold.ttf");
+}
+
+body {
+  /* width: 100%;
+  background: url("./Images/Noise.png"), linear-gradient(#f17373, #f9b28e);
+  overflow: auto;
+  background-repeat: no-repeat;
+  background-position: center; */
+  font-family: clash-display;
+  overflow-x: hidden;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+h1 {
+  font-family: clash-display-bold;
+}
+
+.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+  display: none;
+}
+
+.goog-te-gadget .goog-te-combo {
+  padding: 10px 15px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.goog-te-banner-frame {
+  display: none;
+  margin-top: -20px;
+}
+.goog-logo-link {
+  display: none !important;
+}
+.goog-te-gadget {
+  color: transparent !important;
+}
+
+#google_translate_element {
+  display: inline-block;
+
+  border-radius: 4px;
+  padding: 10px 20px;
+}
