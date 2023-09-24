@@ -29,12 +29,12 @@ const MessageTable = () => {
           Creator ID: <span className="text-black">{creator.id}</span>
         </p>
       ),
-      message: "button",
+      message: creator,
     };
   });
 
-  const handleMessage = (id) => {
-    navigate(`/dashboard/message/${id}`);
+  const handleMessage = (e) => {
+    navigate(`/dashboard/message/${e.message.id}`);
   };
 
   const columns = [
@@ -65,7 +65,7 @@ const MessageTable = () => {
       ) => (
         <div className="text-right ">
           <button
-            onClick={() => handleMessage(record.creatorId)}
+            onClick={() => handleMessage(record)}
             type="text"
             className="bg-[#fb7c29] p-1 px-2 rounded"
           >

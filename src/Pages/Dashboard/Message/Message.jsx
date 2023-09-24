@@ -5,7 +5,12 @@ import colors from "../../../Constant/colors";
 import MessageTable from "./MessageTable";
 
 const Message = () => {
-  const [messageOpen, setMessageOpen] = useState(true);
+  const [messageOpen, setMessageOpen] = useState(localStorage.message || true);
+  const handleMessageSend = (e) => {
+    setMessageOpen(e);
+    localStorage.setItem("message", e);
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between gap-1 mb-2">
@@ -21,9 +26,9 @@ const Message = () => {
         </p>
         <Switch
           defaultChecked={messageOpen}
-          onChange={(e) => setMessageOpen(e)}
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
+          onChange={handleMessageSend}
+          checkedChildren="Hide"
+          unCheckedChildren="Show"
           style={{ background: "#fb7c29" }}
         />
       </div>
