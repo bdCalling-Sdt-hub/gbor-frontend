@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../Images/GBÔR_4.png";
+import logo from "../../Images/Logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
