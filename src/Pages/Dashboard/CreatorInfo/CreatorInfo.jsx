@@ -37,7 +37,7 @@ const CreatorInfo = () => (
         fontWeight: "normal",
       }}
     >
-      All Host List With Their Information
+      Creator List
     </h2>
     <CreatorInfoTable />
   </div>

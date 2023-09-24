@@ -72,3 +72,7 @@ input[type="checkbox"]:checked + label::before {
   background-color: #fb7c29; /* Change background color when checked */
   border-color: #fff; /* Change border color when checked */
 }
+
+.my-class {
+  margin-left: auto !important;
+}

@@ -17,21 +17,21 @@ const Earning = () => (
       <Col className="gutter-row" span={8}>
         <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
           <HiOutlineCurrencyDollar style={{ width: "28px", height: "28px" }} />
-          <h1 className="text-2xl">Today's income</h1>
+          <h2 className="text-2xl">Today's income</h2>
           <h3 className="text-2xl">$ 250.00</h3>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
         <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
           <HiOutlineCurrencyDollar style={{ width: "28px", height: "28px" }} />
-          <h1 className="text-2xl">Weekly income</h1>
+          <h2 className="text-2xl">Weekly income</h2>
           <h3 className="text-2xl">$ 250.00</h3>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
         <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
           <HiOutlineCurrencyDollar style={{ width: "28px", height: "28px" }} />
-          <h1 className="text-2xl">Monthly income</h1>
+          <h2 className="text-2xl">Monthly income</h2>
           <h3 className="text-2xl">$ 250.00</h3>
         </div>
       </Col>

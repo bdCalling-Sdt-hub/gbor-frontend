@@ -1,161 +1,131 @@
-import { Button, Drawer, Table, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
-import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-];
-
 const CreatorInfoTable = () => {
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const pageSize = 5;
+
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [invoiceData, setInvoiceData] = useState(null);
+
+  const showDrawer = (record) => {
+    setIsDrawerVisible(true);
+    setInvoiceData(record);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    setInvoiceData(null);
+  };
+
+  const data = [...Array(15).keys()].map((item) => {
+    return {
+      creatorId: 5645451521,
+      name: "Sif Fahim",
+      webLink: "saifulportfolio.netlify.app",
+      action: "button",
+    };
+  });
+
   const columns = [
+    {
+      title: "CREATOR ID",
+      dataIndex: "creatorId",
+      key: "creatorId",
+    },
     {
       title: "NAME",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "EMAIL",
-      dataIndex: "email",
-      key: "email",
-      responsive: ["md"],
-    },
-    {
-      title: "CONTACT",
-      dataIndex: "contact",
-      key: "contact",
+      title: "WEB LINK",
+      dataIndex: "webLink",
+      key: "webLink",
       responsive: ["lg"],
     },
     {
-      title: "JOINING DATE",
-      dataIndex: "joiningDate",
-      key: "joiningDate",
-    },
-    {
-      title: "CARS",
-      dataIndex: "cars",
-      key: "cars",
-      responsive: ["md"],
-    },
-    {
-      title: "ACTIONS",
-      dataIndex: "actions",
-      key: "actions",
+      title: (
+        <div className="text-right">
+          <p>ACTION</p>
+        </div>
+      ),
+      dataIndex: "action",
+      key: "action",
       responsive: ["lg"],
       render: (_, record) => (
-        <div style={{ textAlign: "center" }}>
-          <Button
-            onClick={() => showDrawer(record)}
-            type="text"
-            style={{ marginRight: "10px" }}
-          >
-            <BsEye style={{ fontSize: "25px", color: "#999999" }} />
+        <div style={{ textAlign: "right" }}>
+          <Button type="text" style={{ marginRight: "10px" }}>
+            <BsEye style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
-          <Button type="text">
-            <RiDeleteBin5Line style={{ fontSize: "25px", color: "#999999" }} />
+          <Button onClick={() => showDrawer(record)} type="text">
+            <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
         </div>
       ),
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setHostData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setHostData(null);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(currentPage);
   };
 
   return (
-    <div>
-      <Table columns={columns} dataSource={data} />
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: 15,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
+                Invoice# Trip No.{invoiceData?.invoiceNo}
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
           </div>
         }
-        closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={600}
+        width={500}
+        closable={false}
+        extra={
+          <Space>
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                color: "red",
+                height: "50px",
+                width: "50px",
+                textAlign: "center",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
+        }
       >
-        {hostData && <DrawerPage hostData={hostData} />}
+        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
       </Drawer>
-    </div>
+    </>
   );
 };
-
 export default CreatorInfoTable;

@@ -11,10 +11,10 @@ import {
   Scrollbar,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import InvoiceTable from "./InvoiceTable";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import TransactionTable from "./TransactionTable";
 
 function DashboardHome() {
   const contentStyle = {
@@ -71,7 +71,7 @@ function DashboardHome() {
             <HiOutlineCurrencyDollar
               style={{ width: "28px", height: "28px" }}
             />
-            <h1 className="text-2xl">Today's income</h1>
+            <h2 className="text-2xl">Today's income</h2>
             <h3 className="text-2xl">$ 250.00</h3>
           </div>
         </Col>
@@ -87,7 +87,7 @@ function DashboardHome() {
             <HiOutlineCurrencyDollar
               style={{ width: "28px", height: "28px" }}
             />
-            <h1 className="text-2xl">Weekly income</h1>
+            <h2 className="text-2xl">Weekly income</h2>
             <h3 className="text-2xl">$ 250.00</h3>
           </div>
         </Col>
@@ -103,7 +103,7 @@ function DashboardHome() {
             <HiOutlineCurrencyDollar
               style={{ width: "28px", height: "28px" }}
             />
-            <h1 className="text-2xl">Monthly income</h1>
+            <h2 className="text-2xl">Monthly income</h2>
             <h3 className="text-2xl">$ 250.00</h3>
           </div>
         </Col>
@@ -179,7 +179,7 @@ function DashboardHome() {
           Transaction histroy
         </h2>
       </Row>
-      <InvoiceTable />
+      <TransactionTable />
     </div>
   );
 }

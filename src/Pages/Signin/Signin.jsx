@@ -24,10 +24,10 @@ const Signin = () => {
         <img width="95%" className="mx-auto" src={signin} alt="" />
       </Col>
       <Col span={7} className="p-6">
-        <h1 className="text-black text-center text-3xl font-bold mb-4">
+        <h2 className="text-black text-center text-3xl font-bold mb-4">
           Welcome
-        </h1>
-        <h2 className="text-lg text-gray-500 font-bold mb-4">Expert sign In</h2>
+        </h2>
+        <h2 className="text-xl text-gray-700 font-bold mb-4">Expert sign In</h2>
         <Form
           name="normal_login"
           className="login-form"
@@ -79,7 +79,7 @@ const Signin = () => {
 
           <Form.Item className={style.rememberAndPass}>
             <Link
-              className="login-form-forgot text-xl"
+              className="login-form-forgot text-lg"
               style={{ color: "black" }}
               to="/email"
             >

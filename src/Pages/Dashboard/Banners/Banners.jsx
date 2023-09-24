@@ -19,7 +19,7 @@ function Banners() {
   const [bannerImage, setBannerImage] = useState([]);
 
   const contentStyle = {
-    height: "400px",
+    height: "500px",
     width: "100%",
     borderRadius: "15px",
   };
@@ -36,7 +36,7 @@ function Banners() {
     <>
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }}>
-          <h2 style={{ fontWeight: 500 }}> Current Banners</h2>
+          <h2 className="text-xl font-medium"> Current Banners</h2>
         </Col>
       </Row>
 
@@ -67,7 +67,7 @@ function Banners() {
             <div>
               <img
                 style={contentStyle}
-                src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
+                src="https://www.local-training.com/images/n_noimg.jpg"
               />
             </div>
           )}
@@ -76,7 +76,7 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }}>
-          <h2 style={{ fontWeight: 500 }}> Upload New Banners</h2>
+          <h2 className="text-xl font-medium"> Upload New Banners</h2>
         </Col>
       </Row>
 
@@ -107,7 +107,7 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }}>
-          <h2 style={{ fontWeight: 500 }}>Previously Upload</h2>
+          <h2 className="text-xl font-medium">Previously Upload</h2>
         </Col>
       </Row>
 
@@ -124,16 +124,45 @@ function Banners() {
           >
             <img
               style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://www.fajarmag.com/wp-content/uploads/2022/12/no-non.jpg"
+              src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
             />
             <Button
               style={{
                 position: "absolute",
                 top: "40%",
                 left: "20%",
-                border: "1px solid #fb7c29",
                 color: "#fb7c29",
                 background: "#fff",
+                opacity: 0.8,
+              }}
+            >
+              Remove
+            </Button>
+          </div>
+
+          <div
+            style={{
+              position: "relative",
+              width: "130px",
+              height: "130px",
+              borderRadius: "10px",
+              marginBottom: "20px",
+              opacity: 0.8,
+            }}
+          >
+            <img
+              style={{ width: "130px", height: "130px", borderRadius: "10px" }}
+              src="https://images.unsplash.com/photo-1622890806166-111d7f6c7c97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
+            />
+            <Button
+              style={{
+                position: "absolute",
+                top: "40%",
+                left: "20%",
+
+                color: "#fb7c29",
+                background: "#fff",
+                opacity: 0.8,
               }}
             >
               Remove
@@ -151,16 +180,17 @@ function Banners() {
           >
             <img
               style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://www.fajarmag.com/wp-content/uploads/2022/12/no-non.jpg"
+              src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
             />
             <Button
               style={{
                 position: "absolute",
                 top: "40%",
                 left: "20%",
-                border: "1px solid #fb7c29",
+
                 color: "#fb7c29",
                 background: "#fff",
+                opacity: 0.8,
               }}
             >
               Remove
@@ -178,43 +208,17 @@ function Banners() {
           >
             <img
               style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://www.fajarmag.com/wp-content/uploads/2022/12/no-non.jpg"
+              src="https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
             />
             <Button
               style={{
                 position: "absolute",
                 top: "40%",
                 left: "20%",
-                border: "1px solid #fb7c29",
-                color: "#fb7c29",
-                background: "#fff",
-              }}
-            >
-              Remove
-            </Button>
-          </div>
 
-          <div
-            style={{
-              position: "relative",
-              width: "130px",
-              height: "130px",
-              borderRadius: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <img
-              style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://www.fajarmag.com/wp-content/uploads/2022/12/no-non.jpg"
-            />
-            <Button
-              style={{
-                position: "absolute",
-                top: "40%",
-                left: "20%",
-                border: "1px solid #fb7c29",
                 color: "#fb7c29",
                 background: "#fff",
+                opacity: 0.8,
               }}
             >
               Remove

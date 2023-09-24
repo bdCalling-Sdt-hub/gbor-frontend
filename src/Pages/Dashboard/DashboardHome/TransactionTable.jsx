@@ -6,7 +6,9 @@ import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnHistoryTable = () => {
+const TransactionTable = () => {
+  const [rentData, setRentData] = useState([]); // Data fetched from the server
+  const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
 
@@ -26,9 +28,11 @@ const EarnHistoryTable = () => {
   const data = [...Array(15).keys()].map((item) => {
     return {
       transactionId: 5645451521,
-      date: "4/03/2015",
+      creatorName: "Fahim",
       donarName: "Kate",
-      amount: 470.0,
+      date: "4/03/2015",
+      received: 545,
+      cfa: 7548,
       action: "button",
     };
   });
@@ -40,9 +44,10 @@ const EarnHistoryTable = () => {
       key: "transactionId",
     },
     {
-      title: "DATE",
-      dataIndex: "date",
-      key: "date",
+      title: "CREATOR NAME",
+      dataIndex: "creatorName",
+      key: "creatorName",
+      responsive: ["md"],
     },
     {
       title: "DONAR NAME",
@@ -50,11 +55,21 @@ const EarnHistoryTable = () => {
       key: "donarName",
       responsive: ["lg"],
     },
-
     {
-      title: "AMOUNT",
-      dataIndex: "amount",
-      key: "amount",
+      title: "DATE",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: "RECEIVED",
+      dataIndex: "received",
+      key: "received",
+      responsive: ["md"],
+    },
+    {
+      title: "CFA",
+      dataIndex: "cfa",
+      key: "cfa",
     },
     {
       title: (
@@ -135,4 +150,4 @@ const EarnHistoryTable = () => {
     </>
   );
 };
-export default EarnHistoryTable;
+export default TransactionTable;
