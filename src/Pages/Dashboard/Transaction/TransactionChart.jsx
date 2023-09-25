@@ -1,105 +1,113 @@
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const data = [
   {
     name: "Fahim",
-    uv: 4000,
+    price: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
     name: "Winslate",
-    uv: 3000,
+    price: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
     name: "Lisa",
-    uv: 2000,
+    price: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
     name: "Rose",
-    uv: 2780,
+    price: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
     name: "Bride",
-    uv: 1890,
+    price: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
     name: "Sergio",
-    uv: 2390,
+    price: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
     name: "Martino",
-    uv: 3490,
+    price: 3490,
     pv: 4300,
     amt: 2100,
   },
   {
     name: "Shiku",
-    uv: 2780,
+    price: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
     name: "Tom Holland",
-    uv: 1590,
+    price: 1590,
     pv: 4800,
     amt: 2181,
   },
   {
     name: "Deep",
-    uv: 2590,
+    price: 2590,
     pv: 3800,
     amt: 2500,
   },
   {
     name: "Tus",
-    uv: 3890,
+    price: 3890,
     pv: 4300,
     amt: 2100,
   },
   {
     name: "Sergio",
-    uv: 2390,
+    price: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
     name: "Martino",
-    uv: 3490,
+    price: 3490,
     pv: 4300,
     amt: 2100,
   },
   {
     name: "Shiku",
-    uv: 2780,
+    price: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
     name: "Tom Holland",
-    uv: 1590,
+    price: 1590,
     pv: 4800,
     amt: 2181,
   },
   {
     name: "Deep",
-    uv: 2590,
+    price: 2590,
     pv: 3800,
     amt: 2500,
   },
   {
     name: "Tus",
-    uv: 3890,
+    price: 3890,
     pv: 4300,
     amt: 2100,
   },
@@ -111,7 +119,7 @@ const TransactionChart = () => {
       <BarChart
         width={600}
         height={200}
-        data={data.slice(0, 10)}
+        data={data.slice(0, 13)}
         syncId="anyId"
         margin={{
           top: 10,
@@ -120,9 +128,11 @@ const TransactionChart = () => {
           bottom: 0,
         }}
       >
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
         <XAxis dataKey="name" />
         <YAxis />
-        <Bar dataKey="uv" fill="#fb7c29" />
+        <Bar dataKey="price" fill="#fb7c29" />
       </BarChart>
     </ResponsiveContainer>
   );

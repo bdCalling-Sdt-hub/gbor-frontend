@@ -6,7 +6,7 @@ const Transaction = () => {
   return (
     <div>
       <h2
-        style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "bold" }}
+        style={{ fontSize: "25px", marginBottom: "30px", fontWeight: "normal" }}
       >
         Transaction Ratio
       </h2>
@@ -16,7 +16,7 @@ const Transaction = () => {
           fontSize: "25px",
           marginTop: "50px",
           marginBottom: "20px",
-          fontWeight: "bold",
+          fontWeight: "normal",
         }}
       >
         Transaction History

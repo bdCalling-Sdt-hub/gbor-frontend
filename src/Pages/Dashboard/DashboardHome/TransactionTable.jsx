@@ -85,7 +85,7 @@ const TransactionTable = () => {
           <Button type="text" style={{ marginRight: "10px" }}>
             <BsEye style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
-          <Button onClick={() => showDrawer(record)} type="text">
+          <Button type="text">
             <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
         </div>

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
+import { Badge, Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
 import { Divider } from "antd";
 
@@ -11,6 +11,7 @@ import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BiMessageDots, BiTransfer } from "react-icons/bi";
 import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
+import { IoIosNotificationsOutline } from "react-icons/io";
 import { PiImage } from "react-icons/pi";
 import { Link, Outlet } from "react-router-dom";
 import colors from "../../Constant/colors.jsx";
@@ -346,7 +347,7 @@ const Dashboard = () => {
             className={Styles.notificatonProfileSection}
             style={{ display: "flex", alignItems: "center", lineHeight: 0 }}
           >
-            <div className="" style={{ marginRight: "40px" }}>
+            <div className="" style={{ marginRight: "30px" }}>
               <Select
                 value={selectedLanguage}
                 style={{ width: 150 }}
@@ -373,7 +374,7 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton}>
+            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
               <Dropdown
                 overlay={menu}
                 placement="bottomRight"
@@ -381,13 +382,13 @@ const Dashboard = () => {
                   pointAtCenter: true,
                 }}
               >
-                <img
-                  style={{ cursor: "pointer" }}
-                  width="30"
-                  height="30"
-                  src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-                  alt="appointment-reminders--v1"
-                />
+                <Badge count={1} color="#fb7c29">
+                  <IoIosNotificationsOutline
+                    className="cursor-pointer"
+                    fontSize={35}
+                    color="#fb7c29"
+                  />
+                </Badge>
               </Dropdown>
             </div>
             <div className={Styles.profile}>
