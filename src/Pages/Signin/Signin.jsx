@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 import logo from "../../Images/Logo.png";
 import signin from "../../Images/signin.png";
 import style from "./Signin.module.css";
-
+import axios from "axios"
 const Signin = () => {
-  const onFinish = (values) => {
+  const onFinish = async(values) => {
     console.log("Received values of form: ", values);
+    const response=await axios.post("http://localhost:8000/pay");
+        let data=response.data;
+        console.log(data)
+     
   };
 
   const navigate = useNavigate();
@@ -89,6 +93,7 @@ const Signin = () => {
 
           <Form.Item className="block text-center">
             <Button
+            onClick={onFinish}
               htmlType="submit"
               className="login-form-button bg-[#fb7c29] text-white w-28 h-10"
             >
