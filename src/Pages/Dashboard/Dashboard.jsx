@@ -8,14 +8,15 @@ import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { AiOutlineDollarCircle } from "react-icons/ai";
-import { BiMessageDots, BiTransfer } from "react-icons/bi";
+import { BiMessageDots, BiTransfer, BiUser } from "react-icons/bi";
 import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { PiImage } from "react-icons/pi";
-import { Link, Outlet } from "react-router-dom";
+import { PiImage, PiSignOutThin } from "react-icons/pi";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import colors from "../../Constant/colors.jsx";
 import GBORLOGO from "../../Images/GBORLOGO.png";
+import admin from "../../Images/admin.png";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -25,70 +26,32 @@ const profileItems = [
   {
     key: 1,
     label: (
-      <Link to="/notification" style={{ height: "50px" }} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{ marginRight: "20px" }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/windows/32/gender-neutral-user.png"
-            alt="gender-neutral-user"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>Profile</p>
-          </div>
-        </div>
+      <Link
+        to="/notification"
+        className="flex items-center gap-2 text-lg"
+        style={{ padding: "0px" }}
+      >
+        <BiUser color="#fb7c29" fontSize={20} />
+        Profile
       </Link>
     ),
   },
   {
     key: 2,
     label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{ marginRight: "20px" }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-            alt="appointment-reminders--v1"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>Notification</p>
-          </div>
-        </div>
+      <Link to="/notification" className="flex items-center gap-2 text-lg">
+        <IoIosNotificationsOutline color="#fb7c29" fontSize={20} />
+        Notification
       </Link>
     ),
   },
   {
     key: 3,
     label: (
-      <div
-        style={{ border: "none", backgroundColor: "transparent" }}
-        rel="noreferrer"
-      >
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{ marginRight: "20px" }}
-            width="25"
-            height="25"
-            src="https://img.icons8.com/ios/50/exit--v1.png"
-            alt="exit--v1"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>Logout</p>
-          </div>
-        </div>
-      </div>
+      <Link to="/notification" className="flex items-center gap-2 text-lg">
+        <PiSignOutThin color="#fb7c29" fontSize={20} />
+        Logout
+      </Link>
     ),
   },
 ];
@@ -131,6 +94,9 @@ const Dashboard = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.lang || "en"
   );
+  const location = useLocation();
+
+  console.log(location.pathname);
 
   const {
     token: { colorBgContainer },
@@ -327,20 +293,33 @@ const Dashboard = () => {
             paddingRight: "60px",
           }}
         >
-          <div className="" style={{ display: "flex", alignItems: "center" }}>
+          <div
+            className=""
+            style={{ display: "flex", alignItems: "center", gap: "5px" }}
+          >
             <Button
               type="text"
-              icon={collapsed ? <MenuOutlined /> : <MenuOutlined />}
+              icon={
+                collapsed ? (
+                  <MenuOutlined style={{ color: "orangered" }} />
+                ) : (
+                  <MenuOutlined style={{ color: "orangered" }} />
+                )
+              }
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
-                fontSize: "16px",
+
                 width: 45,
                 height: 45,
-                marginRight: "10px",
+                fontSize: "12px",
               }}
             />
-            <h2>{t("header.title")}</h2>
+            {location.pathname === "/dashboard" && (
+              <h2 className="text-xl font-medium text-orange-400">
+                {t("header.title")}
+              </h2>
+            )}
           </div>
 
           <div
@@ -391,7 +370,7 @@ const Dashboard = () => {
                 </Badge>
               </Dropdown>
             </div>
-            <div className={Styles.profile}>
+            <div>
               <Dropdown
                 menu={{
                   items: profileItems,
@@ -402,11 +381,14 @@ const Dashboard = () => {
                 }}
               >
                 <img
-                  style={{ cursor: "pointer" }}
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-                  alt="person-male--v2"
+                  style={{
+                    cursor: "pointer",
+                    borderRadius: "50%",
+                  }}
+                  width="45"
+                  height="45"
+                  src={admin}
+                  alt="admin-image"
                 />
               </Dropdown>
             </div>

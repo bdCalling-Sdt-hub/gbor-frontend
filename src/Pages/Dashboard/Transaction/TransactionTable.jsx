@@ -13,16 +13,16 @@ const TransactionTable = () => {
   const pageSize = 5;
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [transactionData, setTransactionData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setTransactionData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setTransactionData(null);
   };
 
   const data = [...Array(15).keys()].map((item) => {
@@ -82,7 +82,11 @@ const TransactionTable = () => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ textAlign: "right" }}>
-          <Button type="text" style={{ marginRight: "10px" }}>
+          <Button
+            onClick={() => showDrawer(record)}
+            type="text"
+            style={{ marginRight: "10px" }}
+          >
             <BsEye style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
@@ -116,27 +120,31 @@ const TransactionTable = () => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Transaction ID
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>
+                See all information about the transaction id no. 68656
+              </Text>
             </Typography>
           </div>
         }
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>
             <Button
               style={{
+                height: "40px",
+                width: "40px",
                 borderRadius: "100%",
                 backgroundColor: "white",
-                color: "red",
-                height: "50px",
-                width: "50px",
-                textAlign: "center",
+                color: "#fb7c29",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onClick={closeDrawer}
             >
@@ -145,7 +153,7 @@ const TransactionTable = () => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {transactionData && <DrawerPage transactionData={transactionData} />}
       </Drawer>
     </>
   );
