@@ -353,7 +353,7 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
+            <div className={Styles.notificaton} style={{ marginRight: "30px" }}>
               <Dropdown
                 overlay={menu}
                 placement="bottomRight"
@@ -386,7 +386,7 @@ const Dashboard = () => {
                     borderRadius: "50%",
                   }}
                   width="45"
-                  height="45"
+                  className="border drop-shadow-sm border-orange-400"
                   src={admin}
                   alt="admin-image"
                 />
