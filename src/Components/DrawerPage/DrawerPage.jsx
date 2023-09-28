@@ -1,7 +1,16 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
-import React from "react";
+import {
+  Badge,
+  Button,
+  Col,
+  Input,
+  Row,
+  Select,
+  Typography,
+  message,
+} from "antd";
+import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { GrLinkedinOption } from "react-icons/gr";
@@ -11,52 +20,18 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const DrawerPage = (props) => {
-  const style = {
-    cardType: {
-      height: "150px",
-      width: "250px",
-      background: props.cardBg,
-      borderRadius: "10px",
-      position: "relative",
-    },
-    icon: {
-      position: "absolute",
-      bottom: "10px",
-      left: "10px",
-      background: "#fff",
-      padding: "0 8px",
-      paddingTop: "8px",
-      borderRadius: "3px",
-    },
-    title: {
-      color: "#8d8d8d",
-      fontWeight: "normal",
-    },
-    editInput: {
-      height: "45px",
-    },
+  const [messageApi, contextHolder] = message.useMessage();
+  const [approve, setApprove] = useState(false);
+  const handleDonarMessage = () => {
+    messageApi.open({
+      type: "success",
+      content: "Message Approved",
+    });
+    setApprove(true);
   };
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 100,
-          height: "45px",
-        }}
-      >
-        <Option value="86">🏳️‍🌈</Option>
-        <Option value="87">🏳️‍⚧️</Option>
-      </Select>
-    </Form.Item>
-  );
-
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  };
-
   return (
     <>
+      {contextHolder}
       {props.transactionData && (
         <>
           <div
@@ -232,6 +207,28 @@ const DrawerPage = (props) => {
                   content, here's a donation as a token of appreciation, along
                   with wishes for your continued success and innovation. 🌟
                 </textarea>
+                {approve ? (
+                  <button
+                    disabled
+                    style={{
+                      border: "1px solid #fb7c29",
+                      color: "#fb7c29",
+                      height: 50,
+                      width: "100%",
+                      borderRadius: "3px",
+                    }}
+                  >
+                    Approved
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleDonarMessage}
+                    className=" w-full h-12 bg-[#FB7C29] text-white hover:bg-red-500 rounded duration-200"
+                    style={{ color: "white", border: "none" }}
+                  >
+                    Approve Message
+                  </button>
+                )}
               </Col>
             </Row>
           </div>

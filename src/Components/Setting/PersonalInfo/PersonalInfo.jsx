@@ -65,7 +65,7 @@ const PersonalInfo = () => {
             </div>
             <div>
               <Button
-                className="flex items-center bg-[#FB7C29] text-white hover:bg-red-500"
+                className="flex items-center bg-[#FB7C29] text-white hover:bg-red-500 duration-200"
                 onClick={handleChange}
                 style={{ color: "white", border: "none" }}
               >

@@ -1,7 +1,6 @@
 import { Button, Input, Switch } from "antd";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import colors from "../../../Constant/colors";
 import MessageTable from "./MessageTable";
 
 const Message = () => {
@@ -14,16 +13,24 @@ const Message = () => {
   return (
     <div>
       <div className="flex items-center justify-between gap-1 mb-2">
-        <p
-          style={{
-            fontSize: "25px",
-            margin: "10px 0",
-            fontWeight: "normal",
-            color: "#fb7c29",
-          }}
-        >
-          Send message to all creators
-        </p>
+        {messageOpen ? (
+          <p
+            style={{
+              fontSize: "25px",
+              margin: "10px 0",
+              fontWeight: "normal",
+              color: "#fb7c29",
+            }}
+          >
+            Send message to all creators
+          </p>
+        ) : (
+          <h2
+            style={{ fontSize: "25px", margin: "10px 0", fontWeight: "normal" }}
+          >
+            Search creator
+          </h2>
+        )}
         <Switch
           defaultChecked={messageOpen}
           onChange={handleMessageSend}
@@ -44,21 +51,20 @@ const Message = () => {
           </button>
         </div>
       )}
-      {/* <h2 style={{ fontSize: "25px", margin: "10px 0", fontWeight: "normal" }}>
-        Search creator
-      </h2> */}
+
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
           placeholder="Search creator by Name/Id"
-          style={{ height: "44px", border: `1px solid ${colors.primaryColor}` }}
+          style={{ height: "50px", border: `1px solid #fb7c29` }}
         />
         <Button
           style={{
             background: "#fb7c29",
             color: "white",
-            height: 45,
+            height: 50,
             width: "180px",
+            border: "none",
           }}
         >
           Search

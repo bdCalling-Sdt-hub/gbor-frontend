@@ -1,12 +1,12 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { BsEye } from "react-icons/bs";
+import { BsPrinter } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnHistoryTable = () => {
+const EarnTodayTable = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
 
@@ -72,7 +72,7 @@ const EarnHistoryTable = () => {
             type="text"
             style={{ marginRight: "10px" }}
           >
-            <BsEye style={{ fontSize: "20px", color: "#595959" }} />
+            <BsPrinter style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
             <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
@@ -143,4 +143,4 @@ const EarnHistoryTable = () => {
     </>
   );
 };
-export default EarnHistoryTable;
+export default EarnTodayTable;
