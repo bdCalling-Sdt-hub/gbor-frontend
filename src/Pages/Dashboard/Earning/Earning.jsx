@@ -1,19 +1,25 @@
 import { Button, Col, Input, Popover, Radio, Row, Space } from "antd";
 
 import React, { useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { HiOutlineAdjustments, HiOutlineCurrencyDollar } from "react-icons/hi";
+import { CiDollar, CiSearch } from "react-icons/ci";
+import { HiOutlineAdjustments } from "react-icons/hi";
+import { useParams } from "react-router-dom";
+import EarnMonthlyTable from "./EarnMonthlyTable";
 import EarnTodayTable from "./EarnTodayTable";
 import EarnWeaklyTable from "./EarnWeaklyTable";
 
 const Earning = () => {
   const [donationAmount, setDonationAmount] = useState(1);
   const [timePeriod, setTimePeriod] = useState(1);
+  const { income } = useParams();
+
+  console.log(income);
 
   const handleAdjustSearch = () => {
     console.log(donationAmount, timePeriod);
   };
 
+  //search filter content here---->
   const content = (
     <div>
       <p
@@ -60,6 +66,7 @@ const Earning = () => {
         </Space>
       </Radio.Group>
       <button
+        onClick={handleAdjustSearch}
         className="w-full my-3 text-center rounded py-2 text-[#fb7c29] hover:bg-orange-500 hover:text-white block"
         style={{
           fontSize: "15px",
@@ -83,37 +90,53 @@ const Earning = () => {
         style={{ marginTop: "20px" }}
       >
         <Col className="gutter-row" span={8}>
-          <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
-            <HiOutlineCurrencyDollar
-              style={{ width: "28px", height: "28px" }}
-            />
-            <h2 className="text-2xl">Today's income</h2>
-            <h3 className="text-2xl">$ 250.00</h3>
+          <div
+            className={`${
+              income === "today-income"
+                ? "bg-white border text-orange-500 border-orange-500"
+                : "text-white "
+            } bg-[#fb7c29] p-8  text-center flex flex-col items-center rounded-md space-y-4 select-none drop-shadow duration-200`}
+          >
+            <CiDollar style={{ width: "28px", height: "28px" }} />
+            <h2 className="text-2xl">Today's Earning</h2>
+            <h3 className="text-2xl font-medium">$ 250.00</h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
-          <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
-            <HiOutlineCurrencyDollar
-              style={{ width: "28px", height: "28px" }}
-            />
-            <h2 className="text-2xl">Weekly income</h2>
-            <h3 className="text-2xl">$ 250.00</h3>
+          <div
+            className={`${
+              income === "weekly-income"
+                ? "bg-white border text-orange-500 border-orange-500"
+                : "text-white "
+            } bg-[#fb7c29] p-8  text-center flex flex-col items-center rounded-md space-y-4 select-none drop-shadow duration-200`}
+          >
+            <CiDollar style={{ width: "28px", height: "28px" }} />
+            <h2 className="text-2xl">Weekly Earning</h2>
+            <h3 className="text-2xl font-medium">$ 250.00</h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
-          <div className="bg-[#fb7c29] p-8 text-center flex flex-col items-center rounded-md space-y-4 text-white select-none">
-            <HiOutlineCurrencyDollar
-              style={{ width: "28px", height: "28px" }}
-            />
-            <h2 className="text-2xl">Monthly income</h2>
-            <h3 className="text-2xl">$ 250.00</h3>
+          <div
+            className={`${
+              income === "monthly-income"
+                ? "bg-white border text-orange-500 border-orange-500"
+                : "text-white "
+            } bg-[#fb7c29] p-8  text-center flex flex-col items-center rounded-md space-y-4 select-none drop-shadow duration-200`}
+          >
+            <CiDollar style={{ width: "28px", height: "28px" }} />
+            <h2 className="text-2xl">Monthly Earning</h2>
+            <h3 className="text-2xl font-medium">$ 250.00</h3>
           </div>
         </Col>
       </Row>
       <h2
         style={{ fontSize: "25px", margin: "30px 0px", fontWeight: "normal" }}
       >
-        Daily Earnings
+        {income === "today-income"
+          ? "Daily Earnings"
+          : income === "weekly-income"
+          ? "Weekly Earnings"
+          : "Monthly Earnings"}
       </h2>
       <div
         style={{
@@ -170,8 +193,9 @@ const Earning = () => {
         </Button>
       </div>
 
-      <EarnTodayTable />
-      <EarnWeaklyTable />
+      {income === "today-income" && <EarnTodayTable />}
+      {income === "weekly-income" && <EarnWeaklyTable />}
+      {income === "monthly-income" && <EarnMonthlyTable />}
     </div>
   );
 };

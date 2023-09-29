@@ -120,14 +120,14 @@ const CreatorRequest = () => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
-          placeholder="Search by Name/Id"
-          style={{ height: "44px", border: `1px solid ${colors.primaryColor}` }}
+          placeholder="Search by Name/email"
+          style={{ height: "50px", border: `1px solid ${colors.primaryColor}` }}
         />
         <Button
           style={{
             background: "#fb7c29",
             color: "white",
-            height: 45,
+            height: 50,
             width: "180px",
           }}
         >
@@ -160,9 +160,9 @@ const CreatorRequest = () => {
               responsive={true}
               defaultCurrent={1}
               showTotal={(total) => (
-                <h1 className="text-xl text-[#FB7C29] uppercase">
+                <h2 className="text-xl text-[#FB7C29] uppercase">
                   Total ${total} items
-                </h1>
+                </h2>
               )}
               showSizeChanger={false}
             />

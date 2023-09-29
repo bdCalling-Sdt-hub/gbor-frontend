@@ -64,9 +64,9 @@ function Banners() {
               })}
             </Swiper>
           ) : (
-            <div>
+            <div className="relative">
               <img
-                style={contentStyle}
+                className="w-full h-[500px] object-cover rounded"
                 src="https://www.local-training.com/images/n_noimg.jpg"
               />
             </div>

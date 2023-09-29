@@ -1,9 +1,10 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { Button, Drawer, Space, Table, Typography } from "antd";
+import { Button, Col, Drawer, Row, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsPrinter } from "react-icons/bs";
+import { FiDollarSign } from "react-icons/fi";
+import { HiUserGroup } from "react-icons/hi";
 import { RxDownload } from "react-icons/rx";
-import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
 const EarnWeaklyTable = () => {
@@ -97,15 +98,16 @@ const EarnWeaklyTable = () => {
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
-                Transaction ID
+              <Title level={5} style={{ color: "white" }} strong>
+                Week No.1
               </Title>
-              <Text>
-                See all information about the transaction id no. 68656
+              <Text style={{ color: "white" }}>
+                See all information about the week no. #41
               </Text>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#fb7c29", color: "#fff" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
@@ -118,7 +120,7 @@ const EarnWeaklyTable = () => {
                 height: "40px",
                 width: "40px",
                 borderRadius: "100%",
-                backgroundColor: "white",
+                backgroundColor: "#f5f5f5",
                 color: "#fb7c29",
                 display: "flex",
                 alignItems: "center",
@@ -131,7 +133,20 @@ const EarnWeaklyTable = () => {
           </Space>
         }
       >
-        {earningData && <DrawerPage earningData={earningData} />}
+        <Row>
+          <Col span={12}>
+            <p className="text-lg font-medium">Total Donar</p>
+            <p className="text-lg font-medium">Payment Amount</p>
+          </Col>
+          <Col span={12} className="text-right">
+            <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
+              <span>5</span> <HiUserGroup fontSize={20} color="#fb7c29" />
+            </p>
+            <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
+              <span>5256</span> <FiDollarSign fontSize={20} color="#fb7c29" />
+            </p>
+          </Col>
+        </Row>
       </Drawer>
     </>
   );

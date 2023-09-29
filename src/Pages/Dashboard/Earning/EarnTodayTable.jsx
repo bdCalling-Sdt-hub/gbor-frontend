@@ -104,15 +104,16 @@ const EarnTodayTable = () => {
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
+              <Title level={5} style={{ color: "white" }} strong>
                 Transaction ID
               </Title>
-              <Text>
+              <Text style={{ color: "white" }}>
                 See all information about the transaction id no. 68656
               </Text>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#fb7c29", color: "#fff" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
@@ -125,7 +126,7 @@ const EarnTodayTable = () => {
                 height: "40px",
                 width: "40px",
                 borderRadius: "100%",
-                backgroundColor: "white",
+                backgroundColor: "#f5f5f5",
                 color: "#fb7c29",
                 display: "flex",
                 alignItems: "center",
