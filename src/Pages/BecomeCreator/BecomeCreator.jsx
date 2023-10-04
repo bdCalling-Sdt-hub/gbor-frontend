@@ -1,10 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import img from "../../Images/become-creator.png";
+import { Register } from "../../ReduxSlice/RegisterSlice";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
 const BecomeCreator = () => {
+  const [creator, setCreator] = useState({});
+  const [file, setFile] = useState(null);
+  const [category, setCategory] = useState();
+  const [termCon, setTermCon] = useState(false);
+  const { message, isSuccess } = useSelector((state) => state.register);
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    const newData = { ...creator };
+    newData[name] = value;
+    setCreator(newData);
+  };
+
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    if (
+      creator.firstName === "" ||
+      creator.lastName === "" ||
+      creator.email === "" ||
+      creator.username === "" ||
+      creator.dateOfBirth === "" ||
+      creator.password === "" ||
+      creator.confirmPassword === "" ||
+      file === "" ||
+      category === ""
+    ) {
+      setError("Empty field will not be accepted");
+      return;
+    }
+
+    const value = {
+      fName: creator.firstName,
+      lName: creator.lastName,
+      email: creator.email,
+      userName: creator.username,
+      dateOfBirth: creator.dateOfBirth,
+      password: creator.password,
+      confirmPass: creator.confirmPassword,
+      uploadId: file,
+      creator_category: category,
+      termAndCondition: termCon,
+    };
+
+    for (let key in value) {
+      formData.append(key, value[key]);
+    }
+
+    //dispatch here for create creator
+    dispatch(Register(formData));
+    console.log(message);
+    if (message) {
+      Swal.fire("Good job!", "Successfully created account", "success");
+    }
+  };
   return (
     <>
       <Navbar />
@@ -22,21 +84,21 @@ const BecomeCreator = () => {
           </div>
           <div className="grid grid-cols lg:grid-cols-2 gap-6 mt-16">
             <div className="order-2 lg:order-1">
-              <form>
+              <form onSubmit={handleRegistration}>
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="text"
                     className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="First Name"
                     name="firstName"
-                    id=""
+                    onChange={handleChange}
                   />
                   <input
                     type="text"
                     className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="Last Name"
                     name="lastName"
-                    id=""
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -45,14 +107,14 @@ const BecomeCreator = () => {
                     className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="Email"
                     name="email"
-                    id=""
+                    onChange={handleChange}
                   />
                   <input
                     type="text"
                     className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="Username"
                     name="username"
-                    id=""
+                    onChange={handleChange}
                   />
                 </div>
                 <input
@@ -60,59 +122,66 @@ const BecomeCreator = () => {
                   className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                   placeholder="Date of Birth (DD/MM/YYYY)"
                   name="dateOfBirth"
-                  id=""
+                  onChange={handleChange}
                 />
                 <input
                   type="password"
                   className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                   placeholder="Password"
-                  name=""
-                  id=""
+                  name="password"
+                  onChange={handleChange}
                 />
                 <input
                   type="password"
                   className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                   placeholder="Confirm password"
-                  name=""
-                  id=""
+                  name="confirmPassword"
+                  onChange={handleChange}
                 />
-                <input
-                  type="text"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                  placeholder="Write your Id"
-                  name=""
-                  id=""
-                />{" "}
                 <div className="flex items-center justify-between border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none">
-                  <p className="text-[#a4a6ac]">Upload your Image</p>
-                  <div>
+                  <p
+                    className={`${
+                      file ? "text-black" : "text-[#a4a6ac]"
+                    } w-full`}
+                  >
+                    {file ? file.name : "Upload your Image"}
+                  </p>
+                  <div className="w-32">
                     <label
                       htmlFor="file"
-                      className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer"
+                      className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
                     >
                       Browse file
                     </label>
                     <input
                       type="file"
                       className="hidden"
-                      placeholder="Confirm password"
-                      name=""
+                      name="image"
                       id="file"
+                      onChange={(e) => setFile(e.target.files[0])}
                     />
                   </div>
                 </div>
                 <select
                   id="countries"
                   className="border border-black outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
+                  onChange={(e) => setCategory(e.target.value)}
                 >
                   <option selected>Type of creator</option>
-                  <option value="US">Arts and Culture</option>
-                  <option value="CA">Dance</option>
-                  <option value="FR">Photography</option>
-                  <option value="DE">Entrepreneur</option>
+                  <option value="art">Arts and Culture</option>
+                  <option value="dance">Dance</option>
+                  <option value="photography">Photography</option>
+                  <option value="entrepreneur">Entrepreneur</option>
                 </select>
+                <p className="text-red-500">{error}</p>
                 <div className="mt-3 mb-8">
-                  <input type="checkbox" className="hidden" name="" id="term" />
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    name="termCon"
+                    id="term"
+                    onChange={() => setTermCon(!termCon)}
+                  />
                   <label
                     htmlFor="term"
                     className="cursor-pointer label relative"
@@ -122,7 +191,7 @@ const BecomeCreator = () => {
                   </label>
                 </div>
                 <button
-                  className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md"
+                  className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md active:bg-red-500 hover:bg-red-500"
                   type="submit"
                 >
                   Create Account

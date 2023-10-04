@@ -75,7 +75,7 @@ const Navbar = () => {
               <input
                 type="text"
                 className="border-0 outline-none bg-transparent p-3 px-2 w-4/6"
-                onChange={(e) => setSearchData(e.target.value)}
+                onBlur={(e) => setSearchData(e.target.value)}
                 placeholder="Search your favourite creator"
                 name=""
                 id=""

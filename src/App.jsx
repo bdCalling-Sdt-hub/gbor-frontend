@@ -26,6 +26,7 @@ import OurCreators from "./Pages/OurCreators/OurCreators";
 import OurCreatorsDetails from "./Pages/OurCreatorsDetails/OurCreatorsDetails";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
+import VerifyPage from "./Pages/VerifyPage/VerifyPage";
 import WhoWe from "./Pages/WhoWe/WhoWe";
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
             <Route path="/signin" element={<Signin />} />
             <Route path="/email" element={<Email />} />
             <Route path="/forget-password" element={<Otp />} />
+            <Route path="/email-verify/:id/:token" element={<VerifyPage />} />
             <Route path="/update-password" element={<UpdatePass />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

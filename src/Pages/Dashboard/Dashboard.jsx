@@ -13,48 +13,14 @@ import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import colors from "../../Constant/colors.jsx";
 import GBORLOGO from "../../Images/GBORLOGO.png";
-import admin from "../../Images/admin.png";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
-
-const profileItems = [
-  {
-    key: 1,
-    label: (
-      <Link
-        to="/notification"
-        className="flex items-center gap-2 text-lg"
-        style={{ padding: "0px" }}
-      >
-        <BiUser color="#fb7c29" fontSize={20} />
-        Profile
-      </Link>
-    ),
-  },
-  {
-    key: 2,
-    label: (
-      <Link to="/notification" className="flex items-center gap-2 text-lg">
-        <IoIosNotificationsOutline color="#fb7c29" fontSize={20} />
-        Notification
-      </Link>
-    ),
-  },
-  {
-    key: 3,
-    label: (
-      <Link to="/notification" className="flex items-center gap-2 text-lg">
-        <PiSignOutThin color="#fb7c29" fontSize={20} />
-        Logout
-      </Link>
-    ),
-  },
-];
 
 const items = [...Array(5).keys()].map((item, index) => {
   return {
@@ -95,13 +61,70 @@ const Dashboard = () => {
     localStorage.lang || "en"
   );
   const location = useLocation();
+  const user = JSON.parse(localStorage.yourInfo);
+  const navigate = useNavigate();
 
-  console.log(location.pathname);
+  console.log(user);
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
+
+  const logout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to logout from here!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#fb7c29",
+      cancelButtonColor: "#ef4444",
+      confirmButtonText: "Yes, Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+
+        navigate("/signin");
+      } else if (result.isDenied) {
+        Swal.fire("Ok", "", "info");
+      }
+    });
+  };
+
+  const profileItems = [
+    {
+      key: 1,
+      label: (
+        <Link
+          to="/notification"
+          className="flex items-center gap-2 text-lg"
+          style={{ padding: "0px" }}
+        >
+          <BiUser color="#fb7c29" fontSize={20} />
+          Profile
+        </Link>
+      ),
+    },
+    {
+      key: 2,
+      label: (
+        <Link to="/notification" className="flex items-center gap-2 text-lg">
+          <IoIosNotificationsOutline color="#fb7c29" fontSize={20} />
+          Notification
+        </Link>
+      ),
+    },
+    {
+      key: 3,
+      label: (
+        <div onClick={logout} className="flex items-center gap-2 text-lg">
+          <PiSignOutThin color="#fb7c29" fontSize={20} />
+          Logout
+        </div>
+      ),
+    },
+  ];
 
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
@@ -383,11 +406,12 @@ const Dashboard = () => {
                 <img
                   style={{
                     cursor: "pointer",
-                    borderRadius: "50%",
+                    borderRadius: "100%",
+                    height: "45px",
+                    width: "45px",
                   }}
-                  width="45"
                   className="border drop-shadow-sm border-orange-400"
-                  src={admin}
+                  src={user.uploadId}
                   alt="admin-image"
                 />
               </Dropdown>

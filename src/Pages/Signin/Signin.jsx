@@ -1,15 +1,39 @@
 import { Button, Col, Form, Input, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import logo from "../../Images/Logo.png";
 import signin from "../../Images/signin.png";
+import { SignIn, reset } from "../../ReduxSlice/signinSlice";
 import style from "./Signin.module.css";
 
 const Signin = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    navigate("/dashboard");
+  const dispatch = useDispatch();
+  const { userData, token, message, isSuccess, isError } = useSelector(
+    (state) => state.signIn
+  );
+
+  useEffect(() => {
+    if (isError === true) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: message,
+      });
+    }
+    if (isSuccess === true) {
+      localStorage.setItem("yourInfo", JSON.stringify(userData));
+      localStorage.setItem("token", token);
+      navigate("/dashboard");
+    }
+    dispatch(reset());
+  }, [isError, isSuccess, token, dispatch, navigate]);
+
+  const handleSignIn = (values) => {
+    dispatch(SignIn(values));
   };
 
   const handleForget = () => {
@@ -33,7 +57,7 @@ const Signin = () => {
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
+          onFinish={handleSignIn}
         >
           <Form.Item
             name="email"
