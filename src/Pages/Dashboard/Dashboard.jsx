@@ -11,7 +11,7 @@ import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BiMessageDots, BiTransfer, BiUser } from "react-icons/bi";
 import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotificationsOutline, IoIosPeople } from "react-icons/io";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -191,6 +191,10 @@ const Dashboard = () => {
       title: "Message",
     },
     {
+      path: "/dashboard/donar-list",
+      title: "Donar List",
+    },
+    {
       path: "/dashboard/earning/today-income",
       title: "Earnings",
     },
@@ -295,7 +299,7 @@ const Dashboard = () => {
           mode="inline"
           defaultSelectedKeys={["1"]}
         >
-          <Menu.Item key="1" icon={<FiMonitor style={{ fontSize: "14px" }} />}>
+          <Menu.Item key="1" icon={<FiMonitor style={{ fontSize: "20px" }} />}>
             <Link to="/dashboard" style={{ fontSize: "16px" }}>
               {t("dashboard")}
             </Link>
@@ -303,7 +307,7 @@ const Dashboard = () => {
           <Divider style={{ backgroundColor: "white" }} />
           <Menu.Item
             key="2"
-            icon={<BiMessageDots style={{ fontSize: "14px" }} />}
+            icon={<BiMessageDots style={{ fontSize: "20px" }} />}
           >
             <Link to="/dashboard/message" style={{ fontSize: "16px" }}>
               {t("Message")}
@@ -313,7 +317,7 @@ const Dashboard = () => {
           <SubMenu
             style={{ fontSize: "16px" }}
             key="2"
-            icon={<AiOutlineDollarCircle style={{ fontSize: "14px" }} />}
+            icon={<AiOutlineDollarCircle style={{ fontSize: "20px" }} />}
             title={t("earning.title")}
           >
             <Menu.Item key="31">
@@ -333,10 +337,19 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
+          <Menu.Item
+            key="50"
+            icon={<IoIosPeople style={{ fontSize: "20px" }} />}
+          >
+            <Link to="/dashboard/donar-list" style={{ fontSize: "16px" }}>
+              {t("Donar List")}
+            </Link>
+          </Menu.Item>
+
           <SubMenu
             style={{ fontSize: "16px" }}
             key="4"
-            icon={<FaPeopleLine style={{ fontSize: "14px" }} />}
+            icon={<FaPeopleLine style={{ fontSize: "20px" }} />}
             title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
@@ -351,13 +364,13 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item key="5" icon={<BiTransfer style={{ fontSize: "14px" }} />}>
+          <Menu.Item key="5" icon={<BiTransfer style={{ fontSize: "20px" }} />}>
             <Link to="/dashboard/transaction" style={{ fontSize: "16px" }}>
               {t("Transaction")}
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="9" icon={<PiImage style={{ fontSize: "14px" }} />}>
+          <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
             <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
               {t("Banner")}
             </Link>
@@ -365,7 +378,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="90"
-            icon={<SettingOutlined style={{ fontSize: "14px" }} />}
+            icon={<SettingOutlined style={{ fontSize: "20px" }} />}
           >
             <Link to="/dashboard/setting" style={{ fontSize: "16px" }}>
               {t("setting.title")}
@@ -396,22 +409,21 @@ const Dashboard = () => {
               type="text"
               icon={
                 collapsed ? (
-                  <MenuOutlined style={{ color: "orangered" }} />
+                  <MenuOutlined style={{ color: "#fb7c29" }} size={25} />
                 ) : (
-                  <MenuOutlined style={{ color: "orangered" }} />
+                  <MenuOutlined style={{ color: "#fb7c29" }} size={25} />
                 )
               }
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
-
                 width: 45,
                 height: 45,
                 fontSize: "12px",
               }}
             />
             {
-              <h2 className="text-xl font-medium text-orange-400 tracking-wide">
+              <h2 className="text-xl font-medium text-[#fb7c29] tracking-wide">
                 {/* {t("header.title")} */}
                 {dashboardBreadCrumb?.title}
               </h2>

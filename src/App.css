@@ -6,13 +6,6 @@
   line-height: 20px;
 }
 
-/* * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Abril Fatface", cursive !important;
-} */
-
 .ant-layout-sider-children .ant-menu-item-selected {
   color: #fb7c29;
   font-weight: bold;
@@ -43,6 +36,10 @@
   border-radius: 5px;
 }
 
+.ant-menu-submenu-title {
+  color: white !important;
+}
+
 :root {
   --primary-color: #fb7c29;
   --secondary-color: #ef4444;
@@ -60,12 +57,11 @@
   position: absolute;
   left: -20px;
   top: 0;
-  width: 15px; /* Width of the custom checkbox */
-  height: 15px; /* Height of the custom checkbox */
-  border: 1px solid black; /* Border of the checkbox */
+  width: 15px;
+  height: 15px;
+  border: 1px solid black;
   background-color: #fff;
   border-radius: 2px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 input[type="checkbox"]:checked + label::before {

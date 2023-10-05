@@ -1,40 +1,64 @@
-import React, { useState, useRef, useMemo } from 'react';
-import JoditEditor from 'jodit-react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, message } from "antd";
+import JoditEditor from "jodit-react";
+import React, { useRef, useState } from "react";
 
-import "./About.css"
-
-
-
+import Swal from "sweetalert2";
+import axios from "../../../../Config";
+import "./About.css";
 
 const About = () => {
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const editor = useRef(null)
-  const [content, setContent] = useState('');
+  const token = localStorage.token;
 
   const aboutDataSave = () => {
-    alert(content);
-
-  }
+    console.log(content);
+    const values = {
+      aboutUs: content,
+    };
+    axios
+      .post("api/aboutus", values, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("", "Successfully updated about information", "success");
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
+  };
   return (
-    <div >
-      
+    <div>
       <Row>
         <Col lg={{ span: 24 }}>
-
           <JoditEditor
             ref={editor}
             value={content}
-
-            onChange={newContent => { setContent(newContent) }}
+            onChange={(newContent) => {
+              setContent(newContent);
+            }}
           />
 
-          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#fb7c29", color: "#fff", height: "50px" }}>save</Button>
-
+          <Button
+            className=" bg-[#FB7C29]  hover:bg-red-500 duration-200"
+            onClick={aboutDataSave}
+            block
+            style={{
+              marginTop: "30px",
+              color: "#fff",
+              height: "45px",
+              border: "none",
+            }}
+          >
+            Save
+          </Button>
         </Col>
-         
       </Row>
-
     </div>
   );
 };
