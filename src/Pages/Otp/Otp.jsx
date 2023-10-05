@@ -1,22 +1,44 @@
-import { Button, Col, Form, Input, Row, Typography } from "antd";
-import React from "react";
+import { Button, Col, Row, Typography } from "antd";
+import React, { useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import OTPInput from "react-otp-input";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import logo from "../../Images/Logo.png";
-import otp from "../../Images/otp.png";
+import otpImg from "../../Images/otp.png";
 import style from "./Otp.module.css";
 
 const { Title, Paragraph, Text } = Typography;
 
 const Otp = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const [otp, setOtp] = useState();
+  const navigate = useNavigate();
+  const { email } = useParams();
+  const handleOtp = () => {
+    const value = {
+      verifyCode: otp,
+      email: email,
+    };
+    axios
+      .post("api/auth/verify-code-reset-password", value, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.status === 200) {
+          navigate(`/update-password/${email}`);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
   return (
     <Row className="flex items-center justify-center px-16 h-screen">
       <Col span={12} className="border-r">
         <img width="100px" className="mx-auto mb-5" src={logo} alt="" />
-        <img className="mx-auto" src={otp} alt="" />
+        <img className="mx-auto" src={otpImg} alt="" />
       </Col>
       <Col span={7} className="p-6">
         <Link
@@ -28,21 +50,30 @@ const Otp = () => {
           Verify OTP
         </Link>
         <Paragraph style={{ marginBottom: "30px" }}>
-          We'll send a verification code to your email. Check your inbox and
-          enter the code here.
+          Please enter the 4-digit verification code that was sent.{" "}
+          <span style={{ fontWeight: "bold", color: "orange" }}>{email}</span>.{" "}
+          the code is valid for 15 minute.{" "}
         </Paragraph>
 
-        <Form>
-          <Input.Group
-            style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
-          >
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-          </Input.Group>
+        <div>
+          <div className="">
+            <OTPInput
+              value={otp}
+              onChange={setOtp}
+              numInputs={4}
+              inputStyle={{
+                height: "80px",
+                width: "90px",
+                padding: "10px",
+                marginRight: "38px",
+                fontSize: "20px",
+                borderBottom: "1px solid #fb7c29",
+                color: "#fb7c29",
+              }}
+              shouldAutoFocus={true}
+              renderInput={(props) => <input {...props} />}
+            />
+          </div>
 
           <div className={style.rememberAndPass}>
             <Text>Don't received code?</Text>
@@ -56,25 +87,23 @@ const Otp = () => {
             </a>
           </div>
 
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              block
-              style={{
-                height: "45px",
-                fontWeight: "400px",
-                fontSize: "18px",
-                background: "#fb7c29",
-                alignSelf: "bottom",
-                marginTop: "130px",
-              }}
-            >
-              Verify
-            </Button>
-          </Form.Item>
-        </Form>
+          <Button
+            type="primary"
+            className="login-form-button"
+            onClick={handleOtp}
+            block
+            style={{
+              height: "45px",
+              fontWeight: "400px",
+              fontSize: "18px",
+              background: "#fb7c29",
+              alignSelf: "bottom",
+              marginTop: "130px",
+            }}
+          >
+            Verify
+          </Button>
+        </div>
       </Col>
     </Row>
   );

@@ -26,7 +26,7 @@ const items = [...Array(5).keys()].map((item, index) => {
   return {
     key: index,
     label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
+      <Link to="/dashboard/notification" style={{}} rel="noreferrer">
         <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
@@ -64,8 +64,6 @@ const Dashboard = () => {
   const user = JSON.parse(localStorage.yourInfo);
   const navigate = useNavigate();
 
-  console.log(user);
-
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -97,7 +95,7 @@ const Dashboard = () => {
       key: 1,
       label: (
         <Link
-          to="/notification"
+          to="/dashboard/setting/personal-information"
           className="flex items-center gap-2 text-lg"
           style={{ padding: "0px" }}
         >
@@ -109,7 +107,10 @@ const Dashboard = () => {
     {
       key: 2,
       label: (
-        <Link to="/notification" className="flex items-center gap-2 text-lg">
+        <Link
+          to="/dashboard/notification"
+          className="flex items-center gap-2 text-lg"
+        >
           <IoIosNotificationsOutline color="#fb7c29" fontSize={20} />
           Notification
         </Link>
@@ -174,10 +175,81 @@ const Dashboard = () => {
             fontWeight: "bold",
           }}
         >
-          <Link to="/notification">See All</Link>
+          <Link to="/dashboard/notification">See all</Link>
         </Button>
       </div>
     </Menu>
+  );
+
+  const breadCrumb = [
+    {
+      path: "/dashboard",
+      title: "Dashboard",
+    },
+    {
+      path: "/dashboard/message",
+      title: "Message",
+    },
+    {
+      path: "/dashboard/earning/today-income",
+      title: "Earnings",
+    },
+    {
+      path: "/dashboard/earning/weekly-income",
+      title: "Earnings",
+    },
+    {
+      path: "/dashboard/earning/monthly-income",
+      title: "Earnings",
+    },
+    {
+      path: "/dashboard/creator-info",
+      title: "Creator Information",
+    },
+    {
+      path: "/dashboard/creator-request",
+      title: "Creator Information",
+    },
+    {
+      path: "/dashboard/transaction",
+      title: "Transaction",
+    },
+    {
+      path: "/dashboard/banner",
+      title: "Banner",
+    },
+    {
+      path: "/dashboard/notification",
+      title: "Notification",
+    },
+    {
+      path: "/dashboard/setting",
+      title: "Settings",
+    },
+    {
+      path: "/dashboard/setting/personal-information",
+      title: "Settings",
+    },
+    {
+      path: "/dashboard/setting/login-activity",
+      title: "Settings",
+    },
+    {
+      path: "/dashboard/setting/privacy-policy",
+      title: "Settings",
+    },
+    {
+      path: "/dashboard/setting/terms-condition",
+      title: "Settings",
+    },
+    {
+      path: "/dashboard/setting/about-us",
+      title: "Settings",
+    },
+  ];
+
+  const dashboardBreadCrumb = breadCrumb.find(
+    (path) => path.path === location.pathname
   );
 
   return (
@@ -318,7 +390,7 @@ const Dashboard = () => {
         >
           <div
             className=""
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
+            style={{ display: "flex", alignItems: "center", gap: "2px" }}
           >
             <Button
               type="text"
@@ -338,11 +410,12 @@ const Dashboard = () => {
                 fontSize: "12px",
               }}
             />
-            {location.pathname === "/dashboard" && (
-              <h2 className="text-xl font-medium text-orange-400">
-                {t("header.title")}
+            {
+              <h2 className="text-xl font-medium text-orange-400 tracking-wide">
+                {/* {t("header.title")} */}
+                {dashboardBreadCrumb?.title}
               </h2>
-            )}
+            }
           </div>
 
           <div
@@ -383,14 +456,27 @@ const Dashboard = () => {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
-                <Badge count={1} color="#fb7c29">
-                  <IoIosNotificationsOutline
-                    className="cursor-pointer"
-                    fontSize={35}
-                    color="#fb7c29"
-                  />
-                </Badge>
+                <Button
+                  type="text"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Badge count={1} color="#fb7c29">
+                    <IoIosNotificationsOutline
+                      className="cursor-pointer"
+                      fontSize={35}
+                      color="#fb7c29"
+                    />
+                  </Badge>
+                </Button>
               </Dropdown>
             </div>
             <div>
@@ -402,15 +488,16 @@ const Dashboard = () => {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
                 <img
                   style={{
                     cursor: "pointer",
                     borderRadius: "100%",
-                    height: "45px",
-                    width: "45px",
+                    height: "40px",
+                    width: "40px",
                   }}
-                  className="border drop-shadow-sm border-orange-400"
+                  className="border-2 drop-shadow-sm border-orange-400"
                   src={user.uploadId}
                   alt="admin-image"
                 />

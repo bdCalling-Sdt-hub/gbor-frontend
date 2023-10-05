@@ -1,15 +1,27 @@
 import { Button, Col, Form, Input, Row, Typography } from "antd";
 import React from "react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import logo from "../../Images/Logo.png";
 import email from "../../Images/email.png";
 
 const { Title, Paragraph, Text } = Typography;
 
 const Email = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const navigate = useNavigate();
+  const handleEmail = (values) => {
+    const email = values.email;
+    axios
+      .post("api/auth/send-reset-password-email", { email: email })
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("✅", "Successfully Send OTP on your email", "success");
+          navigate(`/forget-password/${values.email}`);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
   return (
     <Row className="flex items-center justify-center px-16 h-screen">
@@ -32,7 +44,7 @@ const Email = () => {
           enter the code here.
         </Paragraph>
 
-        <Form name="normal_login" className="login-form" onFinish={onFinish}>
+        <Form name="normal_login" className="login-form" onFinish={handleEmail}>
           <Form.Item
             name="email"
             id="email"

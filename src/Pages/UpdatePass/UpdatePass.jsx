@@ -1,13 +1,17 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import React, { useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import logo from "../../Images/logo.png";
 import update from "../../Images/updatePass.png";
 
 const UpdatePass = () => {
   const [err, setErr] = useState("");
-  const onFinish = (values) => {
+  const navigate = useNavigate();
+  const { email } = useParams();
+  const handleChangePassword = (values) => {
     const { password, confirmPassword } = values;
 
     if (password.length < 8) {
@@ -26,18 +30,31 @@ const UpdatePass = () => {
       setErr("Ensure string has one special case letter.");
       return;
     }
-    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-      setErr("Ensure string has two uppercase letters.");
-      return;
-    }
-    if (!/(?=.*[a-z].*[a-z].*[a-z])/.test(password)) {
-      setErr("Ensure string has three lowercase letters.");
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setErr("Ensure string has one uppercase letters.");
       return;
     }
     if (!/(?=.*[0-9].*[0-9])/.test(password)) {
       setErr("Ensure string has two digits");
       return;
     }
+
+    const value = {
+      password: password,
+      confirmPass: confirmPassword,
+      email: email,
+    };
+    7;
+
+    axios
+      .post("api/auth/reset-password", value)
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("✅", `Successfully updated password`, "success");
+          navigate(`/signin`);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
 
   return (
@@ -61,7 +78,7 @@ const UpdatePass = () => {
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
+          onFinish={handleChangePassword}
         >
           <Form.Item
             name="password"
@@ -82,8 +99,8 @@ const UpdatePass = () => {
             />
           </Form.Item>
           <Form.Item
-            name="password"
-            label="Current password"
+            name="confirmPassword"
+            label="Confirm password"
             labelCol={{ span: 24 }}
             style={{ borderBottom: "1px solid black" }}
             rules={[
@@ -95,7 +112,7 @@ const UpdatePass = () => {
           >
             <Input.Password
               type="password"
-              placeholder="Enter your current password"
+              placeholder="Enter your confirm password"
               bordered={false}
             />
           </Form.Item>

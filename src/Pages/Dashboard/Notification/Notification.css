@@ -1,9 +1,22 @@
-:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a {
-    background-color: #fb7c29;
-    color:white;
-  }
-  
-  /* .pagination-container .ant-pagination-item a:hover {
-    background-color: yourHoverBackgroundColor;
-    color: yourHoverTextColor;
-  } */
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination
+  .ant-pagination-item-active
+  a {
+  background-color: #fb7c29;
+  color: white;
+}
+
+.notification {
+  background: #ff822e34;
+  border-radius: 5px;
+  padding: 10px 10px;
+  border-left: 2px solid;
+  border-image: linear-gradient(orange, orangered);
+  border-image-slice: 1;
+  margin-bottom: 5px;
+}
+
+.notification:hover {
+  background: #fb7c29;
+  border-radius: 5px;
+  padding: 10px 10px;
+}

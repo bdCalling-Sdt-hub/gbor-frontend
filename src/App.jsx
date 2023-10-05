@@ -84,9 +84,9 @@ function App() {
 
             <Route path="/signin" element={<Signin />} />
             <Route path="/email" element={<Email />} />
-            <Route path="/forget-password" element={<Otp />} />
+            <Route path="/forget-password/:email" element={<Otp />} />
             <Route path="/email-verify/:id/:token" element={<VerifyPage />} />
-            <Route path="/update-password" element={<UpdatePass />} />
+            <Route path="/update-password/:email" element={<UpdatePass />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
