@@ -12,7 +12,7 @@ import Contact from "./Pages/Contact/Contact";
 import Banners from "./Pages/Dashboard/Banners/Banners";
 import CreatorInfo from "./Pages/Dashboard/CreatorInfo/CreatorInfo";
 import CreatorRequest from "./Pages/Dashboard/CreatorInfo/CreatorRequest";
-import DonarList from "./Pages/Dashboard/CreatorPanel/DonarList/DonarList";
+import DonarList from "./Pages/Dashboard/DonarList/DonarList";
 import Message from "./Pages/Dashboard/Message/Message";
 import MessageCreatorPage from "./Pages/Dashboard/Message/MessageCreatorPage/MessageCreatorPage";
 import Setting from "./Pages/Dashboard/Setting/Setting";

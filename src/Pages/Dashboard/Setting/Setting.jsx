@@ -1,6 +1,7 @@
 import { Button, Form, Input, Modal, Switch, Typography } from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
+import OTPInput from "react-otp-input";
 import { useNavigate } from "react-router-dom";
 
 const { Paragraph, Title, Text } = Typography;
@@ -11,26 +12,31 @@ const Setting = () => {
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
+  const [otp, setOtp] = useState();
 
   const style = {
     btn: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: "45px",
+      height: "50px",
       marginBottom: "10px",
+      color: "gray",
+      fontSize: "14px",
     },
     notification: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: "45px",
+      height: "50px",
       marginTop: "10px",
       backgroundColor: "#ffffff",
       border: "1px solid #d9d9d9",
       boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
       borderRadius: "6px",
       padding: "4px 15px",
+      color: "gray",
+      fontSize: "14px",
     },
     input: {
       height: "45px",
@@ -108,9 +114,7 @@ const Setting = () => {
   };
 
   const handleNavigate = (value) => {
-    if (value == "renti-percentage") {
-      setOpenModal(true);
-    } else if (value === "change-password") {
+    if (value === "change-password") {
       setOpenChangePassModel(true);
     } else {
       navigate(`/dashboard/setting/${value}`);
@@ -119,11 +123,6 @@ const Setting = () => {
 
   const handleNotification = (e) => {
     console.log(e);
-  };
-
-  const setPercentage = () => {
-    alert("tushar");
-    setOpenModal(false);
   };
 
   const handleChangePassword = (values) => {
@@ -145,6 +144,7 @@ const Setting = () => {
             <LiaAngleRightSolid fontSize={20} />
           </Button>
         ))}
+        {/* notification */}
         <div style={style.notification}>
           <span>Notification</span>
           <Switch
@@ -171,88 +171,89 @@ const Setting = () => {
               remember: true,
             }}
             onFinish={handleChangePassword}
+            labelCol={{ span: 24 }}
           >
-            <div>
-              <label htmlFor="" className={style.label}>
-                Current Password
-              </label>
-              <Form.Item
-                name="currentPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your current password!",
-                  },
-                ]}
-              >
-                <Input
-                  placeholder="Enter Password"
-                  type="password"
-                  style={style.input}
-                />
-              </Form.Item>
-            </div>
+            <Form.Item
+              name="currentPassword"
+              label="Current password"
+              style={{ marginBottom: "5px" }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your current password!",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Enter Password"
+                type="password"
+                style={style.input}
+              />
+            </Form.Item>
 
-            <div>
-              <label htmlFor="">New Password</label>
-              <Form.Item
-                name="newPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your new Password!",
-                  },
-                ]}
-              >
-                <Input
-                  type="password"
-                  placeholder="Enter password"
-                  style={style.input}
-                />
-              </Form.Item>
-            </div>
-            <div>
-              <label htmlFor="email" className={style.label}>
-                Re-Type Password
-              </label>
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Re-type Password!",
-                  },
-                ]}
-              >
-                <Input
-                  type="password"
-                  placeholder="Enter password"
-                  style={style.input}
-                />
-              </Form.Item>
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                type="text"
+            <Form.Item
+              name="newPassword"
+              label="New password"
+              style={{ marginBottom: "5px" }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your new Password!",
+                },
+              ]}
+            >
+              <Input
+                type="password"
+                placeholder="Enter password"
+                style={style.input}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              label="Confirm password"
+              style={{ marginBottom: "0px" }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Re-type Password!",
+                },
+              ]}
+            >
+              <Input
+                type="password"
+                placeholder="Enter password"
+                style={style.input}
+              />
+            </Form.Item>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "5px",
+              }}
+            >
+              <div
+                type=""
                 className="login-form-forgot"
-                style={{ color: "#fb7c29" }}
+                style={{ color: "#fb7c29", cursor: "pointer" }}
                 onClick={() => (setVerify(true), setOpenChangePassModel(false))}
               >
                 Forgot password
-              </Button>
+              </div>
             </div>
 
             <Form.Item>
               <Button
-                type="primary"
+                type="text"
                 htmlType="submit"
-                className="login-form-button"
+                className="login-form-button bg-orange-500 "
                 block
                 style={{
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#fb7c29",
                   marginTop: "60px",
                 }}
               >
@@ -261,7 +262,8 @@ const Setting = () => {
             </Form.Item>
           </Form>
         </Modal>
-        {/* Verify Password */}
+
+        {/* Verify otp */}
         <Modal
           title={
             <Title
@@ -290,22 +292,31 @@ const Setting = () => {
               enter the code here.
             </Paragraph>
 
-            <Input.Group
+            <OTPInput
+              value={otp}
+              onChange={setOtp}
+              numInputs={4}
+              inputStyle={{
+                height: "80px",
+                width: "100px",
+                padding: "10px",
+                marginRight: "17px",
+                borderRadius: "3px",
+                fontSize: "20px",
+                border: "1px solid #fb7c29",
+                color: "#fb7c29",
+              }}
+              shouldAutoFocus={true}
+              renderInput={(props) => <input {...props} />}
+            />
+
+            <div
               style={{
                 display: "flex",
-                gap: "10px",
-                marginBottom: "10px",
+                justifyContent: "space-between",
+                marginTop: "10px",
               }}
             >
-              <Input style={{ width: "50px", height: "70px" }} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-            </Input.Group>
-
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Text>Don't received code?</Text>
 
               <a
@@ -317,23 +328,26 @@ const Setting = () => {
               </a>
             </div>
 
-            <Button
-              block
-              onClick={() => (setUpdatePassword(true), setVerify(false))}
-              style={{
-                height: "45px",
-                fontWeight: "400px",
-                fontSize: "18px",
-                background: "#fb7c29",
-                color: "#fff",
-                alignSelf: "bottom",
-                marginTop: "130px",
-              }}
-            >
-              Continue
-            </Button>
+            <Form.Item>
+              <Button
+                type="text"
+                onClick={() => (setUpdatePassword(true), setVerify(false))}
+                htmlType="submit"
+                className="login-form-button bg-orange-500 "
+                block
+                style={{
+                  height: "45px",
+                  fontWeight: "400px",
+                  fontSize: "18px",
+                  marginTop: "130px",
+                }}
+              >
+                Continue
+              </Button>
+            </Form.Item>
           </div>
         </Modal>
+
         {/* Update Password */}
         <Modal
           title={
@@ -364,87 +378,59 @@ const Setting = () => {
               remember: true,
             }}
             onFinish={handleUpdated}
+            labelCol={{ span: 24 }}
           >
-            <div>
-              <label htmlFor="">New Password</label>
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter new password!",
-                  },
-                ]}
-              >
-                <Input type="text" placeholder="Password" style={style.input} />
-              </Form.Item>
-            </div>
+            <Form.Item
+              name="password"
+              label="New password"
+              style={{ marginBottom: "10px" }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter new password!",
+                },
+              ]}
+            >
+              <Input type="text" placeholder="Password" style={style.input} />
+            </Form.Item>
 
-            <div>
-              <label htmlFor="">Re-type Password</label>
-              <Form.Item
-                name="confirmPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter confirm Password!",
-                  },
-                ]}
-              >
-                <Input
-                  type="text"
-                  placeholder="Confirm password"
-                  style={style.input}
-                />
-              </Form.Item>
-            </div>
+            <Form.Item
+              name="confirmPassword"
+              label="Confirm password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter confirm Password!",
+                },
+              ]}
+            >
+              <Input
+                type="text"
+                placeholder="Confirm password"
+                style={style.input}
+              />
+            </Form.Item>
 
             {/* showing error */}
             <label style={{ color: "red" }}>{err}</label>
 
             <Form.Item>
               <Button
-                type="primary"
+                type="text"
                 htmlType="submit"
-                className="login-form-button"
+                className="login-form-button bg-orange-500 "
                 block
                 style={{
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#fb7c29",
-                  marginTop: "100px",
+                  marginTop: "120px",
                 }}
               >
                 Confirm
               </Button>
             </Form.Item>
           </Form>
-        </Modal>
-
-        {/*Set Percentage*/}
-        <Modal
-          title="Set Ranti's Percentage"
-          centered
-          open={openModal}
-          onOk={() => setPercentage()}
-          okText="Confirm"
-          onCancel={() => setOpenModal(false)}
-          okButtonProps={{
-            style: {
-              width: "100%",
-              backgroundColor: "#fb7c29",
-              height: "40px",
-              marginLeft: "-20px",
-            },
-          }} // Adjust the width here
-          cancelButtonProps={{ style: { display: "none" } }}
-          width={500}
-        >
-          <Input
-            placeholder="set your percentage"
-            style={{ height: "50px", margin: "20px 0px" }}
-          />
         </Modal>
       </div>
     </div>

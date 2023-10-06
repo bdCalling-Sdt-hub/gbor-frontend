@@ -29,7 +29,6 @@ const SettingPage = () => {
   const textSplit = params.dynamic.split("-");
   const text = textSplit.join(" ");
 
-  console.log(text);
   return (
     <>
       <Link to="/dashboard/setting" style={style.btn}>

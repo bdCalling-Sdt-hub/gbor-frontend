@@ -7,6 +7,8 @@ import { Link, useParams } from "react-router-dom";
 const MessageCreatorPage = () => {
   const { dynamic } = useParams();
   const [data, setData] = useState([]);
+  const [ongoingMessage, setOngoingMessage] = useState();
+  const [incomingMessage, setIncomingMessage] = useState();
 
   useEffect(() => {
     fetch("/fakeDB.json")
@@ -17,6 +19,10 @@ const MessageCreatorPage = () => {
   }, []);
 
   const filterData = data.find((item) => item.id.toString() === dynamic);
+
+  const handleMessage = () => {
+    console.log(ongoingMessage);
+  };
 
   return (
     <>
@@ -33,7 +39,7 @@ const MessageCreatorPage = () => {
           {[...Array(10).keys()].map((index) => {
             return (
               <>
-                {/* First Section (Left) */}
+                {/* First Section (Left). it's receiver message section*/}
                 <div className="mb-4">
                   <div className="flex gap-2">
                     <Avatar
@@ -51,7 +57,7 @@ const MessageCreatorPage = () => {
                   <p className="text-gray-400 ml-12 mt-1">50 min ago</p>
                 </div>
 
-                {/* Second Section (Right) */}
+                {/* Second Section (Right).it's sender message section  */}
                 <div className="mb-4">
                   <div
                     className="flex gap-2"
@@ -80,12 +86,12 @@ const MessageCreatorPage = () => {
         <div className="flex gap-2 p-1">
           <input
             type="text"
-            placeholder="Type message"
-            className="w-full h-12 border border-orange-400 rounded px-3 outline-none text-lg"
-            name=""
-            id=""
+            onChange={(e) => setOngoingMessage(e.target.value)}
+            name="message"
+            placeholder="Type message..."
+            className="w-full h-12 border border-orange-500 rounded px-3 outline-none text-lg text-orange-500 placeholder:text-orange-500"
           />
-          <button className="px-2">
+          <button className="px-2" onClick={handleMessage}>
             <BsFillSendFill fontSize={30} color="#fb7c29" />
           </button>
         </div>
