@@ -1,4 +1,4 @@
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, notification } from "antd";
 import React, { useState } from "react";
 import ImageUploader from "react-image-upload";
 import "react-image-upload/dist/index.css";
@@ -13,10 +13,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import axios from "../../../../Config";
 import "./Banners.css";
 
 function Banners() {
   const [bannerImage, setBannerImage] = useState([]);
+  const [files, setFiles] = useState("");
 
   const contentStyle = {
     height: "500px",
@@ -24,7 +26,42 @@ function Banners() {
     borderRadius: "15px",
   };
 
+  const token = localStorage.token;
+
+  const [api, contextHolder] = notification.useNotification();
+  const successNotify = (placement) => {
+    api.success({
+      message: "Completed",
+      description: "Successfully upload image",
+      placement,
+    });
+  };
+  const errorNotify = (placement) => {
+    api.error({
+      message: "Mistake",
+      description: "Not uploaded image",
+      placement,
+    });
+  };
+
   function getImageFileObject(imageFile) {
+    const formData = new FormData();
+
+    formData.append("bannerImage", imageFile);
+
+    axios
+      .post("api/banner", formData, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          successNotify("bottomRight");
+        }
+      })
+      .catch((err) => errorNotify("bottomRight"));
     setBannerImage([...bannerImage, imageFile]);
   }
 
@@ -34,6 +71,7 @@ function Banners() {
 
   return (
     <>
+      {contextHolder}
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }}>
           <h2 className="text-xl font-medium"> Current Banners</h2>
