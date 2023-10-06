@@ -69,7 +69,7 @@ const MessageTable = () => {
             type="text"
             className="bg-[#fb7c29] p-1 px-2 rounded"
           >
-            <RiMessage2Line style={{ fontSize: "20px", color: "#fff" }} />
+            <RiMessage2Line style={{ fontSize: "25px", color: "#fff" }} />
           </button>
         </div>
       ),
@@ -79,11 +79,11 @@ const MessageTable = () => {
   return (
     <div>
       <Table
+        rowClassName={"rowMessage"}
         showHeader={false}
         columns={columns}
         dataSource={data}
         loading={loading}
-        className="no-hover"
       />
     </div>
   );

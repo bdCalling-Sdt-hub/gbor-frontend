@@ -1,12 +1,32 @@
-import { Button, Col, DatePicker, Image, Input, Row, Upload } from "antd";
+import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-import dayjs from "dayjs";
 import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
-const dateFormat = "YYYY-MM-DD";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
+  const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
+
+  const [img, setImg] = useState();
+
+  const {
+    fName,
+    lName,
+    userName,
+    address,
+    phoneNumber,
+    email,
+    dateOfBirth,
+    uploadId,
+  } = userFromLocalStorage;
+
+  const initialFormValues = {
+    name: fName + " " + lName,
+    email: email,
+    phoneNumber: "0184518744",
+    dateOfBirth: "",
+    address: "Moghbazer",
+  };
 
   const handleChange = () => {
     setProfileEdit(true);
@@ -17,25 +37,12 @@ const PersonalInfo = () => {
       uid: "-1",
       name: "image.png",
       status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      url: uploadId,
     },
   ]);
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-  };
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
   };
 
   return (
@@ -51,174 +58,193 @@ const PersonalInfo = () => {
               marginBottom: "20px",
             }}
           >
-            <div style={{ display: "flex", gap: "20px" }}>
+            <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
               <Image
-                width={200}
+                width={150}
                 style={{ borderRadius: "6px" }}
-                src="https://yt3.googleusercontent.com/Qy5Gk9hccQxiZdX8IxdK-mF2ktN17gap3ZkGQZkGz8NB4Yep3urmucp5990H2tjXIISgUoYssJE=s900-c-k-c0x00ffffff-no-rj"
+                src={uploadId}
               />
               <div>
-                <h2>Fahim</h2>
-                <p>@fahim</p>
-                <p>INE: GMVLMR80070501M100</p>
+                <h2 className="text-xl">{fName + " " + lName}</h2>
+                <p>@{userName}</p>
               </div>
             </div>
-            <div>
-              <Button
-                className="flex items-center bg-[#FB7C29] text-white hover:bg-red-500 duration-200"
-                onClick={handleChange}
-                style={{ color: "white", border: "none" }}
-              >
-                <LiaEditSolid fontSize={16} />
-                Edit
-              </Button>
-            </div>
+
+            <Button
+              onClick={handleChange}
+              style={{
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                border: 0,
+              }}
+              className="bg-[#fb7c29] hover:bg-red-500"
+            >
+              <LiaEditSolid fontSize={16} />
+              Edit
+            </Button>
           </div>
 
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Name</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Fahim"}
-                readOnly
-              />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">Email</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"siffahim25@gmail.com"}
-                readOnly
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Phone Number</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"01646524028"}
-                readOnly
-              />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">INE</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"GMVLMR80070501M100"}
-                readOnly
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Date of Birth</label>
-              <DatePicker
-                style={{ height: "45px", width: "100%" }}
-                defaultValue={dayjs("2023-08-27", dateFormat)}
-                disabled
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Address</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Mogbazer,Dhaka"}
-                readOnly
-              />
-            </Col>
-          </Row>
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={initialFormValues}
+          >
+            <Form.Item
+              name="name"
+              label="Name"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "15px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={24}>
+                <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} readOnly />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item
+                  name="phoneNumber"
+                  label="Phone Number"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} readOnly />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="dateOfBirth"
+                  label="Date of Birth"
+                  labelCol={{ span: 24 }}
+                >
+                  <DatePicker
+                    style={{ height: "45px", width: "100%" }}
+                    disabled
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="address"
+              label="Address"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "10px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+          </Form>
         </>
       ) : (
+        //edit profile section here
         <>
           <div>
             <div
               style={{
                 display: "flex",
+                alignItems: "center",
                 gap: "20px",
                 borderBottom: "1px solid #d9d9d9",
                 paddingBottom: "30px",
                 marginBottom: "20px",
               }}
             >
-              <ImgCrop rotationSlider>
-                <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture-card"
-                  fileList={fileList}
-                  onChange={onChange}
-                  onPreview={onPreview}
-                >
-                  {fileList.length < 5 && "+ Upload"}
-                </Upload>
-              </ImgCrop>
+              <div style={{ width: "150px" }}>
+                <ImgCrop rotationSlider style={{ width: "100%" }}>
+                  <Upload
+                    listType="picture-card"
+                    fileList={fileList}
+                    onChange={onChange}
+                    style={{ width: "150px" }}
+                  >
+                    {fileList.length < 1 && "+ Upload"}
+                  </Upload>
+                </ImgCrop>
+              </div>
 
               <div>
-                <h2>Fahim</h2>
-                <p>@fahim</p>
-                <p>INE: GMVLMR80070501M100</p>
+                <h2 className="text-2xl">{fName}</h2>
+                <p>@{userName}</p>
               </div>
             </div>
           </div>
 
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Name</label>
-              <Input style={{ height: "45px" }} defaultValue={"Fahim"} />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">Email</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"siffahim25@gmail.com"}
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Phone Number</label>
-              <Input style={{ height: "45px" }} defaultValue={"01646524028"} />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">INE</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"GMVLMR80070501M100"}
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Date of Birth</label>
-              <DatePicker
-                style={{ height: "45px", width: "100%" }}
-                defaultValue={dayjs("2023-08-27", dateFormat)}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Address</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Mogbazer,Dhaka"}
-              />
-            </Col>
-          </Row>
-          <Button
-            style={{
-              height: "45px",
-              background: "#fb7c29",
-              color: "#fff",
-              marginTop: "20px",
-            }}
-            block
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={initialFormValues}
           >
-            Save
-          </Button>
+            <Form.Item
+              name="name"
+              label="Name"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "15px" }}
+            >
+              <Input style={{ height: "45px" }} />
+            </Form.Item>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={24}>
+                <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item
+                  name="phoneNumber"
+                  label="Phone Number"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="dateOfBirth"
+                  label="Date of Birth"
+                  labelCol={{ span: 24 }}
+                >
+                  <DatePicker style={{ height: "45px", width: "100%" }} />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="address"
+              label="Address"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "10px" }}
+            >
+              <Input style={{ height: "45px" }} />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                htmlType="submit"
+                className="login-form-button bg-[#fb7c29] hover:bg-red-500"
+                block
+                style={{
+                  height: "45px",
+                  fontWeight: "400px",
+                  fontSize: "18px",
+                  border: 0,
+                  marginTop: "10px",
+                  color: "#fff",
+                }}
+              >
+                Save Changes
+              </Button>
+            </Form.Item>
+          </Form>
         </>
       )}
     </>

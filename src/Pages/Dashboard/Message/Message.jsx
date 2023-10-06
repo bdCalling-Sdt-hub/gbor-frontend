@@ -19,7 +19,6 @@ const Message = () => {
               fontSize: "25px",
               margin: "10px 0",
               fontWeight: "normal",
-              color: "#fb7c29",
             }}
           >
             Send message to all creators

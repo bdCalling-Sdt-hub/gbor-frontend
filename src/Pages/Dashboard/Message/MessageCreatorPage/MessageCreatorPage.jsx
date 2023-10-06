@@ -34,8 +34,8 @@ const MessageCreatorPage = () => {
         <IoIosArrowBack style={{ fontSize: "20px" }} />{" "}
         <span>{filterData?.name}</span>
       </Link>
-      <div className="border border-[#fb7c29] w-full rounded-md p-8">
-        <div className="w-full h-[510px] overflow-y-auto flex flex-col scrollbar">
+      <div className="border border-[#fb7c29] w-full rounded-md  bg-orange-50 p-8 pb-2">
+        <div className="w-full h-[510px] overflow-y-auto flex flex-col scrollbar bg-orange-100 rounded p-1">
           {[...Array(10).keys()].map((index) => {
             return (
               <>
@@ -83,13 +83,13 @@ const MessageCreatorPage = () => {
             );
           })}
         </div>
-        <div className="flex gap-2 p-1">
+        <div className="flex gap-2 p-1 bg-orange-100 rounded">
           <input
             type="text"
             onChange={(e) => setOngoingMessage(e.target.value)}
             name="message"
             placeholder="Type message..."
-            className="w-full h-12 border border-orange-500 rounded px-3 outline-none text-lg text-orange-500 placeholder:text-orange-500"
+            className="w-full h-12 border border-orange-300 rounded px-3 outline-none text-lg text-orange-500 placeholder:text-orange-200"
           />
           <button className="px-2" onClick={handleMessage}>
             <BsFillSendFill fontSize={30} color="#fb7c29" />
