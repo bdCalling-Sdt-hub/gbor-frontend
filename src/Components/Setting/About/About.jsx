@@ -1,18 +1,31 @@
-import { Button, Col, Row, message } from "antd";
+import { Button, Col, Row, notification } from "antd";
 import JoditEditor from "jodit-react";
 import React, { useRef, useState } from "react";
 
-import Swal from "sweetalert2";
 import axios from "../../../../Config";
 import "./About.css";
 
 const About = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
-  const [messageApi, contextHolder] = message.useMessage();
 
   const token = localStorage.token;
 
+  const [api, contextHolder] = notification.useNotification();
+  const successNotify = (placement) => {
+    api.success({
+      message: "Updated",
+      description: "Successfully updated about us content",
+      placement,
+    });
+  };
+  const errorNotify = (placement) => {
+    api.success({
+      message: "Opps!",
+      description: "Not updated about us content",
+      placement,
+    });
+  };
   const aboutDataSave = () => {
     console.log(content);
     const values = {
@@ -27,13 +40,14 @@ const About = () => {
       })
       .then((res) => {
         if (res.data.status === 200) {
-          Swal.fire("", "Successfully updated about information", "success");
+          successNotify("bottomRight");
         }
       })
-      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
+      .catch((err) => errorNotify("bottomRight"));
   };
   return (
     <div>
+      {contextHolder}
       <Row>
         <Col lg={{ span: 24 }}>
           <JoditEditor

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import img from "../../Images/become-creator.png";
-import { Register } from "../../ReduxSlice/RegisterSlice";
+import { Register, reset } from "../../ReduxSlice/RegisterSlice";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
@@ -12,9 +13,12 @@ const BecomeCreator = () => {
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState();
   const [termCon, setTermCon] = useState(false);
-  const { message, isSuccess } = useSelector((state) => state.register);
+  const { message, isSuccess, isLoading } = useSelector(
+    (state) => state.register
+  );
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -24,24 +28,11 @@ const BecomeCreator = () => {
     setCreator(newData);
   };
 
+  console.log(creator);
+
   const handleRegistration = (e) => {
     e.preventDefault();
     const formData = new FormData();
-
-    if (
-      creator.firstName === "" ||
-      creator.lastName === "" ||
-      creator.email === "" ||
-      creator.username === "" ||
-      creator.dateOfBirth === "" ||
-      creator.password === "" ||
-      creator.confirmPassword === "" ||
-      file === "" ||
-      category === ""
-    ) {
-      setError("Empty field will not be accepted");
-      return;
-    }
 
     const value = {
       fName: creator.firstName,
@@ -60,13 +51,40 @@ const BecomeCreator = () => {
       formData.append(key, value[key]);
     }
 
-    //dispatch here for create creator
-    dispatch(Register(formData));
-    console.log(message);
-    if (message) {
-      Swal.fire("Good job!", "Successfully created account", "success");
+    if (
+      value.fName !== undefined &&
+      value.lName !== undefined &&
+      value.email !== undefined &&
+      value.userName !== undefined &&
+      value.dateOfBirth !== undefined &&
+      value.password !== undefined &&
+      value.confirmPass !== undefined &&
+      value.uploadId !== null &&
+      value.creator_category !== undefined
+    ) {
+      //dispatch here for create creator
+      dispatch(Register(formData));
+
+      //  error message
+
+      setError("");
+      setFile(null);
+    } else {
+      setError("Empty value is not accepted");
+      return;
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      Swal.fire(
+        "Successfully created",
+        "Check your email inbox to verify account",
+        "success"
+      );
+      dispatch(reset());
+    }
+  }, [isSuccess]);
   return (
     <>
       <Navbar />
@@ -84,119 +102,128 @@ const BecomeCreator = () => {
           </div>
           <div className="grid grid-cols lg:grid-cols-2 gap-6 mt-16">
             <div className="order-2 lg:order-1">
-              <form onSubmit={handleRegistration}>
-                <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="text"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                    placeholder="First Name"
-                    name="firstName"
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                    placeholder="Last Name"
-                    name="lastName"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="email"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                    placeholder="Email"
-                    name="email"
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                    placeholder="Username"
-                    name="username"
-                    onChange={handleChange}
-                  />
-                </div>
-                <input
-                  type="text"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                  placeholder="Date of Birth (DD/MM/YYYY)"
-                  name="dateOfBirth"
-                  onChange={handleChange}
-                />
-                <input
-                  type="password"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleChange}
-                />
-                <input
-                  type="password"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
-                  placeholder="Confirm password"
-                  name="confirmPassword"
-                  onChange={handleChange}
-                />
-                <div className="flex items-center justify-between border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none">
-                  <p
-                    className={`${
-                      file ? "text-black" : "text-[#a4a6ac]"
-                    } w-full`}
-                  >
-                    {file ? file.name : "Upload your Image"}
-                  </p>
-                  <div className="w-32">
-                    <label
-                      htmlFor="file"
-                      className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
-                    >
-                      Browse file
-                    </label>
+              {!isLoading ? (
+                <form onSubmit={handleRegistration}>
+                  <div className="grid grid-cols-2 gap-2">
                     <input
-                      type="file"
-                      className="hidden"
-                      name="image"
-                      id="file"
-                      onChange={(e) => setFile(e.target.files[0])}
+                      type="text"
+                      className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                      placeholder="First Name"
+                      name="firstName"
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                      placeholder="Last Name"
+                      name="lastName"
+                      onChange={handleChange}
                     />
                   </div>
-                </div>
-                <select
-                  id="countries"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option selected>Type of creator</option>
-                  <option value="art">Arts and Culture</option>
-                  <option value="dance">Dance</option>
-                  <option value="photography">Photography</option>
-                  <option value="entrepreneur">Entrepreneur</option>
-                </select>
-                <p className="text-red-500">{error}</p>
-                <div className="mt-3 mb-8">
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="email"
+                      className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                      placeholder="Email"
+                      name="email"
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                      placeholder="Username"
+                      name="username"
+                      onChange={handleChange}
+                    />
+                  </div>
                   <input
-                    type="checkbox"
-                    className="hidden"
-                    name="termCon"
-                    id="term"
-                    onChange={() => setTermCon(!termCon)}
+                    type="date"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                    name="dateOfBirth"
+                    onChange={handleChange}
+                    placeholder="DD/MM/YYYY"
+                    style={{ color: "#a4a6ac" }}
                   />
-                  <label
-                    htmlFor="term"
-                    className="cursor-pointer label relative"
+                  <input
+                    type="password"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                    placeholder="Password"
+                    name="password"
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="password"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+                    placeholder="Confirm password"
+                    name="confirmPassword"
+                    onChange={handleChange}
+                  />
+                  <div className="flex items-center justify-between border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none hover:border-orange-500">
+                    <p
+                      className={`${
+                        file ? "text-black" : "text-[#a4a6ac]"
+                      } w-full`}
+                    >
+                      {file ? file.name : "Upload your Image"}
+                    </p>
+                    <div className="w-32 ">
+                      <label
+                        htmlFor="file"
+                        className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
+                      >
+                        Browse file
+                      </label>
+                      <input
+                        type="file"
+                        className="hidden"
+                        name="image"
+                        id="file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                      />
+                    </div>
+                  </div>
+                  <select
+                    id="countries"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
+                    onChange={(e) => setCategory(e.target.value)}
                   >
-                    I accept the{" "}
-                    <Link className="text-[#ff7044]">terms and conditions</Link>
-                  </label>
+                    <option selected>Type of creator</option>
+                    <option value="art">Arts and Culture</option>
+                    <option value="dance">Dance</option>
+                    <option value="photography">Photography</option>
+                    <option value="entrepreneur">Entrepreneur</option>
+                  </select>
+                  <p className="text-red-500">{error}</p>
+                  <div className="mt-3 mb-8">
+                    <input
+                      type="checkbox"
+                      className="hidden"
+                      name="termCon"
+                      id="term"
+                      onChange={() => setTermCon(!termCon)}
+                    />
+                    <label
+                      htmlFor="term"
+                      className="cursor-pointer label relative"
+                    >
+                      I accept the{" "}
+                      <Link className="text-[#ff7044]">
+                        terms and conditions
+                      </Link>
+                    </label>
+                  </div>
+                  <button
+                    className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md active:bg-red-500 hover:bg-red-500"
+                    type="submit"
+                  >
+                    Create Account
+                  </button>
+                </form>
+              ) : (
+                <div className="flex items-center justify-center h-[100%]">
+                  <Spin />
                 </div>
-                <button
-                  className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md active:bg-red-500 hover:bg-red-500"
-                  type="submit"
-                >
-                  Create Account
-                </button>
-              </form>
+              )}
               <p className="text-center mt-8">
                 Already have an account?{" "}
                 <Link to="" className="text-[#ff7044]">

@@ -58,5 +58,5 @@ export const registerSlice = createSlice({
   },
 });
 
-export const {} = registerSlice.actions;
+export const { reset } = registerSlice.actions;
 export default registerSlice.reducer;
