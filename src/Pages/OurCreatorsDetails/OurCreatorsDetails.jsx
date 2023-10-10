@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import PreviousDonator from "../../Components/PreviousDonator/PreviousDonator";
 import img from "../../Images/creator.png";
 import Footer from "../../Shared/Footer/Footer";
@@ -8,6 +9,7 @@ import Navbar from "../../Shared/Navbar/Navbar";
 const OurCreatorsDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [paymentData, setPaymentData] = useState({});
 
   useEffect(() => {
     fetch("../fakeDB.json")
@@ -16,7 +18,51 @@ const OurCreatorsDetails = () => {
   }, []);
 
   const filteringData = data.find((dt) => dt.id === parseInt(id));
-  console.log(filteringData);
+
+  const getInputValue = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    const newData = { ...paymentData };
+    newData[name] = value;
+    setPaymentData(newData);
+  };
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+
+    console.log(paymentData.amount);
+    if (
+      paymentData.amount !== undefined &&
+      paymentData.donarName !== undefined &&
+      paymentData.message !== undefined
+    ) {
+      sendPaymentInfos(
+        new Date().getTime(),
+        "CMZON10707",
+        "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB",
+        "cmazon.com",
+        "url_redirection_success",
+        "url_redirection_failed",
+        100,
+        "dakar",
+        "",
+        "",
+        "",
+        ""
+      );
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Sorry!",
+        text: "Please enter the input value",
+        confirmButtonColor: "#fb7c29",
+        backdrop: `
+          #0000009c
+          left top`,
+      });
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -38,35 +84,37 @@ const OurCreatorsDetails = () => {
               <p className="text-right text-[#4B5563] mb-2">
                 1Gbor = <span>{"500FR"}</span>{" "}
               </p>
-              <form>
+              <form onSubmit={handlePayment}>
                 <input
-                  type="text"
+                  type="number"
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
                   placeholder="Enter Shot Amount"
-                  name=""
-                  id=""
+                  name="amount"
+                  onChange={getInputValue}
                 />
                 <input
                   type="text"
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
-                  placeholder="Name of Donor"
-                  name=""
-                  id=""
+                  placeholder="Name of Donar"
+                  name="donarName"
+                  onChange={getInputValue}
                 />
                 <textarea
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32"
                   placeholder="Message"
+                  name="message"
+                  onChange={getInputValue}
                 />
                 <div className="flex justify-end items-center">
                   <label htmlFor="" className="mr-2 text-[#4B5563]">
                     Total Cost=
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-2/6 text-center"
                     placeholder="OFR"
-                    name=""
-                    id=""
+                    name="totalCost"
+                    onChange={getInputValue}
                   />
                 </div>
                 <button
