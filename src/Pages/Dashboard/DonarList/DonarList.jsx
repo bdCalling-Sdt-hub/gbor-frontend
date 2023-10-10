@@ -1,17 +1,33 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { Button, Col, Drawer, Row, Space, Table, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Drawer,
+  Input,
+  Popover,
+  Radio,
+  Row,
+  Space,
+  Table,
+  Typography,
+} from "antd";
 import React, { useState } from "react";
 import { BsPrinter } from "react-icons/bs";
+import { CiSearch } from "react-icons/ci";
+import { HiOutlineAdjustments } from "react-icons/hi";
 import { RxDownload } from "react-icons/rx";
 const { Title, Text } = Typography;
 
 const DonarList = () => {
-  const [totalItems, setTotalItems] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [donationAmount, setDonationAmount] = useState(1);
   const pageSize = 5;
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
+
+  const handleAdjustSearch = () => {
+    console.log(donationAmount);
+  };
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -30,6 +46,7 @@ const DonarList = () => {
       gbor: 50,
     };
   });
+
   const columns = [
     {
       title: "DONAR NAME",
@@ -77,8 +94,100 @@ const DonarList = () => {
     },
   ];
 
+  //search filter content here---->
+  const content = (
+    <div>
+      <p
+        style={{
+          fontSize: "15px",
+          color: "#fb7c29",
+        }}
+      >
+        Donation Amount (GBOR)
+      </p>
+      <Radio.Group
+        onChange={(e) => setDonationAmount(e.target.value)}
+        value={donationAmount}
+        className="mt-3 "
+      >
+        <Space direction="vertical">
+          <Radio value={1}>0-5</Radio>
+          <Radio value={2}>51-100</Radio>
+          <Radio value={3}>101-150</Radio>
+          <Radio value={4}>151-201-250</Radio>
+          <Radio value={5}>250+</Radio>
+        </Space>
+      </Radio.Group>
+      <button
+        onClick={handleAdjustSearch}
+        className="w-full my-3 text-center rounded py-2 text-[#fb7c29] hover:bg-orange-500 hover:text-white block"
+        style={{
+          fontSize: "15px",
+          border: "1px solid #fb7c29",
+        }}
+      >
+        Apply
+      </button>
+    </div>
+  );
+
   return (
     <div>
+      <h2 className="text-2xl mb-5">Search</h2>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "30px",
+        }}
+      >
+        <Input
+          prefix={<CiSearch style={{ fontSize: "20px" }} />}
+          suffix={
+            <Popover
+              placement="bottomRight"
+              title={
+                <div
+                  style={{
+                    fontSize: "18px",
+                    color: "#fb7c29",
+                    borderBottom: "1px solid #fb7c29",
+                    paddingBottom: "5px",
+                  }}
+                >
+                  Filter
+                </div>
+              }
+              content={content}
+              trigger="click"
+              overlayClassName="w-96"
+            >
+              <HiOutlineAdjustments
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  color: "#fb7c29",
+                }}
+              />
+            </Popover>
+          }
+          placeholder="Search by Name/Id"
+          style={{ height: "50px", border: `1px solid #fb7c29` }}
+        />
+
+        <Button
+          style={{
+            background: "#fb7c29",
+            color: "white",
+            height: 50,
+            width: "180px",
+            border: "none",
+          }}
+        >
+          Search
+        </Button>
+      </div>
       <h2 className="text-2xl mb-5">Donar List</h2>
       <Table columns={columns} dataSource={data} />
       <Drawer

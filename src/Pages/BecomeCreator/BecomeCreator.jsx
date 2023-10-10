@@ -207,7 +207,7 @@ const BecomeCreator = () => {
                       className="cursor-pointer label relative"
                     >
                       I accept the{" "}
-                      <Link className="text-[#ff7044]">
+                      <Link className="text-gray-500 tracking-wide">
                         terms and conditions
                       </Link>
                     </label>

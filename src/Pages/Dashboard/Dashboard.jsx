@@ -1,18 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Badge, Button, Dropdown, Layout, Menu, Select, theme } from "antd";
-
-import { Divider } from "antd";
-
+import {
+  Badge,
+  Button,
+  Divider,
+  Dropdown,
+  Layout,
+  Menu,
+  Select,
+  theme,
+} from "antd";
 import React, { useEffect, useState } from "react";
-
 import { useTranslation } from "react-i18next";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BiMessageDots, BiTransfer, BiUser } from "react-icons/bi";
 import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotificationsOutline, IoIosPeople } from "react-icons/io";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
+import { RiMessage2Line } from "react-icons/ri";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import colors from "../../Constant/colors.jsx";
@@ -63,6 +69,7 @@ const Dashboard = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.yourInfo);
   const navigate = useNavigate();
+  const [show, setShow] = useState(true);
 
   const {
     token: { colorBgContainer },
@@ -337,14 +344,14 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          {/* <Menu.Item
+          <Menu.Item
             key="50"
             icon={<IoIosPeople style={{ fontSize: "20px" }} />}
           >
             <Link to="/dashboard/donar-list" style={{ fontSize: "16px" }}>
               {t("Donar List")}
             </Link>
-          </Menu.Item> */}
+          </Menu.Item>
 
           <SubMenu
             style={{ fontSize: "16px" }}
@@ -461,7 +468,7 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton} style={{ marginRight: "30px" }}>
+            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
               <Dropdown
                 overlay={menu}
                 placement="bottomRight"
@@ -490,6 +497,27 @@ const Dashboard = () => {
                   </Badge>
                 </Button>
               </Dropdown>
+            </div>
+            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
+              <Button
+                type="text"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Badge dot={show} color="#fb7c29">
+                  <RiMessage2Line
+                    className="cursor-pointer"
+                    fontSize={30}
+                    color="#fb7c29"
+                  />
+                </Badge>
+              </Button>
             </div>
             <div>
               <Dropdown
