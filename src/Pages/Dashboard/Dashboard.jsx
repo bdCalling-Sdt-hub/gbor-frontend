@@ -11,7 +11,7 @@ import { AiOutlineDollarCircle } from "react-icons/ai";
 import { BiMessageDots, BiTransfer, BiUser } from "react-icons/bi";
 import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
-import { IoIosNotificationsOutline, IoIosPeople } from "react-icons/io";
+import { IoIosNotificationsOutline } from "react-icons/io";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -337,14 +337,14 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item
+          {/* <Menu.Item
             key="50"
             icon={<IoIosPeople style={{ fontSize: "20px" }} />}
           >
             <Link to="/dashboard/donar-list" style={{ fontSize: "16px" }}>
               {t("Donar List")}
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
 
           <SubMenu
             style={{ fontSize: "16px" }}
