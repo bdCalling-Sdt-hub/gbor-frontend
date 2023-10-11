@@ -8,6 +8,7 @@ const { Title, Text } = Typography;
 const MessageTable = () => {
   const [creators, setCreators] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
