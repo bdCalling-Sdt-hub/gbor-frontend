@@ -1,0 +1,27 @@
+.link-nav {
+  position: relative;
+  color: #4b5563;
+}
+
+.link-nav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border: 1px solid;
+  border-image: linear-gradient(#fb7c29, #ef4444);
+  border-image-slice: 1;
+  width: 0;
+  transition: 0.3s;
+  visibility: hidden;
+}
+
+.link-nav:hover.link-nav::before {
+  width: 100%;
+  visibility: visible;
+}
+.link-nav:hover {
+  color: #ef4444;
+  transition: 0.2s;
+  transition-delay: 0.1s;
+}

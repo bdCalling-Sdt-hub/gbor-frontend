@@ -5,6 +5,7 @@ import { FiSearch } from "react-icons/fi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../Images/client-logo.svg";
+import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -44,29 +45,21 @@ const Navbar = () => {
       </div>
 
       <ul
-        className={` space-y-5 lg:space-y-0 lg:flex gap-10 text-white items-center bg-[#fda16e] lg:bg-transparent p-4 lg:p-0 absolute lg:static duration-500 h-screen lg:h-auto ${
+        className={` space-y-5 lg:space-y-0 lg:flex gap-10  items-center bg-[#fda16e] lg:bg-transparent p-4 lg:p-0 absolute lg:static duration-500 h-screen lg:h-auto ${
           open ? "left-0 top-0" : "-left-96 top-0"
         }`}
       >
-        <li>
-          <Link active to="/our-creators" className="">
-            Our Creators
-          </Link>
+        <li className="link-nav">
+          <Link to="/our-creators">Our Creators</Link>
         </li>
-        <li>
-          <Link to="/who-we-are" className="">
-            Who are we
-          </Link>
+        <li className="link-nav">
+          <Link to="/who-we-are">Who are we</Link>
         </li>
-        <li>
-          <Link to="/how-it-work" className="">
-            How it works
-          </Link>
+        <li className="link-nav">
+          <Link to="/how-it-work">How it works</Link>
         </li>
-        <li>
-          <Link to="/contact" className="">
-            Contact
-          </Link>
+        <li className="link-nav">
+          <Link to="/contact">Contact</Link>
         </li>
 
         {location?.pathname === "/" && (
@@ -74,15 +67,15 @@ const Navbar = () => {
             <div className="border border-[#6e7174] flex items-center rounded-md ">
               <input
                 type="text"
-                className="border-0 outline-none bg-transparent p-3 px-2 w-4/6"
+                className=" outline-none bg-transparent p-3 px-2 w-5/6"
                 onBlur={(e) => setSearchData(e.target.value)}
-                placeholder="Search your favourite creator"
+                placeholder="Search creator"
                 name=""
                 id=""
               />
               <button
                 style={{ marginLeft: "auto" }}
-                className="pr-2 hover:scale-125 transition"
+                className="pr-2  hover:scale-125 transition"
                 onClick={handleSearch}
               >
                 <FiSearch style={{ fontSize: "20px", color: "#4B5563" }} />

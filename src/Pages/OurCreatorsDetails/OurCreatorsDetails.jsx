@@ -10,6 +10,7 @@ const OurCreatorsDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [paymentData, setPaymentData] = useState({});
+  const [totalCost, setTotalCost] = useState(null);
 
   useEffect(() => {
     fetch("../fakeDB.json")
@@ -28,14 +29,31 @@ const OurCreatorsDetails = () => {
     setPaymentData(newData);
   };
 
+  //total cost calculate
+  useEffect(() => {
+    if (!isNaN(paymentData.amount)) {
+      const totalAmount = parseInt(paymentData.amount) * 500;
+      setTotalCost(totalAmount);
+    } else {
+      setTotalCost(null);
+    }
+  }, [paymentData.amount]);
+
   const handlePayment = (e) => {
     e.preventDefault();
 
-    console.log(paymentData.amount);
+    const value = {
+      amount: totalCost,
+      donarName: paymentData.donarName,
+      message: paymentData.message,
+    };
+
+    console.log(value);
+
     if (
-      paymentData.amount !== undefined &&
-      paymentData.donarName !== undefined &&
-      paymentData.message !== undefined
+      value.amount !== null &&
+      value.donarName !== undefined &&
+      value.message !== undefined
     ) {
       sendPaymentInfos(
         new Date().getTime(),
@@ -87,20 +105,20 @@ const OurCreatorsDetails = () => {
               <form onSubmit={handlePayment}>
                 <input
                   type="number"
-                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
+                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border focus:border-red-500"
                   placeholder="Enter Shot Amount"
                   name="amount"
                   onChange={getInputValue}
                 />
                 <input
                   type="text"
-                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
+                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border focus:border-red-500"
                   placeholder="Name of Donar"
                   name="donarName"
                   onChange={getInputValue}
                 />
                 <textarea
-                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32"
+                  className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32 focus:border focus:border-red-500"
                   placeholder="Message"
                   name="message"
                   onChange={getInputValue}
@@ -110,11 +128,10 @@ const OurCreatorsDetails = () => {
                     Total Cost=
                   </label>
                   <input
-                    type="number"
-                    className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-2/6 text-center"
-                    placeholder="OFR"
+                    className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-2/6 text-center cursor-not-allowed"
+                    readOnly
+                    value={totalCost || 0}
                     name="totalCost"
-                    onChange={getInputValue}
                   />
                 </div>
                 <button
