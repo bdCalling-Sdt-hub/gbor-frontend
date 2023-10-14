@@ -1,181 +1,140 @@
-import { Column } from "@ant-design/plots";
-import React from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+const data = [
+  {
+    name: "Fahim",
+    price: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Winslate",
+    price: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Lisa",
+    price: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Rose",
+    price: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Bride",
+    price: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Sergio",
+    price: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Martino",
+    price: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "Shiku",
+    price: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Tom Holland",
+    price: 1590,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Deep",
+    price: 2590,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Tus",
+    price: 3890,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "Sergio",
+    price: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Martino",
+    price: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+  {
+    name: "Shiku",
+    price: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Tom Holland",
+    price: 1590,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Deep",
+    price: 2590,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Tus",
+    price: 3890,
+    pv: 4300,
+    amt: 2100,
+  },
+];
 
 const TransactionChart = () => {
-  const columnStyle = {
-    fill: "red",
-    fillOpacity: 0.5,
-    stroke: "black",
-    lineWidth: 1,
-    lineDash: [4, 5],
-    strokeOpacity: 0.7,
-    shadowColor: "black",
-    shadowBlur: 10,
-    shadowOffsetX: 5,
-    shadowOffsetY: 5,
-    cursor: "pointer",
-  };
-  const data = [
-    {
-      year: "1930 年",
-      value: 38,
-    },
-    {
-      year: "1931 年",
-      value: 42,
-    },
-    {
-      year: "1932 年",
-      value: 45,
-    },
-    {
-      year: "1933 年",
-      value: 48,
-    },
-    {
-      year: "1934 年",
-      value: 50,
-    },
-    {
-      year: "1935 年",
-      value: 55,
-    },
-    {
-      year: "1936 年",
-      value: 60,
-    },
-    {
-      year: "1937 年",
-      value: 65,
-    },
-    {
-      year: "1938 年",
-      value: 70,
-    },
-    {
-      year: "1939 年",
-      value: 75,
-    },
-    {
-      year: "1940 年",
-      value: 80,
-    },
-    {
-      year: "1941 年",
-      value: 85,
-    },
-    {
-      year: "1942 年",
-      value: 90,
-    },
-    {
-      year: "1943 年",
-      value: 95,
-    },
-    {
-      year: "1944 年",
-      value: 100,
-    },
-    {
-      year: "1945 年",
-      value: 105,
-    },
-    {
-      year: "1946 年",
-      value: 110,
-    },
-    {
-      year: "1947 年",
-      value: 115,
-    },
-    {
-      year: "1948 年",
-      value: 120,
-    },
-    {
-      year: "1949 年",
-      value: 125,
-    },
-    {
-      year: "1950 年",
-      value: 130,
-    },
-    {
-      year: "1951 年",
-      value: 135,
-    },
-    {
-      year: "1952 年",
-      value: 140,
-    },
-    {
-      year: "1953 年",
-      value: 145,
-    },
-    {
-      year: "1954 年",
-      value: 150,
-    },
-    {
-      year: "1955 年",
-      value: 155,
-    },
-    {
-      year: "1956 年",
-      value: 160,
-    },
-    {
-      year: "1957 年",
-      value: 165,
-    },
-    {
-      year: "1958 年",
-      value: 170,
-    },
-    {
-      year: "1959 年",
-      value: 175,
-    },
-    {
-      year: "1960 年",
-      value: 180,
-    },
-  ];
-  {
-  }
-
-  const config = {
-    data,
-    xField: "value",
-    yField: "year",
-    legend: true,
-    label: {
-      content: (originData) => {
-        const val = parseFloat(originData.value);
-
-        if (val < 0.05) {
-          return (val * 100).toFixed(1) + "%";
-        }
-      },
-      offset: 10,
-    },
-    legend: false,
-    xAxis: {
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    },
-    lineWidth: 10,
-    scrollbar: {
-      type: "horizontal",
-    },
-    color: "#fb7c29",
-  };
   return (
-    <div>
-      <Column {...config} />
-    </div>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart
+        width={600}
+        height={200}
+        data={data.slice(0, 13)}
+        syncId="anyId"
+        margin={{
+          top: 10,
+          right: 30,
+          left: 0,
+          bottom: 0,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Bar dataKey="price" fill="#fb7c29" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 

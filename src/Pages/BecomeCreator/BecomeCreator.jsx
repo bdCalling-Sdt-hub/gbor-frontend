@@ -26,14 +26,14 @@ const BecomeCreator = () => {
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="text"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="First Name"
                     name="firstName"
                     id=""
                   />
                   <input
                     type="text"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="Last Name"
                     name="lastName"
                     id=""
@@ -42,47 +42,53 @@ const BecomeCreator = () => {
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="email"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="Email"
                     name="email"
                     id=""
                   />
                   <input
                     type="text"
-                    className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                    className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                     placeholder="Username"
                     name="username"
                     id=""
                   />
                 </div>
-
                 <input
                   type="text"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                   placeholder="Date of Birth (DD/MM/YYYY)"
                   name="dateOfBirth"
                   id=""
                 />
                 <input
                   type="password"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                   placeholder="Password"
                   name=""
                   id=""
                 />
                 <input
                   type="password"
-                  className="border border-black outline-none mb-2 bg-transparent rounded-md p-3 px-2 w-full"
+                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
                   placeholder="Confirm password"
                   name=""
                   id=""
                 />
+                <input
+                  type="text"
+                  className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full"
+                  placeholder="Write your Id"
+                  name=""
+                  id=""
+                />{" "}
                 <div className="flex items-center justify-between border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none">
-                  <p className="text-[#a4a6ac]">Upload your ID</p>
+                  <p className="text-[#a4a6ac]">Upload your Image</p>
                   <div>
                     <label
                       htmlFor="file"
-                      className="bg-[#fb7c29] text-white px-5 py-1 rounded-sm cursor-pointer"
+                      className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer"
                     >
                       Browse file
                     </label>
@@ -95,7 +101,16 @@ const BecomeCreator = () => {
                     />
                   </div>
                 </div>
-
+                <select
+                  id="countries"
+                  className="border border-black outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
+                >
+                  <option selected>Type of creator</option>
+                  <option value="US">Arts and Culture</option>
+                  <option value="CA">Dance</option>
+                  <option value="FR">Photography</option>
+                  <option value="DE">Entrepreneur</option>
+                </select>
                 <div className="mt-3 mb-8">
                   <input type="checkbox" className="hidden" name="" id="term" />
                   <label
@@ -106,7 +121,6 @@ const BecomeCreator = () => {
                     <Link className="text-[#ff7044]">terms and conditions</Link>
                   </label>
                 </div>
-
                 <button
                   className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md"
                   type="submit"

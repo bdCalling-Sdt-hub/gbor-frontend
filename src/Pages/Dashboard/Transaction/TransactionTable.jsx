@@ -1,276 +1,161 @@
-import { Button, Drawer, Table, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { AiOutlinePrinter } from "react-icons/ai";
-import { IoMdClose } from "react-icons/io";
-import { LiaSaveSolid } from "react-icons/lia";
+import { BsEye } from "react-icons/bs";
+import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    tripNo: "1373700510",
-
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-];
-
 const TransactionTable = () => {
+  const [rentData, setRentData] = useState([]); // Data fetched from the server
+  const [totalItems, setTotalItems] = useState(0); // Total number of items
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const pageSize = 5;
+
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [transactionData, setTransactionData] = useState(null);
+
+  const showDrawer = (record) => {
+    setIsDrawerVisible(true);
+    setTransactionData(record);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    setTransactionData(null);
+  };
+
+  const data = [...Array(15).keys()].map((item) => {
+    return {
+      transactionId: 5645451521,
+      creatorName: "Fahim",
+      donarName: "Kate",
+      date: "4/03/2015",
+      received: 545,
+      cfa: 7548,
+      action: "button",
+    };
+  });
+
   const columns = [
     {
-      title: "TRIP NO.",
-      dataIndex: "tripNo",
-      key: "tripNO",
+      title: "TRANSACTION ID",
+      dataIndex: "transactionId",
+      key: "transactionId",
     },
     {
-      title: "TIME",
-      dataIndex: "time",
-      key: "time",
+      title: "CREATOR NAME",
+      dataIndex: "creatorName",
+      key: "creatorName",
       responsive: ["md"],
     },
     {
-      title: "USER NAME",
-      dataIndex: "username",
-      key: "username",
+      title: "DONAR NAME",
+      dataIndex: "donarName",
+      key: "donarName",
       responsive: ["lg"],
     },
     {
-      title: "METHOD",
-      dataIndex: "method",
-      key: "method",
+      title: "DATE",
+      dataIndex: "date",
+      key: "date",
     },
     {
-      title: "AMOUNT",
-      dataIndex: "amount",
-      key: "amount",
+      title: "RECEIVED",
+      dataIndex: "received",
+      key: "received",
       responsive: ["md"],
     },
     {
-      title: "STATUS",
-      dataIndex: "status",
-      key: "status",
+      title: "CFA",
+      dataIndex: "cfa",
+      key: "cfa",
     },
     {
-      title: "PRINT/VIEW",
-      dataIndex: "printView",
-      key: "printView",
+      title: (
+        <div className="text-right">
+          <p>ACTION</p>
+        </div>
+      ),
+      dataIndex: "action",
+      key: "action",
       responsive: ["lg"],
-      render: (
-        _,
-        record // Use the second parameter 'record'
-      ) => (
-        <div style={{ textAlign: "center" }}>
-          <Button type="text" style={{ marginRight: "10px" }}>
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
+      render: (_, record) => (
+        <div style={{ textAlign: "right" }}>
+          <Button
+            onClick={() => showDrawer(record)}
+            type="text"
+            style={{ marginRight: "10px" }}
+          >
+            <BsEye style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+            <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
         </div>
       ),
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [earningData, setEarningData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setEarningData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setEarningData(null);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(currentPage);
   };
 
   return (
-    <div>
-      <Table columns={columns} dataSource={data} />
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: 15,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{earningData?.tripNo}
+                Transaction ID
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>
+                See all information about the transaction id no. 68656
+              </Text>
             </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
           </div>
         }
-        closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
+        closable={false}
+        extra={
+          <Space>
+            <Button
+              style={{
+                height: "40px",
+                width: "40px",
+                borderRadius: "100%",
+                backgroundColor: "white",
+                color: "#fb7c29",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
+        }
       >
-        {earningData && <DrawerPage earningData={earningData} />}
+        {transactionData && <DrawerPage transactionData={transactionData} />}
       </Drawer>
-    </div>
+    </>
   );
 };
-
 export default TransactionTable;

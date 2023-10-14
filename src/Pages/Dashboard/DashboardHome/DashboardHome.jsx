@@ -18,7 +18,7 @@ import TransactionTable from "./TransactionTable";
 
 function DashboardHome() {
   const contentStyle = {
-    height: "400px",
+    height: "450px",
     width: "100%",
     borderRadius: "15px",
   };
@@ -34,7 +34,7 @@ function DashboardHome() {
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
             autoplay={{
-              delay: 1500,
+              delay: 3000,
               disableOnInteraction: false,
             }}
             pagination={{
@@ -46,13 +46,13 @@ function DashboardHome() {
             <SwiperSlide>
               <img
                 style={contentStyle}
-                src="https://cssslider.com/sliders/demo-17/data1/images/picjumbo.com_hnck0391.jpg"
+                src="https://livingontheedge.org/wp-content/uploads/2021/08/godslove-1200-x-628.jpg"
               />
             </SwiperSlide>
             <SwiperSlide>
               <img
                 style={contentStyle}
-                src="https://cyberplexafrica.com/wp-content/uploads/2017/02/slider-img1.jpg"
+                src="https://tilm.org/wp-content/uploads/2020/10/five-birds-flying-on-the-sea.jpg"
               />
             </SwiperSlide>
           </Swiper>

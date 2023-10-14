@@ -1,146 +1,66 @@
-import { Button, Drawer, Table, Typography } from "antd";
-import React, { useState } from "react";
-import { BsEye } from "react-icons/bs";
-import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line} from "react-icons/ri";
-import {
-    UndoOutlined,DeleteOutlined 
-  } from '@ant-design/icons';
-import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import LoginActivity from './LoginActivity';
+import { Table, Typography, message } from "antd";
+import React from "react";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  }
- 
-];
-
 const LoginActivityTable = () => {
-  const columns = [
+  const [messageApi, contextHolder] = message.useMessage();
+  const info = () => {
+    messageApi.info("Now! Sign Out will not work.😎");
+  };
+
+  const data = [
     {
-      title: "NAME",
-      dataIndex: "name",
-      key: "name",
+      browser: "Chrome",
+      device: "Windows 11",
+      location: "Rampura",
+      time: "22/05/2023",
+      actions: "Button",
     },
     {
-      title: "EMAIL",
-      dataIndex: "email",
-      key: "email",
+      browser: "Firefox",
+      device: "Windows 10",
+      location: "Moghbazer",
+      time: "22/05/2023",
+      actions: "Button",
+    },
+    {
+      browser: "Microsoft Eadg",
+      device: "Huawei Y9",
+      location: "Comilla",
+      time: "22/05/2023",
+      actions: "Button",
+    },
+    {
+      browser: "Safari",
+      device: "Iphone 14 pro",
+      location: "Mohakhali",
+      time: "22/05/2023",
+      actions: "Button",
+    },
+  ];
+
+  const columns = [
+    {
+      title: "BROWSER",
+      dataIndex: "browser",
+      key: "browser",
+    },
+    {
+      title: "DEVICE",
+      dataIndex: "device",
+      key: "device",
       responsive: ["md"],
     },
     {
-      title: "CONTACT",
-      dataIndex: "contact",
-      key: "contact",
+      title: "LOCATION",
+      dataIndex: "location",
+      key: "location",
       responsive: ["lg"],
     },
     {
-      title: "JOINING DATE",
-      dataIndex: "joiningDate",
-      key: "joiningDate",
-    },
-    {
-      title: "INE",
-      dataIndex: "ine",
-      key: "ine",
-      responsive: ["md"],
+      title: "TIME",
+      dataIndex: "time",
+      key: "time",
     },
     {
       title: "ACTIONS",
@@ -149,65 +69,37 @@ const LoginActivityTable = () => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Button
-           
+          <button
             type="text"
-            style={{ marginRight: "10px" }}
+            style={style.signOutBtn}
+            onClick={handleSignOutDevice}
           >
-            <DeleteOutlined style={{ fontSize: "25px", color: "#999999" }} />
-          </Button>
-          <Button type="text">
-            <UndoOutlined style={{ fontSize: "25px", color: "#999999"}} />
-          </Button>
+            Sign Out
+          </button>
         </div>
       ),
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setHostData(record);
+  const style = {
+    signOutBtn: {
+      background: "#ffe1cd",
+      color: "#ff8a0d",
+      borderRadius: "3px",
+      padding: "7px 20px",
+      border: 0,
+      cursor: "pointer",
+    },
   };
 
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setHostData(null);
+  const handleSignOutDevice = () => {
+    info();
   };
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>
-              <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
-              </Title>
-              <Text>See all information about the trip no. 68656</Text>
-            </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
-          </div>
-        }
-        closable={false}
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={600}
-      >
-        {hostData && <DrawerPage hostData={hostData} />}
-      </Drawer>
+      <Table columns={columns} dataSource={data} pagination={false} />
+      {contextHolder}
     </div>
   );
 };

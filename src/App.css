@@ -73,6 +73,6 @@ input[type="checkbox"]:checked + label::before {
   border-color: #fff; /* Change border color when checked */
 }
 
-.my-class {
-  margin-left: auto !important;
+.scrollbar::-webkit-scrollbar {
+  display: none;
 }

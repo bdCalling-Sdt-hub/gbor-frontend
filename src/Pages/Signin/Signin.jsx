@@ -1,21 +1,16 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import React from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../Images/Logo.png";
 import signin from "../../Images/signin.png";
 import style from "./Signin.module.css";
 import axios from "axios"
 const Signin = () => {
-  const onFinish = async(values) => {
-    console.log("Received values of form: ", values);
-    const response=await axios.post("http://localhost:8000/pay");
-        let data=response.data;
-        console.log(data)
-     
-  };
-
+  const location = useLocation();
   const navigate = useNavigate();
+  const onFinish = (values) => {
+    navigate("/dashboard");
+  };
 
   const handleForget = () => {
     navigate("/forget-password");
