@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../Images/client-logo.svg";
+import logo from "../../Images/monGBOR.com.png";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -28,9 +28,9 @@ const Navbar = () => {
   return (
     <nav className="lg:flex items-center w-full justify-between lg:px-16 py-1 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] sticky top-0 z-50">
       {contextHolder}
-      <div className="flex items-center justify-between px-2 pt-1">
+      <div className="flex items-center justify-between px-2 py-2">
         <Link to="/">
-          <img className="w-16 md:w-24" src={logo} alt="logo" />
+          <img className="w-16 md:w-36" src={logo} alt="logo" />
         </Link>
         <div
           className="lg:hidden cursor-pointer text-white active:duration-300"
