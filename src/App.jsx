@@ -1,23 +1,21 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import "./App.css";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
-import Earning from "./Pages/Dashboard/Earning/Earning";
-import Notification from "./Pages/Dashboard/Notification/Notification";
-
 import NotFound from "./404";
-
+import "./App.css";
 import BecomeCreator from "./Pages/BecomeCreator/BecomeCreator";
 import Contact from "./Pages/Contact/Contact";
-import Banners from "./Pages/Dashboard/Banners/Banners";
-import CreatorInfo from "./Pages/Dashboard/CreatorInfo/CreatorInfo";
-import CreatorRequest from "./Pages/Dashboard/CreatorInfo/CreatorRequest";
-import DonarList from "./Pages/Dashboard/DonarList/DonarList";
+import Banners from "./Pages/Dashboard/AdminPart/Banners/Banners";
+import CreatorInfo from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorInfo";
+import CreatorRequest from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorRequest";
+import DashboardHome from "./Pages/Dashboard/AdminPart/DashboardHome/DashboardHome";
+import Earning from "./Pages/Dashboard/AdminPart/Earning/Earning";
+import Notification from "./Pages/Dashboard/AdminPart/Notification/Notification";
+import Transaction from "./Pages/Dashboard/AdminPart/Transaction/Transaction";
+import DonarList from "./Pages/Dashboard/CreatorPart/DonarList/DonarList";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 import Message from "./Pages/Dashboard/Message/Message";
 import MessageCreatorPage from "./Pages/Dashboard/Message/MessageCreatorPage/MessageCreatorPage";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
-import Transaction from "./Pages/Dashboard/Transaction/Transaction";
 import Email from "./Pages/Email/Email";
 import Home from "./Pages/Home/Home";
 import HowWork from "./Pages/HowWork/HowWork";

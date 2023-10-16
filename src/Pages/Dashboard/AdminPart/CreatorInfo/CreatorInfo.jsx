@@ -5,7 +5,6 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import ImageUploader from "react-image-upload";
-import colors from "../../../Constant/colors";
 import CreatorInfoTable from "./CreatorInfoTable";
 const { Title, Text } = Typography;
 
@@ -47,7 +46,7 @@ const CreatorInfo = () => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
-          style={{ height: "50px", borderColor: colors.primaryColor }}
+          style={{ height: "50px", borderColor: "#fb7c29" }}
           placeholder="Search by Name/Id"
         />
         <Button

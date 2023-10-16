@@ -3,7 +3,7 @@ import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
-import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
 const TransactionTable = () => {

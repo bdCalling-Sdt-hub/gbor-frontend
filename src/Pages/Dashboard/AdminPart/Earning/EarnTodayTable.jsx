@@ -1,53 +1,60 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { BsEye } from "react-icons/bs";
+import { BsPrinter } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
-import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const CreatorInfoTable = () => {
+const EarnTodayTable = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [creatorData, setCreatorData] = useState(null);
+  const [earningData, setEarningData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setCreatorData(record);
+    setEarningData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setCreatorData(null);
+    setEarningData(null);
   };
 
   const data = [...Array(15).keys()].map((item) => {
     return {
-      creatorId: 5645451521,
-      name: "Sif Fahim",
-      webLink: "https://saifulportfolio.netlify.app",
+      transactionId: 5645451521,
+      date: "4/03/2015",
+      donarName: "Kate",
+      amount: 470.0,
       action: "button",
     };
   });
 
   const columns = [
     {
-      title: "CREATOR ID",
-      dataIndex: "creatorId",
-      key: "creatorId",
+      title: "TRANSACTION ID",
+      dataIndex: "transactionId",
+      key: "transactionId",
     },
     {
-      title: "NAME",
-      dataIndex: "name",
-      key: "name",
+      title: "DATE",
+      dataIndex: "date",
+      key: "date",
     },
     {
-      title: "WEB LINK",
-      dataIndex: "webLink",
-      key: "webLink",
+      title: "DONAR NAME",
+      dataIndex: "donarName",
+      key: "donarName",
       responsive: ["lg"],
+    },
+
+    {
+      title: "AMOUNT",
+      dataIndex: "amount",
+      key: "amount",
     },
     {
       title: (
@@ -65,7 +72,7 @@ const CreatorInfoTable = () => {
             type="text"
             style={{ marginRight: "10px" }}
           >
-            <BsEye style={{ fontSize: "20px", color: "#595959" }} />
+            <BsPrinter style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
             <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
@@ -98,10 +105,10 @@ const CreatorInfoTable = () => {
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Creator ID #012
+                Transaction ID
               </Title>
               <Text style={{ color: "white" }}>
-                See all details about creator id no #012
+                See all information about the transaction id no. 68656
               </Text>
             </Typography>
           </div>
@@ -132,9 +139,9 @@ const CreatorInfoTable = () => {
           </Space>
         }
       >
-        {creatorData && <DrawerPage creatorData={creatorData} />}
+        {earningData && <DrawerPage earningData={earningData} />}
       </Drawer>
     </>
   );
 };
-export default CreatorInfoTable;
+export default EarnTodayTable;

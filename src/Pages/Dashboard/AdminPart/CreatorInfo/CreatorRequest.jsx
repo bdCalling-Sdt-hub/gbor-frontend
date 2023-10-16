@@ -1,14 +1,13 @@
 import { Button, Col, Input, Pagination, Row } from "antd";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import CreatorRequestCard from "../../../Components/Common/CreatorRequestCard/CreatorRequestCard";
-import colors from "../../../Constant/colors";
+import CreatorRequestCard from "../../../../Components/Common/CreatorRequestCard/CreatorRequestCard";
 
 const CreatorRequest = () => {
   const [hoveredCol, setHoveredCol] = useState(null);
   const style = {
     cardStyle: {
-      border: `1px solid ${colors.primaryColor}`,
+      border: `1px solid orange`,
 
       cursor: "pointer",
       padding: "15px",
@@ -121,7 +120,10 @@ const CreatorRequest = () => {
         <Input
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
           placeholder="Search by Name/email"
-          style={{ height: "50px", border: `1px solid ${colors.primaryColor}` }}
+          style={{
+            height: "50px",
+            border: `1px solid #fb7c29`,
+          }}
         />
         <Button
           style={{
