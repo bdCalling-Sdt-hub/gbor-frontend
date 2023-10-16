@@ -6,7 +6,7 @@ import Earning from "./Pages/Dashboard/Earning/Earning";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 
 import NotFound from "./404";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+
 import BecomeCreator from "./Pages/BecomeCreator/BecomeCreator";
 import Contact from "./Pages/Contact/Contact";
 import Banners from "./Pages/Dashboard/Banners/Banners";
@@ -28,6 +28,7 @@ import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import VerifyPage from "./Pages/VerifyPage/VerifyPage";
 import WhoWe from "./Pages/WhoWe/WhoWe";
+import PrivateRoute from "./routers/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
