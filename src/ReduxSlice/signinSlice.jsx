@@ -11,11 +11,12 @@ const initialState = {
 };
 
 export const SignIn = createAsyncThunk("SignIn", async (value, thunkAPI) => {
+  console.log(value);
   try {
     const response = await axios.post("api/auth/login", value);
 
     return response.data;
-  } catch (err) {
+  } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
@@ -48,7 +49,7 @@ export const signinSlice = createSlice({
       state.isLoading = false;
       state.message = action.payload.message;
       state.token = action.payload.token;
-      state.userData = action.payload.data.userInfo;
+      state.userData = action.payload.data;
     },
     [SignIn.rejected]: (state, action) => {
       state.isError = true;

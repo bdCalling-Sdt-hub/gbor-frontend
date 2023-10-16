@@ -13,10 +13,10 @@
 
 body {
   width: 100%;
-  background: url("./Images/Noise.png");
+  /* background: url("./Images/Noise.png");
   overflow: auto;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
   font-family: clash-display;
   overflow-x: hidden;
 }
