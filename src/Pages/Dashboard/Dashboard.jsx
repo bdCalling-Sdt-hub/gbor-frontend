@@ -67,7 +67,7 @@ const Dashboard = () => {
     localStorage.lang || "en"
   );
   const location = useLocation();
-  const user = JSON.parse(localStorage.yourInfo);
+  const { identity, userInfo } = JSON.parse(localStorage.yourInfo);
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
 
@@ -312,14 +312,16 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
           <Divider style={{ backgroundColor: "white" }} />
-          <Menu.Item
-            key="2"
-            icon={<BiMessageDots style={{ fontSize: "20px" }} />}
-          >
-            <Link to="/dashboard/message" style={{ fontSize: "16px" }}>
-              {t("Message")}
-            </Link>
-          </Menu.Item>
+          {identity && (
+            <Menu.Item
+              key="2"
+              icon={<BiMessageDots style={{ fontSize: "20px" }} />}
+            >
+              <Link to="/dashboard/message" style={{ fontSize: "16px" }}>
+                {t("Message")}
+              </Link>
+            </Menu.Item>
+          )}
 
           <SubMenu
             style={{ fontSize: "16px" }}
@@ -353,23 +355,25 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <SubMenu
-            style={{ fontSize: "16px" }}
-            key="4"
-            icon={<FaPeopleLine style={{ fontSize: "20px" }} />}
-            title={t("hostInfo.title")}
-          >
-            <Menu.Item key="39">
-              <Link to="/dashboard/creator-info">
-                {t("hostInfo.subTitle1")}
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="40">
-              <Link to="/dashboard/creator-request">
-                {t("hostInfo.subTitle2")}
-              </Link>
-            </Menu.Item>
-          </SubMenu>
+          {identity && (
+            <SubMenu
+              style={{ fontSize: "16px" }}
+              key="4"
+              icon={<FaPeopleLine style={{ fontSize: "20px" }} />}
+              title={t("hostInfo.title")}
+            >
+              <Menu.Item key="39">
+                <Link to="/dashboard/creator-info">
+                  {t("hostInfo.subTitle1")}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="40">
+                <Link to="/dashboard/creator-request">
+                  {t("hostInfo.subTitle2")}
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+          )}
 
           <Menu.Item key="5" icon={<BiTransfer style={{ fontSize: "20px" }} />}>
             <Link to="/dashboard/transaction" style={{ fontSize: "16px" }}>
@@ -377,11 +381,13 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
-            <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
-              {t("Banner")}
-            </Link>
-          </Menu.Item>
+          {identity && (
+            <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
+              <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
+                {t("Banner")}
+              </Link>
+            </Menu.Item>
+          )}
 
           <Menu.Item
             key="90"
@@ -498,27 +504,29 @@ const Dashboard = () => {
                 </Button>
               </Dropdown>
             </div>
-            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
-              <Button
-                type="text"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Badge dot={show} color="#fb7c29">
-                  <RiMessage2Line
-                    className="cursor-pointer"
-                    fontSize={30}
-                    color="#fb7c29"
-                  />
-                </Badge>
-              </Button>
-            </div>
+            {!identity && (
+              <div style={{ marginRight: "20px" }}>
+                <Button
+                  type="text"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Badge dot={show} color="#fb7c29">
+                    <RiMessage2Line
+                      className="cursor-pointer"
+                      fontSize={30}
+                      color="#fb7c29"
+                    />
+                  </Badge>
+                </Button>
+              </div>
+            )}
             <div>
               <Dropdown
                 menu={{
@@ -538,7 +546,7 @@ const Dashboard = () => {
                     width: "40px",
                   }}
                   className="border-2 drop-shadow-sm border-orange-400"
-                  src={user.uploadId}
+                  src={userInfo.uploadId}
                   alt="admin-image"
                 />
               </Dropdown>

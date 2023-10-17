@@ -8,11 +8,11 @@ const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
   const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState(false);
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
   const [otp, setOtp] = useState();
+  const { identity } = JSON.parse(localStorage.yourInfo);
 
   const style = {
     btn: {
@@ -21,8 +21,9 @@ const Setting = () => {
       justifyContent: "space-between",
       height: "50px",
       marginBottom: "10px",
-      color: "gray",
+      color: "black",
       fontSize: "14px",
+      fontWeight: "500",
     },
     notification: {
       display: "flex",
@@ -35,8 +36,9 @@ const Setting = () => {
       boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
       borderRadius: "6px",
       padding: "4px 15px",
-      color: "gray",
+      color: "black",
       fontSize: "14px",
+      fontWeight: "500",
     },
     input: {
       height: "45px",
@@ -46,7 +48,8 @@ const Setting = () => {
       height: "70px",
     },
   };
-  const menuItems = [
+
+  const adminSettings = [
     {
       key: "1",
       title: "Personal Information",
@@ -76,6 +79,19 @@ const Setting = () => {
       key: "6",
       title: "About Us",
       link: "about-us",
+    },
+  ];
+
+  const creatorSettings = [
+    {
+      key: "1",
+      title: "Personal Information",
+      link: "personal-information",
+    },
+    {
+      key: "2",
+      title: "Change Password",
+      link: "change-password",
     },
   ];
 
@@ -133,17 +149,29 @@ const Setting = () => {
     <div>
       <h2 className="text-2xl">Settings</h2>
       <div className="mt-4">
-        {menuItems.map((item) => (
-          <Button
-            onClick={() => handleNavigate(item.link)}
-            key={item.key}
-            block
-            style={style.btn}
-          >
-            <span>{item.title}</span>
-            <LiaAngleRightSolid fontSize={20} />
-          </Button>
-        ))}
+        {identity
+          ? adminSettings.map((item) => (
+              <Button
+                onClick={() => handleNavigate(item.link)}
+                key={item.key}
+                block
+                style={style.btn}
+              >
+                <span>{item.title}</span>
+                <LiaAngleRightSolid fontSize={20} />
+              </Button>
+            ))
+          : creatorSettings.map((item) => (
+              <Button
+                onClick={() => handleNavigate(item.link)}
+                key={item.key}
+                block
+                style={style.btn}
+              >
+                <span>{item.title}</span>
+                <LiaAngleRightSolid fontSize={20} />
+              </Button>
+            ))}
         {/* notification */}
         <div style={style.notification}>
           <span>Notification</span>
@@ -155,6 +183,7 @@ const Setting = () => {
             defaultChecked
           />
         </div>
+
         {/* change password*/}
         <Modal
           title={<p style={{ marginBottom: "30px" }}>Change password</p>}

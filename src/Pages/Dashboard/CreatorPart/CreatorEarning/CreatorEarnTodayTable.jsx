@@ -6,7 +6,7 @@ import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnTodayTable = () => {
+const CreatorEarnTodayTable = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
 
@@ -27,7 +27,6 @@ const EarnTodayTable = () => {
     return {
       transactionId: 5645451521,
       date: "4/03/2015",
-      creatorName: "amrin",
       donarName: "Kate",
       amount: 470.0,
       action: "button",
@@ -41,21 +40,15 @@ const EarnTodayTable = () => {
       key: "transactionId",
     },
     {
-      title: "CREATOR NAME",
-      dataIndex: "creatorName",
-      key: "creatorName",
-      responsive: ["md"],
+      title: "DATE",
+      dataIndex: "date",
+      key: "date",
     },
     {
       title: "DONAR NAME",
       dataIndex: "donarName",
       key: "donarName",
       responsive: ["lg"],
-    },
-    {
-      title: "DATE",
-      dataIndex: "date",
-      key: "date",
     },
 
     {
@@ -151,4 +144,4 @@ const EarnTodayTable = () => {
     </>
   );
 };
-export default EarnTodayTable;
+export default CreatorEarnTodayTable;

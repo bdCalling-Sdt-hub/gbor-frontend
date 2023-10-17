@@ -1,35 +1,38 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { BsPrinter } from "react-icons/bs";
+import { BsEye } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnTodayTable = () => {
+const CreatorTransactionTable = () => {
+  const [rentData, setRentData] = useState([]); // Data fetched from the server
+  const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [earningData, setEarningData] = useState(null);
+  const [transactionData, setTransactionData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setEarningData(record);
+    setTransactionData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setEarningData(null);
+    setTransactionData(null);
   };
 
   const data = [...Array(15).keys()].map((item) => {
     return {
       transactionId: 5645451521,
-      date: "4/03/2015",
-      creatorName: "amrin",
+      creatorName: "Fahim",
       donarName: "Kate",
-      amount: 470.0,
+      date: "4/03/2015",
+      received: 545,
+      cfa: 7548,
       action: "button",
     };
   });
@@ -57,11 +60,16 @@ const EarnTodayTable = () => {
       dataIndex: "date",
       key: "date",
     },
-
     {
-      title: "AMOUNT",
-      dataIndex: "amount",
-      key: "amount",
+      title: "RECEIVED",
+      dataIndex: "received",
+      key: "received",
+      responsive: ["md"],
+    },
+    {
+      title: "CFA",
+      dataIndex: "cfa",
+      key: "cfa",
     },
     {
       title: (
@@ -79,7 +87,7 @@ const EarnTodayTable = () => {
             type="text"
             style={{ marginRight: "10px" }}
           >
-            <BsPrinter style={{ fontSize: "20px", color: "#595959" }} />
+            <BsEye style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
             <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
@@ -146,9 +154,9 @@ const EarnTodayTable = () => {
           </Space>
         }
       >
-        {earningData && <DrawerPage earningData={earningData} />}
+        {transactionData && <DrawerPage transactionData={transactionData} />}
       </Drawer>
     </>
   );
 };
-export default EarnTodayTable;
+export default CreatorTransactionTable;

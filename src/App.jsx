@@ -8,12 +8,13 @@ import CreatorInfo from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorInfo";
 import CreatorRequest from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorRequest";
 import DashboardHome from "./Pages/Dashboard/AdminPart/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/AdminPart/Earning/Earning";
+import Message from "./Pages/Dashboard/AdminPart/Message/Message";
+import MessageCreatorPage from "./Pages/Dashboard/AdminPart/Message/MessageCreatorPage/MessageCreatorPage";
 import Notification from "./Pages/Dashboard/AdminPart/Notification/Notification";
 import Transaction from "./Pages/Dashboard/AdminPart/Transaction/Transaction";
+import CreatorDashboardHome from "./Pages/Dashboard/CreatorPart/CreatorDashboardHome/CreatorDashboardHome";
 import DonarList from "./Pages/Dashboard/CreatorPart/DonarList/DonarList";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import Message from "./Pages/Dashboard/Message/Message";
-import MessageCreatorPage from "./Pages/Dashboard/Message/MessageCreatorPage/MessageCreatorPage";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import Email from "./Pages/Email/Email";
@@ -29,6 +30,8 @@ import WhoWe from "./Pages/WhoWe/WhoWe";
 import PrivateRoute from "./routers/PrivateRoute/PrivateRoute";
 
 function App() {
+  const { identity } = JSON.parse(localStorage.yourInfo);
+
   return (
     <>
       <div className="">
@@ -51,12 +54,17 @@ function App() {
                 </PrivateRoute>
               }
             >
-              <Route path="/dashboard" element={<DashboardHome />} />
+              <Route
+                path="/dashboard"
+                element={
+                  identity ? <DashboardHome /> : <CreatorDashboardHome />
+                }
+              />
               <Route
                 path="/dashboard/notification"
                 element={<Notification />}
               />
-              <Route path="/dashboard/message" element={<Message />}></Route>
+              <Route path="/dashboard/message" element={<Message />} />
               <Route path="/dashboard/earning/:income" element={<Earning />} />
               <Route path="/dashboard/creator-info" element={<CreatorInfo />} />
               <Route path="/dashboard/banner" element={<Banners />} />
@@ -69,7 +77,7 @@ function App() {
                 path="/dashboard/transaction"
                 element={<Transaction />}
               ></Route>
-              <Route path="/dashboard/setting" element={<Setting />}></Route>
+              <Route path="/dashboard/setting" element={<Setting />} />
               <Route
                 path="/dashboard/setting/:dynamic"
                 element={<SettingPage />}

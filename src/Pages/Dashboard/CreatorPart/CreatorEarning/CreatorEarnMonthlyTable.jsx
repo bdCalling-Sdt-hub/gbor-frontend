@@ -1,12 +1,13 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { Button, Drawer, Space, Table, Typography } from "antd";
+import { Button, Col, Drawer, Row, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsPrinter } from "react-icons/bs";
+import { FiDollarSign } from "react-icons/fi";
+import { HiUserGroup } from "react-icons/hi";
 import { RxDownload } from "react-icons/rx";
-import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnTodayTable = () => {
+const CreatorEarnMonthlyTable = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
 
@@ -25,10 +26,8 @@ const EarnTodayTable = () => {
 
   const data = [...Array(15).keys()].map((item) => {
     return {
-      transactionId: 5645451521,
-      date: "4/03/2015",
-      creatorName: "amrin",
-      donarName: "Kate",
+      months: "Jan 23",
+      totalDonar: 10,
       amount: 470.0,
       action: "button",
     };
@@ -36,26 +35,14 @@ const EarnTodayTable = () => {
 
   const columns = [
     {
-      title: "TRANSACTION ID",
-      dataIndex: "transactionId",
-      key: "transactionId",
+      title: "MONTHS",
+      dataIndex: "months",
+      key: "months",
     },
     {
-      title: "CREATOR NAME",
-      dataIndex: "creatorName",
-      key: "creatorName",
-      responsive: ["md"],
-    },
-    {
-      title: "DONAR NAME",
-      dataIndex: "donarName",
-      key: "donarName",
-      responsive: ["lg"],
-    },
-    {
-      title: "DATE",
-      dataIndex: "date",
-      key: "date",
+      title: "TOTAL DONAR",
+      dataIndex: "totalDonar",
+      key: "totalDonar",
     },
 
     {
@@ -112,10 +99,10 @@ const EarnTodayTable = () => {
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Transaction ID
+                Monthly Income # July 23, 2023
               </Title>
               <Text style={{ color: "white" }}>
-                See all information about the transaction id no. 68656
+                See total income in July 23, 2023
               </Text>
             </Typography>
           </div>
@@ -146,9 +133,22 @@ const EarnTodayTable = () => {
           </Space>
         }
       >
-        {earningData && <DrawerPage earningData={earningData} />}
+        <Row>
+          <Col span={12}>
+            <p className="text-lg font-medium">Total Donar</p>
+            <p className="text-lg font-medium">Payment Amount</p>
+          </Col>
+          <Col span={12} className="text-right">
+            <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
+              <span>60</span> <HiUserGroup fontSize={20} color="#fb7c29" />
+            </p>
+            <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
+              <span>520056</span> <FiDollarSign fontSize={20} color="#fb7c29" />
+            </p>
+          </Col>
+        </Row>
       </Drawer>
     </>
   );
 };
-export default EarnTodayTable;
+export default CreatorEarnMonthlyTable;

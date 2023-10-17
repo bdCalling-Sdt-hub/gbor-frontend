@@ -2,7 +2,8 @@ import { Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { RiMessage2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import img from "../../../Images/user.png";
+
+import img from "../../../../Images/user.png";
 const { Title, Text } = Typography;
 
 const MessageTable = () => {
