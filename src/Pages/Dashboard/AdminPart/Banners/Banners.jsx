@@ -27,7 +27,6 @@ function Banners() {
   };
 
   const token = localStorage.token;
-
   const [api, contextHolder] = notification.useNotification();
   const successNotify = (placement) => {
     api.success({
@@ -47,12 +46,13 @@ function Banners() {
   function getImageFileObject(imageFile) {
     const formData = new FormData();
 
-    formData.append("bannerImage", imageFile);
+    console.log(imageFile.file);
+
+    formData.append("bannerImage", imageFile.file);
 
     axios
       .post("api/banner", formData, {
         headers: {
-          "Content-type": "application/json",
           authorization: `Bearer ${token}`,
         },
       })
@@ -61,7 +61,10 @@ function Banners() {
           successNotify("bottomRight");
         }
       })
-      .catch((err) => errorNotify("bottomRight"));
+      .catch((err) => {
+        console.log(err);
+        errorNotify("bottomRight");
+      });
     setBannerImage([...bannerImage, imageFile]);
   }
 

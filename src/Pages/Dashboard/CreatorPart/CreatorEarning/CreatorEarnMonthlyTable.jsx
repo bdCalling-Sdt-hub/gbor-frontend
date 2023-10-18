@@ -28,7 +28,8 @@ const CreatorEarnMonthlyTable = () => {
     return {
       months: "Jan 23",
       totalDonar: 10,
-      amount: 470.0,
+      gborAmount: 100,
+      amount: 50000,
       action: "button",
     };
   });
@@ -44,9 +45,13 @@ const CreatorEarnMonthlyTable = () => {
       dataIndex: "totalDonar",
       key: "totalDonar",
     },
-
     {
-      title: "AMOUNT",
+      title: "GBOR",
+      dataIndex: "gborAmount",
+      key: "gborAmount",
+    },
+    {
+      title: "AMOUNT(CFA)",
       dataIndex: "amount",
       key: "amount",
     },

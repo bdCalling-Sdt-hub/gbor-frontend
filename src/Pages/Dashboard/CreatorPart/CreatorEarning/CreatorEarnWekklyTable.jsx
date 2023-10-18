@@ -28,7 +28,8 @@ const CreatorEarnWeaklyTable = () => {
     return {
       weekNo: 1,
       totalDonar: 10,
-      amount: 470.0,
+      gborAmount: 5,
+      amount: 2500,
       action: "button",
     };
   });
@@ -44,9 +45,13 @@ const CreatorEarnWeaklyTable = () => {
       dataIndex: "totalDonar",
       key: "totalDonar",
     },
-
     {
-      title: "AMOUNT",
+      title: "GBOR",
+      dataIndex: "gborAmount",
+      key: "gborAmount",
+    },
+    {
+      title: "AMOUNT(CFA)",
       dataIndex: "amount",
       key: "amount",
     },

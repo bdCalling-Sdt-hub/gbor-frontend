@@ -22,6 +22,7 @@ import { RiMessage2Line } from "react-icons/ri";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import colors from "../../Constant/colors.jsx";
+import useRole from "../../Hooks/useRole.jsx";
 import GBORLOGO from "../../Images/GBORLOGO.png";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
@@ -67,9 +68,12 @@ const Dashboard = () => {
     localStorage.lang || "en"
   );
   const location = useLocation();
-  const { identity, userInfo } = JSON.parse(localStorage.yourInfo);
+  const { userInfo } = JSON.parse(localStorage.yourInfo);
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
+  const { identity } = useRole();
+
+  console.log(identity);
 
   const {
     token: { colorBgContainer },
@@ -346,16 +350,18 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item
-            key="50"
-            icon={<IoIosPeople style={{ fontSize: "20px" }} />}
-          >
-            <Link to="/dashboard/donar-list" style={{ fontSize: "16px" }}>
-              {t("Donar List")}
-            </Link>
-          </Menu.Item>
+          {userInfo.role === "c_creator" && (
+            <Menu.Item
+              key="50"
+              icon={<IoIosPeople style={{ fontSize: "20px" }} />}
+            >
+              <Link to="/dashboard/donar-list" style={{ fontSize: "16px" }}>
+                {t("Donar List")}
+              </Link>
+            </Menu.Item>
+          )}
 
-          {identity && (
+          {userInfo.role === "admin" && (
             <SubMenu
               style={{ fontSize: "16px" }}
               key="4"
@@ -381,7 +387,7 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          {identity && (
+          {userInfo.role === "admin" && (
             <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
               <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
                 {t("Banner")}

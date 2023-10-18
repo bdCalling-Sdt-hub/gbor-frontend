@@ -28,8 +28,6 @@ const BecomeCreator = () => {
     setCreator(newData);
   };
 
-  console.log(creator);
-
   const handleRegistration = (e) => {
     e.preventDefault();
     const formData = new FormData();

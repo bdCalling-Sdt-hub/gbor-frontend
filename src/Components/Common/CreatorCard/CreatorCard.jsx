@@ -1,11 +1,10 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import img from "../../../Images/creator.png";
 import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
-  const { id, name, received } = data;
+  const { id, name, received, uploadId } = data;
   const navigate = useNavigate();
   const handleContentCreator = (id) => {
     navigate(`/our-creators/${id}`);
@@ -16,8 +15,9 @@ const CreatorCard = ({ data }) => {
         <div>
           <img
             width="100%"
+            style={{ height: "350px" }}
             className="transition duration-300"
-            src={img}
+            src={uploadId}
             alt=""
           />
         </div>

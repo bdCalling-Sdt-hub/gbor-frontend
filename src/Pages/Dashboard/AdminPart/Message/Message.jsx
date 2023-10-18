@@ -1,7 +1,7 @@
 import { Button, Input, Switch } from "antd";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { io } from "socket.io-client";
+import useRole from "../../../../Hooks/useRole";
 import MessageTable from "./MessageTable";
 
 const Message = () => {
@@ -14,37 +14,40 @@ const Message = () => {
     setMessageOpen(e);
     localStorage.setItem("message", e);
   };
-  let socket = io("http://192.168.10.18:10000");
+  const identity = useRole();
 
-  socket.on("connect", () => {
-    console.log("Connected");
+  console.log(identity);
+  // let socket = io("http://192.168.10.18:10000");
 
-    const data = {
-      uid: "1111",
-    };
+  // socket.on("connect", () => {
+  //   console.log("Connected");
 
-    socket.emit("join-room", data);
-    const chatData = {
-      uid: "1111",
-      chatInfo: {
-        participants: ["1111", "2222"],
-      },
-    };
-    socket.emit("add-new-chat", chatData);
-    socket.on("join-check", (data) => {
-      console.log(data);
-    });
-    socket.on("chat-id-check", (data) => {
-      setChatId(data._id);
-    });
-    socket.on("disconnect", () => {
-      console.log("Disconnected");
-    });
-  });
+  //   const data = {
+  //     uid: "1111",
+  //   };
 
-  socket.on("error", (error) => {
-    console.error("Connection error:", error);
-  });
+  //   socket.emit("join-room", data);
+  //   const chatData = {
+  //     uid: "1111",
+  //     chatInfo: {
+  //       participants: ["1111", "2222"],
+  //     },
+  //   };
+  //   socket.emit("add-new-chat", chatData);
+  //   socket.on("join-check", (data) => {
+  //     console.log(data);
+  //   });
+  //   socket.on("chat-id-check", (data) => {
+  //     setChatId(data._id);
+  //   });
+  //   socket.on("disconnect", () => {
+  //     console.log("Disconnected");
+  //   });
+  // });
+
+  // socket.on("error", (error) => {
+  //   console.error("Connection error:", error);
+  // });
 
   return (
     <div>

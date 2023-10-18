@@ -5,7 +5,7 @@ import { LiaEditSolid } from "react-icons/lia";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
-  const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
+  const { userInfo } = JSON.parse(localStorage.getItem("yourInfo"));
 
   const [img, setImg] = useState();
 
@@ -18,7 +18,7 @@ const PersonalInfo = () => {
     email,
     dateOfBirth,
     uploadId,
-  } = userFromLocalStorage;
+  } = userInfo;
 
   const initialFormValues = {
     name: fName + " " + lName,

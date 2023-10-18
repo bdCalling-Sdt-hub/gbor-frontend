@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { ContentCreators } from "../../ReduxSlice/creatorsSlice";
 import CreatorCard from "../Common/CreatorCard/CreatorCard";
 
 const OurCreatorsPage = () => {
@@ -7,18 +9,21 @@ const OurCreatorsPage = () => {
   const [title, setTitle] = useState("all");
   const [data, setData] = useState([]);
 
+  const dispatch = useDispatch();
+  const { creatorsData } = useSelector((state) => state.creators);
+
   useEffect(() => {
-    fetch("./fakeDB.json")
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    dispatch(ContentCreators());
   }, []);
 
   let filteringData;
 
   if (title !== "all") {
-    filteringData = data.filter((data) => data.title === title);
+    filteringData = creatorsData.filter(
+      (data) => data.creator_category === title
+    );
   } else {
-    filteringData = data;
+    filteringData = creatorsData;
   }
 
   return (

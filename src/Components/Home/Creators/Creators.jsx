@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ContentCreators } from "../../../ReduxSlice/creatorsSlice";
 import CreatorCard from "../../Common/CreatorCard/CreatorCard";
 
 const Creators = () => {
   const [dataCount, setDataCount] = useState(4);
   const [title, setTitle] = useState("all");
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const { creatorsData } = useSelector((state) => state.creators);
 
   useEffect(() => {
-    fetch("./fakeDB.json")
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    dispatch(ContentCreators());
   }, []);
 
   let filteringData;
 
+  console.log(creatorsData);
+
   if (title !== "all") {
-    filteringData = data.filter((data) => data.title === title);
+    filteringData = creatorsData.filter(
+      (data) => data.creator_category === title
+    );
   } else {
-    filteringData = data;
+    filteringData = creatorsData;
   }
 
   return (
