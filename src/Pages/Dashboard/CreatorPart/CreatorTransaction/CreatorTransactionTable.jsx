@@ -28,8 +28,8 @@ const CreatorTransactionTable = () => {
   const data = [...Array(15).keys()].map((item) => {
     return {
       transactionId: 5645451521,
-      creatorName: "Fahim",
-      donarName: "Kate",
+      creatorName: "Emma Watson",
+      donarName: "Winslate",
       date: "4/03/2015",
       received: 545,
       cfa: 7548,

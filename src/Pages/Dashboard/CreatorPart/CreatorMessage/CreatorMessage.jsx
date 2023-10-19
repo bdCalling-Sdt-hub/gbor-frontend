@@ -1,24 +1,14 @@
 import { Avatar } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 
-const MessageCreatorPage = () => {
+const CreatorMessage = () => {
   const { dynamic } = useParams();
   const [data, setData] = useState([]);
   const [ongoingMessage, setOngoingMessage] = useState();
   const [incomingMessage, setIncomingMessage] = useState();
-
-  useEffect(() => {
-    fetch("/fakeDB.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      });
-  }, []);
-
-  const filterData = data.find((item) => item.id.toString() === dynamic);
 
   const handleMessage = () => {
     console.log(ongoingMessage);
@@ -27,12 +17,11 @@ const MessageCreatorPage = () => {
   return (
     <>
       <Link
-        to="/dashboard/message"
+        to="/dashboard"
         className="my-4 text-xl flex items-center "
         style={{ color: "black" }}
       >
-        <IoIosArrowBack style={{ fontSize: "20px" }} />{" "}
-        <span>{filterData?.name}</span>
+        <IoIosArrowBack style={{ fontSize: "20px" }} /> <span>Dashboard</span>
       </Link>
       <div className="border border-[#fb7c29] w-full rounded-md  bg-orange-50 p-8 pb-2">
         <div className="w-full h-[570px] overflow-y-auto flex flex-col scrollbar bg-orange-100 rounded p-1">
@@ -100,4 +89,4 @@ const MessageCreatorPage = () => {
   );
 };
 
-export default MessageCreatorPage;
+export default CreatorMessage;

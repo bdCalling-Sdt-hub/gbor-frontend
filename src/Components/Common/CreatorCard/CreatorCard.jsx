@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
-  const { id, name, received, uploadId } = data;
+  const { fName, lName, uploadId } = data;
   const navigate = useNavigate();
   const handleContentCreator = (id) => {
     navigate(`/our-creators/${id}`);
@@ -45,9 +45,9 @@ const CreatorCard = ({ data }) => {
         </div>
       </div>
       <div className="my-5">
-        <h1 className="font-bold text-lg">{name}</h1>
-        <p className="font-bold">
-          Gbor Received: <span className="font-normal">{received}</span>
+        <h2 className="font-bold text-lg">{fName + " " + lName}</h2>
+        <p className="font-medium">
+          Gbor Received: <span className="font-normal">145</span>
         </p>
       </div>
       <button

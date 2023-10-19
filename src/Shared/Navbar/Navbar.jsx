@@ -64,12 +64,12 @@ const Navbar = () => {
 
         {location?.pathname === "/" && (
           <li>
-            <div className="border border-[#6e7174] flex items-center rounded-md ">
+            <div className="border border-[#6e7174] flex items-center rounded-md">
               <input
                 type="text"
-                className=" outline-none bg-transparent p-3 px-2 w-5/6"
+                className="outline-none bg-transparent p-3 px-2 w-6/6"
                 onBlur={(e) => setSearchData(e.target.value)}
-                placeholder="Search creator"
+                placeholder="Search favourite creator"
                 name=""
                 id=""
               />

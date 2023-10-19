@@ -350,7 +350,7 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          {userInfo.role === "c_creator" && (
+          {!identity && (
             <Menu.Item
               key="50"
               icon={<IoIosPeople style={{ fontSize: "20px" }} />}
@@ -361,7 +361,7 @@ const Dashboard = () => {
             </Menu.Item>
           )}
 
-          {userInfo.role === "admin" && (
+          {identity && (
             <SubMenu
               style={{ fontSize: "16px" }}
               key="4"
@@ -387,7 +387,7 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          {userInfo.role === "admin" && (
+          {identity && (
             <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
               <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
                 {t("Banner")}
@@ -514,6 +514,7 @@ const Dashboard = () => {
               <div style={{ marginRight: "20px" }}>
                 <Button
                   type="text"
+                  onClick={() => navigate(`/dashboard/creator-message`)}
                   style={{
                     width: "40px",
                     height: "40px",

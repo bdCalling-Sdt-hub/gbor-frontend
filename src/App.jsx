@@ -15,6 +15,8 @@ import Notification from "./Pages/Dashboard/AdminPart/Notification/Notification"
 import Transaction from "./Pages/Dashboard/AdminPart/Transaction/Transaction";
 import CreatorDashboardHome from "./Pages/Dashboard/CreatorPart/CreatorDashboardHome/CreatorDashboardHome";
 import CreatorEarning from "./Pages/Dashboard/CreatorPart/CreatorEarning/CreatorEarning";
+import CreatorMessage from "./Pages/Dashboard/CreatorPart/CreatorMessage/CreatorMessage";
+import CreatorTransaction from "./Pages/Dashboard/CreatorPart/CreatorTransaction/CreatorTransaction";
 import DonarList from "./Pages/Dashboard/CreatorPart/DonarList/DonarList";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Setting from "./Pages/Dashboard/Setting/Setting";
@@ -29,6 +31,7 @@ import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import VerifyPage from "./Pages/VerifyPage/VerifyPage";
 import WhoWe from "./Pages/WhoWe/WhoWe";
+import TempoError from "./Shared/TempoError/TempoError";
 import AdminRoute from "./routers/AdminRoute/AdminRoute";
 import PrivateRoute from "./routers/PrivateRoute/PrivateRoute";
 
@@ -60,15 +63,45 @@ function App() {
           >
             <Route
               path="/dashboard"
-              element={identity ? <DashboardHome /> : <CreatorDashboardHome />}
+              element={
+                identity ? (
+                  <AdminRoute>
+                    <DashboardHome />
+                  </AdminRoute>
+                ) : (
+                  <CreatorDashboardHome />
+                )
+              }
             />
             <Route path="/dashboard/notification" element={<Notification />} />
-            <Route path="/dashboard/message" element={<Message />} />
+            <Route
+              path="/dashboard/message"
+              element={
+                <AdminRoute>
+                  <Message />
+                </AdminRoute>
+              }
+            />
             <Route
               path="/dashboard/earning/:income"
-              element={identity ? <Earning /> : <CreatorEarning />}
+              element={
+                identity ? (
+                  <AdminRoute>
+                    <Earning />
+                  </AdminRoute>
+                ) : (
+                  <CreatorEarning />
+                )
+              }
             />
-            <Route path="/dashboard/creator-info" element={<CreatorInfo />} />
+            <Route
+              path="/dashboard/creator-info"
+              element={
+                <AdminRoute>
+                  <CreatorInfo />
+                </AdminRoute>
+              }
+            />
             <Route
               path="/dashboard/banner"
               element={
@@ -79,12 +112,24 @@ function App() {
             />
             <Route
               path="/dashboard/creator-request"
-              element={<CreatorRequest />}
+              element={
+                <AdminRoute>
+                  <CreatorRequest />
+                </AdminRoute>
+              }
             />
 
             <Route
               path="/dashboard/transaction"
-              element={<Transaction />}
+              element={
+                identity ? (
+                  <AdminRoute>
+                    <Transaction />
+                  </AdminRoute>
+                ) : (
+                  <CreatorTransaction />
+                )
+              }
             ></Route>
             <Route path="/dashboard/setting" element={<Setting />} />
             <Route
@@ -93,11 +138,19 @@ function App() {
             />
             <Route
               path="/dashboard/message/:dynamic"
-              element={<MessageCreatorPage />}
+              element={
+                <AdminRoute>
+                  <MessageCreatorPage />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/creator-message"
+              element={!identity ? <CreatorMessage /> : <TempoError />}
             />
             <Route
               path="/dashboard/donar-list"
-              element={!identity && <DonarList />}
+              element={!identity ? <DonarList /> : <TempoError />}
             />
           </Route>
 

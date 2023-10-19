@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
 
   console.log(user);
 
-  if (user.userInfo?.email && user.userInfo?.emailVerified !== false) {
+  if (user?.userInfo?.email && user?.userInfo?.emailVerified !== false) {
     return children;
   }
   return <Navigate to="/signin" state={{ from: location }} />;

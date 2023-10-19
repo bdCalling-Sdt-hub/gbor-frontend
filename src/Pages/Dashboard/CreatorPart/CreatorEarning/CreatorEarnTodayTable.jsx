@@ -40,17 +40,16 @@ const CreatorEarnTodayTable = () => {
       key: "transactionId",
     },
     {
-      title: "DATE",
-      dataIndex: "date",
-      key: "date",
-    },
-    {
       title: "DONAR NAME",
       dataIndex: "donarName",
       key: "donarName",
       responsive: ["lg"],
     },
-
+    {
+      title: "DATE",
+      dataIndex: "date",
+      key: "date",
+    },
     {
       title: "AMOUNT",
       dataIndex: "amount",
