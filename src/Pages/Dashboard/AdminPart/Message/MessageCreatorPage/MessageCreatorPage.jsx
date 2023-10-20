@@ -6,11 +6,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 
 const MessageCreatorPage = () => {
-  const { id } = useParams();
+  const { id, name } = useParams();
   const [fieldData, setFieldData] = useState("");
   const { userInfo } = JSON.parse(localStorage.yourInfo);
   const [chat, setChat] = useState([]);
-  const chatContainerRef = useRef(null);
+  const lastMessageRef = useRef();
   const navigate = useNavigate();
   let socket = io("http://192.168.10.18:10000");
 
@@ -40,13 +40,10 @@ const MessageCreatorPage = () => {
       sender: userInfo._id,
     };
     socket.emit("add-new-message", data);
-
-    //empty filed
-    setFieldData("");
   };
 
   const handleBack = () => {
-    socket.emit("leave-j");
+    socket.emit("leave-room", data);
     navigate("/dashboard/message");
   };
 
@@ -73,6 +70,13 @@ const MessageCreatorPage = () => {
     }
   }
 
+  //infinite scroll
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollTop = lastMessageRef.current.scrollHeight;
+    }
+  });
+
   return (
     <>
       <button
@@ -81,15 +85,15 @@ const MessageCreatorPage = () => {
         className="my-4 text-xl flex items-center "
         style={{ color: "black" }}
       >
-        <IoIosArrowBack style={{ fontSize: "20px" }} /> <span>Fahim</span>
+        <IoIosArrowBack style={{ fontSize: "20px" }} /> <span>{name}</span>
       </button>
       <div className="border border-[#fb7c29] w-full rounded-md  bg-orange-50 ">
         <div
           className="w-full h-[570px] overflow-y-auto flex flex-col scrollbar rounded p-1 px-5"
-          ref={chatContainerRef}
+          ref={lastMessageRef}
         >
-          {chat.map((chatData) =>
-            chatData?.sender?._id === userInfo._id ? (
+          {chat.map((chatData, index) => {
+            return chatData?.sender?._id === userInfo._id ? (
               <div className="mb-4">
                 <div
                   className="flex gap-2"
@@ -125,8 +129,8 @@ const MessageCreatorPage = () => {
                   {getTimeAgo(chatData.createdAt)}
                 </p>
               </div>
-            )
-          )}
+            );
+          })}
         </div>
         <div className="flex gap-2 p-1 bg-orange-100 rounded">
           <input

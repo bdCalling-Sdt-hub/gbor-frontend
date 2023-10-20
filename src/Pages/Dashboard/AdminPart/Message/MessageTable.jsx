@@ -46,6 +46,8 @@ const MessageTable = () => {
       console.log("Connected");
     });
 
+    const name = e.message.fName + " " + e.message.lName;
+
     const chatInfo = {
       participants: [e.message._id, userInfo._id],
     };
@@ -58,7 +60,7 @@ const MessageTable = () => {
     socket.emit("add-new-chat", data);
     socket.on("chat-id-check", (data) => {
       console.log(data);
-      navigate(`/dashboard/message/${data._id}`);
+      navigate(`/dashboard/message/${data._id}/${name}`);
     });
   };
 

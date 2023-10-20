@@ -28,7 +28,7 @@ const Signin = () => {
       localStorage.setItem("yourInfo", JSON.stringify(userData));
       localStorage.setItem("token", token);
 
-      navigate("/dashboard");
+      window.location.href = "/dashboard";
     }
     dispatch(reset());
   }, [isError, isSuccess, token, dispatch, navigate]);

@@ -138,7 +138,7 @@ function App() {
               element={<SettingPage />}
             />
             <Route
-              path="/dashboard/message/:id"
+              path="/dashboard/message/:id/:name"
               element={<MessageCreatorPage />}
             />
 

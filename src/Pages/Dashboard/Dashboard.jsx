@@ -282,10 +282,11 @@ const Dashboard = () => {
     const data = {
       uid: userInfo._id,
     };
+    const name = "GBOR(Admin)";
 
     socket.emit("get-all-chats", data);
     socket.on("all-chats", (data) => {
-      navigate(`/dashboard/message/${data[0]._id}`);
+      navigate(`/dashboard/message/${data[0]._id}/${name}`);
     });
   };
 
@@ -590,7 +591,7 @@ const Dashboard = () => {
             marginRight: "60px",
             background: "white",
 
-            padding: 50,
+            padding: "20px 50px",
             minHeight: 280,
             overflow: "auto",
           }}
