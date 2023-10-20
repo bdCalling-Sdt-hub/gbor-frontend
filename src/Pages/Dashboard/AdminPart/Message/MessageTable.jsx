@@ -3,32 +3,36 @@ import React, { useEffect, useState } from "react";
 import { RiMessage2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
-import img from "../../../../Images/user.png";
+import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
+import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 const { Title, Text } = Typography;
 
 const MessageTable = () => {
   const [creators, setCreators] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const { creatorsData } = useSelector((state) => state.creators);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userInfo } = JSON.parse(localStorage.yourInfo);
 
   useEffect(() => {
-    setLoading(true);
-    fetch("../fakeDB.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setCreators(data);
-        setLoading(false);
-      });
+    dispatch(ContentCreators());
   }, []);
 
-  const data = creators.map((creator) => {
+  console.log(creatorsData);
+
+  const data = creatorsData?.map((creator) => {
     return {
-      profile: <img width="45px" src={img} />,
-      username: creator.name,
+      profile: (
+        <img
+          style={{ width: "50px", height: "50px", borderRadius: "100%" }}
+          src={creator.uploadId}
+        />
+      ),
+      username: creator.fName,
       creatorId: (
         <p className="text-gray-400">
-          Creator ID: <span className="text-black">{creator.id}</span>
+          Creator ID: <span className="text-black">{creator._id}</span>
         </p>
       ),
       message: creator,
@@ -36,7 +40,26 @@ const MessageTable = () => {
   });
 
   const handleMessage = (e) => {
-    navigate(`/dashboard/message/${e.message.id}`);
+    let socket = io("http://192.168.10.18:10000");
+
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+
+    const chatInfo = {
+      participants: [e.message._id, userInfo._id],
+    };
+
+    const data = {
+      chatInfo,
+      uid: userInfo._id,
+    };
+
+    socket.emit("add-new-chat", data);
+    socket.on("chat-id-check", (data) => {
+      console.log(data);
+      navigate(`/dashboard/message/${data._id}`);
+    });
   };
 
   const columns = [
@@ -85,7 +108,6 @@ const MessageTable = () => {
         showHeader={false}
         columns={columns}
         dataSource={data}
-        loading={loading}
       />
     </div>
   );

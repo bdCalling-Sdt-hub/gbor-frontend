@@ -28,9 +28,34 @@ const BecomeCreator = () => {
     setCreator(newData);
   };
 
+  const differentAgeFromToday = (date) => {
+    const birthDate = new Date(date);
+    const today = new Date();
+
+    const ageInMilliseconds = today - birthDate;
+
+    const age = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25));
+    return age;
+  };
+
   const handleRegistration = (e) => {
     e.preventDefault();
     const formData = new FormData();
+
+    const age = differentAgeFromToday(creator.dateOfBirth);
+
+    if (age <= 18) {
+      Swal.fire({
+        icon: "warning",
+        title: "Something Went Wrong",
+        text: "This Site is Intended for Adults (18+)",
+        confirmButtonColor: "#ff5252",
+        backdrop: `
+          #a53c3cb3
+          left top`,
+      });
+      return;
+    }
 
     const value = {
       fName: creator.firstName,
@@ -185,7 +210,7 @@ const BecomeCreator = () => {
                     className="border border-black outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option selected>Type of creator</option>
+                    <option>Type of creator</option>
                     <option value="art">Arts and Culture</option>
                     <option value="dance">Dance</option>
                     <option value="photography">Photography</option>
@@ -205,14 +230,19 @@ const BecomeCreator = () => {
                       className="cursor-pointer label relative"
                     >
                       I accept the{" "}
-                      <Link className="text-gray-500 tracking-wide">
+                      <Link className="text-orange-500 tracking-wide">
                         terms and conditions
                       </Link>
                     </label>
                   </div>
                   <button
-                    className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md active:bg-red-500 hover:bg-red-500"
+                    className={`${
+                      termCon
+                        ? "bg-[#fb7c29]"
+                        : "bg-orange-400 cursor-not-allowed"
+                    } text-white px-4 w-full py-3 rounded-md active:bg-red-500 `}
                     type="submit"
+                    disabled={!termCon}
                   >
                     Create Account
                   </button>
@@ -222,7 +252,7 @@ const BecomeCreator = () => {
                   <Spin />
                 </div>
               )}
-              <p className="text-center mt-8">
+              <p className="text-center mt-6">
                 Already have an account?{" "}
                 <Link to="" className="text-[#ff7044]">
                   Login

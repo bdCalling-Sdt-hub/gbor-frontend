@@ -7,7 +7,7 @@ const CreatorCard = ({ data }) => {
   const { fName, lName, uploadId } = data;
   const navigate = useNavigate();
   const handleContentCreator = (id) => {
-    navigate(`/our-creators/${id}`);
+    navigate(`/our-creators/454541`);
   };
   return (
     <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow card-container">
@@ -52,7 +52,7 @@ const CreatorCard = ({ data }) => {
       </div>
       <button
         className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition"
-        onClick={() => handleContentCreator(id)}
+        onClick={() => handleContentCreator()}
       >
         Give a Shot
       </button>

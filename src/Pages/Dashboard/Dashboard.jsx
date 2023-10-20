@@ -20,6 +20,7 @@ import { IoIosNotificationsOutline, IoIosPeople } from "react-icons/io";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
 import { RiMessage2Line } from "react-icons/ri";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import colors from "../../Constant/colors.jsx";
 import useRole from "../../Hooks/useRole.jsx";
@@ -266,6 +267,27 @@ const Dashboard = () => {
   const dashboardBreadCrumb = breadCrumb.find(
     (path) => path.path === location.pathname
   );
+  let socket = io("http://192.168.10.18:10000");
+  const data = {
+    uid: userInfo._id,
+  };
+
+  socket.emit("join-room", data);
+
+  const handleCreatorMessage = () => {
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+
+    const data = {
+      uid: userInfo._id,
+    };
+
+    socket.emit("get-all-chats", data);
+    socket.on("all-chats", (data) => {
+      navigate(`/dashboard/message/${data[0]._id}`);
+    });
+  };
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
@@ -514,7 +536,7 @@ const Dashboard = () => {
               <div style={{ marginRight: "20px" }}>
                 <Button
                   type="text"
-                  onClick={() => navigate(`/dashboard/creator-message`)}
+                  onClick={handleCreatorMessage}
                   style={{
                     width: "40px",
                     height: "40px",

@@ -15,7 +15,6 @@ import Notification from "./Pages/Dashboard/AdminPart/Notification/Notification"
 import Transaction from "./Pages/Dashboard/AdminPart/Transaction/Transaction";
 import CreatorDashboardHome from "./Pages/Dashboard/CreatorPart/CreatorDashboardHome/CreatorDashboardHome";
 import CreatorEarning from "./Pages/Dashboard/CreatorPart/CreatorEarning/CreatorEarning";
-import CreatorMessage from "./Pages/Dashboard/CreatorPart/CreatorMessage/CreatorMessage";
 import CreatorTransaction from "./Pages/Dashboard/CreatorPart/CreatorTransaction/CreatorTransaction";
 import DonarList from "./Pages/Dashboard/CreatorPart/DonarList/DonarList";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -137,17 +136,10 @@ function App() {
               element={<SettingPage />}
             />
             <Route
-              path="/dashboard/message/:dynamic"
-              element={
-                <AdminRoute>
-                  <MessageCreatorPage />
-                </AdminRoute>
-              }
+              path="/dashboard/message/:id"
+              element={<MessageCreatorPage />}
             />
-            <Route
-              path="/dashboard/creator-message"
-              element={!identity ? <CreatorMessage /> : <TempoError />}
-            />
+
             <Route
               path="/dashboard/donar-list"
               element={!identity ? <DonarList /> : <TempoError />}

@@ -27,6 +27,7 @@ const Signin = () => {
     if (isSuccess === true) {
       localStorage.setItem("yourInfo", JSON.stringify(userData));
       localStorage.setItem("token", token);
+
       navigate("/dashboard");
     }
     dispatch(reset());
