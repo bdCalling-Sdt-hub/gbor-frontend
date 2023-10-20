@@ -1,4 +1,3 @@
-import { message } from "antd";
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -12,22 +11,16 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchData, setSearchData] = useState("");
   const location = useLocation();
-  const [messageApi, contextHolder] = message.useMessage();
 
-  const handleSearch = (value) => {
-    messageApi
-      .open({
-        type: "loading",
-        content: "Search will be applicable after API integration",
-        duration: 2.5,
-      })
-      .then(() => message.success("Loading finished", 2.5))
-      .then(() => message.info("Loading finished", 2.5));
+  const handleSearch = () => {
+    if (searchData !== "") {
+      navigate(`/search/${searchData}`);
+    }
+    localStorage.setItem("location", JSON.stringify(location));
   };
 
   return (
     <nav className="lg:flex items-center w-full justify-between lg:px-16 py-1 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] sticky top-0 z-50">
-      {contextHolder}
       <div className="flex items-center justify-between px-2 py-4">
         <Link to="/">
           <img className="w-16 md:w-48" src={logo} alt="logo" />

@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ContentCreators } from "../../ReduxSlice/creatorsSlice";
 import CreatorCard from "../Common/CreatorCard/CreatorCard";
 
 const OurCreatorsPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [dataCount, setDataCount] = useState(8);
   const [title, setTitle] = useState("all");
-  const [data, setData] = useState([]);
 
   const dispatch = useDispatch();
   const { creatorsData } = useSelector((state) => state.creators);
+  const [searchData, setSearchData] = useState("");
+
+  const handleSearch = () => {
+    if (searchData !== "") {
+      navigate(`/search/${searchData}`);
+    }
+    localStorage.setItem("location", JSON.stringify(location));
+  };
 
   useEffect(() => {
     dispatch(ContentCreators());
@@ -45,12 +55,12 @@ const OurCreatorsPage = () => {
               type="text"
               className="border-0 outline-none bg-transparent p-3 px-2 w-5/6"
               placeholder="Search your favourite creator"
-              name=""
-              id=""
+              onChange={(e) => setSearchData(e.target.value)}
             />
             <button
               style={{ marginLeft: "auto" }}
               className="pr-2 hover:scale-125 transition"
+              onClick={handleSearch}
             >
               <FiSearch style={{ fontSize: "20px", color: "#4B5563" }} />
             </button>

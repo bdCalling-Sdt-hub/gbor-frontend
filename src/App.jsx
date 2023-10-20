@@ -26,6 +26,7 @@ import HowWork from "./Pages/HowWork/HowWork";
 import Otp from "./Pages/Otp/Otp";
 import OurCreators from "./Pages/OurCreators/OurCreators";
 import OurCreatorsDetails from "./Pages/OurCreatorsDetails/OurCreatorsDetails";
+import SearchPage from "./Pages/SearchPage/SearchPage";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import VerifyPage from "./Pages/VerifyPage/VerifyPage";
@@ -51,6 +52,7 @@ function App() {
           <Route path="/how-it-work" element={<HowWork />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/become-content-creator" element={<BecomeCreator />} />
+          <Route path="/search/:text" element={<SearchPage />} />
 
           <Route
             path="/dashboard"
