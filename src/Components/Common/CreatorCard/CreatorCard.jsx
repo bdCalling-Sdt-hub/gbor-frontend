@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
-  const { fName, lName, uploadId } = data;
+  const { _id, fName, lName, uploadId } = data;
   const navigate = useNavigate();
+
   const handleContentCreator = (id) => {
-    navigate(`/our-creators/454541`);
+    navigate(`/our-creators/${id}`);
   };
+
   return (
     <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow card-container">
       <div className="overflow-hidden rounded-xl relative">
@@ -52,7 +54,7 @@ const CreatorCard = ({ data }) => {
       </div>
       <button
         className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition"
-        onClick={() => handleContentCreator()}
+        onClick={() => handleContentCreator(_id)}
       >
         Give a Shot
       </button>

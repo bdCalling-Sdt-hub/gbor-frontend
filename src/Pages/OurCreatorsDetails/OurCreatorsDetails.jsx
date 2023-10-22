@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "../../../Config";
 import PreviousDonator from "../../Components/PreviousDonator/PreviousDonator";
-import img from "../../Images/creator.png";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
@@ -12,13 +12,13 @@ const OurCreatorsDetails = () => {
   const [paymentData, setPaymentData] = useState({});
   const [totalCost, setTotalCost] = useState(null);
 
-  useEffect(() => {
-    fetch("../fakeDB.json")
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+  console.log(id);
 
-  const filteringData = data.find((dt) => dt.id === parseInt(id));
+  useEffect(() => {
+    axios
+      .get(`api/auth/content-creator/${id}`)
+      .then((res) => setData(res.data?.data["Creator Details"]));
+  }, []);
 
   const getInputValue = (e) => {
     const name = e.target.name;
@@ -76,18 +76,25 @@ const OurCreatorsDetails = () => {
         text: "Please enter the input value",
         confirmButtonColor: "#fb7c29",
         backdrop: `
-          #0000009c
+          #a53c3cb3
           left top`,
       });
     }
   };
+
+  console.log(data);
   return (
     <div>
       <Navbar />
       <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-32">
         <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 mx-auto justify-between">
           <div className="w-full lg:w-3/4">
-            <img width="70%" className="mx-auto" src={img} alt="" />
+            <img
+              width="75%"
+              className="mx-auto rounded-xl"
+              src={data?.uploadId}
+              alt=""
+            />
           </div>
           <div className="w-full lg:w-2/4 p-4 lg:p-0">
             <h1 className="text-2xl font-bold text-[#252525] md:mt-8">

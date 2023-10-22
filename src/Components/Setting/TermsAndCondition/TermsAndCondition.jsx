@@ -1,15 +1,15 @@
 import { Button, Col, Row, notification } from "antd";
 import JoditEditor from "jodit-react";
-import React, { useRef, useState } from "react";
-import axios from "../../../../Config";
+import React, { useEffect, useRef, useState } from "react";
+import { default as axios, default as baseAxios } from "../../../../Config";
 
 const TermsAndCondition = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [api, contextHolder] = notification.useNotification();
 
   const token = localStorage.token;
 
-  const [api, contextHolder] = notification.useNotification();
   const successNotify = (placement) => {
     api.success({
       message: "Updated",
@@ -24,6 +24,19 @@ const TermsAndCondition = () => {
       placement,
     });
   };
+
+  useEffect(() => {
+    baseAxios
+      .get("api/term-and-condition", {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setContent(res.data?.data["Term and condition"]?.termAndCondition);
+      });
+  }, []);
 
   const handleTermCondition = () => {
     const values = {

@@ -1,17 +1,17 @@
 import { Button, Col, Row, notification } from "antd";
 import JoditEditor from "jodit-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import axios from "../../../../Config";
+import { default as axios } from "../../../../Config";
 import "./About.css";
 
 const About = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [api, contextHolder] = notification.useNotification();
 
   const token = localStorage.token;
 
-  const [api, contextHolder] = notification.useNotification();
   const successNotify = (placement) => {
     api.success({
       message: "Updated",
@@ -19,6 +19,7 @@ const About = () => {
       placement,
     });
   };
+
   const errorNotify = (placement) => {
     api.success({
       message: "Opps!",
@@ -26,7 +27,21 @@ const About = () => {
       placement,
     });
   };
-  const aboutDataSave = () => {
+
+  useEffect(() => {
+    axios
+      .get("api/aboutus", {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setContent(res.data.data?.aboutus?.aboutUs);
+      });
+  }, []);
+
+  const aboutChange = () => {
     console.log(content);
     const values = {
       aboutUs: content,
@@ -45,6 +60,7 @@ const About = () => {
       })
       .catch((err) => errorNotify("bottomRight"));
   };
+
   return (
     <div>
       {contextHolder}
@@ -60,7 +76,7 @@ const About = () => {
 
           <Button
             className=" bg-[#FB7C29]  hover:bg-red-500 duration-200"
-            onClick={aboutDataSave}
+            onClick={aboutChange}
             block
             style={{
               marginTop: "30px",

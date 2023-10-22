@@ -31,7 +31,7 @@ const CreatorInfoTable = () => {
       creatorId: item._id,
       name: item.fName + " " + item.lName,
       webLink: "",
-      action: "button",
+      action: item,
     };
   });
 

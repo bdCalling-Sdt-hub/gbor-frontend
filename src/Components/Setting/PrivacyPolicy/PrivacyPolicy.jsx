@@ -1,15 +1,15 @@
 import { Button, Col, Row, notification } from "antd";
 import JoditEditor from "jodit-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "../../../../Config";
 
 const PrivacyPolicy = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [api, contextHolder] = notification.useNotification();
 
   const token = localStorage.token;
 
-  const [api, contextHolder] = notification.useNotification();
   const successNotify = (placement) => {
     api.success({
       message: "Updated",
@@ -24,6 +24,19 @@ const PrivacyPolicy = () => {
       placement,
     });
   };
+
+  useEffect(() => {
+    axios
+      .get("api/privacy-policy", {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setContent(res.data?.data["privacy and policy"]?.policy);
+      });
+  }, []);
 
   const handlePrivacyPolicy = () => {
     const values = {

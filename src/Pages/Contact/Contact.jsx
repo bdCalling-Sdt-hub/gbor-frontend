@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
 const Contact = () => {
+  const [contactData, setContactData] = useState({});
+  const handleContact = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    const contact = { ...contactData };
+    contact[name] = value;
+    setContactData(contact);
+  };
+
+  const handleContactSend = (e) => {
+    e.preventDefault();
+
+    if (
+      contactData.name !== "" &&
+      contactData.email !== "" &&
+      contactData.subject !== "" &&
+      contactData.message !== ""
+    ) {
+      const value = {
+        name: contactData.name,
+        email: contactData.email,
+        subject: contactData.subject,
+        message: contactData.message,
+      };
+      axios.post("api/email-send", value).then((res) => console.log(res.data));
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Something Went Wrong",
+        text: "Please fill up the contact form",
+        confirmButtonColor: "#ff5252",
+        backdrop: `
+          #a53c3cb3
+          left top`,
+      });
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -15,31 +55,33 @@ const Contact = () => {
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
         </p>
         <div className="w-full lg:w-2/6 p-4 lg:p-0 mx-auto mt-16">
-          <form>
+          <form onSubmit={handleContactSend}>
             <input
               type="text"
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
+              onChange={handleContact}
+              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
               placeholder="Name"
-              name=""
-              id=""
+              name="name"
             />
             <input
               type="text"
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
+              onChange={handleContact}
+              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
               placeholder="Subject"
-              name=""
-              id=""
+              name="subject"
             />
             <input
-              type="text"
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full"
+              type="email"
+              onChange={handleContact}
+              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
               placeholder="Email"
-              name=""
-              id=""
+              name="email"
             />
             <textarea
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32"
+              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32 focus:border-red-500"
+              onChange={handleContact}
               placeholder="Your message"
+              name="message"
             />
 
             <button

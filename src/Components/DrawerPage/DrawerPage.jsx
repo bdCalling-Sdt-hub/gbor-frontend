@@ -1,17 +1,18 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Button, Col, Input, Row, Select, Typography, message } from "antd";
+import { Button, Col, Row, Select, Typography, message } from "antd";
 import React, { useState } from "react";
-import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
-import { GrLinkedinOption } from "react-icons/gr";
-import { LiaEditSolid } from "react-icons/lia";
 import img from "../../Images/creator1.png";
+import CreatorData from "./CreatorData/CreatorData";
 const { Title } = Typography;
 const { Option } = Select;
 
 const DrawerPage = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [approve, setApprove] = useState(false);
+
+  console.log(props);
+
   const handleDonarMessage = () => {
     messageApi.open({
       type: "success",
@@ -245,113 +246,7 @@ const DrawerPage = (props) => {
           </div>
         </>
       )}
-      {props.creatorData && (
-        <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              borderBottom: "1px solid #ffba8d",
-              paddingBottom: "20px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "15px",
-              }}
-            >
-              <img width={120} className="rounded" src={img} alt="creator" />
-              <div>
-                <h2 className="text-xl font-medium">Amrin Amena</h2>
-                <p>Gbor Received: 14</p>
-                <div className="flex gap-2 mt-3">
-                  <div className="bg-white p-2 w-10 h-10 flex justify-center items-center drop-shadow-lg rounded-md cursor-pointer">
-                    <GrLinkedinOption fontSize={28} color="#0a66c2" />
-                  </div>
-                  <div className="bg-white p-2 w-10 h-10 flex justify-center items-center drop-shadow-lg rounded-md cursor-pointer">
-                    <FaInstagram fontSize={28} color="#ff3725" />
-                  </div>
-                  <div className="bg-white p-2 w-10 h-10 flex justify-center items-center drop-shadow-lg rounded-md cursor-pointer">
-                    <FaTwitter fontSize={28} color="#1da1f2" />
-                  </div>
-                  <div className="bg-white p-2 w-10 h-10 flex justify-center items-center drop-shadow-lg rounded-md cursor-pointer">
-                    <FaFacebookF fontSize={28} color="#1877f2" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <Button
-              className="flex items-center bg-[#FB7C29] text-white hover:bg-red-500"
-              style={{ color: "white", border: "none" }}
-            >
-              <LiaEditSolid fontSize={16} />
-              Edit
-            </Button>
-          </div>
-
-          <div style={{ marginTop: "10px" }}>
-            <div style={{ marginBottom: "15px" }}>
-              <label htmlFor="">Email</label>
-              <Input
-                readOnly
-                defaultValue={"amrin25@gmail.com"}
-                style={{ height: "45px" }}
-              />
-            </div>
-            <div style={{ marginBottom: "15px" }}>
-              <label htmlFor="">Website</label>
-              <Input
-                readOnly
-                defaultValue={"amrin.com"}
-                style={{ height: "45px" }}
-              />
-            </div>
-            <div style={{ marginBottom: "15px" }}>
-              <label htmlFor="">Password</label>
-              <Input.Password
-                readOnly
-                defaultValue={"1qazxsw2"}
-                style={{ height: "45px" }}
-              />
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              gap: 10,
-              position: "absolute",
-              bottom: 10,
-            }}
-          >
-            <Button
-              block
-              style={{
-                border: "1px solid #fb7c29",
-                color: "#fb7c29",
-                height: 50,
-                width: "270px",
-              }}
-            >
-              Delete
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#fb7c29",
-                color: "white",
-                height: 50,
-                width: "270px",
-              }}
-            >
-              Print
-            </Button>
-          </div>
-        </>
-      )}
+      {props.creatorData && <CreatorData data={props.creatorData} />}
     </>
   );
 };
