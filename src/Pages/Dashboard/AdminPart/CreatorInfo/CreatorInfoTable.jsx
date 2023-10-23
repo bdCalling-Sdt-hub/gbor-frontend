@@ -15,6 +15,7 @@ const CreatorInfoTable = () => {
   const { creatorsData } = useSelector((state) => state.creators);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [creatorData, setCreatorData] = useState(null);
+  const [reload, setReload] = useState(1);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -37,7 +38,7 @@ const CreatorInfoTable = () => {
 
   useEffect(() => {
     dispatch(ContentCreators());
-  }, []);
+  }, [reload]);
 
   const columns = [
     {
@@ -139,7 +140,13 @@ const CreatorInfoTable = () => {
           </Space>
         }
       >
-        {creatorData && <DrawerPage creatorData={creatorData} />}
+        {creatorData && (
+          <DrawerPage
+            creatorData={creatorData}
+            setReload={setReload}
+            setIsDrawerVisible={setIsDrawerVisible}
+          />
+        )}
       </Drawer>
     </>
   );

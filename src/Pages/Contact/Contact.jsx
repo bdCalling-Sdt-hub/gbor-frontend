@@ -30,7 +30,16 @@ const Contact = () => {
         subject: contactData.subject,
         message: contactData.message,
       };
-      axios.post("api/email-send", value).then((res) => console.log(res.data));
+      axios.post("api/email-send", value).then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Email sent successfully",
+            text: "We've received your questions and will get back to you in a few hours.",
+            confirmButtonColor: "#ff5252",
+          });
+        }
+      });
     } else {
       Swal.fire({
         icon: "warning",

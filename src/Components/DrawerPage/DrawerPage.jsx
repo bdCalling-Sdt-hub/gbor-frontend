@@ -246,7 +246,13 @@ const DrawerPage = (props) => {
           </div>
         </>
       )}
-      {props.creatorData && <CreatorData data={props.creatorData} />}
+      {props.creatorData && (
+        <CreatorData
+          data={props.creatorData}
+          setReload={props.setReload}
+          setIsDrawerVisible={props.setIsDrawerVisible}
+        />
+      )}
     </>
   );
 };

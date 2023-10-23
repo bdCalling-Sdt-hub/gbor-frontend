@@ -1,26 +1,33 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { Button, Drawer, Form, Input, Space, Typography } from "antd";
-import React, { useState } from "react";
+import { Button, Drawer, Input, Space, Typography } from "antd";
+import React, { useEffect, useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { BsPlusCircleDotted } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
-import ImageUploader from "react-image-upload";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { Register, reset } from "../../../../ReduxSlice/RegisterSlice";
 import CreatorInfoTable from "./CreatorInfoTable";
 const { Title, Text } = Typography;
 
 const CreatorInfo = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [transactionData, setTransactionData] = useState(null);
-  const [bannerImage, setBannerImage] = useState([]);
-  const [socialLinks, setSocialLinks] = useState(1);
+  const [creator, setCreator] = useState({});
+  const [file, setFile] = useState(null);
+  const [category, setCategory] = useState();
+  const { message, isSuccess, isLoading } = useSelector(
+    (state) => state.register
+  );
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
-  function getImageFileObject(imageFile) {
-    setBannerImage([...bannerImage, imageFile]);
-  }
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
 
-  function runAfterImageDelete(file) {
-    console.log({ file });
-  }
+    const newData = { ...creator };
+    newData[name] = value;
+    setCreator(newData);
+  };
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -32,9 +39,61 @@ const CreatorInfo = () => {
     setTransactionData(null);
   };
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    const value = {
+      fName: creator.firstName,
+      lName: creator.lastName,
+      email: creator.email,
+      userName: creator.username,
+      dateOfBirth: creator.dateOfBirth,
+      password: creator.password,
+      confirmPass: creator.confirmPassword,
+      uploadId: file,
+      creator_category: category,
+    };
+
+    for (let key in value) {
+      formData.append(key, value[key]);
+    }
+
+    if (
+      value.fName !== undefined &&
+      value.lName !== undefined &&
+      value.email !== undefined &&
+      value.userName !== undefined &&
+      value.dateOfBirth !== undefined &&
+      value.password !== undefined &&
+      value.confirmPass !== undefined &&
+      value.uploadId !== null &&
+      value.creator_category !== undefined
+    ) {
+      //dispatch here for create creator
+      dispatch(Register(formData));
+
+      console.log("submited", formData);
+
+      //  error message
+      setError("");
+      setFile(null);
+    } else {
+      setError("Empty value is not accepted");
+      return;
+    }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      Swal.fire(
+        "Successfully created",
+        "Send verify link to creator  email",
+        "success"
+      );
+      dispatch(reset());
+    }
+  }, [isSuccess]);
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -117,152 +176,107 @@ const CreatorInfo = () => {
           </Space>
         }
       >
-        <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              borderBottom: "1px solid  #ffba8d",
-              paddingBottom: "20px",
-            }}
-          >
-            <div className="mx-auto">
-              <ImageUploader
-                style={{ borderRadius: "10px" }}
-                onFileAdded={(img) => getImageFileObject(img)}
-                onFileRemoved={(img) => runAfterImageDelete(img)}
+        <form onSubmit={handleRegistration}>
+          <input
+            type="text"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            placeholder="First Name"
+            name="firstName"
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            placeholder="Last Name"
+            name="lastName"
+            onChange={handleChange}
+          />
+
+          <input
+            type="email"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            placeholder="Email"
+            name="email"
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            placeholder="Username"
+            name="username"
+            onChange={handleChange}
+          />
+
+          <input
+            type="date"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            name="dateOfBirth"
+            onChange={handleChange}
+            placeholder="DD/MM/YYYY"
+            style={{ color: "#a4a6ac" }}
+          />
+          <input
+            type="password"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            placeholder="Password"
+            name="password"
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
+            placeholder="Confirm password"
+            name="confirmPassword"
+            onChange={handleChange}
+          />
+          <div className="flex items-center justify-between border border-gray-300 outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none hover:border-orange-500">
+            <p className={`${file ? "text-black" : "text-[#a4a6ac]"} w-full`}>
+              {file ? file.name : "Upload your Image"}
+            </p>
+            <div className="w-32 ">
+              <label
+                htmlFor="file"
+                className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
+              >
+                Browse file
+              </label>
+              <input
+                type="file"
+                className="hidden"
+                name="image"
+                id="file"
+                onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
           </div>
 
-          <Form
-            name="basic"
-            labelCol={{
-              span: 24,
-            }}
-            onFinish={onFinish}
-            autoComplete="off"
-            style={{ marginTop: "10px", padding: "0" }}
+          <select
+            id="countries"
+            className="border border-gray-300 outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
+            onChange={(e) => setCategory(e.target.value)}
           >
-            <Form.Item
-              label="Full Name"
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your username!",
-                },
-              ]}
-              style={{ marginBottom: "4px" }}
-            >
-              <Input style={{ height: "45px" }} placeholder="Enter your name" />
-            </Form.Item>
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-              style={{ marginBottom: "4px" }}
-            >
-              <Input
-                style={{ height: "45px" }}
-                placeholder="Enter your email"
-              />
-            </Form.Item>
-            <Form.Item
-              label="Website"
-              name="website"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your website link!",
-                },
-              ]}
-              style={{ marginBottom: "4px" }}
-            >
-              <Input
-                style={{ height: "45px" }}
-                placeholder="Enter your website link"
-              />
-            </Form.Item>
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-              style={{ marginBottom: "4px" }}
-            >
-              <Input.Password
-                style={{ height: "45px" }}
-                placeholder="Enter your password"
-              />
-            </Form.Item>
-            <Form.Item
-              label="Confirm Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-              style={{ marginBottom: "4px" }}
-            >
-              <Input.Password
-                style={{ height: "45px" }}
-                placeholder="Enter your password"
-              />
-            </Form.Item>
-            {[...Array(socialLinks).keys()].map((link) => (
-              <Form.Item
-                label="Social Media link"
-                name={`socialMedia${link.toString()}`}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your social link!",
-                  },
-                ]}
-                style={{ marginBottom: "4px" }}
-              >
-                <Input
-                  style={{ height: "45px" }}
-                  placeholder="Enter your social link"
-                />
-              </Form.Item>
-            ))}
+            <option>Type of creator</option>
+            <option value="art">Arts and Culture</option>
+            <option value="dance">Dance</option>
+            <option value="photography">Photography</option>
+            <option value="entrepreneur">Entrepreneur</option>
+          </select>
+          <p className="text-red-500">{error}</p>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
             <button
-              className="bg-[#fb7c29] text-white px-4 font-medium py-3 rounded flex items-center gap-1 text-md"
-              onClickCapture={() => setSocialLinks((prev) => prev + 1)}
+              className="bg-[#fb7c29] text-white px-4  py-3 rounded-md hover:bg-red-500 "
+              type="submit"
+              style={{ width: "555px" }}
             >
-              <BsPlusCircleDotted fontSize={20} />
-              Link
+              Create Account
             </button>
-
-            <Form.Item style={{ marginTop: "20px" }}>
-              <Button
-                htmlType="submit"
-                block
-                style={{
-                  background: "#fb7c29",
-                  color: "white",
-                  height: 50,
-                  width: "550px",
-                }}
-              >
-                Create
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+          </div>
+        </form>
       </Drawer>
     </div>
   );

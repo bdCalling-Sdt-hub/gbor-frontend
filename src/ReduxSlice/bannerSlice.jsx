@@ -5,24 +5,21 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  unApproveCreators: [],
-  pagination: {},
+  banners: [],
 };
+
 const token = localStorage.token;
 
-export const UnApproveCreators = createAsyncThunk(
-  "UnApproveCreators",
+export const BannerApi = createAsyncThunk(
+  "BannerApi",
   async (value, thunkAPI) => {
     try {
-      const response = await axios.get(
-        "api/auth/all-unapproved-user?limit=10",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get("api/banner", {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -38,28 +35,29 @@ export const UnApproveCreators = createAsyncThunk(
   }
 );
 
-export const unApproveCreatorSlice = createSlice({
-  name: "unApproveCreatorSlice",
+export const bannerSlice = createSlice({
+  name: "bannerSlice",
   initialState,
   reducers: {
     reset: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
-      state.userData = [];
+      state.banners = [];
     },
   },
   extraReducers: {
-    [UnApproveCreators.pending]: (state, action) => {
+    [BannerApi.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [UnApproveCreators.fulfilled]: (state, action) => {
+    [BannerApi.fulfilled]: (state, action) => {
+      console.log();
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
-      state.unApproveCreators = action.payload.data?.all_unapproved_user;
+      state.banners = action.payload?.data["Banners data"];
     },
-    [UnApproveCreators.rejected]: (state, action) => {
+    [BannerApi.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -68,5 +66,5 @@ export const unApproveCreatorSlice = createSlice({
   },
 });
 
-export const { reset } = unApproveCreatorSlice.actions;
-export default unApproveCreatorSlice.reducer;
+export const { reset } = bannerSlice.actions;
+export default bannerSlice.reducer;

@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import "./DashboardHome.css";
 
 import { HiOutlineCurrencyDollar } from "react-icons/hi";
@@ -12,11 +12,16 @@ import {
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
 import "swiper/css/pagination";
+import { BannerApi } from "../../../../ReduxSlice/bannerSlice";
 import TransactionTable from "./TransactionTable";
 
 function DashboardHome() {
+  const dispatch = useDispatch();
+  const { banners } = useSelector((state) => state.banners);
+
   const contentStyle = {
     height: "450px",
     width: "100%",
@@ -26,6 +31,10 @@ function DashboardHome() {
   const onChange = (pageNumber) => {
     console.log("Page: ", pageNumber);
   };
+
+  useEffect(() => {
+    dispatch(BannerApi());
+  }, []);
 
   return (
     <div>
@@ -43,18 +52,11 @@ function DashboardHome() {
             navigation={true}
             style={contentStyle}
           >
-            <SwiperSlide>
-              <img
-                style={contentStyle}
-                src="https://livingontheedge.org/wp-content/uploads/2021/08/godslove-1200-x-628.jpg"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img
-                style={contentStyle}
-                src="https://tilm.org/wp-content/uploads/2020/10/five-birds-flying-on-the-sea.jpg"
-              />
-            </SwiperSlide>
+            {banners.map((item) => (
+              <SwiperSlide key={item._id}>
+                <img style={contentStyle} src={item.bannerImage} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Col>
       </Row>

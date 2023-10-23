@@ -1,7 +1,5 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import banner from "../../../Images/banner.png";
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
@@ -11,14 +9,22 @@ import {
   Pagination,
   Scrollbar,
 } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { BannerApi } from "../../../ReduxSlice/bannerSlice";
 
 const Banner = () => {
+  const dispatch = useDispatch();
+  const { banners } = useSelector((state) => state.banners);
+
   const contentStyle = {
     height: "600px",
     width: "100%",
     borderRadius: "15px",
-    overflow: "hidden",
   };
+
+  useEffect(() => {
+    dispatch(BannerApi());
+  }, []);
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28 text-center">
       <div className="w-full p-4 lg:p-0 lg:w-3/4 mx-auto">
@@ -41,27 +47,39 @@ const Banner = () => {
             </p>
           </div>
           <div className=" mt-10 w-full overflow-hidden">
-            <Swiper
-              spaceBetween={30}
-              modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-              }}
-            >
-              <SwiperSlide>
-                <img className="mx-auto" src={banner} alt="" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img className="mx-auto" src={banner} alt="" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img className="mx-auto" src={banner} alt="" />
-              </SwiperSlide>
-            </Swiper>
+            {banners.length > 0 ? (
+              <Swiper
+                spaceBetween={30}
+                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                style={contentStyle}
+              >
+                {banners.map((image) => (
+                  <SwiperSlide>
+                    <img
+                      className="mx-auto object-cover"
+                      style={{ width: "100%", height: "100%" }}
+                      src={image.bannerImage}
+                      alt="banner image"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <div className="relative">
+                <img
+                  style={contentStyle}
+                  className=" object-cover "
+                  src="https://www.local-training.com/images/n_noimg.jpg"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

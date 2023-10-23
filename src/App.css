@@ -83,3 +83,7 @@ input[type="checkbox"]:checked + label::before {
   background-color: #fb7c29;
   border-radius: 3px;
 }
+
+.uploader__btn {
+  display: none;
+}

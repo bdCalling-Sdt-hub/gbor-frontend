@@ -1,16 +1,16 @@
-import { Button, Form, Input, Select, Typography } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
+import Swal from "sweetalert2";
+import axios from "../../../../Config";
 
-const { Title } = Typography;
-const { Option } = Select;
-
-const CreatorData = ({ data }) => {
+const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
   const [edit, setEdit] = useState(false);
 
   console.log(data);
 
+  const token = localStorage.token;
   const initialFormValues = {
     email: data.action?.email,
     website: data?.webLink,
@@ -19,6 +19,39 @@ const CreatorData = ({ data }) => {
 
   const handleUpdateCreator = (value) => {
     console.log(value);
+  };
+
+  const handleDeleteCreator = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure, you want to delete?",
+      text: "Creator will not show on this page",
+      showCancelButton: true,
+      confirmButtonText: "Yes,Delete it",
+      confirmButtonColor: "#FB7C29",
+      cancelButtonColor: "#ffba8d",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .patch(
+            `api/auth/delete-user/${id}`,
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.data.status === 200) {
+              Swal.fire("Opps!", "Creator deleted successfully", "success");
+              setIsDrawerVisible(false);
+              setReload((prev) => prev + 1);
+            }
+          });
+      }
+    });
   };
 
   return (
@@ -117,28 +150,20 @@ const CreatorData = ({ data }) => {
               bottom: 10,
             }}
           >
-            <Button
-              block
-              style={{
-                border: "1px solid #fb7c29",
-                color: "#fb7c29",
-                height: 50,
-                width: "270px",
-              }}
+            <button
+              className="border border-[#FB7C29] text-[#FB7C29] px-6 py-2 rounded hover:bg-red-500 hover:text-white duration-200"
+              style={{ height: 50, width: "270px" }}
+              onClick={() => handleDeleteCreator(data.action?._id)}
             >
               Delete
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#fb7c29",
-                color: "white",
-                height: 50,
-                width: "270px",
-              }}
+            </button>
+
+            <button
+              className=" bg-[#FB7C29] text-white px-6 py-2 rounded hover:bg-orange-400 duration-200"
+              style={{ height: 50, width: "270px" }}
             >
               Print
-            </Button>
+            </button>
           </div>
         </div>
       ) : (

@@ -1,12 +1,13 @@
 import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import React, { useState } from "react";
+import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
+import { LuCopy } from "react-icons/lu";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const { userInfo } = JSON.parse(localStorage.getItem("yourInfo"));
-
   const [img, setImg] = useState();
 
   const {
@@ -18,13 +19,16 @@ const PersonalInfo = () => {
     email,
     dateOfBirth,
     uploadId,
+    role,
   } = userInfo;
 
   const initialFormValues = {
-    name: fName + " " + lName,
+    fullName: fName + " " + lName,
+    fName: fName,
+    lName: lName,
     email: email,
     phoneNumber: "0184518744",
-    dateOfBirth: "",
+    dateOfBirth: dateOfBirth,
     address: "Moghbazer",
   };
 
@@ -67,6 +71,42 @@ const PersonalInfo = () => {
               <div>
                 <h2 className="text-xl">{fName + " " + lName}</h2>
                 <p>@{userName}</p>
+                {userInfo.role === "c_creator" && (
+                  <div className="mt-2">
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        className="border border-orange-500 rounded py-2 outline-none px-2"
+                      />
+                      <button className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center">
+                        <LuCopy fontSize={20} />
+                      </button>
+                    </div>
+                    <p className="text-[16px] my-3">View public profile</p>
+                    <div className="flex gap-2">
+                      <a href="https://www.youtube.com/" target="_blank">
+                        <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                          <FaYoutube fontSize={28} color="#ff0000" />
+                        </div>
+                      </a>
+                      <a href="https://www.instagram.com/" target="_blank">
+                        <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                          <FaInstagram fontSize={28} color="#ff3725" />
+                        </div>
+                      </a>
+                      <a href="https://www.tiktok.com/" target="_blank">
+                        <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                          <FaTiktok fontSize={28} color="#fff" />
+                        </div>
+                      </a>
+                      <a href="https://www.facebook.com/" target="_blank">
+                        <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                          <FaFacebookF fontSize={28} color="#1877f2" />
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -91,7 +131,7 @@ const PersonalInfo = () => {
             initialValues={initialFormValues}
           >
             <Form.Item
-              name="name"
+              name="fullName"
               label="Name"
               labelCol={{ span: 24 }}
               style={{ marginBottom: "15px" }}
@@ -102,21 +142,12 @@ const PersonalInfo = () => {
             <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={24}>
                 <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
-                  <Input style={{ height: "45px" }} readOnly />
+                  <Input style={{ height: "45px" }} readOnly disabled />
                 </Form.Item>
               </Col>
             </Row>
 
             <Row gutter={15} style={{ marginBottom: "0px" }}>
-              <Col span={12}>
-                <Form.Item
-                  name="phoneNumber"
-                  label="Phone Number"
-                  labelCol={{ span: 24 }}
-                >
-                  <Input style={{ height: "45px" }} readOnly />
-                </Form.Item>
-              </Col>
               <Col span={12}>
                 <Form.Item
                   name="dateOfBirth"
@@ -130,15 +161,6 @@ const PersonalInfo = () => {
                 </Form.Item>
               </Col>
             </Row>
-
-            <Form.Item
-              name="address"
-              label="Address"
-              labelCol={{ span: 24 }}
-              style={{ marginBottom: "10px" }}
-            >
-              <Input style={{ height: "45px" }} readOnly />
-            </Form.Item>
           </Form>
         </>
       ) : (
@@ -169,7 +191,7 @@ const PersonalInfo = () => {
               </div>
 
               <div>
-                <h2 className="text-2xl">{fName}</h2>
+                <h2 className="text-2xl">{fName + " " + lName}</h2>
                 <p>@{userName}</p>
               </div>
             </div>
@@ -180,33 +202,38 @@ const PersonalInfo = () => {
             className="login-form"
             initialValues={initialFormValues}
           >
-            <Form.Item
-              name="name"
-              label="Name"
-              labelCol={{ span: 24 }}
-              style={{ marginBottom: "15px" }}
-            >
-              <Input style={{ height: "45px" }} />
-            </Form.Item>
-
-            <Row gutter={15} style={{ marginBottom: "0px" }}>
-              <Col span={24}>
-                <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+            <Row gutter={15}>
+              <Col span={12}>
+                <Form.Item
+                  name="fName"
+                  label="First Name"
+                  labelCol={{ span: 24 }}
+                  style={{ marginBottom: "15px" }}
+                >
+                  <Input style={{ height: "45px" }} />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="lName"
+                  label="Last Name"
+                  labelCol={{ span: 24 }}
+                  style={{ marginBottom: "15px" }}
+                >
                   <Input style={{ height: "45px" }} />
                 </Form.Item>
               </Col>
             </Row>
 
             <Row gutter={15} style={{ marginBottom: "0px" }}>
-              <Col span={12}>
-                <Form.Item
-                  name="phoneNumber"
-                  label="Phone Number"
-                  labelCol={{ span: 24 }}
-                >
-                  <Input style={{ height: "45px" }} />
+              <Col span={24}>
+                <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} disabled />
                 </Form.Item>
               </Col>
+            </Row>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
                 <Form.Item
                   name="dateOfBirth"
@@ -217,15 +244,6 @@ const PersonalInfo = () => {
                 </Form.Item>
               </Col>
             </Row>
-
-            <Form.Item
-              name="address"
-              label="Address"
-              labelCol={{ span: 24 }}
-              style={{ marginBottom: "10px" }}
-            >
-              <Input style={{ height: "45px" }} />
-            </Form.Item>
 
             <Form.Item>
               <Button

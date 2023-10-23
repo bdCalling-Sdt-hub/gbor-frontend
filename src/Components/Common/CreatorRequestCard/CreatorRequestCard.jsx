@@ -1,5 +1,6 @@
 import { Col } from "antd";
 import React from "react";
+import Swal from "sweetalert2";
 import axios from "../../../../Config";
 
 const token = localStorage.token;
@@ -20,15 +21,17 @@ const CreatorRequestCard = ({ data, setReload }) => {
         }
       )
       .then((res) => {
-        console.log(res.data);
-        setReload((p) => p + 1);
+        if (res.data.status === 200) {
+          Swal.fire("😎", res.data.message, "success");
+          setReload((p) => p + 1);
+        }
       })
       .catch((err) => console.log(err));
   };
 
   const handleCreatorCancel = (id) => {
     axios
-      .post(
+      .patch(
         `api/auth/cancel-user/${id}`,
         {},
         {
@@ -39,14 +42,21 @@ const CreatorRequestCard = ({ data, setReload }) => {
         }
       )
       .then((res) => {
-        console.log(res.data);
-        setReload((p) => p + 1);
+        if (res.data.status === 200) {
+          Swal.fire("😒", res.data.message, "success");
+          setReload((p) => p + 1);
+        }
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <Col span={6}>
+    <Col
+      xs={{
+        span: 8,
+      }}
+      lg={{ span: 6 }}
+    >
       <div className="border border-[#fb7c29] bg-orange-50 rounded-md text-center shadow-[0px 0px 4px 0px rgba(0, 0, 0, 0.20)] p-5">
         <img
           style={{ width: "120px", height: "120px", borderRadius: "100%" }}
@@ -58,13 +68,13 @@ const CreatorRequestCard = ({ data, setReload }) => {
         <p>{email}</p>
         <div className="space-x-2 mt-4">
           <button
-            className="border border-[#FB7C29] text-[#FB7C29] px-6 py-2 rounded"
+            className="border border-[#FB7C29] text-[#FB7C29] px-6 py-2 rounded hover:bg-red-500 hover:text-white"
             onClick={() => handleCreatorCancel(_id)}
           >
             Cancel
           </button>
           <button
-            className="border border-[#FB7C29] bg-[#FB7C29] text-white px-6 py-2 rounded"
+            className=" bg-[#FB7C29] text-white px-6 py-2 rounded hover:bg-green-500"
             onClick={() => handleCreatorApprove(_id)}
           >
             Approve

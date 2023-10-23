@@ -1,5 +1,6 @@
 import { Button, Col, Row, notification } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FiPlusCircle } from "react-icons/fi";
 import ImageUploader from "react-image-upload";
 import "react-image-upload/dist/index.css";
 import {
@@ -11,14 +12,19 @@ import {
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import "swiper/css";
 import "swiper/css/pagination";
 import axios from "../../../../../Config";
+import { BannerApi } from "../../../../ReduxSlice/bannerSlice";
 import "./Banners.css";
 
 function Banners() {
-  const [bannerImage, setBannerImage] = useState([]);
-  const [files, setFiles] = useState("");
+  const [load, setLoad] = useState(1);
+  const dispatch = useDispatch();
+  const { banners } = useSelector((state) => state.banners);
+  const [api, contextHolder] = notification.useNotification();
 
   const contentStyle = {
     height: "500px",
@@ -27,7 +33,7 @@ function Banners() {
   };
 
   const token = localStorage.token;
-  const [api, contextHolder] = notification.useNotification();
+
   const successNotify = (placement) => {
     api.success({
       message: "Completed",
@@ -43,10 +49,8 @@ function Banners() {
     });
   };
 
-  function getImageFileObject(imageFile) {
+  const getImageFileObject = (imageFile) => {
     const formData = new FormData();
-
-    console.log(imageFile.file);
 
     formData.append("bannerImage", imageFile.file);
 
@@ -58,6 +62,7 @@ function Banners() {
       })
       .then((res) => {
         if (res.data.status === 200) {
+          setLoad((prev) => prev + 1);
           successNotify("bottomRight");
         }
       })
@@ -65,12 +70,30 @@ function Banners() {
         console.log(err);
         errorNotify("bottomRight");
       });
-    setBannerImage([...bannerImage, imageFile]);
-  }
+  };
 
-  function runAfterImageDelete(file) {
-    console.log({ file });
-  }
+  useEffect(() => {
+    dispatch(BannerApi());
+  }, [load]);
+
+  console.log(banners);
+
+  const handleBannerDelete = (id) => {
+    axios
+      .delete(`/api/banner/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("Opps!", res.data.message, "success");
+        }
+        setLoad((prev) => prev + 1);
+      });
+    console.log("delete");
+  };
 
   return (
     <>
@@ -83,7 +106,7 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }}>
-          {bannerImage.length > 0 ? (
+          {banners.length > 0 ? (
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               autoplay={{
@@ -96,10 +119,14 @@ function Banners() {
               navigation={true}
               style={contentStyle}
             >
-              {bannerImage?.map((item) => {
+              {banners?.map((image) => {
                 return (
                   <SwiperSlide>
-                    <img style={contentStyle} src={item.dataUrl} />
+                    <img
+                      style={contentStyle}
+                      className="object-cover"
+                      src={image.bannerImage}
+                    />
                   </SwiperSlide>
                 );
               })}
@@ -107,7 +134,8 @@ function Banners() {
           ) : (
             <div className="relative">
               <img
-                className="w-full h-[500px] object-cover rounded"
+                style={contentStyle}
+                className="object-cover rounded"
                 src="https://www.local-training.com/images/n_noimg.jpg"
               />
             </div>
@@ -123,26 +151,18 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }} style={{ display: "flex", gap: 15 }}>
-          <ImageUploader
-            style={{ borderRadius: "10px" }}
-            onFileAdded={(img) => getImageFileObject(img)}
-            onFileRemoved={(img) => runAfterImageDelete(img)}
-          />
-          <ImageUploader
-            style={{ borderRadius: "10px" }}
-            onFileAdded={(img) => getImageFileObject(img)}
-            onFileRemoved={(img) => runAfterImageDelete(img)}
-          />
-          <ImageUploader
-            style={{ borderRadius: "10px" }}
-            onFileAdded={(img) => getImageFileObject(img)}
-            onFileRemoved={(img) => runAfterImageDelete(img)}
-          />
-          <ImageUploader
-            style={{ borderRadius: "10px" }}
-            onFileAdded={(img) => getImageFileObject(img)}
-            onFileRemoved={(img) => runAfterImageDelete(img)}
-          />
+          {[...Array(4).keys()].map((item) => (
+            <ImageUploader
+              onFileAdded={(img) => getImageFileObject(img)}
+              style={{
+                height: 130,
+                width: 130,
+                background: "#ebebeb",
+                borderRadius: "5px",
+              }}
+              uploadIcon={<FiPlusCircle fontSize={25} />}
+            />
+          ))}
         </Col>
       </Row>
 
@@ -154,117 +174,39 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }} style={{ display: "flex", gap: 15 }}>
-          <div
-            style={{
-              position: "relative",
-              width: "130px",
-              height: "130px",
-              borderRadius: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <img
-              style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
-            />
-            <Button
+          {banners.slice(0, 4).map((item) => (
+            <div
               style={{
-                position: "absolute",
-                top: "40%",
-                left: "20%",
-                color: "#fb7c29",
-                background: "#fff",
-                opacity: 0.8,
+                position: "relative",
+                width: "130px",
+                height: "130px",
+                borderRadius: "5px",
               }}
             >
-              Remove
-            </Button>
-          </div>
-
-          <div
-            style={{
-              position: "relative",
-              width: "130px",
-              height: "130px",
-              borderRadius: "10px",
-              marginBottom: "20px",
-              opacity: 0.8,
-            }}
-          >
-            <img
-              style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://images.unsplash.com/photo-1622890806166-111d7f6c7c97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
-            />
-            <Button
-              style={{
-                position: "absolute",
-                top: "40%",
-                left: "20%",
-
-                color: "#fb7c29",
-                background: "#fff",
-                opacity: 0.8,
-              }}
-            >
-              Remove
-            </Button>
-          </div>
-
-          <div
-            style={{
-              position: "relative",
-              width: "130px",
-              height: "130px",
-              borderRadius: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <img
-              style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
-            />
-            <Button
-              style={{
-                position: "absolute",
-                top: "40%",
-                left: "20%",
-
-                color: "#fb7c29",
-                background: "#fff",
-                opacity: 0.8,
-              }}
-            >
-              Remove
-            </Button>
-          </div>
-
-          <div
-            style={{
-              position: "relative",
-              width: "130px",
-              height: "130px",
-              borderRadius: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <img
-              style={{ width: "130px", height: "130px", borderRadius: "10px" }}
-              src="https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=160&q=80"
-            />
-            <Button
-              style={{
-                position: "absolute",
-                top: "40%",
-                left: "20%",
-
-                color: "#fb7c29",
-                background: "#fff",
-                opacity: 0.8,
-              }}
-            >
-              Remove
-            </Button>
-          </div>
+              <img
+                style={{
+                  width: "130px",
+                  height: "130px",
+                  borderRadius: "10px",
+                }}
+                src={item.bannerImage}
+              />
+              <Button
+                style={{
+                  position: "absolute",
+                  bottom: 45,
+                  left: 23,
+                  color: "#fb7c29",
+                  background: "#fff",
+                  opacity: 0.8,
+                  fontWeight: "bold",
+                }}
+                onClick={() => handleBannerDelete(item._id)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
         </Col>
       </Row>
     </>
