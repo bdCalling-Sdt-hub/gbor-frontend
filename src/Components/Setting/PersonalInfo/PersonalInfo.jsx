@@ -1,41 +1,18 @@
 import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
+import moment from "moment";
 import React, { useState } from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
 import { LuCopy } from "react-icons/lu";
+import axios from "../../../../Config";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const { userInfo } = JSON.parse(localStorage.getItem("yourInfo"));
+  const { fName, lName, userName, email, dateOfBirth, uploadId, role } =
+    userInfo;
   const [img, setImg] = useState();
-
-  const {
-    fName,
-    lName,
-    userName,
-    address,
-    phoneNumber,
-    email,
-    dateOfBirth,
-    uploadId,
-    role,
-  } = userInfo;
-
-  const initialFormValues = {
-    fullName: fName + " " + lName,
-    fName: fName,
-    lName: lName,
-    email: email,
-    phoneNumber: "0184518744",
-    dateOfBirth: dateOfBirth,
-    address: "Moghbazer",
-  };
-
-  const handleChange = () => {
-    setProfileEdit(true);
-  };
-
   const [fileList, setFileList] = useState([
     {
       uid: "-1",
@@ -47,6 +24,52 @@ const PersonalInfo = () => {
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+    setImg(newFileList[0].originFileObj);
+  };
+  const initialFormValues = {
+    fullName: fName + " " + lName,
+    fName: fName,
+    lName: lName,
+    email: email,
+    dateOfBirth: dateOfBirth ? moment(dateOfBirth, "YYYY-MM-DD") : null,
+  };
+
+  const handleChange = () => {
+    setProfileEdit(true);
+  };
+
+  const handleUpdateProfile = (values) => {
+    const formData = new FormData();
+    const webLink = values.website === undefined ? "" : values.website;
+
+    let socialLinks = {
+      youtube: values.youtube,
+      tiktok: values.tiktok,
+      facebook: values.facebook,
+      instagram: values.instagram,
+    };
+
+    for (const key in socialLinks) {
+      if (socialLinks.hasOwnProperty(key)) {
+        formData.append(`socialLink[${key}]`, socialLinks[key]);
+      }
+    }
+
+    formData.append("fName", values.fName);
+    formData.append("lName", values.lName);
+    formData.append("website", webLink);
+    formData.append("socialLink", socialLinks);
+
+    if (img) {
+      formData.append("uploadId", img);
+    }
+
+    axios
+      .patch(`api/auth/profile-update/${userInfo._id}`, formData)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -169,15 +192,11 @@ const PersonalInfo = () => {
           <div>
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
                 borderBottom: "1px solid #d9d9d9",
-                paddingBottom: "30px",
-                marginBottom: "20px",
+                marginBottom: "15px",
               }}
             >
-              <div style={{ width: "150px" }}>
+              <div>
                 <ImgCrop rotationSlider style={{ width: "100%" }}>
                   <Upload
                     listType="picture-card"
@@ -189,11 +208,6 @@ const PersonalInfo = () => {
                   </Upload>
                 </ImgCrop>
               </div>
-
-              <div>
-                <h2 className="text-2xl">{fName + " " + lName}</h2>
-                <p>@{userName}</p>
-              </div>
             </div>
           </div>
 
@@ -201,6 +215,7 @@ const PersonalInfo = () => {
             name="normal_login"
             className="login-form"
             initialValues={initialFormValues}
+            onFinish={handleUpdateProfile}
           >
             <Row gutter={15}>
               <Col span={12}>
@@ -226,25 +241,74 @@ const PersonalInfo = () => {
             </Row>
 
             <Row gutter={15} style={{ marginBottom: "0px" }}>
-              <Col span={24}>
+              <Col span={12}>
                 <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
                   <Input style={{ height: "45px" }} disabled />
                 </Form.Item>
               </Col>
-            </Row>
-
-            <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
                 <Form.Item
                   name="dateOfBirth"
                   label="Date of Birth"
                   labelCol={{ span: 24 }}
                 >
-                  <DatePicker style={{ height: "45px", width: "100%" }} />
+                  <DatePicker
+                    style={{ height: "45px", width: "100%" }}
+                    disabled
+                  />
                 </Form.Item>
               </Col>
             </Row>
-
+            <Row>
+              <Col span={24}>
+                <Form.Item
+                  name="website"
+                  label="Website"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input
+                    style={{ height: "45px" }}
+                    placeholder="Website link"
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item
+                  name="youtube"
+                  label="Youtube"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="facebook"
+                  label="Facebook"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item
+                  name="instagram"
+                  label="Instagram"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item name="tiktok" label="TikTok" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+            </Row>
             <Form.Item>
               <Button
                 htmlType="submit"

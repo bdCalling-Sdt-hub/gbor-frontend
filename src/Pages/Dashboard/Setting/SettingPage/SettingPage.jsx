@@ -2,7 +2,6 @@ import React from "react";
 import { LiaAngleLeftSolid } from "react-icons/lia";
 import { Link, useParams } from "react-router-dom";
 import About from "../../../../Components/Setting/About/About";
-import LoginActivity from "../../../../Components/Setting/LoginActivity/LoginActivity";
 import PersonalInfo from "../../../../Components/Setting/PersonalInfo/PersonalInfo";
 import PrivacyPolicy from "../../../../Components/Setting/PrivacyPolicy/PrivacyPolicy";
 import TermsAndCondition from "../../../../Components/Setting/TermsAndCondition/TermsAndCondition";
@@ -37,7 +36,7 @@ const SettingPage = () => {
       </Link>
       <div className="mt-4">
         {text === "personal information" && <PersonalInfo />}
-        {text === "login activity" && <LoginActivity />}
+        {/* {text === "login activity" && <LoginActivity />} */}
         {text === "privacy policy" && <PrivacyPolicy />}
         {text === "terms condition" && <TermsAndCondition />}
         {text === "about us" && <About />}

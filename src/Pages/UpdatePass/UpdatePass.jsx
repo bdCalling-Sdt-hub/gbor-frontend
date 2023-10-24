@@ -44,7 +44,6 @@ const UpdatePass = () => {
       confirmPass: confirmPassword,
       email: email,
     };
-    7;
 
     axios
       .post("api/auth/reset-password", value)

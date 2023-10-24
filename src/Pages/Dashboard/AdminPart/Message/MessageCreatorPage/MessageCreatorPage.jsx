@@ -12,6 +12,7 @@ const MessageCreatorPage = () => {
   const [chat, setChat] = useState([]);
   const lastMessageRef = useRef();
   const navigate = useNavigate();
+  const [emoji, setEmoji] = useState(false);
   let socket = io("http://192.168.10.18:10000");
 
   socket.on("connect", () => {
@@ -28,8 +29,6 @@ const MessageCreatorPage = () => {
       setChat(data);
     });
   }, []);
-
-  console.log(chat);
 
   const handleMessage = (e) => {
     e.preventDefault();
@@ -94,7 +93,7 @@ const MessageCreatorPage = () => {
         >
           {chat.map((chatData, index) => {
             return chatData?.sender?._id === userInfo._id ? (
-              <div className="mb-4">
+              <div className="mb-4" key={index}>
                 <div
                   className="flex gap-2"
                   style={{ justifyContent: "flex-end" }}
@@ -113,7 +112,7 @@ const MessageCreatorPage = () => {
                 </p>
               </div>
             ) : (
-              <div className="mb-4">
+              <div className="mb-4" key={index}>
                 <div className="flex gap-2">
                   <Avatar
                     size={40}

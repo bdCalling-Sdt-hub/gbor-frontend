@@ -1,3 +1,4 @@
+import { Skeleton } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
@@ -60,8 +61,8 @@ const Banner = () => {
                 }}
                 style={contentStyle}
               >
-                {banners.map((image) => (
-                  <SwiperSlide>
+                {banners.map((image, index) => (
+                  <SwiperSlide key={index}>
                     <img
                       className="mx-auto object-cover"
                       style={{ width: "100%", height: "100%" }}
@@ -72,11 +73,10 @@ const Banner = () => {
                 ))}
               </Swiper>
             ) : (
-              <div className="relative">
-                <img
-                  style={contentStyle}
-                  className=" object-cover "
-                  src="https://www.local-training.com/images/n_noimg.jpg"
+              <div>
+                <Skeleton.Image
+                  active
+                  style={{ width: "1400px", height: "600px" }}
                 />
               </div>
             )}

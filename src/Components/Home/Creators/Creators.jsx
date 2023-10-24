@@ -16,8 +16,6 @@ const Creators = () => {
 
   let filteringData;
 
-  console.log(creatorsData);
-
   if (title !== "all") {
     filteringData = creatorsData.filter(
       (data) => data.creator_category === title
@@ -74,8 +72,8 @@ const Creators = () => {
         </button>
       </div>
       <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-4 w-full p-4 lg:p-0 lg:w-3/4 mx-auto gap-4 mt-10">
-        {filteringData.slice(0, dataCount).map((creator) => (
-          <CreatorCard key={creator.id} data={creator} />
+        {filteringData.slice(0, dataCount).map((creator, index) => (
+          <CreatorCard key={index} data={creator} />
         ))}
       </div>
       <button

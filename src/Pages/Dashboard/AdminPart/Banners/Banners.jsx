@@ -119,9 +119,9 @@ function Banners() {
               navigation={true}
               style={contentStyle}
             >
-              {banners?.map((image) => {
+              {banners?.map((image, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <img
                       style={contentStyle}
                       className="object-cover"
@@ -151,8 +151,9 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }} style={{ display: "flex", gap: 15 }}>
-          {[...Array(4).keys()].map((item) => (
+          {[...Array(4).keys()].map((item, index) => (
             <ImageUploader
+              key={index}
               onFileAdded={(img) => getImageFileObject(img)}
               style={{
                 height: 130,
@@ -176,6 +177,7 @@ function Banners() {
         <Col lg={{ span: 24 }} style={{ display: "flex", gap: 15 }}>
           {banners.slice(0, 4).map((item) => (
             <div
+              key={item._id}
               style={{
                 position: "relative",
                 width: "130px",

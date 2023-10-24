@@ -87,3 +87,7 @@ input[type="checkbox"]:checked + label::before {
 .uploader__btn {
   display: none;
 }
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-spin .ant-spin-dot-item {
+  background-color: #fb7c29;
+}

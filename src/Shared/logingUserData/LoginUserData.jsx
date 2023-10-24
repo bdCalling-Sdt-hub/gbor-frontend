@@ -4,7 +4,7 @@ import axios from "../../../Config";
 const LoginUserData = () => {
   const token = localStorage.token;
   const [identity, setIdentity] = useState();
-  console.log("jklajf", identity);
+
   useEffect(() => {
     axios
       .get("api/auth/loggeduser", {

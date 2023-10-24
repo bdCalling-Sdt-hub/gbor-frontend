@@ -38,8 +38,6 @@ import PrivateRoute from "./routers/PrivateRoute/PrivateRoute";
 function App() {
   const { identity } = useRole();
 
-  console.log("hdi", identity);
-
   return (
     <>
       <Router>

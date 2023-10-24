@@ -28,6 +28,7 @@ function Notification() {
         {[...Array(5).keys()].map((_, index) => {
           return (
             <Col
+              key={index}
               className="notification"
               lg={{ span: 24 }}
               style={{ cursor: "pointer" }}

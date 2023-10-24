@@ -1,8 +1,10 @@
-import { Button, Form, Input, Modal, Switch, Typography } from "antd";
+import { Button, Form, Input, Modal, Spin, Switch, Typography } from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import OTPInput from "react-otp-input";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "../../../../Config";
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -12,7 +14,9 @@ const Setting = () => {
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
   const [otp, setOtp] = useState();
-  const { identity } = JSON.parse(localStorage.yourInfo);
+  const { identity, userInfo } = JSON.parse(localStorage.yourInfo);
+  const [err, setErr] = useState("");
+  const [forgetBtnLoader, setForgetBtnLoader] = useState(false);
 
   const style = {
     btn: {
@@ -62,21 +66,16 @@ const Setting = () => {
     },
     {
       key: "3",
-      title: "Login Activity",
-      link: "login-activity",
-    },
-    {
-      key: "4",
       title: "Privacy Policy",
       link: "privacy-policy",
     },
     {
-      key: "5",
+      key: "4",
       title: "Terms and Condition",
       link: "terms-condition",
     },
     {
-      key: "6",
+      key: "5",
       title: "About Us",
       link: "about-us",
     },
@@ -95,7 +94,62 @@ const Setting = () => {
     },
   ];
 
-  const [err, setErr] = useState("");
+  const handleNavigate = (value) => {
+    if (value === "change-password") {
+      setOpenChangePassModel(true);
+    } else {
+      navigate(`/dashboard/setting/${value}`);
+    }
+  };
+
+  const handleNotification = (e) => {
+    console.log(e);
+  };
+
+  const handleChangePassword = (values) => {
+    console.log("Received values of form: ", values);
+  };
+
+  //forget password button
+  const handleForgetPassword = () => {
+    setForgetBtnLoader(true);
+    const email = userInfo.email;
+    axios
+      .post("api/auth/send-reset-password-email", { email: email })
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("✅", "Successfully Send OTP on your email", "success");
+          setOpenChangePassModel(false);
+          setVerify(true);
+          setForgetBtnLoader(false);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
+  };
+
+  //verify otp modal
+  const handelVerifyOtp = () => {
+    const value = {
+      verifyCode: otp,
+      email: userInfo.email,
+    };
+
+    axios
+      .post("api/auth/verify-code-reset-password", value, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          setVerify(false);
+          setUpdatePassword(true);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
+  };
+
+  //update password
   const handleUpdated = (values) => {
     const { password, confirmPassword } = values;
 
@@ -115,34 +169,34 @@ const Setting = () => {
       setErr("Ensure string has one special case letter.");
       return;
     }
-    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-      setErr("Ensure string has two uppercase letters.");
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setErr("Ensure string has one uppercase letters.");
       return;
     }
-    if (!/(?=.*[a-z].*[a-z].*[a-z])/.test(password)) {
-      setErr("Ensure string has three lowercase letters.");
+    if (!/(?=.*[a-z].*[a-z])/.test(password)) {
+      setErr("Ensure string has two lowercase letters.");
       return;
     }
     if (!/(?=.*[0-9].*[0-9])/.test(password)) {
       setErr("Ensure string has two digits");
       return;
     }
-  };
 
-  const handleNavigate = (value) => {
-    if (value === "change-password") {
-      setOpenChangePassModel(true);
-    } else {
-      navigate(`/dashboard/setting/${value}`);
-    }
-  };
+    const value = {
+      password: password,
+      confirmPass: confirmPassword,
+      email: userInfo.email,
+    };
 
-  const handleNotification = (e) => {
-    console.log(e);
-  };
-
-  const handleChangePassword = (values) => {
-    console.log("Received values of form: ", values);
+    axios
+      .post("api/auth/reset-password", value)
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("✅", `Updated password successfully`, "success");
+          setUpdatePassword(false);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
 
   return (
@@ -213,7 +267,7 @@ const Setting = () => {
                 },
               ]}
             >
-              <Input
+              <Input.Password
                 placeholder="Enter Password"
                 type="password"
                 style={style.input}
@@ -231,7 +285,7 @@ const Setting = () => {
                 },
               ]}
             >
-              <Input
+              <Input.Password
                 type="password"
                 placeholder="Enter password"
                 style={style.input}
@@ -249,7 +303,7 @@ const Setting = () => {
                 },
               ]}
             >
-              <Input
+              <Input.Password
                 type="password"
                 placeholder="Enter password"
                 style={style.input}
@@ -260,17 +314,24 @@ const Setting = () => {
               style={{
                 display: "flex",
                 justifyContent: "flex-end",
-                marginTop: "5px",
+                marginTop: "10px",
               }}
             >
-              <div
-                type=""
-                className="login-form-forgot"
-                style={{ color: "#fb7c29", cursor: "pointer" }}
-                onClick={() => (setVerify(true), setOpenChangePassModel(false))}
-              >
-                Forgot password
-              </div>
+              {forgetBtnLoader ? (
+                <div className="flex items-center gap-1">
+                  <Spin size="small" />
+                  <p className="text-orange-500">Loading...</p>
+                </div>
+              ) : (
+                <div
+                  type=""
+                  className="login-form-forgot"
+                  style={{ color: "#fb7c29", cursor: "pointer" }}
+                  onClick={handleForgetPassword}
+                >
+                  Forgot password
+                </div>
+              )}
             </div>
 
             <Form.Item>
@@ -296,12 +357,11 @@ const Setting = () => {
         <Modal
           title={
             <Title
-              level={2}
+              level={3}
               style={{
                 color: "#fb7c29",
-                fontWeight: "normal",
+                fontWeight: "bold",
                 marginBottom: "30px",
-                textShadow: "#bfbfbf 2px 2px 4px",
               }}
             >
               Verify OTP
@@ -317,8 +377,11 @@ const Setting = () => {
         >
           <div>
             <Paragraph style={{ marginBottom: "30px" }}>
-              We'll send a verification code to your email. Check your inbox and
-              enter the code here.
+              Please enter the 4-digit verification code that was sent.{" "}
+              <span style={{ fontWeight: "bold", color: "orange" }}>
+                {userInfo.email}
+              </span>
+              . the code is valid for 15 minute.{" "}
             </Paragraph>
 
             <OTPInput
@@ -360,7 +423,7 @@ const Setting = () => {
             <Form.Item>
               <Button
                 type="text"
-                onClick={() => (setUpdatePassword(true), setVerify(false))}
+                onClick={handelVerifyOtp}
                 htmlType="submit"
                 className="login-form-button bg-orange-500 "
                 block
@@ -381,15 +444,14 @@ const Setting = () => {
         <Modal
           title={
             <Title
-              level={2}
+              level={3}
               style={{
                 color: "#fb7c29",
-                fontWeight: "normal",
+                fontWeight: "bold",
                 marginBottom: "30px",
-                textShadow: "#bfbfbf 2px 2px 4px",
               }}
             >
-              Update Password
+              Update password
             </Title>
           }
           centered
@@ -420,7 +482,11 @@ const Setting = () => {
                 },
               ]}
             >
-              <Input type="text" placeholder="Password" style={style.input} />
+              <Input.Password
+                type="text"
+                placeholder="Password"
+                style={style.input}
+              />
             </Form.Item>
 
             <Form.Item
@@ -433,7 +499,7 @@ const Setting = () => {
                 },
               ]}
             >
-              <Input
+              <Input.Password
                 type="text"
                 placeholder="Confirm password"
                 style={style.input}
