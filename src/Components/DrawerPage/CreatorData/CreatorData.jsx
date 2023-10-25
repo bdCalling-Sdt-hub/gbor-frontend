@@ -8,7 +8,9 @@ import axios from "../../../../Config";
 const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
   const [edit, setEdit] = useState(false);
 
-  console.log(data);
+  const { socialLink } = data.action;
+
+  console.log(socialLink);
 
   const token = localStorage.token;
   const initialFormValues = {
@@ -85,27 +87,47 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
                   {data.action?.fName + " " + data.action?.lName}
                 </h2>
                 <p>Gbor Received: 14</p>
-                <div className="flex gap-2 mt-5">
-                  <a href="https://www.youtube.com/" target="_blank">
-                    <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaYoutube fontSize={28} color="#ff0000" />
-                    </div>
-                  </a>
-                  <a href="https://www.instagram.com/" target="_blank">
-                    <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaInstagram fontSize={28} color="#ff3725" />
-                    </div>
-                  </a>
-                  <a href="https://www.tiktok.com/" target="_blank">
-                    <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaTiktok fontSize={28} color="#fff" />
-                    </div>
-                  </a>
-                  <a href="https://www.facebook.com/" target="_blank">
-                    <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaFacebookF fontSize={28} color="#1877f2" />
-                    </div>
-                  </a>
+                <div className="flex gap-2 mt-2">
+                  {socialLink.youtube && (
+                    <a
+                      href={`https://www.youtube.com/@${socialLink.youtube}`}
+                      target="_blank"
+                    >
+                      <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                        <FaYoutube fontSize={28} color="#ff0000" />
+                      </div>
+                    </a>
+                  )}
+                  {socialLink.instagram && (
+                    <a
+                      href={`https://www.instagram.com/${socialLink.instagram}`}
+                      target="_blank"
+                    >
+                      <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                        <FaInstagram fontSize={28} color="#ff3725" />
+                      </div>
+                    </a>
+                  )}
+                  {socialLink.tiktok && (
+                    <a
+                      href={`https://www.tiktok.com/@${socialLink.tiktok}`}
+                      target="_blank"
+                    >
+                      <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                        <FaTiktok fontSize={28} color="#fff" />
+                      </div>
+                    </a>
+                  )}
+                  {socialLink.facebook && (
+                    <a
+                      href={`https://www.facebook.com/${socialLink.facebook}`}
+                      target="_blank"
+                    >
+                      <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                        <FaFacebookF fontSize={28} color="#1877f2" />
+                      </div>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

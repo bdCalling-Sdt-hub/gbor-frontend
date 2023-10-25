@@ -1,3 +1,4 @@
+import { Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,12 +9,12 @@ import CreatorCard from "../Common/CreatorCard/CreatorCard";
 const OurCreatorsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [dataCount, setDataCount] = useState(8);
+  const [page, setPage] = useState(1);
   const [title, setTitle] = useState("all");
-
   const dispatch = useDispatch();
-  const { creatorsData } = useSelector((state) => state.creators);
+  const { creatorsData, pagination } = useSelector((state) => state.creators);
   const [searchData, setSearchData] = useState("");
+  const [data, setData] = useState([]);
 
   const handleSearch = () => {
     if (searchData !== "") {
@@ -22,9 +23,16 @@ const OurCreatorsPage = () => {
     localStorage.setItem("location", JSON.stringify(location));
   };
 
+  console.log(pagination);
+
   useEffect(() => {
-    dispatch(ContentCreators());
-  }, []);
+    const data = {
+      page: page,
+      limit: 8,
+    };
+
+    dispatch(ContentCreators(data));
+  }, [page]);
 
   let filteringData;
 
@@ -35,6 +43,16 @@ const OurCreatorsPage = () => {
   } else {
     filteringData = creatorsData;
   }
+
+  const handleLoadMore = () => {
+    if (pagination.totalPage > pagination.currentPage) {
+      setPage(page + 1);
+    } else {
+      setPage(1);
+    }
+  };
+
+  console.log(page);
 
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28">
@@ -110,15 +128,21 @@ const OurCreatorsPage = () => {
           Entrepreneur
         </button>
       </div>
-      <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-4 w-full p-4 lg:p-0  lg:w-3/4 mx-auto gap-4 mt-10">
-        {filteringData.slice(0, dataCount).map((creator) => (
-          <CreatorCard key={creator.id} data={creator} />
-        ))}
-      </div>
+      {filteringData.length === 0 ? (
+        <div className="my-28">
+          <Empty />;
+        </div>
+      ) : (
+        <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-4 w-full p-4 lg:p-0  lg:w-3/4 mx-auto gap-4 mt-10">
+          {filteringData.map((creator, index) => (
+            <CreatorCard key={index} data={creator} />
+          ))}
+        </div>
+      )}
       <div className="text-center">
         <button
-          className="bg-[#252525] text-white px-6 py-3 rounded-md mt-10"
-          onClick={() => setDataCount(dataCount + 4)}
+          className="bg-[#252525] text-white px-6 py-3 rounded-md mt-10 hover:bg-[#fb7c29] transition"
+          onClick={handleLoadMore}
         >
           Discover more creators
         </button>

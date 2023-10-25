@@ -1,21 +1,18 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
-import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 const { Title, Text } = Typography;
 
-const CreatorInfoTable = () => {
+const CreatorInfoTable = ({ handlePagination, setReload }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
-  const dispatch = useDispatch();
-  const { creatorsData } = useSelector((state) => state.creators);
+  const pageSize = 10;
+  const { creatorsData, pagination } = useSelector((state) => state.creators);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [creatorData, setCreatorData] = useState(null);
-  const [reload, setReload] = useState(1);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -27,18 +24,16 @@ const CreatorInfoTable = () => {
     setCreatorData(null);
   };
 
+  console.log(pagination);
+
   const data = creatorsData.map((item) => {
     return {
       creatorId: item._id,
       name: item.fName + " " + item.lName,
-      webLink: "",
+      webLink: item.website,
       action: item,
     };
   });
-
-  useEffect(() => {
-    dispatch(ContentCreators());
-  }, [reload]);
 
   const columns = [
     {
@@ -85,7 +80,7 @@ const CreatorInfoTable = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
+    handlePagination(page);
   };
 
   return (
@@ -96,7 +91,7 @@ const CreatorInfoTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 15,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}

@@ -68,13 +68,13 @@ const CreatorRequestCard = ({ data, setReload }) => {
         <p>{email}</p>
         <div className="space-x-2 mt-4">
           <button
-            className="border border-[#FB7C29] text-[#FB7C29] px-6 py-2 rounded hover:bg-red-500 hover:text-white"
+            className="border border-[#FB7C29] text-[#FB7C29] px-6 py-2 rounded hover:bg-red-400 hover:text-white"
             onClick={() => handleCreatorCancel(_id)}
           >
             Cancel
           </button>
           <button
-            className=" bg-[#FB7C29] text-white px-6 py-2 rounded hover:bg-green-500"
+            className=" bg-[#FB7C29] text-white px-6 py-2 rounded hover:bg-green-400"
             onClick={() => handleCreatorApprove(_id)}
           >
             Approve

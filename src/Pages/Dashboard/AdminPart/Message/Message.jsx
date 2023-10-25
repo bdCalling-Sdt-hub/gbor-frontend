@@ -1,21 +1,20 @@
 import { Button, Input, Switch } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
-import useRole from "../../../../Hooks/useRole";
+import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 import MessageTable from "./MessageTable";
 
 const Message = () => {
-  const [messageOpen, setMessageOpen] = useState(localStorage.message || true);
+  const [messageBox, setMessageBox] = useState(false);
   const { userInfo } = JSON.parse(localStorage.yourInfo);
+  const dispatch = useDispatch();
 
-  const handleMessageSend = (e) => {
-    setMessageOpen(e);
-    localStorage.setItem("message", e);
+  const handleShow = () => {
+    setMessageBox(!messageBox);
   };
-  const identity = useRole();
 
-  console.log(identity);
   //socket implement
   let socket = io("http://192.168.10.18:10000");
 
@@ -23,10 +22,26 @@ const Message = () => {
     console.log("Connected");
   });
 
+  useEffect(() => {
+    const data = {
+      limit: 2,
+      page: 1,
+    };
+    dispatch(ContentCreators(data));
+  }, []);
+
+  const handlePagination = (page) => {
+    const data = {
+      limit: 2,
+      page: page,
+    };
+    dispatch(ContentCreators(data));
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between gap-1 mb-2">
-        {messageOpen ? (
+        {messageBox ? (
           <p
             style={{
               fontSize: "25px",
@@ -44,14 +59,14 @@ const Message = () => {
           </h2>
         )}
         <Switch
-          defaultChecked={messageOpen}
-          onChange={handleMessageSend}
+          defaultChecked={messageBox}
+          onChange={handleShow}
           checkedChildren="Hide"
           unCheckedChildren="Show"
           style={{ background: "#fb7c29" }}
         />
       </div>
-      {messageOpen && (
+      {messageBox && (
         <div className="mb-8">
           <textarea
             placeholder="Write your message here"
@@ -94,7 +109,7 @@ const Message = () => {
         Creator List
       </h2>
 
-      <MessageTable />
+      <MessageTable handlePagination={handlePagination} />
     </div>
   );
 };

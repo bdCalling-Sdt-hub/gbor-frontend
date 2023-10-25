@@ -7,13 +7,16 @@ const initialState = {
   isLoading: false,
   message: "",
   creatorsData: [],
+  pagination: {},
 };
 
 export const ContentCreators = createAsyncThunk(
   "ContentCreators",
   async (value, thunkAPI) => {
     try {
-      const response = await axios.get("api/auth/content-creator");
+      const response = await axios.get(
+        `api/auth/content-creator?page=${value.page}&limit=${value.limit}`
+      );
 
       return response.data;
     } catch (error) {
@@ -51,6 +54,7 @@ export const creatorsSlice = createSlice({
       state.isLoading = false;
       state.message = action.payload.message;
       state.creatorsData = action.payload.data.all_creator;
+      state.pagination = action.payload.pagination;
     },
     [ContentCreators.rejected]: (state, action) => {
       state.isError = true;

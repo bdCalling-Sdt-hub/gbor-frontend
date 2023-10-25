@@ -1,17 +1,26 @@
 import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
 import { LuCopy } from "react-icons/lu";
+import Swal from "sweetalert2";
 import axios from "../../../../Config";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const { userInfo } = JSON.parse(localStorage.getItem("yourInfo"));
-  const { fName, lName, userName, email, dateOfBirth, uploadId, role } =
-    userInfo;
+  const {
+    fName,
+    lName,
+    userName,
+    email,
+    dateOfBirth,
+    uploadId,
+    website,
+    socialLink,
+  } = userInfo;
   const [img, setImg] = useState();
   const [fileList, setFileList] = useState([
     {
@@ -21,17 +30,29 @@ const PersonalInfo = () => {
       url: uploadId,
     },
   ]);
+  const inputRef = useRef(null);
+
+  const handleCopyClick = () => {
+    inputRef.current.select();
+    document.execCommand("copy");
+  };
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     setImg(newFileList[0].originFileObj);
   };
+
   const initialFormValues = {
     fullName: fName + " " + lName,
     fName: fName,
     lName: lName,
     email: email,
     dateOfBirth: dateOfBirth ? moment(dateOfBirth, "YYYY-MM-DD") : null,
+    website: website,
+    tiktok: socialLink?.tiktok,
+    youtube: socialLink?.youtube,
+    facebook: socialLink?.facebook,
+    instagram: socialLink?.instagram,
   };
 
   const handleChange = () => {
@@ -42,6 +63,7 @@ const PersonalInfo = () => {
     const formData = new FormData();
     const webLink = values.website === undefined ? "" : values.website;
 
+    // Create the socialLinks object
     let socialLinks = {
       youtube: values.youtube,
       tiktok: values.tiktok,
@@ -49,16 +71,11 @@ const PersonalInfo = () => {
       instagram: values.instagram,
     };
 
-    for (const key in socialLinks) {
-      if (socialLinks.hasOwnProperty(key)) {
-        formData.append(`socialLink[${key}]`, socialLinks[key]);
-      }
-    }
-
+    // Append the socialLinks to formData
+    formData.append("socialLink", JSON.stringify(socialLinks));
     formData.append("fName", values.fName);
     formData.append("lName", values.lName);
     formData.append("website", webLink);
-    formData.append("socialLink", socialLinks);
 
     if (img) {
       formData.append("uploadId", img);
@@ -67,9 +84,13 @@ const PersonalInfo = () => {
     axios
       .patch(`api/auth/profile-update/${userInfo._id}`, formData)
       .then((res) => {
-        console.log(res.data);
+        if (res.data.status === 200) {
+          Swal.fire("Good!", res.data?.message, "success");
+          localStorage.setItem("yourInfo", JSON.stringify(res.data.data));
+          setProfileEdit(false);
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => Swal.fire("😒", err.response.data.message, "error"));
   };
 
   return (
@@ -94,42 +115,72 @@ const PersonalInfo = () => {
               <div>
                 <h2 className="text-xl">{fName + " " + lName}</h2>
                 <p>@{userName}</p>
-                {userInfo.role === "c_creator" && (
-                  <div className="mt-2">
+
+                <div className="mt-2">
+                  {userInfo.website && (
                     <div className="flex items-center">
                       <input
                         type="text"
-                        className="border border-orange-500 rounded py-2 outline-none px-2"
+                        ref={inputRef}
+                        className="border border-orange-500 text-gray-500 rounded py-2 outline-none px-2 w-56"
+                        value={website}
                       />
-                      <button className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center">
+                      <button
+                        className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center duration-2 hover:bg-red-500"
+                        onClick={handleCopyClick}
+                      >
                         <LuCopy fontSize={20} />
                       </button>
                     </div>
-                    <p className="text-[16px] my-3">View public profile</p>
-                    <div className="flex gap-2">
-                      <a href="https://www.youtube.com/" target="_blank">
-                        <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                          <FaYoutube fontSize={28} color="#ff0000" />
-                        </div>
-                      </a>
-                      <a href="https://www.instagram.com/" target="_blank">
-                        <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                          <FaInstagram fontSize={28} color="#ff3725" />
-                        </div>
-                      </a>
-                      <a href="https://www.tiktok.com/" target="_blank">
-                        <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                          <FaTiktok fontSize={28} color="#fff" />
-                        </div>
-                      </a>
-                      <a href="https://www.facebook.com/" target="_blank">
-                        <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                          <FaFacebookF fontSize={28} color="#1877f2" />
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                )}
+                  )}
+                  {userInfo.socialLink && (
+                    <>
+                      <p className="text-[16px] my-3">View public profile</p>
+                      <div className="flex gap-2">
+                        {userInfo.socialLink.youtube && (
+                          <a
+                            href={`https://www.youtube.com/@${userInfo.socialLink.youtube}`}
+                            target="_blank"
+                          >
+                            <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                              <FaYoutube fontSize={28} color="#ff0000" />
+                            </div>
+                          </a>
+                        )}
+                        {userInfo.socialLink.instagram && (
+                          <a
+                            href={`https://www.instagram.com/${userInfo.socialLink.instagram}`}
+                            target="_blank"
+                          >
+                            <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                              <FaInstagram fontSize={28} color="#ff3725" />
+                            </div>
+                          </a>
+                        )}
+                        {userInfo.socialLink.tiktok && (
+                          <a
+                            href={`https://www.tiktok.com/@${userInfo.socialLink.tiktok}`}
+                            target="_blank"
+                          >
+                            <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                              <FaTiktok fontSize={28} color="#fff" />
+                            </div>
+                          </a>
+                        )}
+                        {userInfo.socialLink.facebook && (
+                          <a
+                            href={`https://www.facebook.com/${userInfo.socialLink.facebook}`}
+                            target="_blank"
+                          >
+                            <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
+                              <FaFacebookF fontSize={28} color="#1877f2" />
+                            </div>
+                          </a>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
 

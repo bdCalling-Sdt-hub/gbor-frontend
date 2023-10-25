@@ -1,25 +1,17 @@
-import { Table, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import { Table } from "antd";
+import React, { useState } from "react";
 import { RiMessage2Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
-const { Title, Text } = Typography;
 
-const MessageTable = () => {
-  const [creators, setCreators] = useState([]);
-  const { creatorsData } = useSelector((state) => state.creators);
-  const dispatch = useDispatch();
+const MessageTable = ({ handlePagination }) => {
+  const { creatorsData, pagination } = useSelector((state) => state.creators);
   const navigate = useNavigate();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
-
-  useEffect(() => {
-    dispatch(ContentCreators());
-  }, []);
-
+  const pageSize = 2;
   console.log(creatorsData);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const data = creatorsData?.map((creator) => {
     return {
@@ -103,13 +95,24 @@ const MessageTable = () => {
     },
   ];
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    handlePagination(page);
+  };
+
   return (
     <div>
       <Table
-        rowClassName={"rowMessage"}
         showHeader={false}
         columns={columns}
         dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalDocuments,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
       />
     </div>
   );

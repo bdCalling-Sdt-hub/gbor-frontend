@@ -6,6 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Register, reset } from "../../../../ReduxSlice/RegisterSlice";
+import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 import CreatorInfoTable from "./CreatorInfoTable";
 const { Title, Text } = Typography;
 
@@ -19,6 +20,7 @@ const CreatorInfo = () => {
   );
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+  const [reload, setReload] = useState(1);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -38,6 +40,22 @@ const CreatorInfo = () => {
     setIsDrawerVisible(false);
     setTransactionData(null);
   };
+
+  const handlePagination = (page) => {
+    const data = {
+      limit: 10,
+      page: page,
+    };
+    dispatch(ContentCreators(data));
+  };
+
+  useEffect(() => {
+    const data = {
+      limit: 10,
+      page: 1,
+    };
+    dispatch(ContentCreators(data));
+  }, [reload]);
 
   const handleRegistration = (e) => {
     e.preventDefault();
@@ -72,8 +90,6 @@ const CreatorInfo = () => {
     ) {
       //dispatch here for create creator
       dispatch(Register(formData));
-
-      console.log("submited", formData);
 
       //  error message
       setError("");
@@ -138,7 +154,10 @@ const CreatorInfo = () => {
           Add Creator <AiOutlineUserAdd fontSize={20} />
         </button>
       </div>
-      <CreatorInfoTable />
+      <CreatorInfoTable
+        setReload={setReload}
+        handlePagination={handlePagination}
+      />
       <Drawer
         title={
           <div>
