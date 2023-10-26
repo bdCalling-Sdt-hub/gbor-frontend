@@ -12,6 +12,13 @@ const Navbar = () => {
   const [searchData, setSearchData] = useState("");
   const location = useLocation();
 
+  // const handleKeyUp = (e) => {
+  //   e.preventDefault();
+  //   if (e.key === "Enter") {
+  //     handleSearch();
+  //   }
+  // };
+
   const handleSearch = () => {
     if (searchData !== "") {
       navigate(`/search/${searchData}`);
@@ -63,8 +70,6 @@ const Navbar = () => {
                 className="outline-none bg-transparent p-3 px-2 w-6/6"
                 onBlur={(e) => setSearchData(e.target.value)}
                 placeholder="Search favourite creator"
-                name=""
-                id=""
               />
               <button
                 style={{ marginLeft: "auto" }}

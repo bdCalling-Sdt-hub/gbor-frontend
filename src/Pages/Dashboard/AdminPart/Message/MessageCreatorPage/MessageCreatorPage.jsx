@@ -1,6 +1,6 @@
 import { Avatar } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { BsFillSendFill } from "react-icons/bs";
+import { BsFillSendFill, BsSend } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
@@ -12,7 +12,8 @@ const MessageCreatorPage = () => {
   const [chat, setChat] = useState([]);
   const lastMessageRef = useRef();
   const navigate = useNavigate();
-  const [emoji, setEmoji] = useState(false);
+  const [write, setWrite] = useState(false);
+
   let socket = io("http://192.168.10.18:10000");
 
   socket.on("connect", () => {
@@ -30,15 +31,23 @@ const MessageCreatorPage = () => {
     });
   }, []);
 
+  const handleKeyUp = (e) => {
+    e.preventDefault();
+    if (e.key === "Enter") {
+      handleMessage(e);
+    }
+  };
+
   const handleMessage = (e) => {
     e.preventDefault();
-    console.log("click", fieldData);
     const data = {
       message: fieldData,
       chat: id,
       sender: userInfo._id,
     };
     socket.emit("add-new-message", data);
+    setFieldData("");
+    setWrite(false);
   };
 
   const handleBack = () => {
@@ -134,13 +143,20 @@ const MessageCreatorPage = () => {
         <div className="flex gap-2 p-1 bg-orange-100 rounded">
           <input
             type="text"
-            onBlur={(e) => setFieldData(e.target.value)}
+            value={fieldData}
+            onChange={(e) => setFieldData(e.target.value)}
+            onKeyUp={handleKeyUp}
+            onKeyDown={() => setWrite(true)}
             name="message"
             placeholder="Type message..."
             className="w-full h-12 border border-orange-300 rounded px-3 outline-none text-lg text-orange-500 placeholder:text-orange-200"
           />
           <button className="px-2" onClick={handleMessage}>
-            <BsFillSendFill fontSize={30} color="#fb7c29" />
+            {write ? (
+              <BsFillSendFill fontSize={30} color="#fb7c29" />
+            ) : (
+              <BsSend fontSize={30} color="#fb7c29" />
+            )}
           </button>
         </div>
       </div>

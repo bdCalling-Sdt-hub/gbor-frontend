@@ -38,6 +38,7 @@ const Contact = () => {
             text: "We've received your questions and will get back to you in a few hours.",
             confirmButtonColor: "#ff5252",
           });
+          setContactData({});
         }
       });
     } else {
