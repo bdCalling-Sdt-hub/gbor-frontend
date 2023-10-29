@@ -13,8 +13,9 @@ const MessageCreatorPage = () => {
   const lastMessageRef = useRef();
   const navigate = useNavigate();
   const [write, setWrite] = useState(false);
+  const [load, setLoad] = useState(1);
 
-  let socket = io("http://192.168.10.18:10000");
+  let socket = io("http://192.168.10.13:10000");
 
   socket.on("connect", () => {
     console.log("Connected");
@@ -31,6 +32,11 @@ const MessageCreatorPage = () => {
     });
   }, []);
 
+  socket.on("multiple-message-hitted", (data) => {
+    console.log(data);
+    socket.emit("show-all-messages", { uid: id });
+  });
+
   const handleKeyUp = (e) => {
     e.preventDefault();
     if (e.key === "Enter") {
@@ -40,14 +46,16 @@ const MessageCreatorPage = () => {
 
   const handleMessage = (e) => {
     e.preventDefault();
-    const data = {
-      message: fieldData,
-      chat: id,
-      sender: userInfo._id,
-    };
-    socket.emit("add-new-message", data);
-    setFieldData("");
-    setWrite(false);
+    if (fieldData !== "") {
+      const data = {
+        message: fieldData,
+        chat: id,
+        sender: userInfo._id,
+      };
+      socket.emit("add-new-message", data);
+      setFieldData("");
+      setWrite(false);
+    }
   };
 
   const handleBack = () => {

@@ -19,49 +19,18 @@ import { FiMonitor } from "react-icons/fi";
 import { IoIosNotificationsOutline, IoIosPeople } from "react-icons/io";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
 import { RiMessage2Line } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import colors from "../../Constant/colors.jsx";
 import useRole from "../../Hooks/useRole.jsx";
 import GBORLOGO from "../../Images/GBORLOGO.png";
+import { Notifications } from "../../ReduxSlice/notificationSlice.jsx";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
-
-const items = [...Array(5).keys()].map((item, index) => {
-  return {
-    key: index,
-    label: (
-      <Link to="/dashboard/notification" style={{}} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{
-              backgroundColor: "#d9cffb",
-              borderRadius: "100%",
-              padding: "5px",
-              marginRight: "15px",
-            }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-            alt="person-male--v2"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>
-              <span>Sanchej haro manual </span>started a new trip from mexico.
-            </p>
-            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
-          </div>
-        </div>
-      </Link>
-    ),
-  };
-});
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -73,13 +42,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const { identity } = useRole();
-
-  console.log(identity);
-
+  const { allNotification } = useSelector((state) => state.notification);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
+  const dispatch = useDispatch();
 
   const logout = () => {
     Swal.fire({
@@ -148,50 +116,6 @@ const Dashboard = () => {
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
-
-  const menu = (
-    <Menu>
-      <Menu.Item disabled>
-        <h2
-          style={{
-            color: "#fb7c29",
-            fontWeight: "500",
-            borderBottom: "1px solid #e6e7f4",
-            paddingBottom: "20px",
-          }}
-        >
-          Notifications
-        </h2>
-        {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
-      </Menu.Item>
-      {items.map((item) => (
-        <Menu.Item key={item.key}>{item.label}</Menu.Item>
-      ))}
-      <div
-        className=""
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "15px",
-        }}
-      >
-        <Button
-          type="primary"
-          block
-          style={{
-            height: "50px",
-            backgroundColor: "#e6e7f4",
-            color: "#fb7c29",
-            fontSize: "18px",
-            fontWeight: "bold",
-          }}
-        >
-          <Link to="/dashboard/notification">See all</Link>
-        </Button>
-      </div>
-    </Menu>
-  );
 
   const breadCrumb = [
     {
@@ -267,12 +191,15 @@ const Dashboard = () => {
   const dashboardBreadCrumb = breadCrumb.find(
     (path) => path.path === location.pathname
   );
-  let socket = io("http://192.168.10.18:10000");
+  let socket = io("http://192.168.10.13:10000");
   const data = {
     uid: userInfo._id,
   };
 
   socket.emit("join-room", data);
+  socket.on("new-message-appeared", (data) => {
+    console.log(data);
+  });
 
   const handleCreatorMessage = () => {
     socket.on("connect", () => {
@@ -289,6 +216,124 @@ const Dashboard = () => {
       navigate(`/dashboard/message/${data[0]._id}/${name}`);
     });
   };
+
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      // Emit events or listen for events here
+      socket.on("admin-notification", (data) => {
+        console.log(data);
+        setNotifications(data);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    const data = {
+      limit: 8,
+      page: 1,
+    };
+    dispatch(Notifications(data));
+  }, []);
+
+  console.log("Redux data", allNotification);
+
+  console.log("sokceat data", notifications);
+
+  const commonData = notifications?.allNotification
+    ? notifications
+    : allNotification;
+
+  console.log("common Data", commonData);
+
+  const items = commonData?.allNotification?.slice(0, 4).map((item, index) => {
+    function getTimeAgo(timestamp) {
+      const now = new Date();
+      const date = new Date(timestamp);
+
+      const secondsAgo = Math.floor((now - date) / 1000);
+      const minutesAgo = Math.floor(secondsAgo / 60);
+      const hoursAgo = Math.floor(minutesAgo / 60);
+      const daysAgo = Math.floor(hoursAgo / 24);
+      const yearsAgo = Math.floor(daysAgo / 365);
+
+      if (yearsAgo > 0) {
+        return yearsAgo === 1 ? "1 year ago" : `${yearsAgo} years ago`;
+      } else if (daysAgo > 0) {
+        return daysAgo === 1 ? "1 day ago" : `${daysAgo} days ago`;
+      } else if (hoursAgo > 0) {
+        return hoursAgo === 1 ? "1 hour ago" : `${hoursAgo} hours ago`;
+      } else if (minutesAgo > 0) {
+        return minutesAgo === 1 ? "1 minute ago" : `${minutesAgo} minutes ago`;
+      } else {
+        return "Just now";
+      }
+    }
+
+    return {
+      key: index,
+      label: (
+        <Link to="/dashboard/notification" rel="noreferrer">
+          <div
+            className={Styles.everyNotify}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <img
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                padding: "5px",
+                marginRight: "15px",
+              }}
+              src={item.image}
+              alt="person-male--v2"
+            />
+            <div className="" style={{ marginTop: "" }}>
+              <p>{item.message}</p>
+              <span style={{ color: "#d2d2d2" }}>
+                {getTimeAgo(item.createdAt)}
+              </span>
+            </div>
+          </div>
+        </Link>
+      ),
+    };
+  });
+
+  const menu = (
+    <Menu>
+      {items?.map((item) => (
+        <Menu.Item key={item.key}>{item.label}</Menu.Item>
+      ))}
+      <div
+        className=""
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "15px",
+        }}
+      >
+        <Link
+          style={{
+            backgroundColor: "#fb7c29",
+            color: "#fff",
+            fontSize: "18px",
+            fontWeight: "bold",
+            width: "100%",
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+          to="/dashboard/notification"
+        >
+          see all
+        </Link>
+      </div>
+    </Menu>
+  );
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
@@ -523,7 +568,7 @@ const Dashboard = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Badge count={1} color="#fb7c29">
+                  <Badge count={commonData.notViewed} color="#fb7c29">
                     <IoIosNotificationsOutline
                       className="cursor-pointer"
                       fontSize={35}

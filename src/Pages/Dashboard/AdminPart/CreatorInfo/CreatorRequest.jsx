@@ -7,14 +7,30 @@ import { UnApproveCreators } from "../../../../ReduxSlice/unapproveCreators";
 
 const CreatorRequest = () => {
   const dispatch = useDispatch();
-  const { unApproveCreators } = useSelector((state) => state.unApproveCreators);
+  const { unApproveCreators, pagination } = useSelector(
+    (state) => state.unApproveCreators
+  );
   const [reload, setReload] = useState(1);
-
-  console.log(unApproveCreators);
+  const pageSize = 8;
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    dispatch(UnApproveCreators());
+    const data = {
+      page: 1,
+      limit: 8,
+    };
+    dispatch(UnApproveCreators(data));
   }, [reload]);
+
+  const onChangePage = (page) => {
+    setCurrentPage(page);
+
+    const data = {
+      page: page,
+      limit: 8,
+    };
+    dispatch(UnApproveCreators(data));
+  };
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -69,10 +85,10 @@ const CreatorRequest = () => {
         <Row className="justify-end mt-14  py-4 rounded-b-md">
           <Col>
             <Pagination
-              total={85}
-              responsive={true}
-              defaultCurrent={1}
-              showSizeChanger={false}
+              pageSize={pageSize}
+              total={pagination?.totalDocuments}
+              current={currentPage}
+              onChange={onChangePage}
             />
           </Col>
         </Row>

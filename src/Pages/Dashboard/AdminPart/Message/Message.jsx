@@ -3,28 +3,77 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
+import axios from "../../../../../Config";
 import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 import MessageTable from "./MessageTable";
 
 const Message = () => {
-  const [messageBox, setMessageBox] = useState(false);
+  const [messageBox, setMessageBox] = useState(localStorage.box || true);
   const { userInfo } = JSON.parse(localStorage.yourInfo);
   const dispatch = useDispatch();
+  const [messageForAll, setMessageForAll] = useState("");
+  const [creatorsList, setCreatorList] = useState([]);
 
   const handleShow = () => {
     setMessageBox(!messageBox);
+    localStorage.setItem("box", messageBox);
   };
 
+  const token = localStorage.token;
+
   //socket implement
-  let socket = io("http://192.168.10.18:10000");
+  let socket = io("http://192.168.10.13:10000");
 
   socket.on("connect", () => {
     console.log("Connected");
   });
 
+  const data = {
+    uid: userInfo._id,
+  };
+
+  useEffect(() => {
+    socket.emit("get-all-chats", data);
+    socket.on("all-chats", (data) => {
+      setCreatorList(data);
+    });
+  }, []);
+
+  const handleSendMessageToAll = () => {
+    // Ensure the required data is available
+    if (
+      !socket ||
+      !creatorsList ||
+      creatorsList.length === 0 ||
+      !messageForAll ||
+      !userInfo
+    ) {
+      console.error("Missing required data or socket connection.");
+      return;
+    }
+
+    if (messageForAll !== "") {
+      const chatMessages = creatorsList.map((creator) => ({
+        message: messageForAll,
+        sender: userInfo._id,
+        chat: creator._id,
+      }));
+
+      axios
+        .post("api/messages/multiple-messages", chatMessages, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+    }
+  };
+
   useEffect(() => {
     const data = {
-      limit: 2,
+      limit: 6,
       page: 1,
     };
     dispatch(ContentCreators(data));
@@ -32,7 +81,7 @@ const Message = () => {
 
   const handlePagination = (page) => {
     const data = {
-      limit: 2,
+      limit: 6,
       page: page,
     };
     dispatch(ContentCreators(data));
@@ -72,9 +121,13 @@ const Message = () => {
             placeholder="Write your message here"
             className="border border-[#fb7c29] w-full h-56 rounded-md outline-none p-2 text-[#fb7c29]"
             rows="10"
+            onChange={(e) => setMessageForAll(e.target.value)}
           ></textarea>
-          <button className="w-full bg-[#fb7c29] text-white py-3 rounded-sm mt-2 mb-2">
-            Send To All Creator
+          <button
+            className="w-full bg-[#fb7c29] text-white py-3 rounded-sm mt-2 mb-2"
+            onClick={handleSendMessageToAll}
+          >
+            Send message to all creators
           </button>
         </div>
       )}

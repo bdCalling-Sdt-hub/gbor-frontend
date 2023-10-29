@@ -9,8 +9,7 @@ const MessageTable = ({ handlePagination }) => {
   const { creatorsData, pagination } = useSelector((state) => state.creators);
   const navigate = useNavigate();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
-  const pageSize = 2;
-  console.log(creatorsData);
+  const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
   const data = creatorsData?.map((creator) => {
@@ -32,7 +31,7 @@ const MessageTable = ({ handlePagination }) => {
   });
 
   const handleMessage = (e) => {
-    let socket = io("http://192.168.10.18:10000");
+    let socket = io("http://192.168.10.13:10000");
 
     socket.on("connect", () => {
       console.log("Connected");

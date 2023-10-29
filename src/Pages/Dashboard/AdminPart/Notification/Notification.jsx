@@ -1,15 +1,86 @@
 import { Col, Modal, Pagination, Row } from "antd";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../../../../../Config";
+import { Notifications } from "../../../../ReduxSlice/notificationSlice";
 import "./Notification.css";
 
 function Notification() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { allNotification, pagination } = useSelector(
+    (state) => state.notification.allNotification
+  );
+  const dispatch = useDispatch();
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [modalData, setModalData] = useState();
 
-  const showModal = () => {
+  console.log(pagination);
+  const token = localStorage.token;
+
+  const showModal = (data) => {
     setIsModalOpen(true);
+    setModalData(data);
+    console.log(data);
+    axios
+      .patch(
+        `/api/notifications/${data._id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        const data = {
+          limit: 10,
+          page: 1,
+        };
+        dispatch(Notifications(data));
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  function getTimeAgo(timestamp) {
+    const now = new Date();
+    const date = new Date(timestamp);
+
+    const secondsAgo = Math.floor((now - date) / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+    const yearsAgo = Math.floor(daysAgo / 365);
+
+    if (yearsAgo > 0) {
+      return yearsAgo === 1 ? "1 year ago" : `${yearsAgo} years ago`;
+    } else if (daysAgo > 0) {
+      return daysAgo === 1 ? "1 day ago" : `${daysAgo} days ago`;
+    } else if (hoursAgo > 0) {
+      return hoursAgo === 1 ? "1 hour ago" : `${hoursAgo} hours ago`;
+    } else if (minutesAgo > 0) {
+      return minutesAgo === 1 ? "1 minute ago" : `${minutesAgo} minutes ago`;
+    } else {
+      return "Just now";
+    }
+  }
+
+  const handlePagination = (page) => {
+    const data = {
+      limit: 10,
+      page: page,
+    };
+    dispatch(Notifications(data));
+  };
+
+  const onChangePage = (page) => {
+    setCurrentPage(page);
+    handlePagination(page);
   };
 
   return (
@@ -25,14 +96,15 @@ function Notification() {
           All Notifications
         </h2>
 
-        {[...Array(5).keys()].map((_, index) => {
+        {allNotification?.map((item) => {
           return (
             <Col
-              key={index}
               className="notification"
               lg={{ span: 24 }}
-              style={{ cursor: "pointer" }}
-              onClick={showModal}
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => showModal(item)}
             >
               <div style={{ display: "flex", alignItems: "center" }}>
                 <div className="user-image" style={{ marginRight: "50px" }}>
@@ -42,34 +114,36 @@ function Notification() {
                       width: "60px",
                       borderRadius: "50%",
                     }}
-                    src="https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg"
+                    src={item.image}
                   />
                 </div>
-                <div className="">
-                  <p>
-                    <span style={{ fontWeight: "bold" }}>Professor Sergio</span>{" "}
-                    start a new trip at 5pm. Trip No.56. Trip started from
-                    Mexico city.....
+                <div className="lowercase font-sans">
+                  <p
+                    style={{
+                      fontWeight: item.viewStatus ? "normal" : "bold",
+                      fontSize: item.viewStatus ? "15px" : "18px",
+                      color: "#4d4d4d",
+                    }}
+                  >
+                    {item.message}
                   </p>
-                  <p style={{ color: "gray", marginTop: "10px" }}>1hr ago</p>
+                  <p style={{ color: "gray", marginTop: "10px" }}>
+                    {getTimeAgo(item.createdAt)}
+                  </p>
                 </div>
               </div>
             </Col>
           );
         })}
       </Row>
-      <Row style={{ marginTop: "20px" }}>
-        <Col lg={{ span: 12 }}>
-          <h2 style={{ fontSize: "20px", color: "#fb7c29" }}>
-            Showing 1-10 OF 250
-          </h2>
-        </Col>
-        <Col lg={{ span: 8, offset: 4 }}>
+      <Row style={{ marginTop: "20px", marginBottom: "30px" }}>
+        <Col lg={{ span: 12 }}></Col>
+        <Col lg={{ span: 8, offset: 4 }} style={{ textAlign: "right" }}>
           <Pagination
-            defaultCurrent={1}
-            total={50}
-            showQuickJumper={false}
-            showSizeChanger={false}
+            pageSize={pageSize}
+            current={currentPage}
+            onChange={onChangePage}
+            total={pagination?.totalDocuments}
           />
         </Col>
       </Row>
@@ -77,25 +151,15 @@ function Notification() {
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
-        width={"50%"}
+        width={"60%"}
       >
         <div>
-          <h2
-            style={{
-              marginBottom: "10px",
-
-              fontSize: "20px",
-            }}
-          >
-            a new creator account has been registered on our platform. Please
-            review the account details and take any necessary action if
-            required.
-          </h2>
+          <h2 style={{ marginBottom: "10px" }}>{modalData?.message}</h2>
 
           <img
             style={{ borderRadius: "10px" }}
             width="100%"
-            src="https://media.glamourmagazine.co.uk/photos/61d41b63c5af0fe87af8fbb4/16:9/w_2560%2Cc_limit/EMMASHP040122_DEFAULT2GettyImages-476245909.jpg"
+            src={modalData?.image}
             alt=""
           />
         </div>

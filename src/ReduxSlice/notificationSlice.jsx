@@ -5,25 +5,25 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  unApproveCreators: [],
-  pagination: {},
+  allNotification: {},
 };
 const token = localStorage.token;
 
-export const UnApproveCreators = createAsyncThunk(
-  "UnApproveCreators",
+export const Notifications = createAsyncThunk(
+  "Notifications",
   async (value, thunkAPI) => {
     try {
       const response = await axios.get(
-        `api/auth/all-unapproved-user?page=${value.page}&limit=${value.limit}`,
+        `api/notifications?limit=${value.limit}&page=${value.page}`,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-type": "application/json",
             authorization: `Bearer ${token}`,
           },
         }
       );
 
+      console.log(response.data);
       return response.data;
     } catch (error) {
       const message =
@@ -33,35 +33,35 @@ export const UnApproveCreators = createAsyncThunk(
         error.message ||
         error.toString();
 
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const unApproveCreatorSlice = createSlice({
-  name: "unApproveCreatorSlice",
+//create slice for host
+export const NotificationsSlice = createSlice({
+  name: "Notifications",
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false;
-      state.isSuccess = false;
       state.isError = false;
-      state.userData = [];
-      state.pagination = {};
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.allNotification = {};
     },
   },
+
   extraReducers: {
-    [UnApproveCreators.pending]: (state, action) => {
+    [Notifications.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [UnApproveCreators.fulfilled]: (state, action) => {
+    [Notifications.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
-      state.unApproveCreators = action.payload.data?.all_unapproved_user;
-      state.pagination = action.payload.pagination;
+      state.allNotification = action.payload?.data;
     },
-    [UnApproveCreators.rejected]: (state, action) => {
+    [Notifications.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -70,5 +70,6 @@ export const unApproveCreatorSlice = createSlice({
   },
 });
 
-export const { reset } = unApproveCreatorSlice.actions;
-export default unApproveCreatorSlice.reducer;
+export const {} = NotificationsSlice.actions;
+
+export default NotificationsSlice.reducer;
