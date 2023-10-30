@@ -12,8 +12,6 @@ const OurCreatorsDetails = () => {
   const [paymentData, setPaymentData] = useState({});
   const [totalCost, setTotalCost] = useState(null);
 
-  console.log(id);
-
   useEffect(() => {
     axios
       .get(`api/auth/content-creator/${id}`)
@@ -39,13 +37,15 @@ const OurCreatorsDetails = () => {
     }
   }, [paymentData.amount]);
 
+  //make payment here
   const handlePayment = (e) => {
     e.preventDefault();
 
     const value = {
-      amount: totalCost,
+      amount: paymentData.amount,
       donarName: paymentData.donarName,
       message: paymentData.message,
+      totalCost: totalCost,
     };
 
     console.log(value);
@@ -62,10 +62,10 @@ const OurCreatorsDetails = () => {
         "cmazon.com",
         "url_redirection_success",
         "url_redirection_failed",
-        100,
-        "dakar",
+        paymentData.amount,
         "",
         "",
+        paymentData.donarName,
         "",
         ""
       );
@@ -82,7 +82,6 @@ const OurCreatorsDetails = () => {
     }
   };
 
-  console.log(data);
   return (
     <div>
       <Navbar />

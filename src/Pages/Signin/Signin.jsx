@@ -1,7 +1,7 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import logo from "../../Images/Logo.png";
 import signin from "../../Images/signin.png";
@@ -9,7 +9,6 @@ import { SignIn, reset } from "../../ReduxSlice/signinSlice";
 import style from "./Signin.module.css";
 
 const Signin = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userData, token, message, isSuccess, isError } = useSelector(
@@ -20,8 +19,9 @@ const Signin = () => {
     if (isError === true) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Something went wrong",
         text: message,
+        confirmButtonColor: "#fb7c29",
       });
     }
     if (isSuccess === true) {
@@ -35,10 +35,6 @@ const Signin = () => {
 
   const handleSignIn = (values) => {
     dispatch(SignIn(values));
-  };
-
-  const handleForget = () => {
-    navigate("/forget-password");
   };
 
   return (
@@ -114,7 +110,8 @@ const Signin = () => {
           <Form.Item className="block text-center">
             <Button
               htmlType="submit"
-              className="login-form-button bg-[#fb7c29] text-white w-28 h-10"
+              type="text"
+              className="login-form-button bg-[#fb7c29] text-white w-28 h-10 hover:bg-red-500 duration-100"
             >
               Sign In
             </Button>

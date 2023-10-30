@@ -106,6 +106,7 @@ const BecomeCreator = () => {
         "success"
       );
       dispatch(reset());
+      setTermCon(false);
     }
   }, [isSuccess]);
   return (
@@ -223,6 +224,7 @@ const BecomeCreator = () => {
                       className="hidden"
                       name="termCon"
                       id="term"
+                      value={termCon}
                       onChange={() => setTermCon(!termCon)}
                     />
                     <label
@@ -254,7 +256,7 @@ const BecomeCreator = () => {
               )}
               <p className="text-center mt-6">
                 Already have an account?{" "}
-                <Link to="" className="text-[#ff7044]">
+                <Link to="/signin" className="text-[#ff7044]">
                   Login
                 </Link>
               </p>

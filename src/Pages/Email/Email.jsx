@@ -68,6 +68,7 @@ const Email = () => {
           <Form.Item className="block text-center mt-10">
             <Button
               htmlType="submit"
+              type="text"
               className="login-form-button bg-[#fb7c29] text-white w-28 h-10"
             >
               Send OTP
