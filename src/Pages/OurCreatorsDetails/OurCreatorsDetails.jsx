@@ -55,19 +55,33 @@ const OurCreatorsDetails = () => {
       value.donarName !== undefined &&
       value.message !== undefined
     ) {
+      let order_number = new Date().getTime();
+      let agency_code = "CMZON10707";
+      let secure_code = "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB";
+      let domain_name = "mongbor.com";
+      let url_redirection_success = "";
+      let url_redirection_failed = "";
+      let amount = value.amount;
+      let city = "";
+      let email = "";
+      let donarFirstName = value.donarName;
+      let donarLastName = "";
+      let donarPhone = "";
+
+      // Call the TouchPay function with the correct name and parameters
       sendPaymentInfos(
-        new Date().getTime(),
-        "CMZON10707",
-        "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB",
-        "cmazon.com",
-        "url_redirection_success",
-        "url_redirection_failed",
-        paymentData.amount,
-        "",
-        "",
-        paymentData.donarName,
-        "",
-        ""
+        order_number,
+        agency_code,
+        secure_code,
+        domain_name,
+        url_redirection_success,
+        url_redirection_failed,
+        amount,
+        city,
+        email,
+        donarFirstName,
+        donarLastName,
+        donarPhone
       );
     } else {
       Swal.fire({
