@@ -89,7 +89,6 @@ const BecomeCreator = () => {
       dispatch(Register(formData));
 
       //  error message
-
       setError("");
       setFile(null);
     } else {

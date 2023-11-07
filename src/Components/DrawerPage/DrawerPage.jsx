@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { Button, Col, Row, Select, Typography, message } from "antd";
 import React, { useState } from "react";
-import img from "../../Images/creator1.png";
 import CreatorData from "./CreatorData/CreatorData";
 const { Title } = Typography;
 const { Option } = Select;
@@ -34,10 +33,20 @@ const DrawerPage = (props) => {
               paddingBottom: "20px",
             }}
           >
-            <img width={120} className="rounded" src={img} alt="creator" />
+            <img
+              width={120}
+              className="rounded"
+              src={props.transactionData.action?.creator?.uploadId}
+              alt="creator"
+            />
             <div>
-              <h2 className="text-xl font-medium">Amrin Amena</h2>
-              <p>Gbor Received: 145</p>
+              <h2 className="text-xl font-medium">
+                {" "}
+                {props.transactionData.action?.creator?.fName +
+                  " " +
+                  props.transactionData.action?.creator?.lName}
+              </h2>
+              <p>Gbor Received: {props.transactionData?.received}</p>
             </div>
           </div>
 
@@ -54,15 +63,18 @@ const DrawerPage = (props) => {
             <Row>
               <Col span={12} style={{ textAlign: "left" }}>
                 <p className="text-lg font-light">Time</p>
-                <p className="text-lg font-light">Date</p>
-                <p className="text-lg font-light">Payment Method</p>
+
+                {/* <p className="text-lg font-light">Payment Method</p> */}
                 <p className="text-lg font-light">Payment Amount</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p className="text-lg font-light">11:00pm</p>
-                <p className="text-lg font-light">10/5/2023</p>
-                <p className="text-lg font-light">Visa Card</p>
-                <p className="text-lg font-light">45</p>
+                <p className="text-lg font-light">
+                  {props.transactionData?.date}
+                </p>
+                {/* <p className="text-lg font-light">Visa Card</p> */}
+                <p className="text-lg font-light">
+                  {props.transactionData?.received}
+                </p>
               </Col>
             </Row>
           </div>
@@ -78,7 +90,10 @@ const DrawerPage = (props) => {
                 <p className="text-lg font-light">Message</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p className="text-lg font-light">Lisa</p>
+                <p className="text-lg font-light">
+                  {" "}
+                  {props.transactionData?.donarName}
+                </p>
               </Col>
               <Col span={24}>
                 <textarea
@@ -87,10 +102,7 @@ const DrawerPage = (props) => {
                   rows="6"
                   className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
                 >
-                  Amrin, your unwavering commitment to your creative endeavors
-                  is truly inspiring. Before immersing ourselves in your
-                  content, here's a donation as a token of appreciation, along
-                  with wishes for your continued success and innovation. 🌟
+                  {props.transactionData?.action?.message}
                 </textarea>
               </Col>
             </Row>
@@ -129,10 +141,19 @@ const DrawerPage = (props) => {
               paddingBottom: "20px",
             }}
           >
-            <img width={120} className="rounded" src={img} alt="creator" />
+            <img
+              width={120}
+              className="rounded"
+              src={props.earningData.action?.creator?.uploadId}
+              alt="creator"
+            />
             <div>
-              <h2 className="text-xl font-medium">Amrin Amena</h2>
-              <p>Gbor Received: 145</p>
+              <h2 className="text-xl font-medium">
+                {props.earningData.action?.creator?.fName +
+                  " " +
+                  props.earningData.action?.creator?.lName}
+              </h2>
+              <p>Gbor Received: {props.earningData?.amount}</p>
             </div>
           </div>
 
@@ -149,15 +170,15 @@ const DrawerPage = (props) => {
             <Row>
               <Col span={12} style={{ textAlign: "left" }}>
                 <p className="text-lg font-light">Time</p>
-                <p className="text-lg font-light">Date</p>
-                <p className="text-lg font-light">Payment Method</p>
+                {/* <p className="text-lg font-light">Payment Method</p> */}
                 <p className="text-lg font-light">Payment Amount</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p className="text-lg font-light">11:00pm</p>
-                <p className="text-lg font-light">10/5/2023</p>
-                <p className="text-lg font-light">Visa Card</p>
-                <p className="text-lg font-light">45</p>
+                <p className="text-lg font-light">{props.earningData?.date}</p>
+                {/* <p className="text-lg font-light">Visa Card</p> */}
+                <p className="text-lg font-light">
+                  {props.earningData?.amount}
+                </p>
               </Col>
             </Row>
           </div>
@@ -173,7 +194,9 @@ const DrawerPage = (props) => {
                 <p className="text-lg font-light">Message</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p className="text-lg font-light">Lisa</p>
+                <p className="text-lg font-light">
+                  {props.earningData?.donarName}
+                </p>
               </Col>
               <Col span={24}>
                 <textarea
@@ -182,10 +205,7 @@ const DrawerPage = (props) => {
                   rows="6"
                   className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
                 >
-                  Amrin, your unwavering commitment to your creative endeavors
-                  is truly inspiring. Before immersing ourselves in your
-                  content, here's a donation as a token of appreciation, along
-                  with wishes for your continued success and innovation. 🌟
+                  {props.earningData?.action?.message}
                 </textarea>
                 {approve ? (
                   <button

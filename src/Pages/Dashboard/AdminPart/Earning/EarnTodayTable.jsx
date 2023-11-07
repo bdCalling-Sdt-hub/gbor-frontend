@@ -1,15 +1,15 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { BsPrinter } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnTodayTable = () => {
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+const EarnTodayTable = ({ incomes }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [earningData, setEarningData] = useState(null);
 
@@ -23,23 +23,17 @@ const EarnTodayTable = () => {
     setEarningData(null);
   };
 
-  const data = [...Array(15).keys()].map((item) => {
+  const data = incomes.map((item) => {
     return {
-      transactionId: 5645451521,
-      date: "4/03/2015",
-      creatorName: "amrin",
-      donarName: "Kate",
-      amount: 470.0,
-      action: "button",
+      date: moment(item.createdAt).format("llll"),
+      creatorName: item.creator?.fName + " " + item.creator?.lName,
+      donarName: item.donarName,
+      amount: item.amount,
+      action: item,
     };
   });
 
   const columns = [
-    {
-      title: "TRANSACTION ID",
-      dataIndex: "transactionId",
-      key: "transactionId",
-    },
     {
       title: "CREATOR NAME",
       dataIndex: "creatorName",

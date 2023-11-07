@@ -1,9 +1,11 @@
 import { Button, Col, Input, Popover, Radio, Row, Space } from "antd";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiDollar, CiSearch } from "react-icons/ci";
 import { HiOutlineAdjustments } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Payment } from "../../../../ReduxSlice/paymentSlice";
 import EarnMonthlyTable from "./EarnMonthlyTable";
 import EarnTodayTable from "./EarnTodayTable";
 import EarnWeaklyTable from "./EarnWeaklyTable";
@@ -12,14 +14,21 @@ const Earning = () => {
   const [donationAmount, setDonationAmount] = useState(1);
   const [timePeriod, setTimePeriod] = useState(1);
   const { income } = useParams();
-
-  console.log(income);
+  const dispatch = useDispatch();
+  const { incomesTotal, incomes } = useSelector((state) => state.payment);
 
   const handleAdjustSearch = () => {
     console.log(donationAmount, timePeriod);
   };
 
-  //search filter content here---->
+  useEffect(() => {
+    const value = {
+      type: income,
+    };
+    dispatch(Payment(value));
+  }, [income]);
+
+  //search filter content here---->j
   const content = (
     <div>
       <p
@@ -99,7 +108,7 @@ const Earning = () => {
           >
             <CiDollar style={{ width: "28px", height: "28px" }} />
             <h2 className="text-2xl">Today's Earning</h2>
-            <h3 className="text-2xl font-medium">$ 250.00</h3>
+            <h3 className="text-2xl font-medium">$ {incomesTotal?.today}</h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
@@ -112,7 +121,7 @@ const Earning = () => {
           >
             <CiDollar style={{ width: "28px", height: "28px" }} />
             <h2 className="text-2xl">Weekly Earning</h2>
-            <h3 className="text-2xl font-medium">$ 250.00</h3>
+            <h3 className="text-2xl font-medium">$ {incomesTotal?.lastWeek}</h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
@@ -125,7 +134,9 @@ const Earning = () => {
           >
             <CiDollar style={{ width: "28px", height: "28px" }} />
             <h2 className="text-2xl">Monthly Earning</h2>
-            <h3 className="text-2xl font-medium">$ 250.00</h3>
+            <h3 className="text-2xl font-medium">
+              $ {incomesTotal?.lastMonth}
+            </h3>
           </div>
         </Col>
       </Row>
@@ -193,9 +204,9 @@ const Earning = () => {
         </Button>
       </div>
 
-      {income === "today-income" && <EarnTodayTable />}
-      {income === "weekly-income" && <EarnWeaklyTable />}
-      {income === "monthly-income" && <EarnMonthlyTable />}
+      {income === "today-income" && <EarnTodayTable incomes={incomes} />}
+      {income === "weekly-income" && <EarnWeaklyTable incomes={incomes} />}
+      {income === "monthly-income" && <EarnMonthlyTable incomes={incomes} />}
     </div>
   );
 };

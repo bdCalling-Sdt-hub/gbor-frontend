@@ -62,6 +62,7 @@ const Dashboard = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
+        localStorage.removeItem("location");
 
         navigate("/signin");
       } else if (result.isDenied) {
@@ -568,7 +569,7 @@ const Dashboard = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Badge count={commonData.notViewed} color="#fb7c29">
+                  <Badge count={commonData?.notViewed} color="#fb7c29">
                     <IoIosNotificationsOutline
                       className="cursor-pointer"
                       fontSize={35}

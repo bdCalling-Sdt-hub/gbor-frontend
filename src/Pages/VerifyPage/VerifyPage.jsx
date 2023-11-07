@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "../../../Config";
 import img from "../../Images/verify.png";
 
 const VerifyPage = () => {
@@ -8,19 +9,19 @@ const VerifyPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://192.168.10.13:5000/api/auth/verifyemail", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    })
+    axios
+      .post("/api/auth/verifyemail", {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
           setTimeout(() => {
             navigate("/");
-          }, 20000);
+          }, 10000);
         }
       })
       .catch((err) => console.log(err.message));

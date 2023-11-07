@@ -1,19 +1,19 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const TransactionTable = () => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+const TransactionTable = ({ incomes }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
+
+  console.log(transactionData);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -25,24 +25,18 @@ const TransactionTable = () => {
     setTransactionData(null);
   };
 
-  const data = [...Array(15).keys()].map((item) => {
+  const data = incomes.map((item) => {
     return {
-      transactionId: 5645451521,
-      creatorName: "Fahim",
-      donarName: "Kate",
-      date: "4/03/2015",
-      received: 545,
+      creatorName: item.creator?.fName + " " + item.creator?.lName,
+      donarName: item.donarName,
+      date: moment(item.createdAt).format("llll"),
+      received: item.amount,
       cfa: 7548,
-      action: "button",
+      action: item,
     };
   });
 
   const columns = [
-    {
-      title: "TRANSACTION ID",
-      dataIndex: "transactionId",
-      key: "transactionId",
-    },
     {
       title: "CREATOR NAME",
       dataIndex: "creatorName",
@@ -120,10 +114,10 @@ const TransactionTable = () => {
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Transaction ID
+                {transactionData?.creatorName}
               </Title>
               <Text style={{ color: "white" }}>
-                See all information about the transaction id no. 68656
+                See all information about the {transactionData?.creatorName}
               </Text>
             </Typography>
           </div>

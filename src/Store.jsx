@@ -3,6 +3,7 @@ import RegisterReducer from "./ReduxSlice/RegisterSlice";
 import bannerReducer from "./ReduxSlice/bannerSlice";
 import creatorsReducer from "./ReduxSlice/creatorsSlice";
 import NotificationReducer from "./ReduxSlice/notificationSlice";
+import PaymentReducer from "./ReduxSlice/paymentSlice";
 import SigninReducer from "./ReduxSlice/signinSlice";
 import unApproveCreatorReducer from "./ReduxSlice/unapproveCreators";
 
@@ -14,5 +15,6 @@ export const Store = configureStore({
     unApproveCreators: unApproveCreatorReducer,
     banners: bannerReducer,
     notification: NotificationReducer,
+    payment: PaymentReducer,
   },
 });

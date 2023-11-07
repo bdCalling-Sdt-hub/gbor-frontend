@@ -28,13 +28,11 @@ i18next.init({
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={Store}>
-      <I18nextProvider i18n={i18next}>
-        <RoleProvider>
-          <App />
-        </RoleProvider>
-      </I18nextProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={Store}>
+    <I18nextProvider i18n={i18next}>
+      <RoleProvider>
+        <App />
+      </RoleProvider>
+    </I18nextProvider>
+  </Provider>
 );

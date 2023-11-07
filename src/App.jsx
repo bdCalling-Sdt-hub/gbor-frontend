@@ -26,6 +26,8 @@ import HowWork from "./Pages/HowWork/HowWork";
 import Otp from "./Pages/Otp/Otp";
 import OurCreators from "./Pages/OurCreators/OurCreators";
 import OurCreatorsDetails from "./Pages/OurCreatorsDetails/OurCreatorsDetails";
+import Failed from "./Pages/PaymentResPage/Failed";
+import Success from "./Pages/PaymentResPage/Success";
 import SearchPage from "./Pages/SearchPage/SearchPage";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
@@ -51,6 +53,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/become-content-creator" element={<BecomeCreator />} />
           <Route path="/search/:text" element={<SearchPage />} />
+          <Route path="/payment/success" element={<Success />} />
+          <Route path="/payment/failed" element={<Failed />} />
 
           <Route
             path="/dashboard"

@@ -49,6 +49,8 @@ const CreatorInfo = () => {
     dispatch(ContentCreators(data));
   };
 
+  const handleSearch = () => {};
+
   useEffect(() => {
     const data = {
       limit: 10,
@@ -122,9 +124,10 @@ const CreatorInfo = () => {
         <Input
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
           style={{ height: "50px", borderColor: "#fb7c29" }}
-          placeholder="Search by Name/Id"
+          placeholder="Search by Name"
         />
         <Button
+          onClick={handleSearch}
           style={{
             background: "#fb7c29",
             color: "white",
