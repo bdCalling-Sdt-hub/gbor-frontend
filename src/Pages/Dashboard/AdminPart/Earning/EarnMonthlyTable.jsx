@@ -83,17 +83,7 @@ const EarnMonthlyTable = ({ incomes }) => {
 
   return (
     <>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{
-          pageSize,
-          showSizeChanger: false,
-          total: 15,
-          current: currentPage,
-          onChange: handlePageChange,
-        }}
-      />
+      <Table columns={columns} dataSource={data} pagination={false} />
       <Drawer
         title={
           <div>

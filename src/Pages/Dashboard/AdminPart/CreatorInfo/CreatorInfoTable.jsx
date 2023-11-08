@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const CreatorInfoTable = ({ handlePagination, setReload }) => {
+const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const { creatorsData, pagination } = useSelector((state) => state.creators);
@@ -81,6 +81,7 @@ const CreatorInfoTable = ({ handlePagination, setReload }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     handlePagination(page);
+    handleSearch(page);
   };
 
   return (

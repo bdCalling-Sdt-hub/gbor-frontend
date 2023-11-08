@@ -15,12 +15,15 @@ const token = localStorage.token;
 export const Payment = createAsyncThunk("Payment", async (value, thunkAPI) => {
   console.log("slice", value.type);
   try {
-    const response = await axios.get(`/api/payment?requestType=${value.type}`, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `/api/payment?requestType=${value.type}&page=${value.page}&limit=${value.limit}&search=${value.search}&gborAmount=${value.gborAmount}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {

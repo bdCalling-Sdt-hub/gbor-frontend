@@ -12,21 +12,65 @@ import EarnWeaklyTable from "./EarnWeaklyTable";
 
 const Earning = () => {
   const [donationAmount, setDonationAmount] = useState(1);
-  const [timePeriod, setTimePeriod] = useState(1);
   const { income } = useParams();
   const dispatch = useDispatch();
-  const { incomesTotal, incomes } = useSelector((state) => state.payment);
+  const { incomesTotal, incomes, pagination } = useSelector(
+    (state) => state.payment
+  );
+  const [reload, setReload] = useState(1);
+  const [searchData, setSearchData] = useState("");
 
   const handleAdjustSearch = () => {
-    console.log(donationAmount, timePeriod);
+    console.log(donationAmount);
+    const value = {
+      gborAmount: donationAmount,
+      search: searchData,
+      page: 1,
+      limit: 1,
+      type: income,
+    };
+
+    dispatch(Payment(value));
+  };
+
+  const handleSearch = () => {
+    const value = {
+      gborAmount: donationAmount,
+      search: searchData,
+      page: 1,
+      limit: 1,
+      type: income,
+    };
+    if (searchData !== "") {
+      dispatch(Payment(value));
+    }
+  };
+
+  const handlePagination = (page) => {
+    const value = {
+      gborAmount: donationAmount,
+      search: searchData,
+      page: page,
+      limit: 1,
+      type: income,
+    };
+    if (searchData === "") {
+      dispatch(Payment(value));
+    }
   };
 
   useEffect(() => {
     const value = {
+      gborAmount: "",
+      search: searchData,
+      page: 1,
+      limit: 1,
       type: income,
     };
-    dispatch(Payment(value));
-  }, [income]);
+    if (searchData === "") {
+      dispatch(Payment(value));
+    }
+  }, [income, reload, searchData]);
 
   //search filter content here---->j
   const content = (
@@ -42,47 +86,25 @@ const Earning = () => {
       <Radio.Group
         onChange={(e) => setDonationAmount(e.target.value)}
         value={donationAmount}
-        className="mt-3 "
+        className="mt-3"
       >
         <Space direction="vertical">
-          <Radio value={1}>0-5</Radio>
-          <Radio value={2}>51-100</Radio>
-          <Radio value={3}>101-150</Radio>
-          <Radio value={4}>151-201-250</Radio>
-          <Radio value={5}>250+</Radio>
-        </Space>
-      </Radio.Group>
-      <p
-        className="my-3 "
-        style={{
-          fontSize: "15px",
-          color: "#fb7c29",
-        }}
-      >
-        Time Period
-      </p>
-      <Radio.Group
-        onChange={(e) => setTimePeriod(e.target.value)}
-        value={timePeriod}
-      >
-        <Space direction="vertical">
-          <Radio value={1}>5days</Radio>
-          <Radio value={2}>10days</Radio>
-          <Radio value={3}>15days</Radio>
-          <Radio value={4}>20days</Radio>
-          <Radio value={5}>25days</Radio>
-          <Radio value={5}>30days</Radio>
+          <Radio value={"0-50"}>0-50</Radio>
+          <Radio value={"51-100"}>51-100</Radio>
+          <Radio value={"101-150"}>101-150</Radio>
+          <Radio value={"151-200"}>151-200</Radio>
+          <Radio value={"201-250"}>250+</Radio>
         </Space>
       </Radio.Group>
       <button
         onClick={handleAdjustSearch}
-        className="w-full my-3 text-center rounded py-2 text-[#fb7c29] hover:bg-orange-500 hover:text-white block"
+        className="w-full my-3 text-center rounded py-2 text-white bg-orange-500 hover:bg-white hover:text-orange-500 block"
         style={{
           fontSize: "15px",
           border: "1px solid #fb7c29",
         }}
       >
-        Apply Changes
+        Apply changes
       </button>
     </div>
   );
@@ -149,62 +171,73 @@ const Earning = () => {
           ? "Weekly Earnings"
           : "Monthly Earnings"}
       </h2>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          marginBottom: "30px",
-        }}
-      >
-        <Input
-          prefix={<CiSearch style={{ fontSize: "20px" }} />}
-          suffix={
-            <Popover
-              placement="bottomRight"
-              title={
-                <div
-                  style={{
-                    fontSize: "18px",
-                    color: "#fb7c29",
-                    borderBottom: "1px solid #fb7c29",
-                    paddingBottom: "5px",
-                  }}
-                >
-                  Filter
-                </div>
-              }
-              content={content}
-              trigger="click"
-              overlayClassName="w-96"
-            >
-              <HiOutlineAdjustments
-                style={{
-                  fontSize: "20px",
-                  cursor: "pointer",
-                  color: "#fb7c29",
-                }}
-              />
-            </Popover>
-          }
-          placeholder="Search by Name/Id"
-          style={{ height: "50px", border: `1px solid #fb7c29` }}
-        />
-
-        <Button
+      {income === "today-income" && (
+        <div
           style={{
-            background: "#fb7c29",
-            color: "white",
-            height: 50,
-            width: "180px",
-            border: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            marginBottom: "30px",
           }}
         >
-          Search
-        </Button>
-      </div>
+          <Input
+            prefix={<CiSearch style={{ fontSize: "20px" }} />}
+            suffix={
+              <Popover
+                placement="bottomRight"
+                title={
+                  <div
+                    style={{
+                      fontSize: "18px",
+                      color: "#fb7c29",
+                      borderBottom: "1px solid #fb7c29",
+                      paddingBottom: "5px",
+                    }}
+                  >
+                    Filter
+                  </div>
+                }
+                content={content}
+                trigger="click"
+                overlayClassName="w-96"
+              >
+                <HiOutlineAdjustments
+                  style={{
+                    fontSize: "20px",
+                    cursor: "pointer",
+                    color: "#fb7c29",
+                  }}
+                />
+              </Popover>
+            }
+            placeholder="Search by Name/Id"
+            style={{ height: "50px", border: `1px solid #fb7c29` }}
+            onChange={(e) => setSearchData(e.target.value)}
+          />
 
-      {income === "today-income" && <EarnTodayTable incomes={incomes} />}
+          <Button
+            onClick={handleSearch}
+            style={{
+              background: "#fb7c29",
+              color: "white",
+              height: 50,
+              width: "180px",
+              border: "none",
+            }}
+          >
+            Search
+          </Button>
+        </div>
+      )}
+
+      {income === "today-income" && (
+        <EarnTodayTable
+          incomes={incomes}
+          setReload={setReload}
+          handlePagination={handlePagination}
+          pagination={pagination}
+        />
+      )}
       {income === "weekly-income" && <EarnWeaklyTable incomes={incomes} />}
       {income === "monthly-income" && <EarnMonthlyTable incomes={incomes} />}
     </div>

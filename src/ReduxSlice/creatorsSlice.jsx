@@ -15,8 +15,10 @@ export const ContentCreators = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const response = await axios.get(
-        `api/auth/content-creator?page=${value.page}&limit=${value.limit}`
+        `api/auth/content-creator?page=${value.page}&limit=${value.limit}&search=${value.search}`
       );
+
+      console.log(response.data);
 
       return response.data;
     } catch (error) {

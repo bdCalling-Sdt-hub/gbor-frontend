@@ -11,25 +11,47 @@ const CreatorRequest = () => {
     (state) => state.unApproveCreators
   );
   const [reload, setReload] = useState(1);
-  const pageSize = 8;
+  const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchData, setSearchData] = useState("");
 
   useEffect(() => {
     const data = {
+      search: searchData,
       page: 1,
-      limit: 8,
+      limit: 10,
     };
-    dispatch(UnApproveCreators(data));
-  }, [reload]);
+    if (searchData === "") {
+      dispatch(UnApproveCreators(data));
+    }
+  }, [searchData, reload]);
+
+  const handlePagination = (page) => {
+    const data = {
+      search: searchData,
+      page: page,
+      limit: 10,
+    };
+    if (searchData === "") {
+      dispatch(UnApproveCreators(data));
+    }
+  };
+
+  const handleSearch = (page) => {
+    const data = {
+      search: searchData,
+      page: page,
+      limit: 10,
+    };
+    if (searchData !== "") {
+      dispatch(UnApproveCreators(data));
+    }
+  };
 
   const onChangePage = (page) => {
     setCurrentPage(page);
-
-    const data = {
-      page: page,
-      limit: 8,
-    };
-    dispatch(UnApproveCreators(data));
+    handlePagination(page);
+    handleSearch(page);
   };
 
   return (
@@ -47,8 +69,10 @@ const CreatorRequest = () => {
             height: "50px",
             border: `1px solid #fb7c29`,
           }}
+          onChange={(e) => setSearchData(e.target.value)}
         />
         <Button
+          onClick={handleSearch}
           style={{
             background: "#fb7c29",
             color: "white",

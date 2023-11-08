@@ -1,8 +1,9 @@
 import { Col, Row } from "antd";
 import React, { useEffect } from "react";
-import "./DashboardHome.css";
-
 import { HiOutlineCurrencyDollar } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import "swiper/css";
+import "swiper/css/pagination";
 import {
   A11y,
   Autoplay,
@@ -11,18 +12,17 @@ import {
   Scrollbar,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import { useDispatch, useSelector } from "react-redux";
-import "swiper/css";
-import "swiper/css/pagination";
 import { BannerApi } from "../../../../ReduxSlice/bannerSlice";
 import { Payment } from "../../../../ReduxSlice/paymentSlice";
+import "./DashboardHome.css";
 import TransactionTable from "./TransactionTable";
 
 function DashboardHome() {
   const dispatch = useDispatch();
   const { banners } = useSelector((state) => state.banners);
-  const { incomesTotal, incomes } = useSelector((state) => state.payment);
+  const { incomesTotal, incomes, pagination } = useSelector(
+    (state) => state.payment
+  );
 
   const contentStyle = {
     height: "450px",
@@ -38,10 +38,21 @@ function DashboardHome() {
 
   useEffect(() => {
     const value = {
+      page: 1,
+      limit: 1,
       type: "today-income",
     };
     dispatch(Payment(value));
   }, []);
+
+  const handlePagination = (page) => {
+    const value = {
+      page: page,
+      limit: 1,
+      type: "today-income",
+    };
+    dispatch(Payment(value));
+  };
 
   useEffect(() => {
     dispatch(BannerApi());
@@ -128,7 +139,11 @@ function DashboardHome() {
           Transaction histroy
         </h2>
       </Row>
-      <TransactionTable incomes={incomes} />
+      <TransactionTable
+        incomes={incomes}
+        handlePagination={handlePagination}
+        pagination={pagination}
+      />
     </div>
   );
 }

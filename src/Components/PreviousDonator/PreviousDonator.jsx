@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
+import axios from "../../../Config";
 import PreviousDonatorCard from "./PreviousDonatorCard";
 
-const PreviousDonator = () => {
+const PreviousDonator = ({ id }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("../fakeDB.json")
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    axios
+      .get(`/api/payment/${id}`)
+      .then((res) => setData(res.data.data))
+      .catch((err) => console.log(err));
   }, []);
+
   return (
     <div>
       <h1 className=" w-3/4 mx-auto text-center text-5xl font-bold pb-4 mt-24">

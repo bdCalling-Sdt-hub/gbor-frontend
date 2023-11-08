@@ -21,6 +21,7 @@ const CreatorInfo = () => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const [reload, setReload] = useState(1);
+  const [searchData, setSearchData] = useState("");
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -43,21 +44,35 @@ const CreatorInfo = () => {
 
   const handlePagination = (page) => {
     const data = {
+      search: searchData,
       limit: 10,
       page: page,
     };
     dispatch(ContentCreators(data));
   };
 
-  const handleSearch = () => {};
+  const handleSearch = (page) => {
+    const data = {
+      search: searchData,
+      limit: 10,
+      page: page,
+    };
+    if (searchData !== "") {
+      dispatch(ContentCreators(data));
+      console.log("call");
+    }
+  };
 
   useEffect(() => {
     const data = {
+      search: searchData,
       limit: 10,
       page: 1,
     };
-    dispatch(ContentCreators(data));
-  }, [reload]);
+    if (searchData === "") {
+      dispatch(ContentCreators(data));
+    }
+  }, [searchData, reload]);
 
   const handleRegistration = (e) => {
     e.preventDefault();
@@ -125,6 +140,7 @@ const CreatorInfo = () => {
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
           style={{ height: "50px", borderColor: "#fb7c29" }}
           placeholder="Search by Name"
+          onChange={(e) => setSearchData(e.target.value)}
         />
         <Button
           onClick={handleSearch}
@@ -160,6 +176,7 @@ const CreatorInfo = () => {
       <CreatorInfoTable
         setReload={setReload}
         handlePagination={handlePagination}
+        handleSearch={handleSearch}
       />
       <Drawer
         title={

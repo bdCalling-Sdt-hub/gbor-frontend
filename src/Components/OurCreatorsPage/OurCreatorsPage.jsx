@@ -27,6 +27,7 @@ const OurCreatorsPage = () => {
 
   useEffect(() => {
     const data = {
+      search: "",
       page: page,
       limit: 8,
     };

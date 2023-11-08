@@ -12,6 +12,7 @@ const Creators = () => {
 
   useEffect(() => {
     const data = {
+      search: "",
       page: page,
       limit: 4,
     };

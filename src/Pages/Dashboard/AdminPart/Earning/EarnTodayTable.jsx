@@ -7,9 +7,14 @@ import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const EarnTodayTable = ({ incomes }) => {
+const EarnTodayTable = ({
+  incomes,
+  setReload,
+  pagination,
+  handlePagination,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 1;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [earningData, setEarningData] = useState(null);
 
@@ -85,7 +90,7 @@ const EarnTodayTable = ({ incomes }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
+    handlePagination(page);
   };
 
   return (
@@ -96,7 +101,7 @@ const EarnTodayTable = ({ incomes }) => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 15,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -140,7 +145,13 @@ const EarnTodayTable = ({ incomes }) => {
           </Space>
         }
       >
-        {earningData && <DrawerPage earningData={earningData} />}
+        {earningData && (
+          <DrawerPage
+            earningData={earningData}
+            setReload={setReload}
+            setIsDrawerVisible={setIsDrawerVisible}
+          />
+        )}
       </Drawer>
     </>
   );

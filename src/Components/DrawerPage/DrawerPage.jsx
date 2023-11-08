@@ -1,23 +1,40 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Button, Col, Row, Select, Typography, message } from "antd";
-import React, { useState } from "react";
+import { Button, Col, Row, message } from "antd";
+import React from "react";
+import axios from "../../../Config";
 import CreatorData from "./CreatorData/CreatorData";
-const { Title } = Typography;
-const { Option } = Select;
 
 const DrawerPage = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
-  const [approve, setApprove] = useState(false);
 
   console.log(props);
 
-  const handleDonarMessage = () => {
-    messageApi.open({
-      type: "success",
-      content: "Message Approved",
-    });
-    setApprove(true);
+  const token = localStorage.token;
+
+  const handleDonarMessage = (id) => {
+    axios
+      .patch(
+        `api/payment/${id}`,
+        {},
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.status === 200) {
+          messageApi.open({
+            type: "success",
+            content: "Message Approved",
+          });
+          props.setIsDrawerVisible(false);
+          props.setReload((p) => p + 1);
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <>
@@ -207,22 +224,19 @@ const DrawerPage = (props) => {
                 >
                   {props.earningData?.action?.message}
                 </textarea>
-                {approve ? (
+                {props.earningData?.action?.isMessageVisible ? (
                   <button
                     disabled
-                    style={{
-                      border: "1px solid #fb7c29",
-                      color: "#fb7c29",
-                      height: 50,
-                      width: "100%",
-                      borderRadius: "3px",
-                    }}
+                    className=" w-full h-12 bg-gray-300 text-white rounded duration-200"
+                    style={{ cursor: "not-allowed" }}
                   >
-                    Approved
+                    Already approved
                   </button>
                 ) : (
                   <button
-                    onClick={handleDonarMessage}
+                    onClick={() =>
+                      handleDonarMessage(props.earningData?.action?._id)
+                    }
                     className=" w-full h-12 bg-[#FB7C29] text-white hover:bg-red-500 rounded duration-200"
                     style={{ color: "white", border: "none" }}
                   >

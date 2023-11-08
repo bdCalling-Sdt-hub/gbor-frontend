@@ -7,9 +7,9 @@ import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const TransactionTable = ({ incomes }) => {
+const TransactionTable = ({ incomes, handlePagination, pagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 1;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
 
@@ -29,7 +29,7 @@ const TransactionTable = ({ incomes }) => {
       donarName: item.donarName,
       date: moment(item.createdAt).format("llll"),
       received: item.amount,
-      cfa: 0,
+      cfa: item?.gborAmount,
       action: item,
     };
   });
@@ -91,7 +91,7 @@ const TransactionTable = ({ incomes }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
+    handlePagination(page);
   };
 
   return (
@@ -102,7 +102,7 @@ const TransactionTable = ({ incomes }) => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 15,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}

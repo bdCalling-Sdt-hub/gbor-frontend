@@ -46,7 +46,7 @@ const OurCreatorsDetails = () => {
       amount: totalCost,
       donarName: paymentData.donarName,
       message: paymentData.message,
-      inputAmount: paymentData.amount,
+      gborAmount: paymentData.amount,
     };
 
     if (
@@ -167,7 +167,7 @@ const OurCreatorsDetails = () => {
             </div>
           </div>
         </div>
-        <PreviousDonator />
+        <PreviousDonator id={id} />
       </div>
       <Footer />
     </div>

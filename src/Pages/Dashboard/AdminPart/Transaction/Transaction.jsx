@@ -6,14 +6,25 @@ import TransactionTable from "./TransactionTable";
 
 const Transaction = () => {
   const dispatch = useDispatch();
-  const { incomes } = useSelector((state) => state.payment);
+  const { incomes, pagination } = useSelector((state) => state.payment);
 
   useEffect(() => {
     const value = {
+      page: 1,
+      limit: 1,
       type: "today-income",
     };
     dispatch(Payment(value));
   }, []);
+
+  const handlePagination = (page) => {
+    const value = {
+      page: page,
+      limit: 1,
+      type: "today-income",
+    };
+    dispatch(Payment(value));
+  };
 
   return (
     <div>
@@ -33,7 +44,11 @@ const Transaction = () => {
       >
         Transaction History
       </h2>
-      <TransactionTable incomes={incomes} />
+      <TransactionTable
+        incomes={incomes}
+        handlePagination={handlePagination}
+        pagination={pagination}
+      />
     </div>
   );
 };

@@ -15,7 +15,7 @@ export const UnApproveCreators = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const response = await axios.get(
-        `api/auth/all-unapproved-user?page=${value.page}&limit=${value.limit}`,
+        `api/auth/all-unapproved-user?page=${value.page}&limit=${value.limit}&search=${value.search}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -23,6 +23,8 @@ export const UnApproveCreators = createAsyncThunk(
           },
         }
       );
+
+      console.log(response.data);
 
       return response.data;
     } catch (error) {
