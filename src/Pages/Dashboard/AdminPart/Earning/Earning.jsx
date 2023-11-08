@@ -11,7 +11,7 @@ import EarnTodayTable from "./EarnTodayTable";
 import EarnWeaklyTable from "./EarnWeaklyTable";
 
 const Earning = () => {
-  const [donationAmount, setDonationAmount] = useState(1);
+  const [donationAmount, setDonationAmount] = useState("");
   const { income } = useParams();
   const dispatch = useDispatch();
   const { incomesTotal, incomes, pagination } = useSelector(
@@ -61,7 +61,7 @@ const Earning = () => {
 
   useEffect(() => {
     const value = {
-      gborAmount: "",
+      gborAmount: donationAmount,
       search: searchData,
       page: 1,
       limit: 1,

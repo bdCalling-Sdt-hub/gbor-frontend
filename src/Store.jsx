@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import RegisterReducer from "./ReduxSlice/RegisterSlice";
 import bannerReducer from "./ReduxSlice/bannerSlice";
 import creatorsReducer from "./ReduxSlice/creatorsSlice";
+import donarReducer from "./ReduxSlice/donarSlice";
 import NotificationReducer from "./ReduxSlice/notificationSlice";
 import PaymentReducer from "./ReduxSlice/paymentSlice";
 import SigninReducer from "./ReduxSlice/signinSlice";
@@ -16,5 +17,6 @@ export const Store = configureStore({
     banners: bannerReducer,
     notification: NotificationReducer,
     payment: PaymentReducer,
+    donar: donarReducer,
   },
 });

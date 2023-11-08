@@ -11,23 +11,38 @@ import {
   Table,
   Typography,
 } from "antd";
-import React, { useState } from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { BsPrinter } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { HiOutlineAdjustments } from "react-icons/hi";
 import { RxDownload } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { DonarApi } from "../../../../ReduxSlice/donarSlice";
 const { Title, Text } = Typography;
 
 const DonarList = () => {
-  const [donationAmount, setDonationAmount] = useState(1);
-  const pageSize = 5;
-
+  const [donationAmount, setDonationAmount] = useState("");
+  const pageSize = 1;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
+  const { donar, pagination } = useSelector((state) => state.donar);
+  const [searchData, setSearchData] = useState("");
 
   const handleAdjustSearch = () => {
-    console.log(donationAmount);
+    const data = {
+      page: 1,
+      limit: 1,
+      search: searchData,
+      gborAmount: donationAmount,
+    };
+
+    dispatch(DonarApi(data));
   };
+
+  console.log(transactionData);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -39,11 +54,48 @@ const DonarList = () => {
     setTransactionData(null);
   };
 
-  const data = [...Array(10).keys()].map((item) => {
+  const handleSearch = (page) => {
+    const data = {
+      page: page,
+      limit: 1,
+      search: searchData,
+      gborAmount: donationAmount,
+    };
+    if (searchData !== "") {
+      dispatch(DonarApi(data));
+    }
+  };
+
+  const handlePagination = (page) => {
+    const data = {
+      page: page,
+      limit: 1,
+      search: searchData,
+      gborAmount: donationAmount,
+    };
+    if (searchData === "") {
+      dispatch(DonarApi(data));
+    }
+  };
+
+  useEffect(() => {
+    const data = {
+      page: 1,
+      limit: 1,
+      search: searchData,
+      gborAmount: donationAmount,
+    };
+    if (searchData === "") {
+      dispatch(DonarApi(data));
+    }
+  }, [searchData]);
+
+  const data = donar.map((item) => {
     return {
-      donarName: "Fahim",
-      totalDonation: 4105,
-      gbor: 50,
+      donarName: item.donarName,
+      totalDonation: item.amount,
+      gbor: item.gborAmount,
+      action: item,
     };
   });
 
@@ -111,11 +163,11 @@ const DonarList = () => {
         className="mt-3 "
       >
         <Space direction="vertical">
-          <Radio value={1}>0-5</Radio>
-          <Radio value={2}>51-100</Radio>
-          <Radio value={3}>101-150</Radio>
-          <Radio value={4}>151-201-250</Radio>
-          <Radio value={5}>250+</Radio>
+          <Radio value={"0-50"}>0-50</Radio>
+          <Radio value={"51-100"}>51-100</Radio>
+          <Radio value={"101-150"}>101-150</Radio>
+          <Radio value={"151-200"}>151-200</Radio>
+          <Radio value={"200-250"}>200-250</Radio>
         </Space>
       </Radio.Group>
       <button
@@ -130,6 +182,12 @@ const DonarList = () => {
       </button>
     </div>
   );
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    handlePagination(page);
+    handleSearch(page);
+  };
 
   return (
     <div>
@@ -172,11 +230,13 @@ const DonarList = () => {
               />
             </Popover>
           }
-          placeholder="Search by Name/Id"
+          placeholder="Search by Name"
           style={{ height: "50px", border: `1px solid #fb7c29` }}
+          onChange={(e) => setSearchData(e.target.value)}
         />
 
         <Button
+          onClick={handleSearch}
           style={{
             background: "#fb7c29",
             color: "white",
@@ -189,7 +249,17 @@ const DonarList = () => {
         </Button>
       </div>
       <h2 className="text-2xl mb-5">Donar List</h2>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalDocuments,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
           <div>
@@ -198,7 +268,7 @@ const DonarList = () => {
                 Donor Information
               </Title>
               <Text style={{ color: "white" }}>
-                See all information about the transaction id no. 68656
+                See all information about the {transactionData?.donarName}
               </Text>
             </Typography>
           </div>
@@ -235,15 +305,16 @@ const DonarList = () => {
             <Row>
               <Col span={12} style={{ textAlign: "left" }}>
                 <p className="text-lg font-medium">Time</p>
-                <p className="text-lg font-medium">Date</p>
-                <p className="text-lg font-medium">Payment Method</p>
                 <p className="text-lg font-medium">Payment Amount</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p className="text-lg font-light">11:00pm</p>
-                <p className="text-lg font-light">10/5/2023</p>
-                <p className="text-lg font-light">Visa Card</p>
-                <p className="text-lg font-light">45</p>
+                <p className="text-lg font-light">
+                  {moment(transactionData?.action.createdAt).format("llll")}
+                </p>
+
+                <p className="text-lg font-light">
+                  {transactionData?.totalDonation}
+                </p>
               </Col>
             </Row>
           </div>
