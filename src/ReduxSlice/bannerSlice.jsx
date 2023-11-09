@@ -51,7 +51,6 @@ export const bannerSlice = createSlice({
       state.isLoading = true;
     },
     [BannerApi.fulfilled]: (state, action) => {
-      console.log();
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

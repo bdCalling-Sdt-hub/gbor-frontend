@@ -67,7 +67,6 @@ function Banners() {
         }
       })
       .catch((err) => {
-        console.log(err);
         errorNotify("bottomRight");
       });
   };
@@ -75,8 +74,6 @@ function Banners() {
   useEffect(() => {
     dispatch(BannerApi());
   }, [load]);
-
-  console.log(banners);
 
   const handleBannerDelete = (id) => {
     axios
@@ -92,7 +89,6 @@ function Banners() {
         }
         setLoad((prev) => prev + 1);
       });
-    console.log("delete");
   };
 
   return (

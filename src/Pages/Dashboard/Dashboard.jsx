@@ -40,7 +40,6 @@ const Dashboard = () => {
   const location = useLocation();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
   const { identity } = useRole();
   const { allNotification } = useSelector((state) => state.notification);
   const {
@@ -48,6 +47,8 @@ const Dashboard = () => {
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
+  const [notifications, setNotifications] = useState([]);
+  const [messageDot, setMessageDot] = useState();
 
   const logout = () => {
     Swal.fire({
@@ -192,6 +193,7 @@ const Dashboard = () => {
   const dashboardBreadCrumb = breadCrumb.find(
     (path) => path.path === location.pathname
   );
+
   let socket = io("http://192.168.10.13:10000");
   const data = {
     uid: userInfo._id,
@@ -199,7 +201,7 @@ const Dashboard = () => {
 
   socket.emit("join-room", data);
   socket.on("new-message-appeared", (data) => {
-    console.log(data);
+    setMessageDot(data);
   });
 
   const handleCreatorMessage = () => {
@@ -218,13 +220,10 @@ const Dashboard = () => {
     });
   };
 
-  const [notifications, setNotifications] = useState([]);
-
   useEffect(() => {
     socket.on("connect", () => {
       // Emit events or listen for events here
       socket.on("admin-notification", (data) => {
-        console.log(data);
         setNotifications(data);
       });
     });
@@ -238,15 +237,9 @@ const Dashboard = () => {
     dispatch(Notifications(data));
   }, []);
 
-  console.log("Redux data", allNotification);
-
-  console.log("sokceat data", notifications);
-
-  const commonData = notifications?.allNotification
+  const commonData = notifications.allNotification
     ? notifications
     : allNotification;
-
-  console.log("common Data", commonData);
 
   const items = commonData?.allNotification?.slice(0, 4).map((item, index) => {
     function getTimeAgo(timestamp) {
@@ -593,7 +586,10 @@ const Dashboard = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Badge dot={show} color="#fb7c29">
+                  <Badge
+                    dot={messageDot?.sender !== userInfo._id && true}
+                    color="#fb7c29"
+                  >
                     <RiMessage2Line
                       className="cursor-pointer"
                       fontSize={30}

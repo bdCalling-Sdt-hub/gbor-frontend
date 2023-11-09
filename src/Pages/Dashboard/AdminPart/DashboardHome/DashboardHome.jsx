@@ -30,8 +30,6 @@ function DashboardHome() {
     borderRadius: "15px",
   };
 
-  console.log(incomes);
-
   const handlePagination = (page) => {
     const value = {
       gborAmount: "",

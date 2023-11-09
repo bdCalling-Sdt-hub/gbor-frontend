@@ -6,7 +6,6 @@
 }
 
 .notification {
-  background: #ff822e34;
   border-radius: 5px;
   padding: 10px 10px;
   border-left: 2px solid;
@@ -16,7 +15,7 @@
 }
 
 .notification:hover {
-  background: #fb7c29;
+  background: #fb7d2996;
   border-radius: 5px;
   padding: 10px 10px;
 }

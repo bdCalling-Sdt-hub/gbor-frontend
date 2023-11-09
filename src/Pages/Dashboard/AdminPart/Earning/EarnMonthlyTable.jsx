@@ -78,7 +78,6 @@ const EarnMonthlyTable = ({ incomes }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
   };
 
   return (

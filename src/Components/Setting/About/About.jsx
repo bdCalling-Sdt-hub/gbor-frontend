@@ -42,7 +42,6 @@ const About = () => {
   }, []);
 
   const aboutChange = () => {
-    console.log(content);
     const values = {
       aboutUs: content,
     };

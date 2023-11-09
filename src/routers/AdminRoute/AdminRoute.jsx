@@ -4,8 +4,6 @@ import { Navigate } from "react-router-dom";
 const AdminRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("yourInfo"));
 
-  console.log(user);
-
   if (
     user?.userInfo?.email &&
     user?.userInfo?.role === "admin" &&

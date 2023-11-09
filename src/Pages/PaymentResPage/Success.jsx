@@ -19,7 +19,6 @@ const Success = () => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data.status === 200) {
             localStorage.removeItem("paymentInfo");
           }

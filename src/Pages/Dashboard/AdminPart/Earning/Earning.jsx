@@ -21,7 +21,6 @@ const Earning = () => {
   const [searchData, setSearchData] = useState("");
 
   const handleAdjustSearch = () => {
-    console.log(donationAmount);
     const value = {
       gborAmount: donationAmount,
       search: searchData,

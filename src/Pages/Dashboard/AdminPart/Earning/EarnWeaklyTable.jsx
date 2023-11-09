@@ -77,7 +77,6 @@ const EarnWeaklyTable = ({ incomes }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
   };
 
   return (
@@ -139,7 +138,7 @@ const EarnWeaklyTable = ({ incomes }) => {
           </Col>
           <Col span={12} className="text-right">
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
-              <span>{earningData?.totalDonors}</span>{" "}
+              <span>{earningData?.totalDonar}</span>{" "}
               <HiUserGroup fontSize={20} color="#fb7c29" />
             </p>
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">

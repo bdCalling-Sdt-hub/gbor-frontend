@@ -33,7 +33,6 @@ const MessageCreatorPage = () => {
   }, []);
 
   socket.on("multiple-message-hitted", (data) => {
-    console.log(data);
     socket.emit("show-all-messages", { uid: id });
   });
 

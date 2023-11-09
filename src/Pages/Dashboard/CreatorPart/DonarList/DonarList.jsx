@@ -42,8 +42,6 @@ const DonarList = () => {
     dispatch(DonarApi(data));
   };
 
-  console.log(transactionData);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setTransactionData(record);

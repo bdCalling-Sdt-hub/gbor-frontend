@@ -11,8 +11,6 @@ const CreatorEarnMonthlyTable = ({ incomes }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [earningData, setEarningData] = useState(null);
 
-  console.log(earningData);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setEarningData(record);

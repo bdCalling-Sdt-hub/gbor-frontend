@@ -24,8 +24,6 @@ export const UnApproveCreators = createAsyncThunk(
         }
       );
 
-      console.log(response.data);
-
       return response.data;
     } catch (error) {
       const message =

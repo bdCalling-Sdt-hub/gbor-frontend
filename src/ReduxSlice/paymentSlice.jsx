@@ -13,7 +13,6 @@ const initialState = {
 const token = localStorage.token;
 
 export const Payment = createAsyncThunk("Payment", async (value, thunkAPI) => {
-  console.log("slice", value);
   try {
     const response = await axios.get(
       `/api/payment?requestType=${value.type}&page=${value.page}&limit=${value.limit}&search=${value.search}&gborAmount=${value.gborAmount}`,
@@ -25,16 +24,12 @@ export const Payment = createAsyncThunk("Payment", async (value, thunkAPI) => {
       }
     );
 
-    console.log("api", response.data);
-
     return response.data;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-
-    console.log(error);
 
     return thunkAPI.rejectWithValue(message);
   }

@@ -24,8 +24,6 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
     setCreatorData(null);
   };
 
-  console.log(pagination);
-
   const data = creatorsData.map((item) => {
     return {
       creatorId: item._id,

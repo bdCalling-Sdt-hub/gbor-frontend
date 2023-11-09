@@ -10,8 +10,6 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
 
   const { socialLink } = data.action;
 
-  console.log(socialLink);
-
   const token = localStorage.token;
   const initialFormValues = {
     email: data.action?.email,
@@ -24,7 +22,6 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
   };
 
   const handleDeleteCreator = (id) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure, you want to delete?",
       text: "Creator will not show on this page",

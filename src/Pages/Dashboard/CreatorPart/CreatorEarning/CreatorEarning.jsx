@@ -15,17 +15,25 @@ const CreatorEarning = () => {
     (state) => state.payment
   );
 
-  console.log(incomesTotal);
+  const handlePagination = (page) => {
+    const value = {
+      gborAmount: "",
+      search: "",
+      page: page,
+      limit: 2,
+      type: income,
+    };
+    dispatch(Payment(value));
+  };
 
   useEffect(() => {
     const value = {
       gborAmount: "",
       search: "",
       page: 1,
-      limit: 1,
+      limit: 2,
       type: income,
     };
-
     dispatch(Payment(value));
   }, [income]);
 
@@ -93,7 +101,11 @@ const CreatorEarning = () => {
       </h2>
 
       {income === "today-income" && (
-        <CreatorEarnTodayTable incomes={incomes} pagination={pagination} />
+        <CreatorEarnTodayTable
+          incomes={incomes}
+          pagination={pagination}
+          handlePagination={handlePagination}
+        />
       )}
       {income === "weekly-income" && (
         <CreatorEarnWeaklyTable incomes={incomes} />
