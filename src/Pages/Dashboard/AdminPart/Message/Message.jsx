@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
+import Swal from "sweetalert2";
 import axios from "../../../../../Config";
 import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 import MessageTable from "./MessageTable";
@@ -67,7 +68,15 @@ const Message = () => {
             authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          if (res.data.status === 200) {
+            Swal.fire({
+              title: "Successfully",
+              text: "Send message to all",
+              icon: "success",
+            });
+          }
+        })
         .catch((err) => console.log(err));
     }
   };

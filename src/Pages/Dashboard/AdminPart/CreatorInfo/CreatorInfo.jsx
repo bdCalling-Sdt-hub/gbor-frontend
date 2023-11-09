@@ -59,7 +59,6 @@ const CreatorInfo = () => {
     };
     if (searchData !== "") {
       dispatch(ContentCreators(data));
-      console.log("call");
     }
   };
 

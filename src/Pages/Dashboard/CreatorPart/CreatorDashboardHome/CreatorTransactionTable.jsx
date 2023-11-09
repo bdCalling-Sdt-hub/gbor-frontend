@@ -7,7 +7,7 @@ import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const CreatorTransactionTable = ({ incomes, pagination }) => {
+const CreatorTransactionTable = ({ incomes, pagination, handlePagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -84,7 +84,7 @@ const CreatorTransactionTable = ({ incomes, pagination }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
+    handlePagination(page);
   };
 
   return (

@@ -23,8 +23,6 @@ const OurCreatorsPage = () => {
     localStorage.setItem("location", JSON.stringify(location));
   };
 
-  console.log(pagination);
-
   useEffect(() => {
     const data = {
       search: "",
@@ -52,8 +50,6 @@ const OurCreatorsPage = () => {
       setPage(1);
     }
   };
-
-  console.log(page);
 
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28">

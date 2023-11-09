@@ -27,7 +27,6 @@ const Otp = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.status === 200) {
           navigate(`/update-password/${email}`);
         }

@@ -5,8 +5,6 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("yourInfo"));
 
-  console.log(user);
-
   if (user?.userInfo?.email && user?.userInfo?.emailVerified !== false) {
     return children;
   }

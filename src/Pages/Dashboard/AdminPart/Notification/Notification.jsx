@@ -8,20 +8,18 @@ import "./Notification.css";
 function Notification() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { allNotification, pagination } = useSelector(
-    (state) => state.notification.allNotification
+    (state) => state?.notification?.allNotification
   );
   const dispatch = useDispatch();
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [modalData, setModalData] = useState();
 
-  console.log(pagination);
   const token = localStorage.token;
 
   const showModal = (data) => {
     setIsModalOpen(true);
     setModalData(data);
-    console.log(data);
     axios
       .patch(
         `/api/notifications/${data._id}`,
@@ -39,10 +37,10 @@ function Notification() {
           page: 1,
         };
         dispatch(Notifications(data));
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -103,6 +101,7 @@ function Notification() {
               lg={{ span: 24 }}
               style={{
                 cursor: "pointer",
+                background: item.viewStatus ? "#ff822e34" : "#fb7c26",
               }}
               onClick={() => showModal(item)}
             >
@@ -122,12 +121,17 @@ function Notification() {
                     style={{
                       fontWeight: item.viewStatus ? "normal" : "bold",
                       fontSize: item.viewStatus ? "15px" : "18px",
-                      color: "#4d4d4d",
+                      color: item.viewStatus ? "#4d4d4d" : "black",
                     }}
                   >
                     {item.message}
                   </p>
-                  <p style={{ color: "gray", marginTop: "10px" }}>
+                  <p
+                    style={{
+                      color: item.viewStatus ? "#4d4d4d" : "white",
+                      marginTop: "10px",
+                    }}
+                  >
                     {getTimeAgo(item.createdAt)}
                   </p>
                 </div>
@@ -151,14 +155,20 @@ function Notification() {
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
-        width={"60%"}
+        width={"50%"}
       >
         <div>
-          <h2 style={{ marginBottom: "10px" }}>{modalData?.message}</h2>
+          <h2 style={{ marginBottom: "10px", fontSize: "18px" }}>
+            {modalData?.message}
+          </h2>
 
           <img
-            style={{ borderRadius: "10px" }}
-            width="100%"
+            style={{
+              borderRadius: "10px",
+              width: "100%",
+              height: "500px",
+              objectFit: "cover",
+            }}
             src={modalData?.image}
             alt=""
           />

@@ -13,8 +13,6 @@ const TransactionTable = ({ incomes, handlePagination, pagination }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
 
-  console.log(transactionData);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setTransactionData(record);

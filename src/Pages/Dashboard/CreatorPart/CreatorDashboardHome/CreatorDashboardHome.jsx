@@ -21,8 +21,6 @@ function CreatorDashboardHome() {
     borderRadius: "15px",
   };
 
-  console.log(incomesTotal);
-
   const handlePagination = (page) => {
     const value = {
       gborAmount: "",
@@ -105,7 +103,11 @@ function CreatorDashboardHome() {
           Transaction histroy
         </h2>
       </Row>
-      <CreatorTransactionTable incomes={incomes} pagination={pagination} />
+      <CreatorTransactionTable
+        incomes={incomes}
+        pagination={pagination}
+        handlePagination={handlePagination}
+      />
     </div>
   );
 }

@@ -7,13 +7,11 @@ import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const CreatorEarnTodayTable = ({ incomes, pagination }) => {
+const CreatorEarnTodayTable = ({ incomes, pagination, handlePagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
+  const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [creatorEarningData, setCreatorEarningData] = useState(null);
-
-  console.log(pagination);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -79,7 +77,7 @@ const CreatorEarnTodayTable = ({ incomes, pagination }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
+    handlePagination(page);
   };
 
   return (

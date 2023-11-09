@@ -50,7 +50,6 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
 
     socket.emit("add-new-chat", data);
     socket.on("chat-id-check", (data) => {
-      console.log(data);
       navigate(`/dashboard/message/${data._id}/${name}`);
     });
   };

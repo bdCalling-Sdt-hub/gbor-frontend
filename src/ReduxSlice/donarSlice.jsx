@@ -15,7 +15,6 @@ const storedInfo = localStorage.getItem("yourInfo");
 export const DonarApi = createAsyncThunk(
   "DonarApi",
   async (value, thunkAPI) => {
-    console.log(value);
     try {
       if (storedInfo) {
         const { userInfo } = JSON.parse(storedInfo);
@@ -60,7 +59,6 @@ export const donarSlice = createSlice({
       state.isLoading = true;
     },
     [DonarApi.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

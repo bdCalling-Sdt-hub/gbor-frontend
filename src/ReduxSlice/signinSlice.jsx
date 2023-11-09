@@ -11,7 +11,6 @@ const initialState = {
 };
 
 export const SignIn = createAsyncThunk("SignIn", async (value, thunkAPI) => {
-  console.log(value);
   try {
     const response = await axios.post("api/auth/login", value);
 

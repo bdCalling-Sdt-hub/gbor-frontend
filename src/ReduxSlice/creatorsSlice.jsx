@@ -18,8 +18,6 @@ export const ContentCreators = createAsyncThunk(
         `api/auth/content-creator?page=${value.page}&limit=${value.limit}&search=${value.search}`
       );
 
-      console.log(response.data);
-
       return response.data;
     } catch (error) {
       const message =

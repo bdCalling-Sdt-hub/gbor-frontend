@@ -9,4 +9,9 @@ export default defineConfig({
     host: "192.168.10.16",
     port: "5000",
   },
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
 });

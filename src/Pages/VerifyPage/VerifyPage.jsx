@@ -10,12 +10,16 @@ const VerifyPage = () => {
 
   useEffect(() => {
     axios
-      .post("/api/auth/verifyemail", {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        "/api/auth/verifyemail",
+        {},
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {

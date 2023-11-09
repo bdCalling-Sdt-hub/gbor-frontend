@@ -8,8 +8,6 @@ import CreatorData from "./CreatorData/CreatorData";
 const DrawerPage = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  console.log(props);
-
   const token = localStorage.token;
 
   const handleDonarMessage = (id) => {
