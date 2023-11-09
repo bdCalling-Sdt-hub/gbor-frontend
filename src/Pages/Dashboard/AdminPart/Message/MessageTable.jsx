@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 
-const MessageTable = ({ handlePagination }) => {
+const MessageTable = ({ handlePagination, handleSearch }) => {
   const { creatorsData, pagination } = useSelector((state) => state.creators);
   const navigate = useNavigate();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
@@ -20,7 +20,7 @@ const MessageTable = ({ handlePagination }) => {
           src={creator.uploadId}
         />
       ),
-      username: creator.fName,
+      username: creator.fName + " " + creator.lName,
       creatorId: (
         <p className="text-gray-400">
           Creator ID: <span className="text-black">{creator._id}</span>
@@ -97,6 +97,7 @@ const MessageTable = ({ handlePagination }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     handlePagination(page);
+    handleSearch(page);
   };
 
   return (

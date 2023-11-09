@@ -7,12 +7,11 @@ import { HiUserGroup } from "react-icons/hi";
 import { RxDownload } from "react-icons/rx";
 const { Title, Text } = Typography;
 
-const CreatorEarnMonthlyTable = () => {
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
-
+const CreatorEarnMonthlyTable = ({ incomes }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [earningData, setEarningData] = useState(null);
+
+  console.log(earningData);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -24,13 +23,13 @@ const CreatorEarnMonthlyTable = () => {
     setEarningData(null);
   };
 
-  const data = [...Array(15).keys()].map((item) => {
+  const data = incomes.map((item) => {
     return {
-      months: "Jan 23",
-      totalDonar: 10,
-      gborAmount: 100,
-      amount: 50000,
-      action: "button",
+      months: item.monthName,
+      totalDonar: item.totalDonors,
+      gborAmount: item.gborAmount,
+      amount: item.amount,
+      action: item,
     };
   });
 
@@ -81,33 +80,18 @@ const CreatorEarnMonthlyTable = () => {
     },
   ];
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-  };
-
   return (
     <>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{
-          pageSize,
-          showSizeChanger: false,
-          total: 15,
-          current: currentPage,
-          onChange: handlePageChange,
-        }}
-      />
+      <Table columns={columns} dataSource={data} pagination={false} />
       <Drawer
         title={
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Monthly Income # July 23, 2023
+                Monthly Income # {earningData?.months}
               </Title>
               <Text style={{ color: "white" }}>
-                See total income in July 23, 2023
+                See total income in {earningData?.months}
               </Text>
             </Typography>
           </div>
@@ -145,10 +129,12 @@ const CreatorEarnMonthlyTable = () => {
           </Col>
           <Col span={12} className="text-right">
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
-              <span>60</span> <HiUserGroup fontSize={20} color="#fb7c29" />
+              <span>{earningData?.totalDonar}</span>{" "}
+              <HiUserGroup fontSize={20} color="#fb7c29" />
             </p>
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
-              <span>520056</span> <FiDollarSign fontSize={20} color="#fb7c29" />
+              <span>{earningData?.amount}</span>{" "}
+              <FiDollarSign fontSize={20} color="#fb7c29" />
             </p>
           </Col>
         </Row>

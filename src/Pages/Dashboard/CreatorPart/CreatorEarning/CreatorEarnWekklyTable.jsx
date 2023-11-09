@@ -7,10 +7,9 @@ import { HiUserGroup } from "react-icons/hi";
 import { RxDownload } from "react-icons/rx";
 const { Title, Text } = Typography;
 
-const CreatorEarnWeaklyTable = () => {
+const CreatorEarnWeaklyTable = ({ incomes }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
-
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [earningData, setEarningData] = useState(null);
 
@@ -24,12 +23,12 @@ const CreatorEarnWeaklyTable = () => {
     setEarningData(null);
   };
 
-  const data = [...Array(15).keys()].map((item) => {
+  const data = incomes.map((item, index) => {
     return {
-      weekNo: 1,
-      totalDonar: 10,
-      gborAmount: 5,
-      amount: 2500,
+      weekNo: index + 1,
+      totalDonar: item.totalDonors,
+      gborAmount: item.gborAmount,
+      amount: item.amount,
       action: "button",
     };
   });
@@ -83,7 +82,6 @@ const CreatorEarnWeaklyTable = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
   };
 
   return (
@@ -94,7 +92,7 @@ const CreatorEarnWeaklyTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 15,
+          total: 52,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -104,10 +102,10 @@ const CreatorEarnWeaklyTable = () => {
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Week No.1
+                Week No. {earningData?.weekNo}
               </Title>
               <Text style={{ color: "white" }}>
-                See all information about the week no. #41
+                See all information about the week no. {earningData?.weekNo}
               </Text>
             </Typography>
           </div>
@@ -145,10 +143,12 @@ const CreatorEarnWeaklyTable = () => {
           </Col>
           <Col span={12} className="text-right">
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
-              <span>5</span> <HiUserGroup fontSize={20} color="#fb7c29" />
+              <span>{earningData?.totalDonar}</span>{" "}
+              <HiUserGroup fontSize={20} color="#fb7c29" />
             </p>
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
-              <span>5256</span> <FiDollarSign fontSize={20} color="#fb7c29" />
+              <span>{earningData?.amount}</span>{" "}
+              <FiDollarSign fontSize={20} color="#fb7c29" />
             </p>
           </Col>
         </Row>

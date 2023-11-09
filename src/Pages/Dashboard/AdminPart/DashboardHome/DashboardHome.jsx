@@ -32,27 +32,28 @@ function DashboardHome() {
 
   console.log(incomes);
 
-  const onChange = (pageNumber) => {
-    console.log("Page: ", pageNumber);
+  const handlePagination = (page) => {
+    const value = {
+      gborAmount: "",
+      search: "",
+      page: page,
+      limit: 2,
+      type: "dashboard",
+    };
+    dispatch(Payment(value));
   };
 
   useEffect(() => {
     const value = {
+      gborAmount: "",
+      search: "",
       page: 1,
-      limit: 1,
-      type: "today-income",
+      limit: 2,
+      type: "dashboard",
     };
+
     dispatch(Payment(value));
   }, []);
-
-  const handlePagination = (page) => {
-    const value = {
-      page: page,
-      limit: 1,
-      type: "today-income",
-    };
-    dispatch(Payment(value));
-  };
 
   useEffect(() => {
     dispatch(BannerApi());

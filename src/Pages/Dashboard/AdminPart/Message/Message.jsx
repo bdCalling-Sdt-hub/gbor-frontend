@@ -13,6 +13,7 @@ const Message = () => {
   const dispatch = useDispatch();
   const [messageForAll, setMessageForAll] = useState("");
   const [creatorsList, setCreatorList] = useState([]);
+  const [searchData, setSearchData] = useState("");
 
   const handleShow = () => {
     setMessageBox(!messageBox);
@@ -73,18 +74,33 @@ const Message = () => {
 
   useEffect(() => {
     const data = {
+      search: searchData,
       limit: 6,
       page: 1,
     };
-    dispatch(ContentCreators(data));
-  }, []);
+    if (searchData === "") {
+      dispatch(ContentCreators(data));
+    }
+  }, [searchData]);
 
   const handlePagination = (page) => {
     const data = {
+      search: searchData,
       limit: 6,
       page: page,
     };
     dispatch(ContentCreators(data));
+  };
+
+  const handleSearch = (page) => {
+    const data = {
+      search: searchData,
+      limit: 6,
+      page: page,
+    };
+    if (searchData !== "") {
+      dispatch(ContentCreators(data));
+    }
   };
 
   return (
@@ -135,10 +151,12 @@ const Message = () => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           prefix={<CiSearch style={{ fontSize: "18px" }} />}
-          placeholder="Search creator by Name/Id"
+          placeholder="Search creator by Name"
           style={{ height: "50px", border: `1px solid #fb7c29` }}
+          onChange={(e) => setSearchData(e.target.value)}
         />
         <Button
+          onClick={handleSearch}
           style={{
             background: "#fb7c29",
             color: "white",
@@ -162,7 +180,10 @@ const Message = () => {
         Creator List
       </h2>
 
-      <MessageTable handlePagination={handlePagination} />
+      <MessageTable
+        handlePagination={handlePagination}
+        handleSearch={handleSearch}
+      />
     </div>
   );
 };

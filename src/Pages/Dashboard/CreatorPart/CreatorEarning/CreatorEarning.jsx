@@ -1,8 +1,7 @@
 import { Col, Row } from "antd";
-
 import React, { useEffect } from "react";
 import { CiDollar } from "react-icons/ci";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Payment } from "../../../../ReduxSlice/paymentSlice";
 import CreatorEarnMonthlyTable from "./CreatorEarnMonthlyTable";
@@ -12,8 +11,11 @@ import CreatorEarnWeaklyTable from "./CreatorEarnWekklyTable";
 const CreatorEarning = () => {
   const { income } = useParams();
   const dispatch = useDispatch();
+  const { incomesTotal, incomes, pagination } = useSelector(
+    (state) => state.payment
+  );
 
-  console.log(income);
+  console.log(incomesTotal);
 
   useEffect(() => {
     const value = {
@@ -48,7 +50,7 @@ const CreatorEarning = () => {
           >
             <CiDollar style={{ width: "28px", height: "28px" }} />
             <h2 className="text-2xl">Today's Earning</h2>
-            <h3 className="text-2xl font-medium">$ 250.00</h3>
+            <h3 className="text-2xl font-medium">$ {incomesTotal?.today}</h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
@@ -61,7 +63,7 @@ const CreatorEarning = () => {
           >
             <CiDollar style={{ width: "28px", height: "28px" }} />
             <h2 className="text-2xl">Weekly Earning</h2>
-            <h3 className="text-2xl font-medium">$ 250.00</h3>
+            <h3 className="text-2xl font-medium">$ {incomesTotal?.lastWeek}</h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
@@ -74,7 +76,9 @@ const CreatorEarning = () => {
           >
             <CiDollar style={{ width: "28px", height: "28px" }} />
             <h2 className="text-2xl">Monthly Earning</h2>
-            <h3 className="text-2xl font-medium">$ 250.00</h3>
+            <h3 className="text-2xl font-medium">
+              $ {incomesTotal?.lastMonth}
+            </h3>
           </div>
         </Col>
       </Row>
@@ -88,9 +92,15 @@ const CreatorEarning = () => {
           : "Monthly Earnings"}
       </h2>
 
-      {income === "today-income" && <CreatorEarnTodayTable />}
-      {income === "weekly-income" && <CreatorEarnWeaklyTable />}
-      {income === "monthly-income" && <CreatorEarnMonthlyTable />}
+      {income === "today-income" && (
+        <CreatorEarnTodayTable incomes={incomes} pagination={pagination} />
+      )}
+      {income === "weekly-income" && (
+        <CreatorEarnWeaklyTable incomes={incomes} />
+      )}
+      {income === "monthly-income" && (
+        <CreatorEarnMonthlyTable incomes={incomes} />
+      )}
     </div>
   );
 };

@@ -10,24 +10,27 @@ const initialState = {
 };
 
 const token = localStorage.token;
-const { userInfo } = JSON.parse(localStorage.yourInfo);
+const storedInfo = localStorage.getItem("yourInfo");
 
 export const DonarApi = createAsyncThunk(
   "DonarApi",
   async (value, thunkAPI) => {
     console.log(value);
     try {
-      const response = await axios.get(
-        `/api/payment/donor-list/${userInfo._id}?limit=${value.limit}&page=${value.page}&search=${value.search}&gborAmount=${value.gborAmount}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      if (storedInfo) {
+        const { userInfo } = JSON.parse(storedInfo);
+        const response = await axios.get(
+          `/api/payment/donor-list/${userInfo._id}?limit=${value.limit}&page=${value.page}&search=${value.search}&gborAmount=${value.gborAmount}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      return response.data;
+        return response.data;
+      }
     } catch (error) {
       const message =
         (error.response &&

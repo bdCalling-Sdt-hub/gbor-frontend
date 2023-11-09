@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Payment } from "../../../../ReduxSlice/paymentSlice";
 import CreatorTransactionChart from "./CreatorTransactionChart";
 import CreatorTransactionTable from "./CreatorTransactionTable";
 
 const CreatorTransaction = () => {
+  const dispatch = useDispatch();
+  const { incomes, pagination } = useSelector((state) => state.payment);
+
+  const handlePagination = (page) => {
+    const value = {
+      gborAmount: "",
+      search: "",
+      page: page,
+      limit: 2,
+      type: "dashboard",
+    };
+    dispatch(Payment(value));
+  };
+
+  useEffect(() => {
+    const value = {
+      gborAmount: "",
+      search: "",
+      page: 1,
+      limit: 2,
+      type: "dashboard",
+    };
+
+    dispatch(Payment(value));
+  }, []);
+
   return (
     <div>
       <h2
@@ -21,7 +49,11 @@ const CreatorTransaction = () => {
       >
         Transaction History
       </h2>
-      <CreatorTransactionTable />
+      <CreatorTransactionTable
+        incomes={incomes}
+        pagination={pagination}
+        handlePagination={handlePagination}
+      />
     </div>
   );
 };

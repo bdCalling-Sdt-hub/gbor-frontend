@@ -1,44 +1,40 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { BsPrinter } from "react-icons/bs";
 import { RxDownload } from "react-icons/rx";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const CreatorEarnTodayTable = () => {
+const CreatorEarnTodayTable = ({ incomes, pagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 5;
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [earningData, setEarningData] = useState(null);
+  const [creatorEarningData, setCreatorEarningData] = useState(null);
+
+  console.log(pagination);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setEarningData(record);
+    setCreatorEarningData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setEarningData(null);
+    setCreatorEarningData(null);
   };
 
-  const data = [...Array(15).keys()].map((item) => {
+  const data = incomes.map((item) => {
     return {
-      transactionId: 5645451521,
-      date: "4/03/2015",
-      donarName: "Kate",
-      amount: 470.0,
-      action: "button",
+      date: moment(item.createdAt).format("llll"),
+      donarName: item.donarName,
+      amount: item.amount,
+      action: item,
     };
   });
 
   const columns = [
-    {
-      title: "TRANSACTION ID",
-      dataIndex: "transactionId",
-      key: "transactionId",
-    },
     {
       title: "DONAR NAME",
       dataIndex: "donarName",
@@ -94,7 +90,7 @@ const CreatorEarnTodayTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 15,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -104,10 +100,10 @@ const CreatorEarnTodayTable = () => {
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Transaction ID
+                {creatorEarningData?.donarName}
               </Title>
               <Text style={{ color: "white" }}>
-                See all information about the transaction id no. 68656
+                See all information about the {creatorEarningData?.donarName}
               </Text>
             </Typography>
           </div>
@@ -138,7 +134,9 @@ const CreatorEarnTodayTable = () => {
           </Space>
         }
       >
-        {earningData && <DrawerPage earningData={earningData} />}
+        {creatorEarningData && (
+          <DrawerPage creatorEarningData={creatorEarningData} />
+        )}
       </Drawer>
     </>
   );

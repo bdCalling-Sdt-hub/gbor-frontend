@@ -1,6 +1,6 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Button, Col, Row, message } from "antd";
+import { Col, Row, message } from "antd";
 import React from "react";
 import axios from "../../../Config";
 import CreatorData from "./CreatorData/CreatorData";
@@ -119,13 +119,15 @@ const DrawerPage = (props) => {
                   rows="6"
                   className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
                 >
-                  {props.transactionData?.action?.message}
+                  {(props.transactionData?.action?.isMessageVisible &&
+                    props.transactionData?.action?.message) ||
+                    ""}
                 </textarea>
               </Col>
             </Row>
           </div>
 
-          <div
+          {/* <div
             style={{
               display: "flex",
               gap: 10,
@@ -144,7 +146,7 @@ const DrawerPage = (props) => {
             >
               Download
             </Button>
-          </div>
+          </div> */}
         </>
       )}
       {props.earningData && (
@@ -247,7 +249,7 @@ const DrawerPage = (props) => {
             </Row>
           </div>
 
-          <div
+          {/* <div
             style={{
               display: "flex",
               gap: 10,
@@ -277,7 +279,7 @@ const DrawerPage = (props) => {
             >
               Print
             </Button>
-          </div>
+          </div> */}
         </>
       )}
       {props.creatorData && (
@@ -286,6 +288,99 @@ const DrawerPage = (props) => {
           setReload={props.setReload}
           setIsDrawerVisible={props.setIsDrawerVisible}
         />
+      )}
+      {props.creatorEarningData && (
+        <>
+          <div
+            style={{
+              margin: "10px 0",
+              borderBottom: "1px solid  #ffba8d",
+              paddingBottom: "15px",
+            }}
+          >
+            <h2 className="text-xl font-medium mb-2">
+              Transaction Information
+            </h2>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p className="text-lg font-light">Time</p>
+                {/* <p className="text-lg font-light">Payment Method</p> */}
+                <p className="text-lg font-light">Payment Amount</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p className="text-lg font-light">
+                  {props.creatorEarningData?.date}
+                </p>
+                {/* <p className="text-lg font-light">Visa Card</p> */}
+                <p className="text-lg font-light">
+                  {props.creatorEarningData?.amount}
+                </p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <h2 className="text-xl font-medium mb-2">Donar Information</h2>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p className="text-lg font-light">Name</p>
+                <p className="text-lg font-light">Message</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p className="text-lg font-light">
+                  {props.creatorEarningData?.donarName}
+                </p>
+              </Col>
+              <Col span={24}>
+                <textarea
+                  name=""
+                  id=""
+                  rows="6"
+                  className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
+                >
+                  {(props.creatorEarningData?.action?.isMessageVisible &&
+                    props.creatorEarningData?.action?.message) ||
+                    ""}
+                </textarea>
+              </Col>
+            </Row>
+          </div>
+
+          {/* <div
+            style={{
+              display: "flex",
+              gap: 10,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                border: "1px solid #fb7c29",
+                color: "#fb7c29",
+                height: 50,
+                width: "270px",
+              }}
+            >
+              Download
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#fb7c29",
+                color: "white",
+                height: 50,
+                width: "270px",
+              }}
+            >
+              Print
+            </Button>
+          </div> */}
+        </>
       )}
     </>
   );

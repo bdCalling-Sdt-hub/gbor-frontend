@@ -8,23 +8,28 @@ const Transaction = () => {
   const dispatch = useDispatch();
   const { incomes, pagination } = useSelector((state) => state.payment);
 
-  useEffect(() => {
-    const value = {
-      page: 1,
-      limit: 1,
-      type: "today-income",
-    };
-    dispatch(Payment(value));
-  }, []);
-
   const handlePagination = (page) => {
     const value = {
+      gborAmount: "",
+      search: "",
       page: page,
-      limit: 1,
-      type: "today-income",
+      limit: 2,
+      type: "dashboard",
     };
     dispatch(Payment(value));
   };
+
+  useEffect(() => {
+    const value = {
+      gborAmount: "",
+      search: "",
+      page: 1,
+      limit: 2,
+      type: "dashboard",
+    };
+
+    dispatch(Payment(value));
+  }, []);
 
   return (
     <div>
