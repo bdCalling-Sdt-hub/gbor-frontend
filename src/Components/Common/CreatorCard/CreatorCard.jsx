@@ -7,6 +7,8 @@ const CreatorCard = ({ data }) => {
   const { _id, fName, lName, uploadId, website, socialLink } = data;
   const navigate = useNavigate();
 
+  console.log(data);
+
   const handleContentCreator = (id) => {
     navigate(`/our-creators/${id}`);
   };
