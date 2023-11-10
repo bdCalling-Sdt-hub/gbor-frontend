@@ -31,7 +31,7 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
   });
 
   const handleMessage = (e) => {
-    let socket = io("http://192.168.10.13:10000");
+    let socket = io("http://167.99.205.107:10000");
 
     socket.on("connect", () => {
       console.log("Connected");

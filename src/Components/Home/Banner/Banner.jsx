@@ -26,6 +26,7 @@ const Banner = () => {
   useEffect(() => {
     dispatch(BannerApi());
   }, []);
+
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28 text-center">
       <div className="w-full p-4 lg:p-0 lg:w-3/4 mx-auto">

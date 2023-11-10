@@ -4,7 +4,7 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
-import logo from "../../Images/logo.png";
+import logo from "../../Images/Logo.png";
 import update from "../../Images/updatePass.png";
 
 const UpdatePass = () => {

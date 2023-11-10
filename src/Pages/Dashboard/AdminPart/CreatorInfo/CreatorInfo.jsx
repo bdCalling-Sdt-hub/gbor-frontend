@@ -5,8 +5,8 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { Register, reset } from "../../../../ReduxSlice/RegisterSlice";
 import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
+import { Register, reset } from "../../../../ReduxSlice/registerSlice";
 import CreatorInfoTable from "./CreatorInfoTable";
 const { Title, Text } = Typography;
 
