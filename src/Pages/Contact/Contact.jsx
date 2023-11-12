@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
@@ -6,6 +7,8 @@ import Navbar from "../../Shared/Navbar/Navbar";
 
 const Contact = () => {
   const [contactData, setContactData] = useState({});
+  const [reload, setReload] = useState(false);
+
   const handleContact = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -17,19 +20,24 @@ const Contact = () => {
 
   const handleContactSend = (e) => {
     e.preventDefault();
+    setReload(true);
+    console.log(contactData);
+
+    const value = {
+      name: contactData.name,
+      email: contactData.email,
+      subject: contactData.subject,
+      message: contactData.message,
+    };
+
+    console.log(value);
 
     if (
-      contactData.name !== "" &&
-      contactData.email !== "" &&
-      contactData.subject !== "" &&
-      contactData.message !== ""
+      value.name !== undefined &&
+      value.email !== undefined &&
+      value.subject !== undefined &&
+      value.message !== undefined
     ) {
-      const value = {
-        name: contactData.name,
-        email: contactData.email,
-        subject: contactData.subject,
-        message: contactData.message,
-      };
       axios.post("api/email-send", value).then((res) => {
         if (res.data.status === 200) {
           Swal.fire({
@@ -39,6 +47,7 @@ const Contact = () => {
             confirmButtonColor: "#ff5252",
           });
           setContactData({});
+          setReload(false);
         }
       });
     } else {
@@ -51,6 +60,7 @@ const Contact = () => {
           #a53c3cb3
           left top`,
       });
+      setReload(false);
     }
   };
   return (
@@ -65,42 +75,48 @@ const Contact = () => {
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
         </p>
         <div className="w-full lg:w-2/6 p-4 lg:p-0 mx-auto mt-16">
-          <form onSubmit={handleContactSend}>
-            <input
-              type="text"
-              onChange={handleContact}
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
-              placeholder="Name"
-              name="name"
-            />
-            <input
-              type="text"
-              onChange={handleContact}
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
-              placeholder="Subject"
-              name="subject"
-            />
-            <input
-              type="email"
-              onChange={handleContact}
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
-              placeholder="Email"
-              name="email"
-            />
-            <textarea
-              className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32 focus:border-red-500"
-              onChange={handleContact}
-              placeholder="Your message"
-              name="message"
-            />
+          {!reload ? (
+            <form onSubmit={handleContactSend}>
+              <input
+                type="text"
+                onChange={handleContact}
+                className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
+                placeholder="Name"
+                name="name"
+              />
+              <input
+                type="text"
+                onChange={handleContact}
+                className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
+                placeholder="Subject"
+                name="subject"
+              />
+              <input
+                type="email"
+                onChange={handleContact}
+                className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
+                placeholder="Email"
+                name="email"
+              />
+              <textarea
+                className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32 focus:border-red-500"
+                onChange={handleContact}
+                placeholder="Your message"
+                name="message"
+              />
 
-            <button
-              className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition img-shadow"
-              type="submit"
-            >
-              Send
-            </button>
-          </form>
+              <button
+                className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition img-shadow"
+                type="submit"
+              >
+                Send
+              </button>
+            </form>
+          ) : (
+            <div className="flex items-center justify-center h-[100%]">
+              <Spin />
+            </div>
+          )}
         </div>
       </div>
       <Footer />

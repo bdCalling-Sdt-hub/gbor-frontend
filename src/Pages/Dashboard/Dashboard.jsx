@@ -194,7 +194,7 @@ const Dashboard = () => {
     (path) => path.path === location.pathname
   );
 
-  let socket = io("http://192.168.10.13:10000");
+  let socket = io("http://167.99.205.107:10000");
   const data = {
     uid: userInfo._id,
   };

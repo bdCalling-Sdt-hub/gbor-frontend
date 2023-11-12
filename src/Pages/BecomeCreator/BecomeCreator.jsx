@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import img from "../../Images/become-creator.png";
-import { Register, reset } from "../../ReduxSlice/RegisterSlice";
+import { Register, reset } from "../../ReduxSlice/registerSlice";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
@@ -13,7 +13,7 @@ const BecomeCreator = () => {
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState();
   const [termCon, setTermCon] = useState(false);
-  const { message, isSuccess, isLoading } = useSelector(
+  const { message, isError, isSuccess, isLoading } = useSelector(
     (state) => state.register
   );
   const [error, setError] = useState("");
@@ -91,6 +91,7 @@ const BecomeCreator = () => {
       //  error message
       setError("");
       setFile(null);
+      setTermCon(false);
     } else {
       setError("Empty value is not accepted");
       return;
@@ -108,6 +109,14 @@ const BecomeCreator = () => {
       setTermCon(false);
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      Swal.fire("Sorry", message, "error");
+      setTermCon(false);
+    }
+  }, [isError]);
+
   return (
     <>
       <Navbar />
@@ -201,6 +210,7 @@ const BecomeCreator = () => {
                         className="hidden"
                         name="image"
                         id="file"
+                        accept="image"
                         onChange={(e) => setFile(e.target.files[0])}
                       />
                     </div>

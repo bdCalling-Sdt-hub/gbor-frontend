@@ -1,5 +1,5 @@
-import { Button, Col, Form, Input, Row, Typography } from "antd";
-import React from "react";
+import { Button, Col, Form, Input, Row, Spin, Typography } from "antd";
+import React, { useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -11,13 +11,17 @@ const { Title, Paragraph, Text } = Typography;
 
 const Email = () => {
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
+
   const handleEmail = (values) => {
     const email = values.email;
+    setLoader(true);
     axios
       .post("api/auth/send-reset-password-email", { email: email })
       .then((res) => {
         if (res.data.status === 200) {
           Swal.fire("✅", "Successfully Send OTP on your email", "success");
+          setLoader(false);
           navigate(`/forget-password/${values.email}`);
         }
       })
@@ -65,15 +69,22 @@ const Email = () => {
             />
           </Form.Item>
 
-          <Form.Item className="block text-center mt-10">
-            <Button
-              htmlType="submit"
-              type="text"
-              className="login-form-button bg-[#fb7c29] text-white w-28 h-10"
-            >
-              Send OTP
-            </Button>
-          </Form.Item>
+          {loader ? (
+            <div className="flex items-center gap-1">
+              <Spin size="small" />
+              <p className="text-orange-500">Loading...</p>
+            </div>
+          ) : (
+            <Form.Item className="block text-center mt-10">
+              <Button
+                htmlType="submit"
+                type="text"
+                className="login-form-button bg-[#fb7c29] text-white w-28 h-10"
+              >
+                Send OTP
+              </Button>
+            </Form.Item>
+          )}
         </Form>
       </Col>
     </Row>

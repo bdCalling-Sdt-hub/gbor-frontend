@@ -15,7 +15,7 @@ export const Register = createAsyncThunk(
       const response = await axios.post("api/auth/register", value);
 
       return response.data;
-    } catch (err) {
+    } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
