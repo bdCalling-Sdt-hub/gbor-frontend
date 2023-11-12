@@ -90,7 +90,10 @@ const PersonalInfo = () => {
           setProfileEdit(false);
         }
       })
-      .catch((err) => Swal.fire("😒", err.response.data.message, "error"));
+      .catch((err) => {
+        console.log(err);
+        Swal.fire("😒", err.response.data.message, "error");
+      });
   };
 
   return (

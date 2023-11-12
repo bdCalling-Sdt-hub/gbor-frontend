@@ -210,6 +210,7 @@ const BecomeCreator = () => {
                         className="hidden"
                         name="image"
                         id="file"
+                        accept="image"
                         onChange={(e) => setFile(e.target.files[0])}
                       />
                     </div>

@@ -124,6 +124,7 @@ const CreatorInfo = () => {
         "success"
       );
       dispatch(reset());
+      setIsDrawerVisible(false);
     }
   }, [isSuccess]);
 

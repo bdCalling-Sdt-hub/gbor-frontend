@@ -7,10 +7,9 @@ import img from "../../Images/success.svg";
 const Success = () => {
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
+  const value = JSON.parse(localStorage.getItem("paymentInfo"));
 
   useEffect(() => {
-    const value = JSON.parse(localStorage.getItem("paymentInfo"));
-
     if (value) {
       axios
         .post("/api/payment", value, {
@@ -18,12 +17,10 @@ const Success = () => {
             "Content-Type": "application/json",
           },
         })
-        .then((res) => {
-          if (res.data.status === 200) {
-            localStorage.removeItem("paymentInfo");
-          }
-        })
+        .then((res) => {})
         .catch((err) => console.log(err));
+    } else {
+      navigate("/");
     }
   }, []);
 
@@ -34,6 +31,7 @@ const Success = () => {
 
     if (count === 11) {
       navigate("/");
+      localStorage.removeItem("paymentInfo");
       setCount(1);
       return () => clearInterval(clearTime);
     }
@@ -41,16 +39,21 @@ const Success = () => {
 
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-48 w-full h-screen flex items-center justify-center">
-      <div className="text-center  w-2/4 mx-auto">
-        <img className="mx-auto" width="40%" src={img} alt="" />
-        <h2 className="text-4xl mt-12">Payment Successful</h2>
-        <p className="my-3 text-xl">Thank you! Your payment is completed</p>
-        <p>
-          Please wait 10 seconds <span className="font-bold">( {count}s )</span>{" "}
-          we will redirect you to the home page
-        </p>
-      </div>
-      <Confetti />
+      {value && (
+        <>
+          <div className="text-center  w-2/4 mx-auto">
+            <img className="mx-auto" width="40%" src={img} alt="" />
+            <h2 className="text-4xl mt-12">Payment Successful</h2>
+            <p className="my-3 text-xl">Thank you! Your payment is completed</p>
+            <p>
+              Please wait 10 seconds{" "}
+              <span className="font-bold">( {count}s )</span> we will redirect
+              you to the home page
+            </p>
+          </div>
+          <Confetti />
+        </>
+      )}
     </div>
   );
 };
