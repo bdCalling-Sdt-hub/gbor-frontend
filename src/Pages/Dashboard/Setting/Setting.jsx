@@ -94,6 +94,8 @@ const Setting = () => {
     },
   ];
 
+  const token = localStorage.token;
+
   const handleNavigate = (value) => {
     if (value === "change-password") {
       setOpenChangePassModel(true);
@@ -107,7 +109,57 @@ const Setting = () => {
   };
 
   const handleChangePassword = (values) => {
-    console.log("Received values of form: ", values);
+    const { currentPassword, password, confirmPassword } = values;
+
+    if (password.length < 8) {
+      setErr("Password must be 8 character");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErr("Please enter the same password!");
+      return;
+    }
+    if (!password || !confirmPassword) {
+      setErr("Please give your changes password");
+      return;
+    }
+    if (!/(?=.*[!@#$&*])/.test(password)) {
+      setErr("Ensure string has one special case letter.");
+      return;
+    }
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setErr("Ensure string has one uppercase letters.");
+      return;
+    }
+    if (!/(?=.*[a-z].*[a-z])/.test(password)) {
+      setErr("Ensure string has two lowercase letters.");
+      return;
+    }
+    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
+      setErr("Ensure string has two digits");
+      return;
+    }
+
+    const value = {
+      currentPass: currentPassword,
+      password: password,
+      confirmPass: confirmPassword,
+    };
+
+    axios
+      .post("api/auth/changeexistingpassword", value, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("✅", `Updated password successfully`, "success");
+          setOpenChangePassModel(false);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
 
   //forget password button
@@ -275,7 +327,7 @@ const Setting = () => {
             </Form.Item>
 
             <Form.Item
-              name="newPassword"
+              name="password"
               label="New password"
               style={{ marginBottom: "5px" }}
               rules={[
@@ -293,7 +345,7 @@ const Setting = () => {
             </Form.Item>
 
             <Form.Item
-              name="password"
+              name="confirmPassword"
               label="Confirm password"
               style={{ marginBottom: "0px" }}
               rules={[
@@ -309,6 +361,9 @@ const Setting = () => {
                 style={style.input}
               />
             </Form.Item>
+
+            {/* showing error */}
+            <label style={{ color: "red" }}>{err}</label>
 
             <div
               style={{
