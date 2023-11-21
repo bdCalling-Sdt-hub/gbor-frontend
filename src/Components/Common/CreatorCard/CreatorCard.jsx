@@ -26,9 +26,9 @@ const CreatorCard = ({ data }) => {
         </div>
 
         <div className="flex gap-2 icons">
-          {socialLink.youtube && (
+          {socialLink?.youtube && (
             <a
-              href={`https://www.youtube.com/@${socialLink.youtube}`}
+              href={`https://www.youtube.com/@${socialLink?.youtube}`}
               target="_blank"
             >
               <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -36,9 +36,9 @@ const CreatorCard = ({ data }) => {
               </div>
             </a>
           )}
-          {socialLink.instagram && (
+          {socialLink?.instagram && (
             <a
-              href={`https://www.instagram.com/${socialLink.instagram}`}
+              href={`https://www.instagram.com/${socialLink?.instagram}`}
               target="_blank"
             >
               <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -46,9 +46,9 @@ const CreatorCard = ({ data }) => {
               </div>
             </a>
           )}
-          {socialLink.tiktok && (
+          {socialLink?.tiktok && (
             <a
-              href={`https://www.tiktok.com/@${socialLink.tiktok}`}
+              href={`https://www.tiktok.com/@${socialLink?.tiktok}`}
               target="_blank"
             >
               <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -56,9 +56,9 @@ const CreatorCard = ({ data }) => {
               </div>
             </a>
           )}
-          {socialLink.facebook && (
+          {socialLink?.facebook && (
             <a
-              href={`https://www.facebook.com/${socialLink.facebook}`}
+              href={`https://www.facebook.com/${socialLink?.facebook}`}
               target="_blank"
             >
               <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">

@@ -6,7 +6,7 @@ import pluginRewriteAll from "vite-plugin-rewrite-all";
 export default defineConfig({
   plugins: [react(), pluginRewriteAll()],
   server: {
-    host: "http://mongbor.com/",
+    host: "167.99.205.107",
     port: "3000",
   },
   resolve: {
