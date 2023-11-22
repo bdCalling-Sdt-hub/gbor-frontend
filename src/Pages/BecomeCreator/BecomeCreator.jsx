@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import img from "../../Images/become-creator.png";
-import { Register, reset } from "../../ReduxSlice/registerSlice";
+import { Register } from "../../ReduxSlice/registerSlice";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
@@ -105,14 +105,30 @@ const BecomeCreator = () => {
         "Check your email inbox to verify account",
         "success"
       );
-      dispatch(reset());
+      //dispatch(reset());
       setTermCon(false);
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
-      Swal.fire("Sorry", message, "error");
+      console.log(message);
+      if (message.includes("409")) {
+        Swal.fire({
+          icon: "error",
+          title: "Creator already exists",
+          text: "Please choose another email to create account",
+          confirmButtonColor: "#fb7c29",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong",
+          text: "Please try again",
+          confirmButtonColor: "#fb7c29",
+        });
+      }
+
       setTermCon(false);
     }
   }, [isError]);

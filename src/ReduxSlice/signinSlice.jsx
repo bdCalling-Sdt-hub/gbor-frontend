@@ -14,12 +14,16 @@ export const SignIn = createAsyncThunk("SignIn", async (value, thunkAPI) => {
   try {
     const response = await axios.post("api/auth/login", value);
 
+    console.log(response.data);
+
     return response.data;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
+
+    console.log(error);
 
     return thunkAPI.rejectWithValue(message);
   }

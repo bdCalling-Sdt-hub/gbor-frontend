@@ -19,8 +19,8 @@ const Signin = () => {
     if (isError === true) {
       Swal.fire({
         icon: "error",
-        title: "Something went wrong",
-        text: message,
+        title: "Login failed",
+        text: "Your credential is wrong",
         confirmButtonColor: "#fb7c29",
       });
     }

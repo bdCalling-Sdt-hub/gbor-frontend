@@ -9,7 +9,7 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
   const { creatorsData, pagination } = useSelector((state) => state.creators);
   const navigate = useNavigate();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
-  const pageSize = 6;
+  const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   const data = creatorsData?.map((creator) => {

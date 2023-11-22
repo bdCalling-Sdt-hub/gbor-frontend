@@ -15,7 +15,7 @@ const CreatorInfo = () => {
   const [creator, setCreator] = useState({});
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState();
-  const { message, isSuccess, isLoading } = useSelector(
+  const { message, isSuccess, isLoading, isError } = useSelector(
     (state) => state.register
   );
   const [error, setError] = useState("");
@@ -127,6 +127,28 @@ const CreatorInfo = () => {
       setIsDrawerVisible(false);
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      if (message.includes("409")) {
+        Swal.fire({
+          icon: "error",
+          title: "Creator already exists",
+          text: "Please choose another email to create account",
+          confirmButtonColor: "#fb7c29",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong",
+          text: "Please try again",
+          confirmButtonColor: "#fb7c29",
+        });
+      }
+
+      setTermCon(false);
+    }
+  }, [isError]);
 
   return (
     <div style={{ padding: "0px 60px" }}>

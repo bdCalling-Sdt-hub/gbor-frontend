@@ -20,7 +20,7 @@ const CreatorEarning = () => {
       gborAmount: "",
       search: "",
       page: page,
-      limit: 2,
+      limit: 10,
       type: income,
     };
     dispatch(Payment(value));
@@ -31,7 +31,7 @@ const CreatorEarning = () => {
       gborAmount: "",
       search: "",
       page: 1,
-      limit: 2,
+      limit: 10,
       type: income,
     };
     dispatch(Payment(value));

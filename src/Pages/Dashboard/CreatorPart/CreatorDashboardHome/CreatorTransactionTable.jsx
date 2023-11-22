@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 const CreatorTransactionTable = ({ incomes, pagination, handlePagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
 
