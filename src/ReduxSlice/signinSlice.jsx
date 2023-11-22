@@ -47,6 +47,7 @@ export const signinSlice = createSlice({
       state.isSuccess = true;
       state.isLoading = false;
       state.message = action.payload.message;
+
       state.token = action.payload.token;
       state.userData = action.payload.data;
     },

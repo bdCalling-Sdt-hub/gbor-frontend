@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { RiMessage2Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
+import { socketIO } from "../../../../../Socket";
 
 const MessageTable = ({ handlePagination, handleSearch }) => {
   const { creatorsData, pagination } = useSelector((state) => state.creators);
@@ -31,11 +31,7 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
   });
 
   const handleMessage = (e) => {
-    let socket = io("http://167.99.205.107:10000");
-
-    socket.on("connect", () => {
-      console.log("Connected");
-    });
+    let socket = socketIO;
 
     const name = e.message.fName + " " + e.message.lName;
 

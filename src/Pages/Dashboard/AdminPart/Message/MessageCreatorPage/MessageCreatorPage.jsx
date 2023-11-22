@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsFillSendFill, BsSend } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
-import { io } from "socket.io-client";
+import { socketIO } from "../../../../../../Socket";
 
 const MessageCreatorPage = () => {
   const { id, name } = useParams();
@@ -15,11 +15,7 @@ const MessageCreatorPage = () => {
   const [write, setWrite] = useState(false);
   const [load, setLoad] = useState(1);
 
-  let socket = io("http://167.99.205.107:10000");
-
-  socket.on("connect", () => {
-    console.log("Connected");
-  });
+  let socket = socketIO;
 
   const data = {
     uid: id,

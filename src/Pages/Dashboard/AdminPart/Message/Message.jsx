@@ -2,9 +2,9 @@ import { Button, Input, Switch } from "antd";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from "react-redux";
-import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import axios from "../../../../../Config";
+import { socketIO } from "../../../../../Socket";
 import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 import MessageTable from "./MessageTable";
 
@@ -24,11 +24,7 @@ const Message = () => {
   const token = localStorage.token;
 
   //socket implement
-  let socket = io("http://167.99.205.107:10000");
-
-  socket.on("connect", () => {
-    console.log("Connected");
-  });
+  let socket = socketIO;
 
   const data = {
     uid: userInfo._id,

@@ -25,3 +25,16 @@ body {
 h1 {
   font-family: clash-display-bold;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fb7c29;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ec9d69d8;
+}

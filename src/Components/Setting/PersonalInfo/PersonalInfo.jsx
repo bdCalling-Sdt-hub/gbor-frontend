@@ -86,6 +86,7 @@ const PersonalInfo = () => {
       .then((res) => {
         if (res.data.status === 200) {
           Swal.fire("Good!", res.data?.message, "success");
+          console.log("lkjsdfsdlkg", res.data);
           localStorage.setItem("yourInfo", JSON.stringify(res.data.data));
           setProfileEdit(false);
         }

@@ -3,19 +3,22 @@ import axios from "../../../Config";
 
 const LoginUserData = () => {
   const token = localStorage.token;
-  const [identity, setIdentity] = useState();
+  const [identity, setIdentity] = useState(null);
 
   useEffect(() => {
     axios
-      .get("api/auth/loggeduser", {
+      .get("/api/auth/loggeduser", {
         headers: {
           "Content-type": "application",
           authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setIdentity(res.data.data?.identity))
+      .then((res) => {
+        setIdentity(res.data.data?.identity);
+        console.log(res.data);
+      })
       .catch((err) => console.log(err));
-  });
+  }, []);
   return identity;
 };
 
