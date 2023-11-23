@@ -25,7 +25,6 @@ const Signin = () => {
       });
     }
     if (isSuccess === true) {
-      console.log("token", token);
       localStorage.setItem("yourInfo", JSON.stringify(userData));
       localStorage.setItem("token", token);
 

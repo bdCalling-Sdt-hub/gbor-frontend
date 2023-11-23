@@ -9,8 +9,6 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
 
   const { socialLink } = data.action;
 
-  console.log(data);
-
   const token = localStorage.token;
   const initialFormValues = {
     email: data.action?.email,
@@ -45,7 +43,11 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
           )
           .then((res) => {
             if (res.data.status === 200) {
-              Swal.fire("Opps!", "Creator deleted successfully", "success");
+              Swal.fire(
+                "Deletion successful",
+                "The user has been removed.",
+                "success"
+              );
               setIsDrawerVisible(false);
               setReload((prev) => prev + 1);
             }

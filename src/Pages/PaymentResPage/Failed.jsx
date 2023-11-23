@@ -7,7 +7,11 @@ const Failed = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("paymentInfo");
+    if (localStorage.removeItem("paymentInfo")) {
+      localStorage.removeItem("paymentInfo");
+    } else {
+      navigate("/");
+    }
   }, []);
 
   return (

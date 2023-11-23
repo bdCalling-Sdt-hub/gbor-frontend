@@ -22,7 +22,11 @@ const CreatorRequestCard = ({ data, setReload }) => {
       )
       .then((res) => {
         if (res.data.status === 200) {
-          Swal.fire("😎", res.data.message, "success");
+          Swal.fire(
+            "Approval successful",
+            `${fName + " " + lName} request has been approved`,
+            "success"
+          );
           setReload((p) => p + 1);
         }
       })
@@ -43,7 +47,11 @@ const CreatorRequestCard = ({ data, setReload }) => {
       )
       .then((res) => {
         if (res.data.status === 200) {
-          Swal.fire("😒", res.data.message, "success");
+          Swal.fire(
+            "Cancellation successful",
+            `${fName + " " + lName} request has been canceled.`,
+            "success"
+          );
           setReload((p) => p + 1);
         }
       })

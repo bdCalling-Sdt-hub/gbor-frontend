@@ -15,7 +15,6 @@ const LoginUserData = () => {
       })
       .then((res) => {
         setIdentity(res.data.data?.identity);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);

@@ -86,3 +86,19 @@ input[type="checkbox"]:checked + label::before {
 :where(.css-dev-only-do-not-override-17a39f8).ant-spin .ant-spin-dot-item {
   background-color: #fb7c29;
 }
+
+.btn-lg {
+  width: 120px;
+}
+
+.ant-btn-primary {
+  background-color: #fb7c29 !important;
+}
+
+.ant-slider {
+}
+
+.ant-slider-track {
+  color: #fb7c29 !important;
+  background-color: #fb7c29 !important;
+}

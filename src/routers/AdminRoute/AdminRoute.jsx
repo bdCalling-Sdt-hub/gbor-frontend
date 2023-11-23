@@ -2,7 +2,6 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const AdminRoute = ({ children }) => {
-  console.log("hit admin");
   const user = JSON.parse(localStorage.getItem("yourInfo"));
 
   if (

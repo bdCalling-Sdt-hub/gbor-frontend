@@ -5,7 +5,7 @@ export const RoleContext = createContext();
 
 const RoleProvider = ({ children }) => {
   const allContext = LoginUserData();
-  console.log(allContext);
+
   return (
     <RoleContext.Provider value={{ identity: allContext }}>
       {children}

@@ -39,7 +39,7 @@ const PersonalInfo = () => {
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    setImg(newFileList[0].originFileObj);
+    setImg(newFileList[0]?.originFileObj);
   };
 
   const initialFormValues = {
@@ -86,13 +86,12 @@ const PersonalInfo = () => {
       .then((res) => {
         if (res.data.status === 200) {
           Swal.fire("Good!", res.data?.message, "success");
-          console.log("lkjsdfsdlkg", res.data);
+
           localStorage.setItem("yourInfo", JSON.stringify(res.data.data));
           setProfileEdit(false);
         }
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire("😒", err.response.data.message, "error");
       });
   };
@@ -252,7 +251,12 @@ const PersonalInfo = () => {
               }}
             >
               <div>
-                <ImgCrop rotationSlider style={{ width: "100%" }}>
+                <ImgCrop
+                  rotationSlider
+                  modalOk="Save"
+                  modalCancel="Cancel"
+                  style={{ width: "100%", color: "red" }}
+                >
                   <Upload
                     listType="picture-card"
                     fileList={fileList}

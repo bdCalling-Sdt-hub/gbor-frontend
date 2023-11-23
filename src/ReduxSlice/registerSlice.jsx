@@ -23,8 +23,6 @@ export const Register = createAsyncThunk(
         error.message ||
         error.toString();
 
-      console.log(error);
-
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -46,7 +44,6 @@ export const registerSlice = createSlice({
       state.isLoading = true;
     },
     [Register.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
