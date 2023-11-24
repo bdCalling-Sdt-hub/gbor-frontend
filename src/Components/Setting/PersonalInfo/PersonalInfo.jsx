@@ -20,6 +20,7 @@ const PersonalInfo = () => {
     uploadId,
     website,
     socialLink,
+    _id,
   } = userInfo;
   const [img, setImg] = useState();
   const [fileList, setFileList] = useState([
@@ -120,22 +121,21 @@ const PersonalInfo = () => {
                 <p>@{userName}</p>
 
                 <div className="mt-2">
-                  {userInfo.website && (
-                    <div className="flex items-center">
-                      <input
-                        type="text"
-                        ref={inputRef}
-                        className="border border-orange-500 text-gray-500 rounded py-2 outline-none px-2 w-56"
-                        value={website}
-                      />
-                      <button
-                        className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center duration-2 hover:bg-red-500"
-                        onClick={handleCopyClick}
-                      >
-                        <LuCopy fontSize={20} />
-                      </button>
-                    </div>
-                  )}
+                  <div className="flex items-center">
+                    <input
+                      type="text"
+                      ref={inputRef}
+                      className="border border-orange-500 text-gray-500 rounded py-2 outline-none px-2 w-56"
+                      value={`http://192.168.10.16:3000/our-creators/${_id}`}
+                    />
+                    <button
+                      className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center duration-2 hover:bg-red-500"
+                      onClick={handleCopyClick}
+                    >
+                      <LuCopy fontSize={20} />
+                    </button>
+                  </div>
+
                   {userInfo.socialLink && (
                     <>
                       <p className="text-[16px] my-3">View public profile</p>
@@ -318,7 +318,7 @@ const PersonalInfo = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col span={24}>
                 <Form.Item
                   name="website"
@@ -331,7 +331,7 @@ const PersonalInfo = () => {
                   />
                 </Form.Item>
               </Col>
-            </Row>
+            </Row> */}
             <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
                 <Form.Item

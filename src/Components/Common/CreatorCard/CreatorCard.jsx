@@ -4,8 +4,16 @@ import { useNavigate } from "react-router-dom";
 import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
-  const { _id, fName, lName, uploadId, website, socialLink, total_amount } =
-    data;
+  const {
+    _id,
+    fName,
+    lName,
+    userName,
+    uploadId,
+    website,
+    socialLink,
+    total_amount,
+  } = data;
   const navigate = useNavigate();
 
   const handleContentCreator = (id) => {
@@ -69,7 +77,7 @@ const CreatorCard = ({ data }) => {
         </div>
       </div>
       <div className="my-5">
-        <h2 className="font-bold text-lg">{fName + " " + lName}</h2>
+        <h2 className="font-bold text-lg">{userName}</h2>
         <p className="font-medium">
           Gbor Received: <span className="font-normal">{total_amount}</span>
         </p>

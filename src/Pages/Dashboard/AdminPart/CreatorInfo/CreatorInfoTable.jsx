@@ -27,8 +27,8 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
   const data = creatorsData.map((item) => {
     return {
       creatorId: item._id,
-      name: item.fName + " " + item.lName,
-      webLink: item.website,
+      name: item.userName,
+      webLink: `http://192.168.10.16:3000/our-creators/${item._id}`,
       action: item,
     };
   });

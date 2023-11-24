@@ -20,7 +20,7 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
           src={creator.uploadId}
         />
       ),
-      username: creator.fName + " " + creator.lName,
+      username: creator.userName,
       creatorId: (
         <p className="text-gray-400">
           Creator ID: <span className="text-black">{creator._id}</span>
@@ -33,7 +33,7 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
   const handleMessage = (e) => {
     let socket = socketIO;
 
-    const name = e.message.fName + " " + e.message.lName;
+    const name = e.message?.userName;
 
     const chatInfo = {
       participants: [e.message._id, userInfo._id],

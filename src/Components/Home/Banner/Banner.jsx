@@ -18,7 +18,6 @@ const Banner = () => {
   const { banners } = useSelector((state) => state.banners);
 
   const contentStyle = {
-    height: "600px",
     width: "100%",
     borderRadius: "15px",
   };
@@ -65,8 +64,7 @@ const Banner = () => {
                 {banners.map((image, index) => (
                   <SwiperSlide key={index}>
                     <img
-                      className="mx-auto object-cover"
-                      style={{ width: "100%", height: "100%" }}
+                      className="mx-auto object-cover w-full h-[250px] md:h-[600px] lg:h-[600px]"
                       src={image.bannerImage}
                       alt="banner image"
                     />

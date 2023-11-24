@@ -82,9 +82,7 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
               alt="creator"
             />
             <div>
-              <h2 className="text-xl font-medium">
-                {data.action?.fName + " " + data.action?.lName}
-              </h2>
+              <h2 className="text-xl font-medium">{data.action?.userName}</h2>
               <p>Gbor Received: {data.action?.total_amount}</p>
               <div className="flex gap-2 mt-2">
                 {socialLink?.youtube && (
