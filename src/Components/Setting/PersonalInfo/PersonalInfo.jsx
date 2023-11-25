@@ -18,7 +18,7 @@ const PersonalInfo = () => {
     email,
     dateOfBirth,
     uploadId,
-    website,
+    role,
     socialLink,
     _id,
   } = userInfo;
@@ -38,6 +38,8 @@ const PersonalInfo = () => {
     document.execCommand("copy");
   };
 
+  const creatorNameDisable = role === "c_creator" ? true : false;
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     setImg(newFileList[0]?.originFileObj);
@@ -49,7 +51,7 @@ const PersonalInfo = () => {
     lName: lName,
     email: email,
     dateOfBirth: dateOfBirth ? moment(dateOfBirth, "YYYY-MM-DD") : null,
-    website: website,
+    username: userName,
     tiktok: socialLink?.tiktok,
     youtube: socialLink?.youtube,
     facebook: socialLink?.facebook,
@@ -112,14 +114,17 @@ const PersonalInfo = () => {
           >
             <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
               <Image
-                width={150}
-                style={{ borderRadius: "6px" }}
+                style={{
+                  width: "180px",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "6px",
+                }}
                 src={uploadId}
               />
               <div>
                 <h2 className="text-xl">{fName + " " + lName}</h2>
                 <p>@{userName}</p>
-
                 <div className="mt-2">
                   <div className="flex items-center">
                     <input
@@ -284,7 +289,10 @@ const PersonalInfo = () => {
                   labelCol={{ span: 24 }}
                   style={{ marginBottom: "15px" }}
                 >
-                  <Input style={{ height: "45px" }} />
+                  <Input
+                    style={{ height: "45px" }}
+                    disabled={creatorNameDisable}
+                  />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -294,7 +302,10 @@ const PersonalInfo = () => {
                   labelCol={{ span: 24 }}
                   style={{ marginBottom: "15px" }}
                 >
-                  <Input style={{ height: "45px" }} />
+                  <Input
+                    style={{ height: "45px" }}
+                    disabled={creatorNameDisable}
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -318,20 +329,21 @@ const PersonalInfo = () => {
                 </Form.Item>
               </Col>
             </Row>
-            {/* <Row>
+            <Row>
               <Col span={24}>
                 <Form.Item
-                  name="website"
-                  label="Website"
+                  name="username"
+                  label="Username"
                   labelCol={{ span: 24 }}
                 >
                   <Input
                     style={{ height: "45px" }}
-                    placeholder="Website link"
+                    placeholder="Username"
+                    disabled
                   />
                 </Form.Item>
               </Col>
-            </Row> */}
+            </Row>
             <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
                 <Form.Item

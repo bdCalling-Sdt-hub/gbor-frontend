@@ -2,10 +2,11 @@ import { Button, Form, Input, Modal, Spin, Switch, Typography } from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import OTPInput from "react-otp-input";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
-
+import { notifyOnOff } from "../../../ReduxSlice/notificationOnOffSlice";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
@@ -17,6 +18,17 @@ const Setting = () => {
   const { identity, userInfo } = JSON.parse(localStorage.yourInfo);
   const [err, setErr] = useState("");
   const [forgetBtnLoader, setForgetBtnLoader] = useState(false);
+  const dispatch = useDispatch();
+  const notifyOnOffValue = useSelector(
+    (state) => state.NotifyOnOff?.notifyShow
+  );
+
+  const defaultNotificationValue =
+    notifyOnOffValue === "true"
+      ? true
+      : notifyOnOffValue === "false"
+      ? false
+      : "" || notifyOnOffValue;
 
   const style = {
     btn: {
@@ -105,7 +117,7 @@ const Setting = () => {
   };
 
   const handleNotification = (e) => {
-    console.log(e);
+    dispatch(notifyOnOff({ value: e }));
   };
 
   const handleChangePassword = (values) => {
@@ -286,7 +298,7 @@ const Setting = () => {
             checkedChildren="ON"
             unCheckedChildren="OFF"
             style={{ background: "#FB7C29" }}
-            defaultChecked
+            defaultChecked={defaultNotificationValue}
           />
         </div>
 

@@ -100,10 +100,11 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
           <div>
             <Typography>
               <Title level={5} style={{ color: "white" }} strong>
-                Creator ID #012
+                Creator ID {creatorData?.action?._id}
               </Title>
               <Text style={{ color: "white" }}>
-                See all details about creator id no #012
+                See all details about creator{" "}
+                <span className="text-lg">{creatorData?.action?.userName}</span>
               </Text>
             </Typography>
           </div>

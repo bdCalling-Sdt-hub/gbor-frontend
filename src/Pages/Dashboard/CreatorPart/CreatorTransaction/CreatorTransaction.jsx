@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Payment } from "../../../../ReduxSlice/paymentSlice";
-import CreatorTransactionChart from "./CreatorTransactionChart";
 import CreatorTransactionTable from "./CreatorTransactionTable";
 
 const CreatorTransaction = () => {
@@ -33,16 +32,16 @@ const CreatorTransaction = () => {
 
   return (
     <div>
-      <h2
+      {/* <h2
         style={{ fontSize: "25px", marginBottom: "30px", fontWeight: "normal" }}
       >
         Transaction Ratio
       </h2>
-      <CreatorTransactionChart />
+      <CreatorTransactionChart /> */}
       <h2
         style={{
           fontSize: "25px",
-          marginTop: "50px",
+
           marginBottom: "20px",
           fontWeight: "normal",
         }}

@@ -35,7 +35,7 @@ function DashboardHome() {
       gborAmount: "",
       search: "",
       page: page,
-      limit: 2,
+      limit: 10,
       type: "dashboard",
     };
     dispatch(Payment(value));
@@ -46,7 +46,7 @@ function DashboardHome() {
       gborAmount: "",
       search: "",
       page: 1,
-      limit: 2,
+      limit: 10,
       type: "dashboard",
     };
 

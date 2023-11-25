@@ -49,6 +49,12 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [notifications, setNotifications] = useState([]);
   const [messageDot, setMessageDot] = useState();
+  const notifyOnOffValue = useSelector(
+    (state) => state.NotifyOnOff?.notifyShow
+  );
+
+  const booleanValue =
+    notifyOnOffValue === "false" ? false : Boolean(notifyOnOffValue);
 
   const logout = () => {
     Swal.fire({
@@ -538,36 +544,41 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
-              <Dropdown
-                overlay={menu}
-                placement="bottomRight"
-                arrow={{
-                  pointAtCenter: true,
-                }}
-                trigger={["click"]}
+            {booleanValue && (
+              <div
+                className={Styles.notificaton}
+                style={{ marginRight: "20px" }}
               >
-                <Button
-                  type="text"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                <Dropdown
+                  overlay={menu}
+                  placement="bottomRight"
+                  arrow={{
+                    pointAtCenter: true,
                   }}
+                  trigger={["click"]}
                 >
-                  <Badge count={commonData?.notViewed} color="#fb7c29">
-                    <IoIosNotificationsOutline
-                      className="cursor-pointer"
-                      fontSize={35}
-                      color="#fb7c29"
-                    />
-                  </Badge>
-                </Button>
-              </Dropdown>
-            </div>
+                  <Button
+                    type="text"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Badge count={commonData?.notViewed} color="#fb7c29">
+                      <IoIosNotificationsOutline
+                        className="cursor-pointer"
+                        fontSize={35}
+                        color="#fb7c29"
+                      />
+                    </Badge>
+                  </Button>
+                </Dropdown>
+              </div>
+            )}
             {!identity && (
               <div style={{ marginRight: "20px" }}>
                 <Button
