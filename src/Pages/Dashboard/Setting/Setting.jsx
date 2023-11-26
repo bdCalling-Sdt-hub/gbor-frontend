@@ -724,7 +724,10 @@ const Setting = () => {
           <div className="mt-5">
             {categoryLists.map((category) => (
               <div className="flex items-center gap-2 justify-between bg-white px-2 py-1 rounded-sm drop-shadow mb-2">
-                <p className="text-[16px]">{category.categoryName}</p>
+                <p className="text-[16px]">
+                  {category.categoryName.charAt(0).toUpperCase() +
+                    category.categoryName.slice(1)}
+                </p>
                 <div className="flex items-center gap-2">
                   <button onClick={() => handleCategoryDelete(category._id)}>
                     <RiDeleteBinLine fontSize={22} className="text-red-400" />

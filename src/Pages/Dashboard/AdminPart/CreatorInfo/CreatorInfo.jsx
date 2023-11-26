@@ -22,6 +22,9 @@ const CreatorInfo = () => {
   const dispatch = useDispatch();
   const [reload, setReload] = useState(1);
   const [searchData, setSearchData] = useState("");
+  const { categoryLists } = useSelector((state) => state.category);
+
+  console.log(categoryLists);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -317,10 +320,12 @@ const CreatorInfo = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option>Type of creator</option>
-            <option value="art">Arts and Culture</option>
-            <option value="dance">Dance</option>
-            <option value="photography">Photography</option>
-            <option value="entrepreneur">Entrepreneur</option>
+            {categoryLists.map((category) => (
+              <option className="mt-2" value={category.categoryName}>
+                {category.categoryName.charAt(0).toUpperCase() +
+                  category.categoryName.slice(1)}
+              </option>
+            ))}
           </select>
           <p className="text-red-500">{error}</p>
           <div
