@@ -80,7 +80,7 @@ const Message = () => {
   useEffect(() => {
     const data = {
       search: searchData,
-      limit: 6,
+      limit: 10,
       page: 1,
     };
     if (searchData === "") {
@@ -91,7 +91,7 @@ const Message = () => {
   const handlePagination = (page) => {
     const data = {
       search: searchData,
-      limit: 6,
+      limit: 10,
       page: page,
     };
     dispatch(ContentCreators(data));
@@ -100,7 +100,7 @@ const Message = () => {
   const handleSearch = (page) => {
     const data = {
       search: searchData,
-      limit: 6,
+      limit: 10,
       page: page,
     };
     if (searchData !== "") {

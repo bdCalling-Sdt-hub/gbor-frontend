@@ -48,7 +48,7 @@ const CreatorInfo = () => {
   const handlePagination = (page) => {
     const data = {
       search: searchData,
-      limit: 10,
+      limit: 12,
       page: page,
     };
     dispatch(ContentCreators(data));
@@ -57,7 +57,7 @@ const CreatorInfo = () => {
   const handleSearch = (page) => {
     const data = {
       search: searchData,
-      limit: 10,
+      limit: 12,
       page: page,
     };
     if (searchData !== "") {
@@ -68,7 +68,7 @@ const CreatorInfo = () => {
   useEffect(() => {
     const data = {
       search: searchData,
-      limit: 10,
+      limit: 12,
       page: 1,
     };
     if (searchData === "") {

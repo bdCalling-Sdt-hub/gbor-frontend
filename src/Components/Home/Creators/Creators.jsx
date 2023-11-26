@@ -19,13 +19,11 @@ const Creators = () => {
       limit: 4,
     };
     dispatch(ContentCreators(data));
-  }, [page]);
-
-  console.log(categoryLists);
+  }, [page, dispatch]);
 
   useEffect(() => {
     dispatch(Category());
-  }, []);
+  }, [dispatch]);
 
   let filteringData;
 
@@ -61,6 +59,7 @@ const Creators = () => {
         </button>
         {categoryLists.map((category) => (
           <button
+            key={category._id}
             onClick={() => setTitle(category.categoryName)}
             className={`${
               title === category.categoryName ? "bg-[#fb7c29] text-white" : ""

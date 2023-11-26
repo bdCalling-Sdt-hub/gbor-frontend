@@ -249,7 +249,11 @@ const BecomeCreator = () => {
                   >
                     <option>Type of creator</option>
                     {categoryLists.map((category) => (
-                      <option className="mt-2" value={category.categoryName}>
+                      <option
+                        key={category._id}
+                        className="mt-2"
+                        value={category.categoryName}
+                      >
                         {category.categoryName.charAt(0).toUpperCase() +
                           category.categoryName.slice(1)}
                       </option>

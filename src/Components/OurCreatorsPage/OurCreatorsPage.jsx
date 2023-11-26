@@ -99,6 +99,7 @@ const OurCreatorsPage = () => {
         </button>
         {categoryLists.map((category) => (
           <button
+            key={category._id}
             onClick={() => setTitle(category.categoryName)}
             className={`${
               title === category.categoryName ? "bg-[#fb7c29] text-white" : ""

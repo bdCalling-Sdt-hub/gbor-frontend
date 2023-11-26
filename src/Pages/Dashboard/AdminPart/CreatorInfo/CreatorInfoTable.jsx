@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
+  const pageSize = 12;
   const { creatorsData, pagination } = useSelector((state) => state.creators);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [creatorData, setCreatorData] = useState(null);
@@ -28,7 +28,7 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
     return {
       creatorId: item._id,
       name: item.userName,
-      webLink: `http://192.168.10.16:3000/our-creators/${item._id}`,
+      webLink: `http://mongbor.com/our-creators/${item._id}`,
       action: item,
     };
   });

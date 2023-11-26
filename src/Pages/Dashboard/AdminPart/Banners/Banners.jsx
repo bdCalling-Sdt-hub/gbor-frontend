@@ -171,7 +171,7 @@ function Banners() {
 
       <Row style={{ marginBottom: 30 }}>
         <Col lg={{ span: 24 }} style={{ display: "flex", gap: 15 }}>
-          {banners.slice(0, 4).map((item) => (
+          {banners.map((item) => (
             <div
               key={item._id}
               style={{
@@ -186,6 +186,7 @@ function Banners() {
                   width: "130px",
                   height: "130px",
                   borderRadius: "10px",
+                  objectFit: "cover",
                 }}
                 src={item.bannerImage}
               />
@@ -196,8 +197,7 @@ function Banners() {
                   left: 23,
                   color: "#fb7c29",
                   background: "#fff",
-                  opacity: 0.8,
-                  fontWeight: "bold",
+                  opacity: 0.9,
                 }}
                 onClick={() => handleBannerDelete(item._id)}
               >
