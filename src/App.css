@@ -21,10 +21,12 @@
 .ant-pagination-item-active {
   border: 0 !important;
   color: #fff !important;
+  background-color: #fb7c29 !important;
 }
 
 .ant-pagination .ant-pagination-item-active a {
   border-radius: 5px;
+  background-color: #fb7c29 !important;
 }
 
 .ant-menu-submenu-title {
