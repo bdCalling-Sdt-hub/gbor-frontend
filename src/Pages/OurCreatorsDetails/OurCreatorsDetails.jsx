@@ -37,7 +37,7 @@ const OurCreatorsDetails = () => {
     }
   }, [paymentData.amount]);
 
-  //make payment here
+  //handle payment form here
   const handlePayment = (e) => {
     e.preventDefault();
 
