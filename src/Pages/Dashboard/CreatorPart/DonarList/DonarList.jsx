@@ -23,7 +23,7 @@ const { Title, Text } = Typography;
 
 const DonarList = () => {
   const [donationAmount, setDonationAmount] = useState("");
-  const pageSize = 1;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +34,7 @@ const DonarList = () => {
   const handleAdjustSearch = () => {
     const data = {
       page: 1,
-      limit: 1,
+      limit: 10,
       search: searchData,
       gborAmount: donationAmount,
     };
@@ -55,7 +55,7 @@ const DonarList = () => {
   const handleSearch = (page) => {
     const data = {
       page: page,
-      limit: 1,
+      limit: 10,
       search: searchData,
       gborAmount: donationAmount,
     };
@@ -67,7 +67,7 @@ const DonarList = () => {
   const handlePagination = (page) => {
     const data = {
       page: page,
-      limit: 1,
+      limit: 10,
       search: searchData,
       gborAmount: donationAmount,
     };
@@ -79,7 +79,7 @@ const DonarList = () => {
   useEffect(() => {
     const data = {
       page: 1,
-      limit: 1,
+      limit: 10,
       search: searchData,
       gborAmount: donationAmount,
     };

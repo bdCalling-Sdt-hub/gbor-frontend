@@ -12,9 +12,10 @@ const EarnTodayTable = ({
   setReload,
   pagination,
   handlePagination,
+  handleSearch,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 1;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [earningData, setEarningData] = useState(null);
 
@@ -31,7 +32,7 @@ const EarnTodayTable = ({
   const data = incomes.map((item) => {
     return {
       date: moment(item.createdAt).format("llll"),
-      creatorName: item.creator?.fName + " " + item.creator?.lName,
+      creatorName: item.creator?.userName,
       donarName: item.donarName,
       amount: item.amount,
       action: item,
@@ -91,6 +92,7 @@ const EarnTodayTable = ({
   const handlePageChange = (page) => {
     setCurrentPage(page);
     handlePagination(page);
+    handleSearch(page);
   };
 
   return (

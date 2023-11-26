@@ -11,29 +11,24 @@
   font-weight: bold;
 }
 
-:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > td {
+.ant-table-wrapper .ant-table-thead > tr > th,
+.ant-table-wrapper .ant-table-thead > tr > td {
   background: #fb7c29;
   color: white;
   border: 0;
 }
-:where(.css-dev-only-do-not-override-17a39f8).ant-pagination
-  .ant-pagination-item-active:hover {
-  border-color: #fb7c29;
+
+.ant-pagination-item-active {
+  border: 0 !important;
+  color: #fff !important;
 }
 
-:where(.css-dev-only-do-not-override-17a39f8).ant-pagination
-  .ant-pagination-item-active {
-  font-weight: 600;
-  background-color: #ffffff;
-  border-color: #fb7c29;
+.ant-pagination .ant-pagination-item-active a {
   border-radius: 5px;
+}
+
+.ant-menu-submenu-title {
+  color: white !important;
 }
 
 .ant-menu-submenu-title {
@@ -90,4 +85,20 @@ input[type="checkbox"]:checked + label::before {
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-spin .ant-spin-dot-item {
   background-color: #fb7c29;
+}
+
+.btn-lg {
+  width: 120px;
+}
+
+.ant-btn-primary {
+  background-color: #fb7c29 !important;
+}
+
+.ant-slider {
+}
+
+.ant-slider-track {
+  color: #fb7c29 !important;
+  background-color: #fb7c29 !important;
 }

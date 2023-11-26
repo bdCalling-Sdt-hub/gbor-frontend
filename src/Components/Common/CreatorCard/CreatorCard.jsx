@@ -4,8 +4,16 @@ import { useNavigate } from "react-router-dom";
 import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
-  const { _id, fName, lName, uploadId, website, socialLink, total_amount } =
-    data;
+  const {
+    _id,
+    fName,
+    lName,
+    userName,
+    uploadId,
+    website,
+    socialLink,
+    total_amount,
+  } = data;
   const navigate = useNavigate();
 
   const handleContentCreator = (id) => {
@@ -26,9 +34,9 @@ const CreatorCard = ({ data }) => {
         </div>
 
         <div className="flex gap-2 icons">
-          {socialLink.youtube && (
+          {socialLink?.youtube && (
             <a
-              href={`https://www.youtube.com/@${socialLink.youtube}`}
+              href={`https://www.youtube.com/@${socialLink?.youtube}`}
               target="_blank"
             >
               <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -36,9 +44,9 @@ const CreatorCard = ({ data }) => {
               </div>
             </a>
           )}
-          {socialLink.instagram && (
+          {socialLink?.instagram && (
             <a
-              href={`https://www.instagram.com/${socialLink.instagram}`}
+              href={`https://www.instagram.com/${socialLink?.instagram}`}
               target="_blank"
             >
               <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -46,9 +54,9 @@ const CreatorCard = ({ data }) => {
               </div>
             </a>
           )}
-          {socialLink.tiktok && (
+          {socialLink?.tiktok && (
             <a
-              href={`https://www.tiktok.com/@${socialLink.tiktok}`}
+              href={`https://www.tiktok.com/@${socialLink?.tiktok}`}
               target="_blank"
             >
               <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -56,9 +64,9 @@ const CreatorCard = ({ data }) => {
               </div>
             </a>
           )}
-          {socialLink.facebook && (
+          {socialLink?.facebook && (
             <a
-              href={`https://www.facebook.com/${socialLink.facebook}`}
+              href={`https://www.facebook.com/${socialLink?.facebook}`}
               target="_blank"
             >
               <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -69,7 +77,7 @@ const CreatorCard = ({ data }) => {
         </div>
       </div>
       <div className="my-5">
-        <h2 className="font-bold text-lg">{fName + " " + lName}</h2>
+        <h2 className="font-bold text-lg">{userName}</h2>
         <p className="font-medium">
           Gbor Received: <span className="font-normal">{total_amount}</span>
         </p>

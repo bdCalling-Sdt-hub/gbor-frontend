@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { RiMessage2Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
+import { socketIO } from "../../../../../Socket";
 
 const MessageTable = ({ handlePagination, handleSearch }) => {
   const { creatorsData, pagination } = useSelector((state) => state.creators);
   const navigate = useNavigate();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
-  const pageSize = 6;
+  const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   const data = creatorsData?.map((creator) => {
@@ -20,7 +20,7 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
           src={creator.uploadId}
         />
       ),
-      username: creator.fName + " " + creator.lName,
+      username: creator.userName,
       creatorId: (
         <p className="text-gray-400">
           Creator ID: <span className="text-black">{creator._id}</span>
@@ -31,13 +31,9 @@ const MessageTable = ({ handlePagination, handleSearch }) => {
   });
 
   const handleMessage = (e) => {
-    let socket = io("http://167.99.205.107:10000");
+    let socket = socketIO;
 
-    socket.on("connect", () => {
-      console.log("Connected");
-    });
-
-    const name = e.message.fName + " " + e.message.lName;
+    const name = e.message?.userName;
 
     const chatInfo = {
       participants: [e.message._id, userInfo._id],

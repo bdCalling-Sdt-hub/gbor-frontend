@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 const TransactionTable = ({ incomes, handlePagination, pagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
 
@@ -25,7 +25,7 @@ const TransactionTable = ({ incomes, handlePagination, pagination }) => {
 
   const data = incomes.map((item) => {
     return {
-      creatorName: item.creator?.fName + " " + item.creator?.lName,
+      creatorName: item.creator?.userName,
       donarName: item.donarName,
       date: moment(item.createdAt).format("llll"),
       received: item.amount,

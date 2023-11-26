@@ -1,11 +1,24 @@
-import { Button, Form, Input, Modal, Spin, Switch, Typography } from "antd";
-import React, { useState } from "react";
-import { LiaAngleRightSolid } from "react-icons/lia";
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  Space,
+  Spin,
+  Switch,
+  Typography,
+} from "antd";
+import React, { useEffect, useState } from "react";
+import { CiCirclePlus } from "react-icons/ci";
+import { LiaAngleRightSolid, LiaEditSolid } from "react-icons/lia";
+import { RiDeleteBinLine } from "react-icons/ri";
 import OTPInput from "react-otp-input";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
-
+import { Category } from "../../../ReduxSlice/categorySlice";
+import { notifyOnOff } from "../../../ReduxSlice/notificationOnOffSlice";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
@@ -17,6 +30,24 @@ const Setting = () => {
   const { identity, userInfo } = JSON.parse(localStorage.yourInfo);
   const [err, setErr] = useState("");
   const [forgetBtnLoader, setForgetBtnLoader] = useState(false);
+  const dispatch = useDispatch();
+  const notifyOnOffValue = useSelector(
+    (state) => state.NotifyOnOff?.notifyShow
+  );
+  const [categoryModelOpen, setCategoryModelOpen] = useState(false);
+  const [categoryUpdateModelOpen, setCategoryUpdateModelOpen] = useState(false);
+  const { categoryLists } = useSelector((state) => state.category);
+  const [writeCategory, setWriteCategory] = useState("");
+  const [categoryUpdateValue, setCategoryUpdateValue] = useState("");
+  const [reload, setReload] = useState(1);
+  const [updateCategoryId, setUpdateCategoryId] = useState("");
+
+  const defaultNotificationValue =
+    notifyOnOffValue === "true"
+      ? true
+      : notifyOnOffValue === "false"
+      ? false
+      : "" || notifyOnOffValue;
 
   const style = {
     btn: {
@@ -66,16 +97,21 @@ const Setting = () => {
     },
     {
       key: "3",
+      title: "Category Options",
+      link: "category-options",
+    },
+    {
+      key: "4",
       title: "Privacy Policy",
       link: "privacy-policy",
     },
     {
-      key: "4",
+      key: "5",
       title: "Terms and Condition",
       link: "terms-condition",
     },
     {
-      key: "5",
+      key: "6",
       title: "About Us",
       link: "about-us",
     },
@@ -94,20 +130,78 @@ const Setting = () => {
     },
   ];
 
+  const token = localStorage.token;
+
   const handleNavigate = (value) => {
     if (value === "change-password") {
       setOpenChangePassModel(true);
+    } else if (value === "category-options") {
+      setCategoryModelOpen(true);
     } else {
       navigate(`/dashboard/setting/${value}`);
     }
   };
 
+  useEffect(() => {
+    dispatch(Category());
+  }, [reload]);
+
   const handleNotification = (e) => {
-    console.log(e);
+    dispatch(notifyOnOff({ value: e }));
   };
 
   const handleChangePassword = (values) => {
-    console.log("Received values of form: ", values);
+    const { currentPassword, password, confirmPassword } = values;
+
+    if (password.length < 8) {
+      setErr("Password must be 8 character");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErr("Please enter the same password!");
+      return;
+    }
+    if (!password || !confirmPassword) {
+      setErr("Please give your changes password");
+      return;
+    }
+    if (!/(?=.*[!@#$&*])/.test(password)) {
+      setErr("Ensure string has one special case letter.");
+      return;
+    }
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setErr("Ensure string has one uppercase letters.");
+      return;
+    }
+    if (!/(?=.*[a-z].*[a-z])/.test(password)) {
+      setErr("Ensure string has two lowercase letters.");
+      return;
+    }
+    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
+      setErr("Ensure string has two digits");
+      return;
+    }
+
+    const value = {
+      currentPass: currentPassword,
+      password: password,
+      confirmPass: confirmPassword,
+    };
+
+    axios
+      .post("api/auth/changeexistingpassword", value, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          Swal.fire("✅", `Updated password successfully`, "success");
+          setOpenChangePassModel(false);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
 
   //forget password button
@@ -199,6 +293,70 @@ const Setting = () => {
       .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
 
+  //handle category
+  const handleCreateCategory = () => {
+    if (!writeCategory) {
+      setErr("Empty category is not add");
+      return;
+    }
+    const value = {
+      categoryName: writeCategory,
+    };
+    axios
+      .post("api/category", value, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setReload((p) => p + 1);
+          setWriteCategory("");
+          setErr("");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleCategoryDelete = (id) => {
+    axios
+      .delete(`api/category/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setReload((p) => p + 1);
+          setWriteCategory("");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleSaveUpdateValue = () => {
+    const value = {
+      categoryName: categoryUpdateValue,
+    };
+    axios
+      .patch(`api/category/${updateCategoryId}`, value, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setReload((p) => p + 1);
+          setCategoryUpdateModelOpen(false);
+          setErr("");
+        }
+      })
+      .catch((err) => setErr(err.response?.data?.message));
+  };
+
   return (
     <div>
       <h2 className="text-2xl">Settings</h2>
@@ -234,7 +392,7 @@ const Setting = () => {
             checkedChildren="ON"
             unCheckedChildren="OFF"
             style={{ background: "#FB7C29" }}
-            defaultChecked
+            defaultChecked={defaultNotificationValue}
           />
         </div>
 
@@ -275,7 +433,7 @@ const Setting = () => {
             </Form.Item>
 
             <Form.Item
-              name="newPassword"
+              name="password"
               label="New password"
               style={{ marginBottom: "5px" }}
               rules={[
@@ -293,7 +451,7 @@ const Setting = () => {
             </Form.Item>
 
             <Form.Item
-              name="password"
+              name="confirmPassword"
               label="Confirm password"
               style={{ marginBottom: "0px" }}
               rules={[
@@ -309,6 +467,9 @@ const Setting = () => {
                 style={style.input}
               />
             </Form.Item>
+
+            {/* showing error */}
+            <label style={{ color: "red" }}>{err}</label>
 
             <div
               style={{
@@ -526,6 +687,97 @@ const Setting = () => {
               </Button>
             </Form.Item>
           </Form>
+        </Modal>
+
+        {/* category*/}
+        <Modal
+          title={<p style={{ marginBottom: "30px" }}>Add Category</p>}
+          centered
+          open={categoryModelOpen}
+          onCancel={() => setCategoryModelOpen(false)}
+          width={500}
+          footer={[]}
+        >
+          <Space direction="horizontal">
+            <Input
+              onChange={(e) => setWriteCategory(e.target.value)}
+              style={{ width: "390px", height: "40px" }}
+              placeholder="add category"
+              value={writeCategory}
+            />
+            <Button
+              className="login-form-button bg-[#fb7c29] hover:bg-red-500"
+              block
+              onClick={handleCreateCategory}
+              style={{
+                height: "40px",
+                fontWeight: "400px",
+                border: 0,
+                color: "#fff",
+              }}
+            >
+              <CiCirclePlus fontSize={25} />
+            </Button>
+          </Space>
+          {err && <p className="text-red-500 mt-2">{err}</p>}
+
+          <div className="mt-5">
+            {categoryLists.map((category) => (
+              <div className="flex items-center gap-2 justify-between bg-white px-2 py-1 rounded-sm drop-shadow mb-2">
+                <p className="text-[16px]">
+                  {category.categoryName.charAt(0).toUpperCase() +
+                    category.categoryName.slice(1)}
+                </p>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => handleCategoryDelete(category._id)}>
+                    <RiDeleteBinLine fontSize={22} className="text-red-400" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCategoryUpdateModelOpen(true);
+                      setCategoryUpdateValue(category.categoryName);
+                      setUpdateCategoryId(category._id);
+                    }}
+                  >
+                    <LiaEditSolid fontSize={22} className="text-orange-500" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Modal>
+
+        {/* category update*/}
+        <Modal
+          title={<p style={{ marginBottom: "30px" }}>Update Category</p>}
+          centered
+          open={categoryUpdateModelOpen}
+          onCancel={() => setCategoryUpdateModelOpen(false)}
+          width={500}
+          footer={[]}
+        >
+          <Space direction="horizontal">
+            <Input
+              style={{ width: "390px", height: "40px" }}
+              placeholder="update category"
+              value={categoryUpdateValue}
+              onChange={(e) => setCategoryUpdateValue(e.target.value)}
+            />
+            <Button
+              className="login-form-button bg-[#fb7c29] hover:bg-red-500"
+              block
+              style={{
+                height: "40px",
+                fontWeight: "400px",
+                border: 0,
+                color: "#fff",
+              }}
+              onClick={handleSaveUpdateValue}
+            >
+              Save
+            </Button>
+          </Space>
+          {err && <p className="text-red-500 mt-2">{err}</p>}
         </Modal>
       </div>
     </div>

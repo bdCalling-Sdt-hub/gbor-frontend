@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import React, { useState } from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
@@ -8,17 +8,50 @@ import axios from "../../../../Config";
 const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
   const [edit, setEdit] = useState(false);
 
-  const { socialLink } = data.action;
+  const { socialLink, _id } = data.action;
 
   const token = localStorage.token;
+
   const initialFormValues = {
     email: data.action?.email,
     website: data?.webLink,
-    password: data?.password,
+    username: data?.action?.userName,
+    tiktok: socialLink?.tiktok,
+    youtube: socialLink?.youtube,
+    facebook: socialLink?.facebook,
+    instagram: socialLink?.instagram,
   };
 
-  const handleUpdateCreator = (value) => {
-    console.log(value);
+  const handleUpdateCreator = (values) => {
+    const value = {
+      userName: values.username,
+      socialLink: {
+        youtube: values.youtube,
+        tiktok: values.tiktok,
+        facebook: values.facebook,
+        instagram: values.instagram,
+      },
+    };
+
+    axios
+      .put(`/api/auth/profile-update-by-admin/${_id}`, value, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire(
+            "Update successful",
+            "The creator has been updated.",
+            "success"
+          );
+          setIsDrawerVisible(false);
+          setReload((prev) => prev + 1);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleDeleteCreator = (id) => {
@@ -44,7 +77,11 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
           )
           .then((res) => {
             if (res.data.status === 200) {
-              Swal.fire("Opps!", "Creator deleted successfully", "success");
+              Swal.fire(
+                "Deletion successful",
+                "The user has been removed.",
+                "success"
+              );
               setIsDrawerVisible(false);
               setReload((prev) => prev + 1);
             }
@@ -74,20 +111,23 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
               }}
             >
               <img
-                style={{ width: "150px", height: "130px" }}
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  borderRadius: "6px",
+                }}
                 className="rounded"
                 src={data.action?.uploadId}
                 alt="creator"
               />
               <div>
-                <h2 className="text-xl font-medium">
-                  {data.action?.fName + " " + data.action?.lName}
-                </h2>
-                <p>Gbor Received: 14</p>
+                <h2 className="text-xl font-medium">{data.action?.userName}</h2>
+                <p>Gbor Received: {data.action?.total_amount}</p>
                 <div className="flex gap-2 mt-2">
-                  {socialLink.youtube && (
+                  {socialLink?.youtube && (
                     <a
-                      href={`https://www.youtube.com/@${socialLink.youtube}`}
+                      href={`https://www.youtube.com/@${socialLink?.youtube}`}
                       target="_blank"
                     >
                       <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -95,9 +135,9 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
                       </div>
                     </a>
                   )}
-                  {socialLink.instagram && (
+                  {socialLink?.instagram && (
                     <a
-                      href={`https://www.instagram.com/${socialLink.instagram}`}
+                      href={`https://www.instagram.com/${socialLink?.instagram}`}
                       target="_blank"
                     >
                       <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -105,9 +145,9 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
                       </div>
                     </a>
                   )}
-                  {socialLink.tiktok && (
+                  {socialLink?.tiktok && (
                     <a
-                      href={`https://www.tiktok.com/@${socialLink.tiktok}`}
+                      href={`https://www.tiktok.com/@${socialLink?.tiktok}`}
                       target="_blank"
                     >
                       <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -115,9 +155,9 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
                       </div>
                     </a>
                   )}
-                  {socialLink.facebook && (
+                  {socialLink?.facebook && (
                     <a
-                      href={`https://www.facebook.com/${socialLink.facebook}`}
+                      href={`https://www.facebook.com/${socialLink?.facebook}`}
                       target="_blank"
                     >
                       <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
@@ -156,9 +196,6 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
             >
               <Input className="h-12" readOnly />
             </Form.Item>
-            <Form.Item label="Password" name="password">
-              <Input.Password className="h-12" readOnly />
-            </Form.Item>
           </Form>
 
           <div
@@ -180,13 +217,14 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
             <button
               className=" bg-[#FB7C29] text-white px-6 py-2 rounded hover:bg-orange-400 duration-200"
               style={{ height: 50, width: "270px" }}
+              onClick={() => setIsDrawerVisible(false)}
             >
-              Print
+              Close
             </button>
           </div>
         </div>
       ) : (
-        <>
+        <div>
           <div
             style={{
               display: "flex",
@@ -204,60 +242,39 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
               }}
             >
               <img
-                style={{ width: "150px", height: "130px" }}
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  borderRadius: "6px",
+                }}
                 className="rounded"
                 src={data.action?.uploadId}
                 alt="creator"
               />
               <div>
-                <h2 className="text-xl font-medium">
-                  {data.action?.fName + " " + data.action?.lName}
-                </h2>
-                <p>Gbor Received: 14</p>
-                <div className="flex gap-2 mt-5">
-                  <a href="https://www.youtube.com/" target="_blank">
-                    <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaYoutube fontSize={28} color="#ff0000" />
-                    </div>
-                  </a>
-                  <a href="https://www.instagram.com/" target="_blank">
-                    <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaInstagram fontSize={28} color="#ff3725" />
-                    </div>
-                  </a>
-                  <a href="https://www.tiktok.com/" target="_blank">
-                    <div className="bg-black p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaTiktok fontSize={28} color="#fff" />
-                    </div>
-                  </a>
-                  <a href="https://www.facebook.com/" target="_blank">
-                    <div className="bg-white p-2 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer drop-shadow">
-                      <FaFacebookF fontSize={28} color="#1877f2" />
-                    </div>
-                  </a>
-                </div>
+                <p className="text-xl">
+                  Gbor Received: {data.action?.total_amount}
+                </p>
               </div>
             </div>
           </div>
 
           <Form
             layout="vertical"
-            style={{ marginTop: "10px" }}
             initialValues={initialFormValues}
+            style={{ marginTop: "10px" }}
             onFinish={handleUpdateCreator}
           >
             <Form.Item
-              label="Email"
+              label="Username"
               style={{ marginBottom: 5 }}
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your username!",
-                },
-              ]}
+              name="username"
             >
               <Input className="h-12" />
+            </Form.Item>
+            <Form.Item label="Email" style={{ marginBottom: 5 }} name="email">
+              <Input className="h-12" disabled />
             </Form.Item>
 
             <Form.Item
@@ -265,36 +282,69 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
               name="website"
               style={{ marginBottom: 5 }}
             >
-              <Input className="h-12" />
+              <Input className="h-12" disabled />
             </Form.Item>
-            <Form.Item label="Password" name="password">
-              <Input.Password className="h-12" />
-            </Form.Item>
-
-            <Form.Item>
-              <button className="text-lg">Change password</button>
-            </Form.Item>
-            <Form.Item
+            <Row gutter={15} style={{ marginTop: "20px" }}>
+              <Col span={12}>
+                <Form.Item
+                  name="instagram"
+                  label="Instagram"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item name="tiktok" label="TikTok" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item
+                  name="facebook"
+                  label="Facebook"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="youtube"
+                  label="Youtube"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} placeholder="@username" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <div
               style={{
                 position: "absolute",
-                bottom: 0,
+                bottom: -5,
               }}
             >
-              <Button
-                className=" bg-[#FB7C29] text-white hover:bg-red-500 "
-                style={{
-                  height: 50,
-                  width: "555px",
-                  color: "white",
-                  border: "none",
-                }}
-                htmlType="submit"
-              >
-                Submit
-              </Button>
-            </Form.Item>
+              <Form.Item>
+                <Button
+                  htmlType="submit"
+                  className="login-form-button bg-[#fb7c29] hover:bg-red-500"
+                  block
+                  style={{
+                    height: "45px",
+                    width: "554px",
+                    fontWeight: "400px",
+                    border: 0,
+                    color: "#fff",
+                  }}
+                >
+                  Save Changes
+                </Button>
+              </Form.Item>
+            </div>
           </Form>
-        </>
+        </div>
       )}
     </>
   );

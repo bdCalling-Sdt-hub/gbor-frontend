@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Payment } from "../../../../ReduxSlice/paymentSlice";
-import TransactionChart from "./TransactionChart";
 import TransactionTable from "./TransactionTable";
 
 const Transaction = () => {
@@ -13,7 +12,7 @@ const Transaction = () => {
       gborAmount: "",
       search: "",
       page: page,
-      limit: 2,
+      limit: 10,
       type: "dashboard",
     };
     dispatch(Payment(value));
@@ -24,7 +23,7 @@ const Transaction = () => {
       gborAmount: "",
       search: "",
       page: 1,
-      limit: 2,
+      limit: 10,
       type: "dashboard",
     };
 
@@ -33,16 +32,16 @@ const Transaction = () => {
 
   return (
     <div>
-      <h2
+      {/* <h2
         style={{ fontSize: "25px", marginBottom: "30px", fontWeight: "normal" }}
       >
         Transaction Ratio
       </h2>
-      <TransactionChart />
+      <TransactionChart /> */}
       <h2
         style={{
           fontSize: "25px",
-          marginTop: "50px",
+
           marginBottom: "20px",
           fontWeight: "normal",
         }}

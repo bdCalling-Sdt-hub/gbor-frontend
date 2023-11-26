@@ -18,7 +18,7 @@ const SettingPage = () => {
       alignItems: "center",
       color: "black",
       marginBottom: "20px",
-      fontSize: "20px",
+      fontSize: "22px",
       fontWeight: "normal",
       textTransform: "capitalize",
     },

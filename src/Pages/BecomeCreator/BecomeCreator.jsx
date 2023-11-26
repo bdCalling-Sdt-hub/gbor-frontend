@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import img from "../../Images/become-creator.png";
+import { Category } from "../../ReduxSlice/categorySlice";
 import { Register, reset } from "../../ReduxSlice/registerSlice";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
@@ -18,6 +19,11 @@ const BecomeCreator = () => {
   );
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+  const { categoryLists } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(Category());
+  }, []);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -112,7 +118,28 @@ const BecomeCreator = () => {
 
   useEffect(() => {
     if (isError) {
-      Swal.fire("Sorry", message, "error");
+      if (message.includes("409")) {
+        Swal.fire({
+          icon: "error",
+          title: "Creator already exists",
+          text: "Please choose another email to create account",
+          confirmButtonColor: "#fb7c29",
+          customClass: {
+            confirmButton: "btn-lg",
+          },
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: message,
+          text: "Please try again.Your previous action could not be completed.",
+          confirmButtonColor: "#fb7c29",
+          customClass: {
+            confirmButton: "btn-lg",
+          },
+        });
+      }
+
       setTermCon(false);
     }
   }, [isError]);
@@ -221,10 +248,16 @@ const BecomeCreator = () => {
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     <option>Type of creator</option>
-                    <option value="art">Arts and Culture</option>
-                    <option value="dance">Dance</option>
+                    {categoryLists.map((category) => (
+                      <option className="mt-2" value={category.categoryName}>
+                        {category.categoryName.charAt(0).toUpperCase() +
+                          category.categoryName.slice(1)}
+                      </option>
+                    ))}
+
+                    {/* <option value="dance">Dance</option>
                     <option value="photography">Photography</option>
-                    <option value="entrepreneur">Entrepreneur</option>
+                    <option value="entrepreneur">Entrepreneur</option> */}
                   </select>
                   <p className="text-red-500">{error}</p>
                   <div className="mt-3 mb-8">

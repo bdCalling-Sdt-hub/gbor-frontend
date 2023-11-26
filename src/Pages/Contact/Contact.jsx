@@ -21,7 +21,6 @@ const Contact = () => {
   const handleContactSend = (e) => {
     e.preventDefault();
     setReload(true);
-    console.log(contactData);
 
     const value = {
       name: contactData.name,
@@ -29,8 +28,6 @@ const Contact = () => {
       subject: contactData.subject,
       message: contactData.message,
     };
-
-    console.log(value);
 
     if (
       value.name !== undefined &&

@@ -21,8 +21,8 @@ import { PiImage, PiSignOutThin } from "react-icons/pi";
 import { RiMessage2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
 import Swal from "sweetalert2";
+import { socketIO } from "../../../Socket.jsx";
 import colors from "../../Constant/colors.jsx";
 import useRole from "../../Hooks/useRole.jsx";
 import GBORLOGO from "../../Images/GBORLOGO.png";
@@ -49,6 +49,12 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [notifications, setNotifications] = useState([]);
   const [messageDot, setMessageDot] = useState();
+  const notifyOnOffValue = useSelector(
+    (state) => state.NotifyOnOff?.notifyShow
+  );
+
+  const booleanValue =
+    notifyOnOffValue === "false" ? false : Boolean(notifyOnOffValue);
 
   const logout = () => {
     Swal.fire({
@@ -194,7 +200,7 @@ const Dashboard = () => {
     (path) => path.path === location.pathname
   );
 
-  let socket = io("http://167.99.205.107:10000");
+  let socket = socketIO;
   const data = {
     uid: userInfo._id,
   };
@@ -205,10 +211,6 @@ const Dashboard = () => {
   });
 
   const handleCreatorMessage = () => {
-    socket.on("connect", () => {
-      console.log("Connected");
-    });
-
     const data = {
       uid: userInfo._id,
     };
@@ -542,36 +544,41 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton} style={{ marginRight: "20px" }}>
-              <Dropdown
-                overlay={menu}
-                placement="bottomRight"
-                arrow={{
-                  pointAtCenter: true,
-                }}
-                trigger={["click"]}
+            {booleanValue && (
+              <div
+                className={Styles.notificaton}
+                style={{ marginRight: "20px" }}
               >
-                <Button
-                  type="text"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                <Dropdown
+                  overlay={menu}
+                  placement="bottomRight"
+                  arrow={{
+                    pointAtCenter: true,
                   }}
+                  trigger={["click"]}
                 >
-                  <Badge count={commonData?.notViewed} color="#fb7c29">
-                    <IoIosNotificationsOutline
-                      className="cursor-pointer"
-                      fontSize={35}
-                      color="#fb7c29"
-                    />
-                  </Badge>
-                </Button>
-              </Dropdown>
-            </div>
+                  <Button
+                    type="text"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Badge count={commonData?.notViewed} color="#fb7c29">
+                      <IoIosNotificationsOutline
+                        className="cursor-pointer"
+                        fontSize={35}
+                        color="#fb7c29"
+                      />
+                    </Badge>
+                  </Button>
+                </Dropdown>
+              </div>
+            )}
             {!identity && (
               <div style={{ marginRight: "20px" }}>
                 <Button

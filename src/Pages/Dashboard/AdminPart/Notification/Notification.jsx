@@ -1,5 +1,5 @@
 import { Col, Modal, Pagination, Row } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../../../../../Config";
 import { Notifications } from "../../../../ReduxSlice/notificationSlice";
@@ -76,6 +76,14 @@ function Notification() {
     dispatch(Notifications(data));
   };
 
+  useEffect(() => {
+    const data = {
+      limit: 10,
+      page: 1,
+    };
+    dispatch(Notifications(data));
+  }, []);
+
   const onChangePage = (page) => {
     setCurrentPage(page);
     handlePagination(page);
@@ -101,7 +109,7 @@ function Notification() {
               lg={{ span: 24 }}
               style={{
                 cursor: "pointer",
-                background: item.viewStatus ? "#ff822e34" : "#fb7c26",
+                background: item.viewStatus ? "#ff822e34" : "#fb7c29",
               }}
               onClick={() => showModal(item)}
             >
@@ -121,7 +129,7 @@ function Notification() {
                     style={{
                       fontWeight: item.viewStatus ? "normal" : "bold",
                       fontSize: item.viewStatus ? "15px" : "18px",
-                      color: item.viewStatus ? "#4d4d4d" : "black",
+                      color: item.viewStatus ? "#4d4d4d" : "#ffffff",
                     }}
                   >
                     {item.message}

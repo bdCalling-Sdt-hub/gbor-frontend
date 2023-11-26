@@ -25,19 +25,19 @@ const Earning = () => {
       gborAmount: donationAmount,
       search: searchData,
       page: 1,
-      limit: 1,
+      limit: 10,
       type: income,
     };
 
     dispatch(Payment(value));
   };
 
-  const handleSearch = () => {
+  const handleSearch = (page) => {
     const value = {
       gborAmount: donationAmount,
       search: searchData,
-      page: 1,
-      limit: 1,
+      page: page,
+      limit: 10,
       type: income,
     };
     if (searchData !== "") {
@@ -50,7 +50,7 @@ const Earning = () => {
       gborAmount: donationAmount,
       search: searchData,
       page: page,
-      limit: 1,
+      limit: 10,
       type: income,
     };
     if (searchData === "") {
@@ -63,7 +63,7 @@ const Earning = () => {
       gborAmount: donationAmount,
       search: searchData,
       page: 1,
-      limit: 1,
+      limit: 10,
       type: income,
     };
     if (searchData === "") {
@@ -234,6 +234,7 @@ const Earning = () => {
           incomes={incomes}
           setReload={setReload}
           handlePagination={handlePagination}
+          handleSearch={handleSearch}
           pagination={pagination}
         />
       )}

@@ -15,13 +15,16 @@ const CreatorInfo = () => {
   const [creator, setCreator] = useState({});
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState();
-  const { message, isSuccess, isLoading } = useSelector(
+  const { message, isSuccess, isLoading, isError } = useSelector(
     (state) => state.register
   );
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const [reload, setReload] = useState(1);
   const [searchData, setSearchData] = useState("");
+  const { categoryLists } = useSelector((state) => state.category);
+
+  console.log(categoryLists);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -127,6 +130,28 @@ const CreatorInfo = () => {
       setIsDrawerVisible(false);
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      if (message.includes("409")) {
+        Swal.fire({
+          icon: "error",
+          title: "Creator already exists",
+          text: "Please choose another email to create account",
+          confirmButtonColor: "#fb7c29",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong",
+          text: "Please try again",
+          confirmButtonColor: "#fb7c29",
+        });
+      }
+
+      setTermCon(false);
+    }
+  }, [isError]);
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -295,10 +320,12 @@ const CreatorInfo = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option>Type of creator</option>
-            <option value="art">Arts and Culture</option>
-            <option value="dance">Dance</option>
-            <option value="photography">Photography</option>
-            <option value="entrepreneur">Entrepreneur</option>
+            {categoryLists.map((category) => (
+              <option className="mt-2" value={category.categoryName}>
+                {category.categoryName.charAt(0).toUpperCase() +
+                  category.categoryName.slice(1)}
+              </option>
+            ))}
           </select>
           <p className="text-red-500">{error}</p>
           <div

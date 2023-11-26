@@ -18,8 +18,9 @@ const PersonalInfo = () => {
     email,
     dateOfBirth,
     uploadId,
-    website,
+    role,
     socialLink,
+    _id,
   } = userInfo;
   const [img, setImg] = useState();
   const [fileList, setFileList] = useState([
@@ -37,9 +38,11 @@ const PersonalInfo = () => {
     document.execCommand("copy");
   };
 
+  const creatorNameDisable = role === "c_creator" ? true : false;
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    setImg(newFileList[0].originFileObj);
+    setImg(newFileList[0]?.originFileObj);
   };
 
   const initialFormValues = {
@@ -48,7 +51,7 @@ const PersonalInfo = () => {
     lName: lName,
     email: email,
     dateOfBirth: dateOfBirth ? moment(dateOfBirth, "YYYY-MM-DD") : null,
-    website: website,
+    username: userName,
     tiktok: socialLink?.tiktok,
     youtube: socialLink?.youtube,
     facebook: socialLink?.facebook,
@@ -86,12 +89,12 @@ const PersonalInfo = () => {
       .then((res) => {
         if (res.data.status === 200) {
           Swal.fire("Good!", res.data?.message, "success");
+
           localStorage.setItem("yourInfo", JSON.stringify(res.data.data));
           setProfileEdit(false);
         }
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire("😒", err.response.data.message, "error");
       });
   };
@@ -111,31 +114,33 @@ const PersonalInfo = () => {
           >
             <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
               <Image
-                width={150}
-                style={{ borderRadius: "6px" }}
+                style={{
+                  width: "180px",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "6px",
+                }}
                 src={uploadId}
               />
               <div>
                 <h2 className="text-xl">{fName + " " + lName}</h2>
                 <p>@{userName}</p>
-
                 <div className="mt-2">
-                  {userInfo.website && (
-                    <div className="flex items-center">
-                      <input
-                        type="text"
-                        ref={inputRef}
-                        className="border border-orange-500 text-gray-500 rounded py-2 outline-none px-2 w-56"
-                        value={website}
-                      />
-                      <button
-                        className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center duration-2 hover:bg-red-500"
-                        onClick={handleCopyClick}
-                      >
-                        <LuCopy fontSize={20} />
-                      </button>
-                    </div>
-                  )}
+                  <div className="flex items-center">
+                    <input
+                      type="text"
+                      ref={inputRef}
+                      className="border border-orange-500 text-gray-500 rounded py-2 outline-none px-2 w-56"
+                      value={`http://192.168.10.16:3000/our-creators/${_id}`}
+                    />
+                    <button
+                      className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center duration-2 hover:bg-red-500"
+                      onClick={handleCopyClick}
+                    >
+                      <LuCopy fontSize={20} />
+                    </button>
+                  </div>
+
                   {userInfo.socialLink && (
                     <>
                       <p className="text-[16px] my-3">View public profile</p>
@@ -251,7 +256,12 @@ const PersonalInfo = () => {
               }}
             >
               <div>
-                <ImgCrop rotationSlider style={{ width: "100%" }}>
+                <ImgCrop
+                  rotationSlider
+                  modalOk="Save"
+                  modalCancel="Cancel"
+                  style={{ width: "100%", color: "red" }}
+                >
                   <Upload
                     listType="picture-card"
                     fileList={fileList}
@@ -279,7 +289,10 @@ const PersonalInfo = () => {
                   labelCol={{ span: 24 }}
                   style={{ marginBottom: "15px" }}
                 >
-                  <Input style={{ height: "45px" }} />
+                  <Input
+                    style={{ height: "45px" }}
+                    disabled={creatorNameDisable}
+                  />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -289,7 +302,10 @@ const PersonalInfo = () => {
                   labelCol={{ span: 24 }}
                   style={{ marginBottom: "15px" }}
                 >
-                  <Input style={{ height: "45px" }} />
+                  <Input
+                    style={{ height: "45px" }}
+                    disabled={creatorNameDisable}
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -316,13 +332,14 @@ const PersonalInfo = () => {
             <Row>
               <Col span={24}>
                 <Form.Item
-                  name="website"
-                  label="Website"
+                  name="username"
+                  label="Username"
                   labelCol={{ span: 24 }}
                 >
                   <Input
                     style={{ height: "45px" }}
-                    placeholder="Website link"
+                    placeholder="Username"
+                    disabled
                   />
                 </Form.Item>
               </Col>
