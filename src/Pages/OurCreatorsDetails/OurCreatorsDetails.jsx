@@ -104,10 +104,9 @@ const OurCreatorsDetails = () => {
       <Navbar />
       <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-32">
         <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 mx-auto justify-between">
-          <div className="w-full lg:w-3/4 ">
+          <div className="w-full lg:w-3/4 p-3">
             <img
-              style={{ width: "75%", height: "630px" }}
-              className="mx-auto rounded-xl bg-white"
+              className="mx-auto rounded-xl bg-white w-full h-[350px] lg:h-[630px]"
               src={data?.uploadId}
               alt=""
             />

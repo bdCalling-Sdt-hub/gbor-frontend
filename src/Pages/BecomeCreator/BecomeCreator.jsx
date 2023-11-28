@@ -217,29 +217,29 @@ const BecomeCreator = () => {
                     name="confirmPassword"
                     onChange={handleChange}
                   />
-                  <div className="flex items-center justify-between border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none hover:border-orange-500">
-                    <p
-                      className={`${
-                        file ? "text-black" : "text-[#a4a6ac]"
-                      } w-full`}
-                    >
-                      {file ? file.name : "Upload your Image"}
-                    </p>
-                    <div className="w-32 ">
-                      <label
-                        htmlFor="file"
-                        className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
+                  <div className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none hover:border-orange-500">
+                    <div className="flex justify-between items-center">
+                      <p
+                        className={`${file ? "text-black" : "text-[#a4a6ac]"}`}
                       >
-                        Browse file
-                      </label>
-                      <input
-                        type="file"
-                        className="hidden"
-                        name="image"
-                        id="file"
-                        accept="image"
-                        onChange={(e) => setFile(e.target.files[0])}
-                      />
+                        {file ? file.name : "Upload your Image"}
+                      </p>
+                      <div className="">
+                        <label
+                          htmlFor="file"
+                          className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
+                        >
+                          Browse file
+                        </label>
+                        <input
+                          type="file"
+                          className="hidden"
+                          name="image"
+                          id="file"
+                          accept="image"
+                          onChange={(e) => setFile(e.target.files[0])}
+                        />
+                      </div>
                     </div>
                   </div>
                   <select

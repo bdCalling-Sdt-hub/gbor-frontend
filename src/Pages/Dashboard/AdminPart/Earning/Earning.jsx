@@ -209,7 +209,7 @@ const Earning = () => {
                 />
               </Popover>
             }
-            placeholder="Search by Name/Id"
+            placeholder="Search by Name"
             style={{ height: "50px", border: `1px solid #fb7c29` }}
             onChange={(e) => setSearchData(e.target.value)}
           />

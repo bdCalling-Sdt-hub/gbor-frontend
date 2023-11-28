@@ -75,7 +75,7 @@ const Creators = () => {
           <Empty />
         </div>
       ) : (
-        <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-4 w-full p-4 lg:p-0  lg:w-3/4 mx-auto gap-4 mt-10">
+        <div className="grid grid-cols md:grid-cols-2  lg:grid-cols-3 2xl:grid-cols-4 w-full p-4 lg:p-0  lg:w-3/4 mx-auto gap-4 mt-10">
           {filteringData.map((creator, index) => (
             <CreatorCard key={index} data={creator} />
           ))}
