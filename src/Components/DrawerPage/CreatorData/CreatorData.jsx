@@ -7,15 +7,15 @@ import axios from "../../../../Config";
 
 const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
   const [edit, setEdit] = useState(false);
-
+  const { TextArea } = Input;
   const { socialLink, _id } = data.action;
-
   const token = localStorage.token;
 
   const initialFormValues = {
     email: data.action?.email,
     website: data?.webLink,
     username: data?.action?.userName,
+    description: data?.action?.description,
     tiktok: socialLink?.tiktok,
     youtube: socialLink?.youtube,
     facebook: socialLink?.facebook,
@@ -25,6 +25,7 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
   const handleUpdateCreator = (values) => {
     const value = {
       userName: values.username,
+      description: values.description,
       socialLink: {
         youtube: values.youtube,
         tiktok: values.tiktok,
@@ -283,6 +284,19 @@ const CreatorData = ({ data, setReload, setIsDrawerVisible }) => {
               style={{ marginBottom: 5 }}
             >
               <Input className="h-12" disabled />
+            </Form.Item>
+            <Form.Item
+              label="Description"
+              name="description"
+              style={{ marginBottom: 5 }}
+            >
+              <TextArea
+                placeholder="Description"
+                autoSize={{
+                  minRows: 4,
+                  maxRows: 5,
+                }}
+              />
             </Form.Item>
             <Row gutter={15} style={{ marginTop: "20px" }}>
               <Col span={12}>

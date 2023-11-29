@@ -106,19 +106,16 @@ const OurCreatorsDetails = () => {
         <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 mx-auto justify-between">
           <div className="w-full lg:w-3/4 p-3">
             <img
-              className="mx-auto rounded-xl bg-white w-full h-[350px] lg:h-[630px]"
+              className="mx-auto rounded-xl bg-white w-full lg:w-[75%] h-[350px] lg:h-[630px]"
               src={data?.uploadId}
               alt=""
             />
           </div>
           <div className="w-full lg:w-2/4 p-4 lg:p-0">
             <h1 className="text-2xl font-bold text-[#252525] md:mt-8">
-              Ut enim ad minima veniam, quis nostrum exercitationem.
+              {data?.userName}
             </h1>
-            <p className="mt-2 mb-8 text-[#4B5563]">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum.
-            </p>
+            <p className="mt-2 mb-8 text-[#4B5563]">{data?.description}</p>
 
             <div className="p-4 border border-black rounded-md w-full lg:w-5/6">
               <p className="text-right text-[#4B5563] mb-2">

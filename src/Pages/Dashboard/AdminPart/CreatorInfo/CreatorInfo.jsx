@@ -5,6 +5,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { Category } from "../../../../ReduxSlice/categorySlice";
 import { ContentCreators } from "../../../../ReduxSlice/creatorsSlice";
 import { Register, reset } from "../../../../ReduxSlice/registerSlice";
 import CreatorInfoTable from "./CreatorInfoTable";
@@ -24,7 +25,9 @@ const CreatorInfo = () => {
   const [searchData, setSearchData] = useState("");
   const { categoryLists } = useSelector((state) => state.category);
 
-  console.log(categoryLists);
+  useEffect(() => {
+    dispatch(Category());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -37,12 +40,10 @@ const CreatorInfo = () => {
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setTransactionData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setTransactionData(null);
   };
 
   const handlePagination = (page) => {
@@ -294,13 +295,13 @@ const CreatorInfo = () => {
             onChange={handleChange}
           />
           <div className="flex items-center justify-between border border-gray-300 outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full select-none hover:border-orange-500">
-            <p className={`${file ? "text-black" : "text-[#a4a6ac]"} w-full`}>
+            <p className={`${file ? "text-black" : "text-[#a4a6ac]"}`}>
               {file ? file.name : "Upload your Image"}
             </p>
-            <div className="w-32 ">
+            <div>
               <label
                 htmlFor="file"
-                className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer h-56"
+                className="bg-[#fb7c29] text-white p-3 rounded-md cursor-pointer"
               >
                 Browse file
               </label>
@@ -321,7 +322,11 @@ const CreatorInfo = () => {
           >
             <option>Type of creator</option>
             {categoryLists.map((category) => (
-              <option className="mt-2" value={category.categoryName}>
+              <option
+                className="mt-2"
+                key={category.categoryName}
+                value={category.categoryName}
+              >
                 {category.categoryName.charAt(0).toUpperCase() +
                   category.categoryName.slice(1)}
               </option>
