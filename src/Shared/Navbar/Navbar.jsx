@@ -30,7 +30,10 @@ const Navbar = () => {
     <nav className="lg:flex items-center w-full justify-between lg:px-16 py-1 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] sticky top-0 z-50">
       <div className="flex items-center justify-between px-2 py-4">
         <Link to="/">
-          <img className="w-16 md:w-48" src={logo} alt="logo" />
+          {/* this is small screen logo */}
+          <img className=" ml-[70px] w-[250px] flex md:hidden" src={logo} alt="logo" />
+          {/* this is big screen logo */}
+          <img className="hidden md:w-48 md:flex " src={logo} alt="logo" />
         </Link>
         <div
           className="lg:hidden cursor-pointer text-white active:duration-300"

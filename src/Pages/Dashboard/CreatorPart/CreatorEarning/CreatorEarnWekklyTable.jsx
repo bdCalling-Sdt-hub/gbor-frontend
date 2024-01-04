@@ -148,7 +148,53 @@ const CreatorEarnWeaklyTable = ({ incomes }) => {
             </p>
             <p className="text-lg font-medium gap-1 flex items-center justify-end text-gray-500">
               <span>{earningData?.amount}</span>{" "}
-              <FiDollarSign fontSize={20} color="#fb7c29" />
+              <svg
+                className="w-[28px] mt-[1px]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 64 64"
+                id="france"
+              >
+                <ellipse
+                  cx="32"
+                  cy="32"
+                  fill="transparent"
+                  stroke="transparent"
+                  stroke-miterlimit="10"
+                  stroke-width="4"
+                  rx="29.71"
+                  ry="29"
+                ></ellipse>
+                <path
+                  fill="transparent"
+                  stroke="#fb7c29"
+                  stroke-linecap="round"
+                  stroke-miterlimit="10"
+                  stroke-width="4"
+                  d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                ></path>
+                <line
+                  x1="27.44"
+                  x2="39.4"
+                  y1="29.67"
+                  y2="29.67"
+                  fill="transparent"
+                  stroke="#fb7c29"
+                  stroke-linecap="round"
+                  stroke-miterlimit="10"
+                  stroke-width="4"
+                ></line>
+                <line
+                  x1="20.82"
+                  x2="34.47"
+                  y1="37.14"
+                  y2="37.14"
+                  fill="transition"
+                  stroke="#fb7c29"
+                  stroke-linecap="round"
+                  stroke-miterlimit="10"
+                  stroke-width="4"
+                ></line>
+              </svg>
             </p>
           </Col>
         </Row>

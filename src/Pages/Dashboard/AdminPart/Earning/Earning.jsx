@@ -1,7 +1,7 @@
 import { Button, Col, Input, Popover, Radio, Row, Space } from "antd";
 
 import React, { useEffect, useState } from "react";
-import { CiDollar, CiSearch } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
 import { HiOutlineAdjustments } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -127,9 +127,216 @@ const Earning = () => {
                 : "text-white "
             } bg-[#fb7c29] p-8  text-center flex flex-col items-center rounded-md space-y-4 select-none drop-shadow duration-200`}
           >
-            <CiDollar style={{ width: "28px", height: "28px" }} />
+            {income === "today-income" ? (
+              <>
+                <svg
+                  className="w-[28px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  id="france"
+                >
+                  <ellipse
+                    cx="32"
+                    cy="32"
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    rx="29.71"
+                    ry="29"
+                  ></ellipse>
+                  <path
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                  ></path>
+                  <line
+                    x1="27.44"
+                    x2="39.4"
+                    y1="29.67"
+                    y2="29.67"
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                  <line
+                    x1="20.82"
+                    x2="34.47"
+                    y1="37.14"
+                    y2="37.14"
+                    fill="transition"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                </svg>
+              </>
+            ) : (
+              <>
+                {" "}
+                <svg
+                  className="w-[28px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  id="france"
+                >
+                  <ellipse
+                    cx="32"
+                    cy="32"
+                    fill="transparent"
+                    stroke="white"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    rx="29.71"
+                    ry="29"
+                  ></ellipse>
+                  <path
+                    fill="transparent"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                  ></path>
+                  <line
+                    x1="27.44"
+                    x2="39.4"
+                    y1="29.67"
+                    y2="29.67"
+                    fill="transparent"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                  <line
+                    x1="20.82"
+                    x2="34.47"
+                    y1="37.14"
+                    y2="37.14"
+                    fill="transition"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                </svg>
+              </>
+            )}
             <h2 className="text-2xl">Today's Earning</h2>
-            <h3 className="text-2xl font-medium">$ {incomesTotal?.today}</h3>
+            <h3 className="text-2xl inline-flex font-medium">
+              {" "}
+              {income === "today-income" ? (
+                <>
+                  {" "}
+                  <svg
+                    className="w-[28px] mt-[1px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    id="france"
+                  >
+                    <ellipse
+                      cx="32"
+                      cy="32"
+                      fill="transparent"
+                      stroke="transparent"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      rx="29.71"
+                      ry="29"
+                    ></ellipse>
+                    <path
+                      fill="transparent"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                    ></path>
+                    <line
+                      x1="27.44"
+                      x2="39.4"
+                      y1="29.67"
+                      y2="29.67"
+                      fill="transparent"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                    <line
+                      x1="20.82"
+                      x2="34.47"
+                      y1="37.14"
+                      y2="37.14"
+                      fill="transition"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                  </svg>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <svg
+                    className="w-[32px] mt-[1px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    id="france"
+                  >
+                    <ellipse
+                      cx="32"
+                      cy="32"
+                      fill="transparent"
+                      stroke="transparent"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      rx="29.71"
+                      ry="29"
+                    ></ellipse>
+                    <path
+                      fill="transparent"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                    ></path>
+                    <line
+                      x1="27.44"
+                      x2="39.4"
+                      y1="29.67"
+                      y2="29.67"
+                      fill="transparent"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                    <line
+                      x1="20.82"
+                      x2="34.47"
+                      y1="37.14"
+                      y2="37.14"
+                      fill="transition"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                  </svg>
+                </>
+              )}{" "}
+              {incomesTotal?.today}
+            </h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
@@ -140,9 +347,216 @@ const Earning = () => {
                 : "text-white "
             } bg-[#fb7c29] p-8  text-center flex flex-col items-center rounded-md space-y-4 select-none drop-shadow duration-200`}
           >
-            <CiDollar style={{ width: "28px", height: "28px" }} />
+            {income === "weekly-income" ? (
+              <>
+                <svg
+                  className="w-[28px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  id="france"
+                >
+                  <ellipse
+                    cx="32"
+                    cy="32"
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    rx="29.71"
+                    ry="29"
+                  ></ellipse>
+                  <path
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                  ></path>
+                  <line
+                    x1="27.44"
+                    x2="39.4"
+                    y1="29.67"
+                    y2="29.67"
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                  <line
+                    x1="20.82"
+                    x2="34.47"
+                    y1="37.14"
+                    y2="37.14"
+                    fill="transition"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                </svg>
+              </>
+            ) : (
+              <>
+                {" "}
+                <svg
+                  className="w-[28px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  id="france"
+                >
+                  <ellipse
+                    cx="32"
+                    cy="32"
+                    fill="transparent"
+                    stroke="white"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    rx="29.71"
+                    ry="29"
+                  ></ellipse>
+                  <path
+                    fill="transparent"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                  ></path>
+                  <line
+                    x1="27.44"
+                    x2="39.4"
+                    y1="29.67"
+                    y2="29.67"
+                    fill="transparent"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                  <line
+                    x1="20.82"
+                    x2="34.47"
+                    y1="37.14"
+                    y2="37.14"
+                    fill="transition"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                </svg>
+              </>
+            )}
             <h2 className="text-2xl">Weekly Earning</h2>
-            <h3 className="text-2xl font-medium">$ {incomesTotal?.lastWeek}</h3>
+            <h3 className="text-2xl inline-flex font-medium">
+              {income === "weekly-income" ? (
+                <>
+                  {" "}
+                  <svg
+                    className="w-[28px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    id="france"
+                  >
+                    <ellipse
+                      cx="32"
+                      cy="32"
+                      fill="transparent"
+                      stroke="transparent"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      rx="29.71"
+                      ry="29"
+                    ></ellipse>
+                    <path
+                      fill="transparent"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                    ></path>
+                    <line
+                      x1="27.44"
+                      x2="39.4"
+                      y1="29.67"
+                      y2="29.67"
+                      fill="transparent"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                    <line
+                      x1="20.82"
+                      x2="34.47"
+                      y1="37.14"
+                      y2="37.14"
+                      fill="transition"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                  </svg>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <svg
+                    className="w-[32px] mt-[1px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    id="france"
+                  >
+                    <ellipse
+                      cx="32"
+                      cy="32"
+                      fill="transparent"
+                      stroke="transparent"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      rx="29.71"
+                      ry="29"
+                    ></ellipse>
+                    <path
+                      fill="transparent"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                    ></path>
+                    <line
+                      x1="27.44"
+                      x2="39.4"
+                      y1="29.67"
+                      y2="29.67"
+                      fill="transparent"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                    <line
+                      x1="20.82"
+                      x2="34.47"
+                      y1="37.14"
+                      y2="37.14"
+                      fill="transition"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                  </svg>
+                </>
+              )}
+
+              {incomesTotal?.lastWeek}
+            </h3>
           </div>
         </Col>
         <Col className="gutter-row" span={8}>
@@ -153,10 +567,215 @@ const Earning = () => {
                 : "text-white "
             } bg-[#fb7c29] p-8  text-center flex flex-col items-center rounded-md space-y-4 select-none drop-shadow duration-200`}
           >
-            <CiDollar style={{ width: "28px", height: "28px" }} />
+            {income === "monthly-income" ? (
+              <>
+                <svg
+                  className="w-[28px] mt-[1px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  id="france"
+                >
+                  <ellipse
+                    cx="32"
+                    cy="32"
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    rx="29.71"
+                    ry="29"
+                  ></ellipse>
+                  <path
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                  ></path>
+                  <line
+                    x1="27.44"
+                    x2="39.4"
+                    y1="29.67"
+                    y2="29.67"
+                    fill="transparent"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                  <line
+                    x1="20.82"
+                    x2="34.47"
+                    y1="37.14"
+                    y2="37.14"
+                    fill="transition"
+                    stroke="#fb7c29"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                </svg>
+              </>
+            ) : (
+              <>
+                {" "}
+                <svg
+                  className="w-[28px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  id="france"
+                >
+                  <ellipse
+                    cx="32"
+                    cy="32"
+                    fill="transparent"
+                    stroke="white"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    rx="29.71"
+                    ry="29"
+                  ></ellipse>
+                  <path
+                    fill="transparent"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                    d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                  ></path>
+                  <line
+                    x1="27.44"
+                    x2="39.4"
+                    y1="29.67"
+                    y2="29.67"
+                    fill="transparent"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                  <line
+                    x1="20.82"
+                    x2="34.47"
+                    y1="37.14"
+                    y2="37.14"
+                    fill="transition"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="4"
+                  ></line>
+                </svg>
+              </>
+            )}
+
             <h2 className="text-2xl">Monthly Earning</h2>
-            <h3 className="text-2xl font-medium">
-              $ {incomesTotal?.lastMonth}
+            <h3 className="text-2xl inline-flex font-medium">
+              {income === "monthly-income" ? (
+                <>
+                  {" "}
+                  <svg
+                    className="w-[28px] mt-[1px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    id="france"
+                  >
+                    <ellipse
+                      cx="32"
+                      cy="32"
+                      fill="transparent"
+                      stroke="transparent"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      rx="29.71"
+                      ry="29"
+                    ></ellipse>
+                    <path
+                      fill="transparent"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                    ></path>
+                    <line
+                      x1="27.44"
+                      x2="39.4"
+                      y1="29.67"
+                      y2="29.67"
+                      fill="transparent"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                    <line
+                      x1="20.82"
+                      x2="34.47"
+                      y1="37.14"
+                      y2="37.14"
+                      fill="transition"
+                      stroke="#fb7c29"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                  </svg>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <svg
+                    className="w-[32px] mt-[1px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    id="france"
+                  >
+                    <ellipse
+                      cx="32"
+                      cy="32"
+                      fill="transparent"
+                      stroke="transparent"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      rx="29.71"
+                      ry="29"
+                    ></ellipse>
+                    <path
+                      fill="transparent"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                      d="M27.44,47.1V18.93a2.06,2.06,0,0,1,2.08-2H43.18"
+                    ></path>
+                    <line
+                      x1="27.44"
+                      x2="39.4"
+                      y1="29.67"
+                      y2="29.67"
+                      fill="transparent"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                    <line
+                      x1="20.82"
+                      x2="34.47"
+                      y1="37.14"
+                      y2="37.14"
+                      fill="transition"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-miterlimit="10"
+                      stroke-width="4"
+                    ></line>
+                  </svg>
+                </>
+              )}{" "}
+              {incomesTotal?.lastMonth}
             </h3>
           </div>
         </Col>
