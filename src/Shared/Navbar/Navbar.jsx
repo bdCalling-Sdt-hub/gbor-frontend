@@ -31,7 +31,11 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-2 py-4">
         <Link to="/">
           {/* this is small screen logo */}
-          <img className=" ml-[70px] w-[250px] flex md:hidden" src={logo} alt="logo" />
+          <img
+            className=" ml-[70px] w-[250px] flex md:hidden"
+            src={logo}
+            alt="logo"
+          />
           {/* this is big screen logo */}
           <img className="hidden md:w-48 md:flex " src={logo} alt="logo" />
         </Link>
@@ -63,6 +67,9 @@ const Navbar = () => {
         </li>
         <li className="link-nav">
           <Link to="/contact">Contact</Link>
+        </li>
+        <li className="link-nav">
+          <Link to="/signin">Login</Link>
         </li>
 
         {location?.pathname === "/" && (
