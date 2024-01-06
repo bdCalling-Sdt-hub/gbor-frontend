@@ -151,12 +151,11 @@ const BecomeCreator = () => {
         <div className="w-full lg:w-3/4 mx-auto p-4 lg:p-0">
           <div>
             <h1 className="text-center text-4xl font-bold text-[#252525] p-4 lg:p-0">
-              Ut enim ad minima veniam,
-              <br /> quis nostrum exercitationem.
+              Rejoignez la plus grande communauté <br /> de créateurs de
+              contenu.
             </h1>
             <p className="w-full lg:w-2/4 mx-auto mt-5 text-[#4B5563] text-center p-4 lg:p-0">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum.
+              Bénéficiez du soutien de votre communauté en nous rejoignant.
             </p>
           </div>
           <div className="grid grid-cols lg:grid-cols-2 gap-6 mt-16">
@@ -167,14 +166,14 @@ const BecomeCreator = () => {
                     <input
                       type="text"
                       className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
-                      placeholder="First Name"
+                      placeholder="Prénom"
                       name="firstName"
                       onChange={handleChange}
                     />
                     <input
                       type="text"
                       className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
-                      placeholder="Last Name"
+                      placeholder="Nom"
                       name="lastName"
                       onChange={handleChange}
                     />
@@ -190,7 +189,7 @@ const BecomeCreator = () => {
                     <input
                       type="text"
                       className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
-                      placeholder="Username"
+                      placeholder="Nom d’artiste"
                       name="username"
                       onChange={handleChange}
                     />
@@ -206,14 +205,14 @@ const BecomeCreator = () => {
                   <input
                     type="password"
                     className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
-                    placeholder="Password"
+                    placeholder="Mot de passe"
                     name="password"
                     onChange={handleChange}
                   />
                   <input
                     type="password"
                     className="border border-black outline-none mb-2 bg-transparent rounded-md h-12 px-2 w-full focus:border-orange-500"
-                    placeholder="Confirm password"
+                    placeholder="Confirmer le mot de passe"
                     name="confirmPassword"
                     onChange={handleChange}
                   />
@@ -222,7 +221,7 @@ const BecomeCreator = () => {
                       <p
                         className={`${file ? "text-black" : "text-[#a4a6ac]"}`}
                       >
-                        {file ? file.name : "Upload your Image"}
+                        {file ? file.name : "Téléchargez votre photo"}
                       </p>
                       <div className="">
                         <label
@@ -247,7 +246,7 @@ const BecomeCreator = () => {
                     className="border border-black outline-none mb-2 bg-transparent rounded-md  h-12 px-2 w-full bg-orange-400 focus:ring-orange-500 "
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option>Type of creator</option>
+                    <option>Type de créateur</option>
                     {categoryLists.map((category) => (
                       <option
                         key={category._id}
@@ -277,9 +276,9 @@ const BecomeCreator = () => {
                       htmlFor="term"
                       className="cursor-pointer label relative"
                     >
-                      I accept the{" "}
+                      J’accepte les{" "}
                       <Link className="text-orange-500 tracking-wide">
-                        terms and conditions
+                        terme et conditions
                       </Link>
                     </label>
                   </div>
@@ -301,9 +300,9 @@ const BecomeCreator = () => {
                 </div>
               )}
               <p className="text-center mt-6">
-                Already have an account?{" "}
+                Avez-vous déjà un compte ?{" "}
                 <Link to="/signin" className="text-[#ff7044]">
-                  Login
+                  Connectez-vous
                 </Link>
               </p>
             </div>

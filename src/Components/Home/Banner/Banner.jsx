@@ -32,19 +32,17 @@ const Banner = () => {
         <div>
           <div>
             <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold drop-shadow-md">
-              Support and guide your{" "}
-              <span className="text-[#ef4444]">content </span>
+              Soutenez vos <span className="text-[#ef4444]">créateurs de </span>
               <br />
-              <span className="text-[#ef4444]">creators</span> for their success
-              through
+              <span className="text-[#ef4444]">contenu favoris</span> et laissez{" "}
               <br />
-              collaboration and assistance.
+              leurs un mot pour les encourager.
             </h1>
             <p className="mx-auto mt-5 text-[#4B5563]">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur.
-              <br /> Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum.
+              Soutenir son créateur favori lui offre les moyens d'explorer
+              davantage sa passion, d'investir dans des <br /> équipements et de
+              consacrer plus de temps à l'innovation créative, stimulant ainsi
+              son développement artistique.
             </p>
           </div>
           <div className=" mt-10 w-full overflow-hidden">

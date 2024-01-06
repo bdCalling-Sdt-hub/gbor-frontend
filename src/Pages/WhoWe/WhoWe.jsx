@@ -10,51 +10,49 @@ const WhoWe = () => {
       <Navbar />
       <div className=" bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28 ">
         <h1 className="text-center p-4 lg:p-0 text-4xl font-bold text-[#252525] drop-shadow-xl">
-          Ut enim ad minima veniam,
-          <br /> quis nostrum exercitationem.
+          Nous aspirons à créer un environnement <br /> adéquat pour tous les
+          créateurs de contenu.
         </h1>
         <p className="w-full lg:w-2/4 p-4 lg:p-0 mx-auto mt-5 text-[#4B5563] text-center">
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+          Donnez de la force à votre créateur de contenu préféré
         </p>
         <div className="flex flex-col lg:flex-row items-center w-full p-4 lg:p-0  lg:w-3/4 mx-auto mt-10 gap-20">
           <div className="w-full order-2 md:order-1">
             <h1 className="text-2xl  font-bold drop-shadow-xl">
-              Quis autem vel eum iure <br />
-              reprehenderit qui in ea voluptate
+              Un collectif de soutien aux créateurs de contenu africains
             </h1>
             <p className="text-[#4B5563] mt-3">
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderi.
+              Cette plateforme a été créée dans le but de venir en aide aux
+              créateurs de contenu qui manquent souvent de ressources afin de
+              produire du contenu de qualité. En soutenant financièrement vos
+              créateurs de contenu préférés via des GBÔR ( 1 GBÔR = 500 FR ),
+              vous leur fournissez les ressources nécessaires pour investir dans
+              du matériel de meilleure qualité, des logiciels améliorés et
+              potentiellement plus de temps pour se consacrer à la création de
+              contenu.
             </p>
             <p className="text-[#4B5563] mt-3">
-              Eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Savoir que leur travail est apprécié et soutenu peut motiver les
+              créateurs à maintenir des normes élevées de qualité. La
+              reconnaissance et l'encouragement du public peuvent les inciter à
+              se dépasser et à chercher constamment à s'améliorer. Certains
+              créateurs investissent dans leur propre formation pour
+              perfectionner leurs compétences. Le soutien financier peut les
+              aider à accéder à des cours, des ateliers ou des ressources
+              éducatives qui amélioreront leur expertise et, par conséquent, la
+              qualité de leur contenu.
             </p>
             <p className="text-[#4B5563] mt-3">
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderi.
+              Si les créateurs dépendent moins des revenus publicitaires et
+              davantage du soutien direct de leur audience, ils peuvent se
+              permettre de créer du contenu plus authentique et orienté vers la
+              qualité, plutôt que de chercher à maximiser les clics ou les vues.
             </p>
             <p className="text-[#4B5563] mt-3">
-              Eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p className="text-[#4B5563] mt-3">
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderi.
+              En somme, soutenir les créateurs de contenu va au-delà du simple
+              encouragement moral. Cela leur offre les moyens nécessaires pour
+              investir dans leur art, se perfectionner et créer un contenu de
+              meilleure qualité pour leur public.
             </p>
           </div>
           <div className="w-full space-y-12 order-1 md:order-2">

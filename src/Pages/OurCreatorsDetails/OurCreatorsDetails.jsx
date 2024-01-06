@@ -125,14 +125,14 @@ const OurCreatorsDetails = () => {
                 <input
                   type="number"
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border focus:border-red-500"
-                  placeholder="Enter Shot Amount"
+                  placeholder="Entrez le nombre de Gbôr"
                   name="amount"
                   onChange={getInputValue}
                 />
                 <input
                   type="text"
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border focus:border-red-500"
-                  placeholder="Name of Donar"
+                  placeholder="Nom du donateur"
                   name="donarName"
                   onChange={getInputValue}
                 />
@@ -144,7 +144,7 @@ const OurCreatorsDetails = () => {
                 />
                 <div className="flex justify-end items-center">
                   <label htmlFor="" className="mr-2 text-[#4B5563]">
-                    Total Cost=
+                    Montant à payer=
                   </label>
                   <input
                     className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-2/6 text-center cursor-not-allowed"
@@ -157,7 +157,7 @@ const OurCreatorsDetails = () => {
                   className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition"
                   type="submit"
                 >
-                  Donate
+                  Soutenir
                 </button>
               </form>
             </div>

@@ -65,11 +65,10 @@ const Contact = () => {
       <Navbar />
       <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28 h-screen">
         <h1 className="text-center text-4xl font-bold text-[#252525] p-4 lg:p-0">
-          Ut enim ad minima veniam,
-          <br /> quis nostrum exercitationem.
+          Contactez-nous
         </h1>
         <p className="w-full lg:w-2/4 mx-auto mt-5 p-4 lg:p-0 text-[#4B5563] text-center">
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+          Merci de remplir le formulaire ci-dessous afin de nous contacter
         </p>
         <div className="w-full lg:w-2/6 p-4 lg:p-0 mx-auto mt-16">
           {!reload ? (
@@ -78,14 +77,14 @@ const Contact = () => {
                 type="text"
                 onChange={handleContact}
                 className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
-                placeholder="Name"
+                placeholder="Nom"
                 name="name"
               />
               <input
                 type="text"
                 onChange={handleContact}
                 className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border-red-500"
-                placeholder="Subject"
+                placeholder="Sujet"
                 name="subject"
               />
               <input
@@ -98,7 +97,7 @@ const Contact = () => {
               <textarea
                 className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32 focus:border-red-500"
                 onChange={handleContact}
-                placeholder="Your message"
+                placeholder="Votre message"
                 name="message"
               />
 
@@ -106,7 +105,7 @@ const Contact = () => {
                 className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition img-shadow"
                 type="submit"
               >
-                Send
+                Envoyer
               </button>
             </form>
           ) : (

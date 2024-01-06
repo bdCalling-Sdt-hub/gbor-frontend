@@ -58,15 +58,15 @@ const OurCreatorsPage = () => {
 
   return (
     <div className="pt-12 bg-gradient-to-r from-[#f3afaf] to-[#ff9e5f] pb-28">
-      <div className="flex flex-col lg:flex-row items-center w-full lg:w-3/4 p-4 lg:p-0 mx-auto justify-between">
+      <div className="flex flex-col lg:flex-row gap-4 items-center w-full lg:w-3/4 p-4 lg:p-0 mx-auto justify-between">
         <div className="w-full">
           <h1 className="text-5xl font-bold text-[#252525] drop-shadow-xl">
-            Ut enim ad minima veniam,
-            <br /> quis nostrum exercitationem.
+            Laissez un mot à votre créateur de contenu préféré quand vous <br />
+            lui donner un GBÔR.
           </h1>
           <p className="mt-5 text-[#4B5563]">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum.
+            Pour chaque GBÔR donné, vous avez la possibilité de laisser un mot
+            d’encouragement
           </p>
         </div>
         <div className="w-full lg:w-2/4 mt-4 lg:mt-0">
@@ -74,7 +74,7 @@ const OurCreatorsPage = () => {
             <input
               type="text"
               className="border-0 outline-none bg-transparent p-3 px-2 w-5/6"
-              placeholder="Search your favourite creator"
+              placeholder="Recherchez votre créateur favoris"
               onChange={(e) => setSearchData(e.target.value)}
             />
             <button

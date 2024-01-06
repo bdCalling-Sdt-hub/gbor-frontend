@@ -57,19 +57,19 @@ const Navbar = () => {
         }`}
       >
         <li className="link-nav">
-          <Link to="/our-creators">Our Creators</Link>
+          <Link to="/our-creators">Nos créateurs</Link>
         </li>
         <li className="link-nav">
-          <Link to="/who-we-are">Who are we</Link>
+          <Link to="/who-we-are">Qui sommes-nous?</Link>
         </li>
         <li className="link-nav">
-          <Link to="/how-it-work">How it works</Link>
+          <Link to="/how-it-work">Comment ça marche?</Link>
         </li>
         <li className="link-nav">
           <Link to="/contact">Contact</Link>
         </li>
         <li className="link-nav">
-          <Link to="/signin">Login</Link>
+          <Link to="/signin">Connectez-vous</Link>
         </li>
 
         {location?.pathname === "/" && (
@@ -79,7 +79,7 @@ const Navbar = () => {
                 type="text"
                 className="outline-none bg-transparent p-3 px-2 w-6/6"
                 onBlur={(e) => setSearchData(e.target.value)}
-                placeholder="Search favourite creator"
+                placeholder="Recherchez votre créateur favoris"
               />
               <button
                 style={{ marginLeft: "auto" }}
@@ -95,7 +95,7 @@ const Navbar = () => {
           className="text-white bg-[#fb7c29] px-4 py-3 rounded-md hover:bg-[#ef4444] transition img-shadow cursor-pointer"
           onClick={() => navigate("/become-content-creator")}
         >
-          Become a Content Creator
+          Devenez un créateur de contenu
         </li>
       </ul>
     </nav>

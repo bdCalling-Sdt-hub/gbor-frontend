@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./creatorCard.css";
 
 const CreatorCard = ({ data }) => {
@@ -16,14 +16,14 @@ const CreatorCard = ({ data }) => {
   } = data;
   const navigate = useNavigate();
 
-  const handleContentCreator = (id) => {
-    navigate(`/our-creators/${id}`);
+  const handleContentCreator = (value) => {
+    navigate(`/our-creators/${value}`);
   };
 
   return (
     <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow card-container">
       <div className="overflow-hidden rounded-xl relative">
-        <div>
+        <Link to={`/our-creators/${userName}`}>
           <img
             width="100%"
             style={{ height: "350px" }}
@@ -31,7 +31,7 @@ const CreatorCard = ({ data }) => {
             src={uploadId}
             alt=""
           />
-        </div>
+        </Link>
 
         <div className="flex gap-2 icons">
           {socialLink?.youtube && (
@@ -79,14 +79,17 @@ const CreatorCard = ({ data }) => {
       <div className="my-5">
         <h2 className="font-bold text-lg">{userName}</h2>
         <p className="font-medium">
-          Gbor Received: <span className="font-normal">{total_amount}</span>
+          Gbôr reçu: <span className="font-normal">{total_amount}</span>
         </p>
       </div>
       <button
-        className="bg-[#fb7c29] text-white px-4 w-full py-3 rounded-md hover:bg-[#ef4444] transition"
-        onClick={() => handleContentCreator(_id)}
+        className="bg-[#fb7c29] text-white px-4 w-full group py-3 rounded-md hover:bg-[#ef4444] transition"
+        onClick={() => handleContentCreator(userName)}
       >
-        Give a Shot
+        Donner un Gbôr{" "}
+        <span className="group-hover:translate-x-1 group-hover:-translate-y-1 duration-100">
+          👊🏽
+        </span>
       </button>
     </div>
   );
