@@ -4,7 +4,7 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
-import logo from "../../Images/Logo.png";
+import logo from "../../Images/logo.png";
 import update from "../../Images/updatePass.png";
 
 const UpdatePass = () => {
@@ -59,7 +59,7 @@ const UpdatePass = () => {
   return (
     <Row className="flex items-center justify-center px-16 h-screen">
       <Col span={12} className="border-r">
-        <img width="100px" src={logo} className="mx-auto" alt="" />
+        <img width="200px" src={logo} className="mx-auto" alt="" />
         <img className="mx-auto" src={update} alt="" />
       </Col>
       <Col span={7} className="p-6">

@@ -27,6 +27,8 @@ const OurCreatorsDetails = () => {
     setPaymentData(newData);
   };
 
+  console.log(data);
+
   //total cost calculate
   useEffect(() => {
     if (!isNaN(paymentData.amount)) {
@@ -42,11 +44,12 @@ const OurCreatorsDetails = () => {
     e.preventDefault();
 
     const value = {
-      creator: id,
+      creator: data._id,
       amount: totalCost,
       donarName: paymentData.donarName,
       message: paymentData.message,
       gborAmount: paymentData.amount,
+      c_userName: data.userName,
     };
 
     if (
@@ -59,8 +62,8 @@ const OurCreatorsDetails = () => {
       let agency_code = "CMZON10707";
       let secure_code = "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB";
       let domain_name = "mongbor.com";
-      let url_redirection_success = "http://mongbor.com/payment/success";
-      let url_redirection_failed = "http://mongbor.com/payment/failed";
+      let url_redirection_success = "https://mongbor.com//payment/success";
+      let url_redirection_failed = "https://mongbor.com/payment/failed";
       let amount = value.amount;
       let city = "";
       let email = "";

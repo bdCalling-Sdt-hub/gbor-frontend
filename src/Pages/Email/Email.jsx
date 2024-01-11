@@ -4,8 +4,8 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
-import logo from "../../Images/Logo.png";
 import email from "../../Images/email.png";
+import logo from "../../Images/logo.png";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -30,7 +30,7 @@ const Email = () => {
   return (
     <Row className="flex items-center justify-center px-16 h-screen">
       <Col span={12} className="border-r">
-        <img width="100px" className="mx-auto" src={logo} alt="" />
+        <img width="200px" className="mx-auto" src={logo} alt="" />
         <img src={email} className="mx-auto" alt="" />
       </Col>
       <Col span={7} className="p-6">

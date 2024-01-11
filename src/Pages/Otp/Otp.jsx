@@ -5,7 +5,7 @@ import OTPInput from "react-otp-input";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
-import logo from "../../Images/Logo.png";
+import logo from "../../Images/logo.png";
 import otpImg from "../../Images/otp.png";
 import style from "./Otp.module.css";
 
@@ -36,7 +36,7 @@ const Otp = () => {
   return (
     <Row className="flex items-center justify-center px-16 h-screen">
       <Col span={12} className="border-r">
-        <img width="100px" className="mx-auto mb-5" src={logo} alt="" />
+        <img width="200px" className="mx-auto mb-5" src={logo} alt="" />
         <img className="mx-auto" src={otpImg} alt="" />
       </Col>
       <Col span={7} className="p-6">

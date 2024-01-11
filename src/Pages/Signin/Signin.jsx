@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import logo from "../../Images/Logo.png";
+import logo from "../../Images/logo.png";
 import signin from "../../Images/signin.png";
 import { SignIn, reset } from "../../ReduxSlice/signinSlice";
 import style from "./Signin.module.css";
@@ -40,7 +40,7 @@ const Signin = () => {
   return (
     <Row className="flex items-center justify-center px-16 h-screen">
       <Col span={12} className="border-r">
-        <img width="100px" className="mx-auto" src={logo} alt="" />
+        <img width="200px" className="mx-auto" src={logo} alt="" />
         <img width="95%" className="mx-auto" src={signin} alt="" />
       </Col>
       <Col span={7} className="p-6">
