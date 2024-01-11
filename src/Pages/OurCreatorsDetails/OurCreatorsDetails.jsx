@@ -62,7 +62,7 @@ const OurCreatorsDetails = () => {
       let agency_code = "CMZON10707";
       let secure_code = "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB";
       let domain_name = "mongbor.com";
-      let url_redirection_success = "https://mongbor.com//payment/success";
+      let url_redirection_success = "https://mongbor.com/payment/success";
       let url_redirection_failed = "https://mongbor.com/payment/failed";
       let amount = value.amount;
       let city = "";
