@@ -29,7 +29,8 @@
     "recharts": "^2.7.3",
     "socket.io-client": "^4.7.2",
     "sweetalert2": "^11.7.31",
-    "swiper": "^10.2.0"
+    "swiper": "^10.2.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

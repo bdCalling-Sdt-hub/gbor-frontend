@@ -7,8 +7,11 @@ const Failed = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.removeItem("paymentInfo")) {
-      localStorage.removeItem("paymentInfo");
+    if (localStorage.paymentInfo) {
+      setTimeout(() => {
+        navigate("/");
+        localStorage.removeItem("paymentInfo");
+      }, 3000);
     } else {
       navigate("/");
     }

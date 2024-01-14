@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 import axios from "../../../Config";
 import PreviousDonator from "../../Components/PreviousDonator/PreviousDonator";
 import Footer from "../../Shared/Footer/Footer";
@@ -11,8 +12,10 @@ const OurCreatorsDetails = () => {
   const [data, setData] = useState([]);
   const [paymentData, setPaymentData] = useState({});
   const [totalCost, setTotalCost] = useState(null);
+  const uid = uuidv4();
 
   useEffect(() => {
+    console.log("i", uid);
     axios
       .get(`api/auth/content-creator/${id}`)
       .then((res) => setData(res.data?.data["Creator Details"]));
@@ -58,12 +61,12 @@ const OurCreatorsDetails = () => {
       value.message !== undefined &&
       id !== ""
     ) {
-      let order_number = id;
+      let order_number = uid;
       let agency_code = "CMZON10707";
       let secure_code = "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB";
       let domain_name = "mongbor.com";
-      let url_redirection_success = "https://mongbor.com/payment/success";
-      let url_redirection_failed = "https://mongbor.com/payment/failed";
+      let url_redirection_success = "http://192.168.10.16:3000/payment/success";
+      let url_redirection_failed = "http://192.168.10.16:3000/payment/failed";
       let amount = value.amount;
       let city = "";
       let email = "";
