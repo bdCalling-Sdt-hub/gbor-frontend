@@ -15,7 +15,6 @@ const OurCreatorsDetails = () => {
   const uid = uuidv4();
 
   useEffect(() => {
-    console.log("i", uid);
     axios
       .get(`api/auth/content-creator/${id}`)
       .then((res) => setData(res.data?.data["Creator Details"]));
@@ -29,8 +28,6 @@ const OurCreatorsDetails = () => {
     newData[name] = value;
     setPaymentData(newData);
   };
-
-  console.log(data);
 
   //total cost calculate
   useEffect(() => {
@@ -65,13 +62,13 @@ const OurCreatorsDetails = () => {
       let agency_code = "CMZON10707";
       let secure_code = "BYnD42M2utVxAScoN4zeSGgT46sJf4fnm3PApico5Asl92tYRB";
       let domain_name = "mongbor.com";
-      let url_redirection_success = "http://192.168.10.16:3000/payment/success";
-      let url_redirection_failed = "http://192.168.10.16:3000/payment/failed";
+      let url_redirection_success = "https://mongbor.com/payment/success";
+      let url_redirection_failed = "https://mongbor.com/payment/failed";
       let amount = value.amount;
       let city = "";
-      let email = "";
-      let donarFirstName = value.donarName;
-      let donarLastName = "";
+      let email = data.email;
+      let donarName = value.donarName;
+      let creatorName = value.c_userName;
       let donarPhone = "";
 
       // Call the TouchPay function with the correct name and parameters
@@ -85,8 +82,8 @@ const OurCreatorsDetails = () => {
         amount,
         city,
         email,
-        donarFirstName,
-        donarLastName,
+        donarName,
+        creatorName,
         donarPhone
       );
 
