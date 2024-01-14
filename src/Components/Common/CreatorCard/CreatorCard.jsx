@@ -17,13 +17,13 @@ const CreatorCard = ({ data }) => {
   const navigate = useNavigate();
 
   const handleContentCreator = (value) => {
-    navigate(`/our-creators/${value}`);
+    navigate(`/creators/${value}`);
   };
 
   return (
     <div className="border border-[#596575] p-2 rounded-lg text-center whoAreImg img-shadow card-container">
       <div className="overflow-hidden rounded-xl relative">
-        <Link to={`/our-creators/${userName}`}>
+        <Link to={`/creators/${userName}`}>
           <img
             width="100%"
             style={{ height: "350px" }}

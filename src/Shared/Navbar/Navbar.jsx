@@ -57,7 +57,7 @@ const Navbar = () => {
         }`}
       >
         <li className="link-nav">
-          <Link to="/our-creators">Nos créateurs</Link>
+          <Link to="/creators">Nos créateurs</Link>
         </li>
         <li className="link-nav">
           <Link to="/who-we-are">Qui sommes-nous?</Link>

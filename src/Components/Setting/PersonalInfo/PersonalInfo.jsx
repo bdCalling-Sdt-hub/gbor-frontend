@@ -131,7 +131,7 @@ const PersonalInfo = () => {
                       type="text"
                       ref={inputRef}
                       className="border border-orange-500 text-gray-500 rounded py-2 outline-none px-2 w-56"
-                      value={`http://mongbor.com/our-creators/${userName}`}
+                      value={`mongbor.com/creators/${userName}`}
                     />
                     <button
                       className="bg-orange-500 text-white  w-10 h-10  ml-2 rounded flex justify-center items-center duration-2 hover:bg-red-500"

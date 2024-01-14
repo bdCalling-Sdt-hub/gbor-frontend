@@ -46,8 +46,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/our-creators" element={<OurCreators />} />
-          <Route path="/our-creators/:id" element={<OurCreatorsDetails />} />
+          <Route path="/creators" element={<OurCreators />} />
+          <Route path="/creators/:id" element={<OurCreatorsDetails />} />
           <Route path="/who-we-are" element={<WhoWe />} />
           <Route path="/how-it-work" element={<HowWork />} />
           <Route path="/contact" element={<Contact />} />

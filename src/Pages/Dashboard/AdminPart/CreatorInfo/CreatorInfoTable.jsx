@@ -28,7 +28,7 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
     return {
       creatorId: item._id,
       name: item.userName,
-      webLink: `http://mongbor.com/our-creators/${item.userName}`,
+      webLink: `mongbor.com/creators/${item.userName}`,
       action: item,
     };
   });

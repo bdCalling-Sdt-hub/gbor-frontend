@@ -27,7 +27,7 @@ const Failed = () => {
           <br /> Please try again later or user another payment method
         </p>
         <Button
-          onClick={() => navigate("/our-creators")}
+          onClick={() => navigate("/creators")}
           style={{
             color: "#fff",
             border: 0,
