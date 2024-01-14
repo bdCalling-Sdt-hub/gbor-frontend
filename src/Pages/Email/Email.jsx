@@ -28,12 +28,12 @@ const Email = () => {
       .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
   return (
-    <Row className="flex items-center justify-center px-16 h-screen">
-      <Col span={12} className="border-r">
+    <Row className="flex items-center justify-center lg:px-16 h-screen">
+      <Col xs={24} lg={12} className="border-r">
         <img width="200px" className="mx-auto" src={logo} alt="" />
         <img src={email} className="mx-auto" alt="" />
       </Col>
-      <Col span={7} className="p-6">
+      <Col xs={24} lg={7} className="p-6">
         <Link
           className="login-form-forgot text-xl mb-2 flex items-center gap-1 font-bold"
           style={{ color: "black" }}
