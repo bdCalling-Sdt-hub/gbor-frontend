@@ -56,7 +56,8 @@ const OurCreatorsDetails = () => {
       value.amount !== null &&
       value.donarName !== undefined &&
       value.message !== undefined &&
-      id !== ""
+      id !== "" &&
+      value.amount >= 1
     ) {
       let order_number = uid;
       let agency_code = "CMZON10707";
@@ -93,7 +94,10 @@ const OurCreatorsDetails = () => {
       Swal.fire({
         icon: "warning",
         title: "Sorry!",
-        text: "Please enter the input value",
+        text:
+          value.amount < 1
+            ? "The entered amount is not acceptable"
+            : "Please enter the input value",
         confirmButtonColor: "#fb7c29",
         backdrop: `
           #a53c3cb3

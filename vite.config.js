@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), pluginRewriteAll()],
   server: {
     host: "mongbor.com",
+
     port: "3000",
   },
   resolve: {
