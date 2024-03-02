@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Payment } from "../../../../ReduxSlice/paymentSlice";
 import TransactionTable from "./TransactionTable";
@@ -6,6 +6,7 @@ import TransactionTable from "./TransactionTable";
 const Transaction = () => {
   const dispatch = useDispatch();
   const { incomes, pagination } = useSelector((state) => state.payment);
+  const [reload, setReload] = useState(0);
 
   const handlePagination = (page) => {
     const value = {
@@ -28,7 +29,7 @@ const Transaction = () => {
     };
 
     dispatch(Payment(value));
-  }, []);
+  }, [reload]);
 
   return (
     <div>
@@ -52,6 +53,7 @@ const Transaction = () => {
         incomes={incomes}
         handlePagination={handlePagination}
         pagination={pagination}
+        setReload={setReload}
       />
     </div>
   );

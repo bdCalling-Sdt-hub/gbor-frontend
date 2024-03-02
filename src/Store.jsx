@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import bannerReducer from "./ReduxSlice/bannerSlice";
 import categorySlice from "./ReduxSlice/categorySlice";
+import commentReducer from "./ReduxSlice/commentSlice";
 import creatorsReducer from "./ReduxSlice/creatorsSlice";
 import donarReducer from "./ReduxSlice/donarSlice";
 import notificationReducer from "./ReduxSlice/notificationOnOffSlice";
@@ -19,6 +20,7 @@ export const Store = configureStore({
     banners: bannerReducer,
     notification: NotificationReducer,
     payment: PaymentReducer,
+    comment: commentReducer,
     donar: donarReducer,
     NotifyOnOff: notificationReducer,
     category: categorySlice,

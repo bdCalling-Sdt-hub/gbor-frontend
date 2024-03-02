@@ -17,6 +17,7 @@ import { BiMessageDots, BiTransfer, BiUser } from "react-icons/bi";
 import { FaPeopleLine } from "react-icons/fa6";
 import { FiMonitor } from "react-icons/fi";
 import { IoIosNotificationsOutline, IoIosPeople } from "react-icons/io";
+import { LiaCommentSolid } from "react-icons/lia";
 import { PiImage, PiSignOutThin } from "react-icons/pi";
 import { RiMessage2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
@@ -455,6 +456,20 @@ const Dashboard = () => {
             <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
               <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
                 {t("Banner")}
+              </Link>
+            </Menu.Item>
+          )}
+
+          {identity && (
+            <Menu.Item
+              key="20"
+              icon={<LiaCommentSolid style={{ fontSize: "20px" }} />}
+            >
+              <Link
+                to="/dashboard/creator-messages"
+                style={{ fontSize: "16px" }}
+              >
+                {t("Comments")}
               </Link>
             </Menu.Item>
           )}

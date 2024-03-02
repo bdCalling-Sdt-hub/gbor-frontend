@@ -1,7 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect } from "react";
-
-import { HiOutlineCurrencyDollar } from "react-icons/hi";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
@@ -14,6 +12,7 @@ function CreatorDashboardHome() {
   const { incomesTotal, incomes, pagination } = useSelector(
     (state) => state.payment
   );
+  const [reload, setReload] = useState(0);
 
   const contentStyle = {
     height: "450px",
@@ -42,7 +41,7 @@ function CreatorDashboardHome() {
     };
 
     dispatch(Payment(value));
-  }, []);
+  }, [reload]);
 
   return (
     <div>
@@ -239,6 +238,7 @@ function CreatorDashboardHome() {
         incomes={incomes}
         pagination={pagination}
         handlePagination={handlePagination}
+        setReload={setReload}
       />
     </div>
   );

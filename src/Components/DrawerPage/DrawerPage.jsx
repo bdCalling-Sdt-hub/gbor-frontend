@@ -9,11 +9,15 @@ const DrawerPage = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const token = localStorage.token;
+  const user = JSON.parse(localStorage.yourInfo);
 
-  const handleDonarMessage = (id) => {
+  console.log("drawer", props);
+  console.log("drawer", props.setIsDrawerVisible);
+
+  const handleReportMessage = (id) => {
     axios
       .patch(
-        `api/payment/${id}`,
+        `api/payment/report/${id}`,
         {},
         {
           headers: {
@@ -26,7 +30,7 @@ const DrawerPage = (props) => {
         if (res.data.status === 200) {
           messageApi.open({
             type: "success",
-            content: "Message Approved",
+            content: "Report send to admin",
           });
           props.setIsDrawerVisible(false);
           props.setReload((p) => p + 1);
@@ -121,6 +125,25 @@ const DrawerPage = (props) => {
                     props.transactionData?.action?.message) ||
                     ""}
                 </textarea>
+                {user.userInfo.role !== "admin" &&
+                  props.transactionData?.action?.isMessageVisible && (
+                    <button
+                      onClick={() =>
+                        handleReportMessage(props.transactionData?.action?._id)
+                      }
+                      className={`w-full h-12 text-lg ${
+                        props.transactionData?.action?.reportStatus
+                          ? "bg-gray-500 "
+                          : "bg-red-500"
+                      } text-white hover:bg-[#FB7C29] rounded duration-200`}
+                      style={{ color: "white", border: "none" }}
+                      disabled={props.transactionData?.action?.reportStatus}
+                    >
+                      {props.transactionData?.action?.reportStatus
+                        ? "Request Pending"
+                        : "Report to Admin"}
+                    </button>
+                  )}
               </Col>
             </Row>
           </div>
@@ -224,25 +247,6 @@ const DrawerPage = (props) => {
                 >
                   {props.earningData?.action?.message}
                 </textarea>
-                {props.earningData?.action?.isMessageVisible ? (
-                  <button
-                    disabled
-                    className=" w-full h-12 bg-gray-300 text-white rounded duration-200"
-                    style={{ cursor: "not-allowed" }}
-                  >
-                    Already approved
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      handleDonarMessage(props.earningData?.action?._id)
-                    }
-                    className=" w-full h-12 bg-[#FB7C29] text-white hover:bg-red-500 rounded duration-200"
-                    style={{ color: "white", border: "none" }}
-                  >
-                    Approve Message
-                  </button>
-                )}
               </Col>
             </Row>
           </div>

@@ -1,6 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect } from "react";
-import { HiOutlineCurrencyDollar } from "react-icons/hi";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -23,6 +22,7 @@ function DashboardHome() {
   const { incomesTotal, incomes, pagination } = useSelector(
     (state) => state.payment
   );
+  const [reload, setReload] = useState(0);
 
   const contentStyle = {
     height: "450px",
@@ -51,7 +51,7 @@ function DashboardHome() {
     };
 
     dispatch(Payment(value));
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     dispatch(BannerApi());
@@ -427,6 +427,7 @@ function DashboardHome() {
         incomes={incomes}
         handlePagination={handlePagination}
         pagination={pagination}
+        setReload={setReload}
       />
     </div>
   );

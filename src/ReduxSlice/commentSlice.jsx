@@ -5,18 +5,16 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  incomesTotal: {},
   pagination: {},
-  incomes: [],
+  data: [],
 };
 
 const token = localStorage.token;
 
-export const Payment = createAsyncThunk("Payment", async (value, thunkAPI) => {
-  console.log(value);
+export const Comment = createAsyncThunk("Comment", async (value, thunkAPI) => {
   try {
     const response = await axios.get(
-      `/api/payment?requestType=${value.type}&page=${value.page}&limit=${value.limit}&search=${value.search}&gborAmount=${value.gborAmount}`,
+      `/api/payment/comments?page=${value.page}&limit=${value.limit}&searchTerm=${value.search}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -36,8 +34,8 @@ export const Payment = createAsyncThunk("Payment", async (value, thunkAPI) => {
   }
 });
 
-export const paymentSlice = createSlice({
-  name: "paymentSlice",
+export const commentSlice = createSlice({
+  name: "commentSlice",
   initialState,
   reducers: {
     reset: (state) => {
@@ -47,18 +45,17 @@ export const paymentSlice = createSlice({
     },
   },
   extraReducers: {
-    [Payment.pending]: (state, action) => {
+    [Comment.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [Payment.fulfilled]: (state, action) => {
+    [Comment.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
-      state.incomesTotal = action.payload?.data?.totals;
-      state.incomes = action.payload?.data?.data;
-      state.pagination = action.payload.pagination;
+      state.data = action.payload?.data;
+      state.pagination = action.payload?.pagination;
     },
-    [Payment.rejected]: (state, action) => {
+    [Comment.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -66,5 +63,5 @@ export const paymentSlice = createSlice({
   },
 });
 
-export const { reset } = paymentSlice.actions;
-export default paymentSlice.reducer;
+export const { reset } = commentSlice.actions;
+export default commentSlice.reducer;

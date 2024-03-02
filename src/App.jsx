@@ -5,6 +5,7 @@ import useRole from "./Hooks/useRole";
 import BecomeCreator from "./Pages/BecomeCreator/BecomeCreator";
 import Contact from "./Pages/Contact/Contact";
 import Banners from "./Pages/Dashboard/AdminPart/Banners/Banners";
+import Comments from "./Pages/Dashboard/AdminPart/Comments/Comments";
 import CreatorInfo from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorInfo";
 import CreatorRequest from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorRequest";
 import DashboardHome from "./Pages/Dashboard/AdminPart/DashboardHome/DashboardHome";
@@ -118,6 +119,14 @@ function App() {
               element={
                 <AdminRoute>
                   <CreatorRequest />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/creator-messages"
+              element={
+                <AdminRoute>
+                  <Comments />
                 </AdminRoute>
               }
             />
