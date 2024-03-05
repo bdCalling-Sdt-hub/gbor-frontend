@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import ImageUploader from "react-image-upload";
 import "react-image-upload/dist/index.css";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import "swiper/css";
+import "swiper/css/pagination";
 import {
   A11y,
   Autoplay,
@@ -11,11 +15,6 @@ import {
   Scrollbar,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import "swiper/css";
-import "swiper/css/pagination";
 import axios from "../../../../../Config";
 import { BannerApi } from "../../../../ReduxSlice/bannerSlice";
 import "./Banners.css";

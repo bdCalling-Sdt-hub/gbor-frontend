@@ -1,6 +1,7 @@
 import { Col, Modal, Pagination, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "../../../../../Config";
 import { Notifications } from "../../../../ReduxSlice/notificationSlice";
 import "./Notification.css";
@@ -14,10 +15,12 @@ function Notification() {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [modalData, setModalData] = useState();
+  const navigate = useNavigate();
 
   const token = localStorage.token;
 
   const showModal = (data) => {
+    console.log(data);
     setIsModalOpen(true);
     setModalData(data);
     axios
@@ -111,7 +114,11 @@ function Notification() {
                 cursor: "pointer",
                 background: item.viewStatus ? "#ff822e34" : "#fb7c29",
               }}
-              onClick={() => showModal(item)}
+              onClick={() =>
+                item.type === "reported-comments"
+                  ? navigate(`/dashboard/${item.type}`)
+                  : showModal(item)
+              }
             >
               <div style={{ display: "flex", alignItems: "center" }}>
                 <div className="user-image" style={{ marginRight: "50px" }}>

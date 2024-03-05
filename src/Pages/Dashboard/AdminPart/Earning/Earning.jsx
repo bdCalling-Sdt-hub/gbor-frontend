@@ -229,7 +229,7 @@ const Earning = () => {
                 </svg>
               </>
             )}
-            <h2 className="text-2xl">Today's Earning</h2>
+            <h2 className="text-2xl">Today Earning</h2>
             <h3 className="text-2xl inline-flex font-medium">
               {" "}
               {income === "today-income" ? (

@@ -326,7 +326,7 @@ const Dashboard = () => {
           }}
           to="/dashboard/notification"
         >
-          see all
+          See all
         </Link>
       </div>
     </Menu>
@@ -445,7 +445,25 @@ const Dashboard = () => {
               </Menu.Item>
             </SubMenu>
           )}
-
+          {identity && (
+            <SubMenu
+              style={{ fontSize: "16px" }}
+              key="400"
+              icon={<LiaCommentSolid style={{ fontSize: "20px" }} />}
+              title={t("comments.title")}
+            >
+              <Menu.Item key="401">
+                <Link to="/dashboard/all-comments">
+                  {t("comments.subTitle1")}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="402">
+                <Link to="/dashboard/reported-comments">
+                  {t("comments.subTitle2")}
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+          )}
           <Menu.Item key="5" icon={<BiTransfer style={{ fontSize: "20px" }} />}>
             <Link to="/dashboard/transaction" style={{ fontSize: "16px" }}>
               {t("Transaction")}
@@ -456,20 +474,6 @@ const Dashboard = () => {
             <Menu.Item key="9" icon={<PiImage style={{ fontSize: "20px" }} />}>
               <Link to="/dashboard/banner" style={{ fontSize: "16px" }}>
                 {t("Banner")}
-              </Link>
-            </Menu.Item>
-          )}
-
-          {identity && (
-            <Menu.Item
-              key="20"
-              icon={<LiaCommentSolid style={{ fontSize: "20px" }} />}
-            >
-              <Link
-                to="/dashboard/creator-messages"
-                style={{ fontSize: "16px" }}
-              >
-                {t("Comments")}
               </Link>
             </Menu.Item>
           )}

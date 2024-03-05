@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Comment } from "../../../../ReduxSlice/commentSlice";
 import CommentTable from "./CommentTable";
 
-const Comments = () => {
+const ReportedComment = () => {
   const dispatch = useDispatch();
   const { data, pagination } = useSelector((state) => state.comment);
   const [reload, setReload] = useState(1);
@@ -17,7 +17,7 @@ const Comments = () => {
       search: searchData,
       page: page,
       limit: 10,
-      type: "all-comment",
+      type: "reported-comment",
     };
     if (searchData !== "") {
       dispatch(Comment(value));
@@ -29,7 +29,7 @@ const Comments = () => {
       page: page,
       limit: 10,
       search: searchData,
-      type: "all-comment",
+      type: "reported-comment",
     };
     if (searchData === "") {
       dispatch(Comment(value));
@@ -41,7 +41,7 @@ const Comments = () => {
       page: 1,
       limit: 10,
       search: searchData,
-      type: "all-comment",
+      type: "reported-comment",
     };
     if (searchData === "") {
       dispatch(Comment(value));
@@ -58,7 +58,7 @@ const Comments = () => {
           fontWeight: "normal",
         }}
       >
-        All Comment
+        Reported Comments
       </h2>
       <div
         style={{
@@ -100,4 +100,4 @@ const Comments = () => {
   );
 };
 
-export default Comments;
+export default ReportedComment;

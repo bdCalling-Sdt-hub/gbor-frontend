@@ -120,6 +120,7 @@ const DrawerPage = (props) => {
                   id=""
                   rows="6"
                   className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
+                  readOnly
                 >
                   {(props.transactionData?.action?.isMessageVisible &&
                     props.transactionData?.action?.message) ||
@@ -244,6 +245,7 @@ const DrawerPage = (props) => {
                   id=""
                   rows="6"
                   className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
+                  readOnly
                 >
                   {props.earningData?.action?.message}
                 </textarea>
@@ -342,6 +344,7 @@ const DrawerPage = (props) => {
                   id=""
                   rows="6"
                   className="border border-[#fb7c29] w-full rounded outline-none p-2 mt-2"
+                  readOnly
                 >
                   {(props.creatorEarningData?.action?.isMessageVisible &&
                     props.creatorEarningData?.action?.message) ||

@@ -6,6 +6,8 @@ import BecomeCreator from "./Pages/BecomeCreator/BecomeCreator";
 import Contact from "./Pages/Contact/Contact";
 import Banners from "./Pages/Dashboard/AdminPart/Banners/Banners";
 import Comments from "./Pages/Dashboard/AdminPart/Comments/Comments";
+import ReportedComment from "./Pages/Dashboard/AdminPart/Comments/ReportedComment";
+import CreatorAllComments from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorAllComments";
 import CreatorInfo from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorInfo";
 import CreatorRequest from "./Pages/Dashboard/AdminPart/CreatorInfo/CreatorRequest";
 import DashboardHome from "./Pages/Dashboard/AdminPart/DashboardHome/DashboardHome";
@@ -123,10 +125,26 @@ function App() {
               }
             />
             <Route
-              path="/dashboard/creator-messages"
+              path="/dashboard/creator-messages/:id"
+              element={
+                <AdminRoute>
+                  <CreatorAllComments />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/all-comments"
               element={
                 <AdminRoute>
                   <Comments />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/reported-comments"
+              element={
+                <AdminRoute>
+                  <ReportedComment />
                 </AdminRoute>
               }
             />

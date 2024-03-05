@@ -34,5 +34,10 @@
     "subTitle1": "Daily",
     "subTitle2": "Weekly",
     "subTitle3": "Monthly"
+  },
+  "comments": {
+    "title": "Comments",
+    "subTitle1": "All Comments",
+    "subTitle2": "Reported Comments"
   }
 }

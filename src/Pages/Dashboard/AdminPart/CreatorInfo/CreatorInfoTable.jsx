@@ -2,8 +2,8 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
-import { RxDownload } from "react-icons/rx";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import DrawerPage from "../../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
@@ -29,6 +29,14 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
       creatorId: item._id,
       name: item.userName,
       webLink: `mongbor.com/creators/${item.userName}`,
+      allMessage: (
+        <Link
+          className="text-orange-500"
+          to={`/dashboard/creator-messages/${item._id}`}
+        >
+          Click Here
+        </Link>
+      ),
       action: item,
     };
   });
@@ -51,6 +59,12 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
       responsive: ["lg"],
     },
     {
+      title: "All Comments",
+      dataIndex: "allMessage",
+      key: "allMessage",
+      responsive: ["lg"],
+    },
+    {
       title: (
         <div className="text-right">
           <p>ACTION</p>
@@ -67,9 +81,6 @@ const CreatorInfoTable = ({ handlePagination, setReload, handleSearch }) => {
             style={{ marginRight: "10px" }}
           >
             <BsEye style={{ fontSize: "20px", color: "#595959" }} />
-          </Button>
-          <Button onClick={() => showDrawer(record)} type="text">
-            <RxDownload style={{ fontSize: "20px", color: "#595959" }} />
           </Button>
         </div>
       ),

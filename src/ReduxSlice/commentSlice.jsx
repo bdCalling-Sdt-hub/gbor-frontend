@@ -14,7 +14,7 @@ const token = localStorage.token;
 export const Comment = createAsyncThunk("Comment", async (value, thunkAPI) => {
   try {
     const response = await axios.get(
-      `/api/payment/comments?page=${value.page}&limit=${value.limit}&searchTerm=${value.search}`,
+      `/api/payment/comments?page=${value.page}&limit=${value.limit}&searchTerm=${value.search}&type=${value.type}`,
       {
         headers: {
           "Content-Type": "application/json",

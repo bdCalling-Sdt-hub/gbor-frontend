@@ -1,6 +1,7 @@
 import { Table, Typography, message } from "antd";
 import React, { useState } from "react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
 import baseAxios from "../../../../../Config";
 const { Title, Text } = Typography;
 
@@ -20,11 +21,6 @@ const CommentTable = ({
       creatorName: item.creator?.userName,
       donarName: item.donarName,
       messages: item.message,
-      visibility: item.isMessageVisible ? (
-        <p className="text-green-500 select-none">Show</p>
-      ) : (
-        <p className="text-red-500 select-none">Hide</p>
-      ),
       reportStatus: item.reportStatus ? (
         <p className="text-red-500 text-center">Active</p>
       ) : (
@@ -36,28 +32,39 @@ const CommentTable = ({
   const token = localStorage.token;
 
   const handleMessage = (id) => {
-    console.log(id);
-    baseAxios
-      .patch(
-        `api/payment/${id}`,
-        {},
-        {
-          headers: {
-            "Content-type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data.status === 200) {
-          messageApi.open({
-            type: "success",
-            content: "Message deleted successfully",
-          });
-          setReload((p) => p + 1);
-        }
-      })
-      .catch((err) => console.log(err));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FB7C29",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        baseAxios
+          .patch(
+            `api/payment/${id}`,
+            {},
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.data.status === 200) {
+              messageApi.open({
+                type: "success",
+                content: "Message deleted successfully",
+              });
+              setReload((p) => p + 1);
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
 
   const columns = [
@@ -78,11 +85,6 @@ const CommentTable = ({
       key: "messages",
     },
     {
-      title: "Showing Status",
-      dataIndex: "visibility",
-      key: "visibility",
-    },
-    {
       title: "REPORT STATUS",
       dataIndex: "reportStatus",
       key: "reportStatus",
@@ -96,17 +98,10 @@ const CommentTable = ({
         _,
         record // Use the second parameter 'record'
       ) => (
-        <div className="text-right">
-          {record.reportStatus && (
-            <button
-              onClick={() => handleMessage(record.action._id)}
-              type="text"
-            >
-              <RiDeleteBin5Fill
-                style={{ fontSize: "25px", color: "#ff0000" }}
-              />
-            </button>
-          )}
+        <div className="text-center">
+          <button onClick={() => handleMessage(record.action._id)} type="text">
+            <RiDeleteBin5Fill style={{ fontSize: "25px", color: "#ff0000" }} />
+          </button>
         </div>
       ),
     },
