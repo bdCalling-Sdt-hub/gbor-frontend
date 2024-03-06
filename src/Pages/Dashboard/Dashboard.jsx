@@ -137,7 +137,7 @@ const Dashboard = () => {
     },
     {
       path: "/dashboard/donar-list",
-      title: "Donar List",
+      title: "Donor List",
     },
     {
       path: "/dashboard/earning/today-income",
@@ -421,7 +421,7 @@ const Dashboard = () => {
               icon={<IoIosPeople style={{ fontSize: "20px" }} />}
             >
               <Link to="/dashboard/donar-list" style={{ fontSize: "16px" }}>
-                {t("Donar List")}
+                {t("Donor List")}
               </Link>
             </Menu.Item>
           )}

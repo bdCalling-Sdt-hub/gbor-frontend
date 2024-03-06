@@ -426,7 +426,7 @@ const Setting = () => {
               ]}
             >
               <Input.Password
-                placeholder="Enter Password"
+                placeholder="Enter password"
                 type="password"
                 style={style.input}
               />

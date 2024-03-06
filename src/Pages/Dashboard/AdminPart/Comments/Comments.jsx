@@ -58,7 +58,7 @@ const Comments = () => {
           fontWeight: "normal",
         }}
       >
-        All Comment
+        All Comments
       </h2>
       <div
         style={{

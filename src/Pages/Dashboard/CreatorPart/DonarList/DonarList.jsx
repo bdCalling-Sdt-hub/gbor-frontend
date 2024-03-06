@@ -246,7 +246,7 @@ const DonarList = () => {
           Search
         </Button>
       </div>
-      <h2 className="text-2xl mb-5">Donar List</h2>
+      <h2 className="text-2xl mb-5">Donor List</h2>
       <Table
         columns={columns}
         dataSource={data}
