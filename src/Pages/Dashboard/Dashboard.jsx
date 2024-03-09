@@ -40,6 +40,9 @@ const Dashboard = () => {
   );
   const location = useLocation();
   const { userInfo } = JSON.parse(localStorage.yourInfo);
+
+  const role = userInfo?.role;
+  console.log(role);
   const navigate = useNavigate();
   const { identity } = useRole();
   const { allNotification } = useSelector((state) => state.notification);
@@ -226,9 +229,15 @@ const Dashboard = () => {
   useEffect(() => {
     socket.on("connect", () => {
       // Emit events or listen for events here
-      socket.on("admin-notification", (data) => {
-        setNotifications(data);
-      });
+      if (role === "c_creator") {
+        socket.on("c_creator-notification", (data) => {
+          setNotifications(data);
+        });
+      } else {
+        socket.on("admin-notification", (data) => {
+          setNotifications(data);
+        });
+      }
     });
   }, []);
 
