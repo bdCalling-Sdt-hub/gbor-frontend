@@ -56,7 +56,6 @@ const OurCreatorsDetails = () => {
       value.amount !== null &&
       value.donarName !== undefined &&
       value.message !== undefined &&
-      id !== "" &&
       value.amount >= 1
     ) {
       let order_number = uid;
@@ -141,12 +140,14 @@ const OurCreatorsDetails = () => {
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full focus:border focus:border-red-500"
                   placeholder="Nom du donateur"
                   name="donarName"
+                  maxLength="20"
                   onChange={getInputValue}
                 />
                 <textarea
                   className="border border-black outline-none mb-4 bg-transparent rounded-md p-3 px-2 w-full h-32 focus:border focus:border-red-500"
                   placeholder="Message"
                   name="message"
+                  maxLength="160"
                   onChange={getInputValue}
                 />
                 <div className="flex justify-end items-center">

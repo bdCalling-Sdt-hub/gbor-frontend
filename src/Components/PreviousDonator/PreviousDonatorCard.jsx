@@ -6,7 +6,7 @@ const PreviousDonatorCard = ({ data }) => {
   return (
     <div className="bg-gradient-to-r from-[#f07360] to-[#ec5961] p-5 rounded-md shadow hover:shadow-lg">
       <h1 className="font-bold text-lg">{donarName}</h1>
-      <h2 className="font-bold mt-2 mb-1">GBOR GIVEN: {gborAmount}</h2>
+      <h2 className="font-bold mt-2 mb-1">Nbre de Gbôr: {gborAmount}</h2>
       <p className="text">{isMessageVisible && message}</p>
     </div>
   );
