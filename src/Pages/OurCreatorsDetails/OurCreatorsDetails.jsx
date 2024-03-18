@@ -134,6 +134,7 @@ const OurCreatorsDetails = () => {
                   placeholder="Entrez le nombre de Gbôr"
                   name="amount"
                   onChange={getInputValue}
+                  min="1"
                 />
                 <input
                   type="text"
